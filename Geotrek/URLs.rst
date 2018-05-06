@@ -1,0 +1,3 @@
+- Site web (présentation, ressources...) : http://geotrek.fr
+- Ressources partagées (copil, GT, scripts, customisations, fiche stages, rapports...) : http://geotrek.ecrins-parcnational.fr/ressources/
+- Tutoriel installation : http://geotrek.ecrins-parcnational.fr/articles/2018-01-installation-geotrek.txt et http://geotrek.ecrins-parcnational.fr/articles/en/2018-02-geotrek-jamaica.html
