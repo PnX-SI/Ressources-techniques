@@ -7,7 +7,6 @@ CREATE MATERIALIZED VIEW synthese.vm_observations_pne AS
   WHERE s.id_organisme = 2
 
 -- Création d'une VM intersectant les mailles 5km avec les observations pour compter le nombre d'observations par maille
--- Je ne sais pas encore pourquoi mais QGIS ne veut pas l'ouvrir, indiquant que la couche est invalide
 
 CREATE MATERIALIZED VIEW synthese.vm_observations_pne_mailles_5km AS
   SELECT count(obs.id_synthese),
