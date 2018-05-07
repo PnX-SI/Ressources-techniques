@@ -9,12 +9,17 @@ CREATE MATERIALIZED VIEW synthese.vm_observations_pne AS
 -- Création d'une VM intersectant les mailles 5km avec les observations pour compter le nombre d'observations par maille
 
 CREATE MATERIALIZED VIEW synthese.vm_observations_pne_mailles_5km AS
-  SELECT count(obs.id_synthese),
+  SELECT count(obs.id_synthese) as nb_obs,
+      count(DISTINCT t.cd_ref) as nb_tax,
+      count(obs.id_synthese) FILTER (WHERE t.phylum = 'Chordata') as nb_obs_faune_vertebres,
+      count(obs.id_synthese) FILTER (WHERE t.regne = 'Plantae') as nb_obs_flore,
+      count(obs.id_synthese) FILTER (WHERE t.phylum = 'Arthropoda' or t.phylum = 'Mollusca') as nb_obs_faune_invertebres,
       m.area_name,
       m.geom
      FROM synthese.vm_observations_pne obs
   JOIN (SELECT * FROM ref_geo.l_areas WHERE id_type = 203) m ON st_intersects(obs.the_geom_point, st_transform(m.geom, 3857))
-  GROUP BY m.area_name, m.area_code, m.geom
+  JOIN taxonomie.taxref t ON t.cd_nom = obs.cd_nom
+  GROUP BY m.area_name, m.area_code, m.geom;
   
  -- Version Amandine de cette même intersection mais avec des calculs en plus
  
