@@ -1,0 +1,42 @@
+Premier pas en sparql sur l'API taxref-ld
+http://taxref.mnhn.fr/sparql
+
+-- Nom des taxons de rangs especes
+PREFIX taxrefrk: <http://taxref.mnhn.fr/lod/taxrank/>
+
+select distinct ?name where {
+?t taxrefprop:hasRank taxrefrk:Species.
+?t rdfs:label ?name
+} LIMIT 100
+
+
+-- Toutes les espèces associées au genre Prunella
+PREFIX taxrefrk: <http://taxref.mnhn.fr/lod/taxrank/>
+
+select distinct ?t ?species ?c where {
+?t skos:broader ?c.
+?t rdfs:label ?species.
+?c taxrefprop:hasRank taxrefrk:Genus.
+?c rdfs:label "Prunella L., 1753"
+} LIMIT 100
+
+
+--Sortir la hiérarchie de Prunella
+PREFIX taxrefrk: <http://taxref.mnhn.fr/lod/taxrank/>
+
+select distinct ?t ?species ?c where {
+?t ^skos:broader* ?c.
+?t rdfs:label ?species.
+?c taxrefprop:hasRank taxrefrk:Genus.
+?c rdfs:label "Prunella L., 1753"
+} LIMIT 100
+
+
+-- Toutes les lamiaceae quel que soit le rang
+PREFIX taxrefrk: <http://taxref.mnhn.fr/lod/taxrank/>
+
+select distinct ?t ?species ?c where {
+?c rdfs:label "Lamiaceae Martinov, 1820".
+?c ^skos:broader* ?t.
+?t rdfs:label ?species.
+} LIMIT 100
