@@ -232,6 +232,18 @@
                       "isRowNumberCell": false,
                       "columnName": "nom_vern"
                     }
+                  },
+                  {
+                    "uri": "http://www.w3.org/2002/07/owl#sameAs",
+                    "curie": "http://www.w3.org/2002/07/owl#sameAs",
+                    "target": {
+                      "nodeType": "cell-as-resource",
+                      "expression": "\"http://taxref.mnhn.fr/lod/name/\" + value.urlify()",
+                      "isRowNumberCell": false,
+                      "columnName": "cd_nom",
+                      "rdfTypes": [],
+                      "links": []
+                    }
                   }
                 ]
               }
