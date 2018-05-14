@@ -1,0 +1,225 @@
+[
+  {
+    "op": "core/column-addition",
+    "description": "Create column binom at index 6 based on column nom_valide using expression grel:value.split(\" \")[0] + \"_\" + value.split(\" \")[1]",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "newColumnName": "binom",
+    "columnInsertIndex": 6,
+    "baseColumnName": "nom_valide",
+    "expression": "grel:value.split(\" \")[0] + \"_\" + value.split(\" \")[1]",
+    "onError": "set-to-blank"
+  },
+  {
+    "op": "rdf-extension/save-rdf-schema",
+    "description": "Save RDF schema skeleton",
+    "schema": {
+      "baseUri": "http://appli.cevennes-parcnational.net/ld/data/",
+      "prefixes": [
+        {
+          "name": "cnp",
+          "uri": "http://crowd.fi.uncoma.edu.ar:3333/"
+        },
+        {
+          "name": "owl",
+          "uri": "http://www.w3.org/2002/07/owl#"
+        },
+        {
+          "name": "wdt",
+          "uri": "http://wikidata.org/prop/direct/"
+        },
+        {
+          "name": "bio-onto",
+          "uri": "http://cenpat-conicet.gob.ar/ontology/"
+        },
+        {
+          "name": "xsd",
+          "uri": "http://www.w3.org/2001/XMLSchema#"
+        },
+        {
+          "name": "dsw",
+          "uri": "http://purl.org/dsw/"
+        },
+        {
+          "name": "rdfs",
+          "uri": "http://www.w3.org/2000/01/rdf-schema#"
+        },
+        {
+          "name": "txn",
+          "uri": "http://lod.taxonconcept.org/ontology/txn.owl#"
+        },
+        {
+          "name": "wd",
+          "uri": "http://www.wikidata.org/entity/"
+        },
+        {
+          "name": "dbo",
+          "uri": "http://dbpedia.org/ontology/"
+        },
+        {
+          "name": "dwc",
+          "uri": "http://rs.tdwg.org/dwc/terms/"
+        },
+        {
+          "name": "geo-ont",
+          "uri": "http://www.geonames.org/ontology#"
+        },
+        {
+          "name": "rdf",
+          "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        },
+        {
+          "name": "geo-pos",
+          "uri": "http://www.w3.org/2003/01/geo/wgs84_pos#"
+        },
+        {
+          "name": "dbr",
+          "uri": "http://dbpedia.org/resource/"
+        },
+        {
+          "name": "foaf",
+          "uri": "http://xmlns.com/foaf/0.1/"
+        },
+        {
+          "name": "dc",
+          "uri": "http://purl.org/dc/terms/"
+        }
+      ],
+      "rootNodes": [
+        {
+          "nodeType": "cell-as-resource",
+          "expression": "\"occurrence/\"+value.urlify()",
+          "isRowNumberCell": false,
+          "columnName": "uuid",
+          "rdfTypes": [
+            {
+              "uri": "http://rs.tdwg.org/dwc/terms/Occurrence",
+              "curie": "dwc:Occurrence"
+            }
+          ],
+          "links": [
+            {
+              "uri": "http://rs.tdwg.org/dwc/terms/basisOfRecord",
+              "curie": "http://rs.tdwg.org/dwc/terms/basisOfRecord",
+              "target": {
+                "nodeType": "literal",
+                "value": "HumanObservation"
+              }
+            },
+            {
+              "uri": "http://rs.tdwg.org/dwc/terms/individualCount",
+              "curie": "http://rs.tdwg.org/dwc/terms/individualCount",
+              "target": {
+                "nodeType": "cell-as-literal",
+                "expression": "value",
+                "isRowNumberCell": false,
+                "valueType": "http://www.w3.org/2001/XMLSchema#int",
+                "columnName": "nb_min"
+              }
+            },
+            {
+              "uri": "http://rs.tdwg.org/dwc/terms/Event",
+              "curie": "http://rs.tdwg.org/dwc/terms/Event",
+              "target": {
+                "nodeType": "cell-as-resource",
+                "expression": "\"event/\"+value.urlify()\"",
+                "isRowNumberCell": false,
+                "columnName": "uuid",
+                "rdfTypes": [
+                  {
+                    "uri": "http://rs.tdwg.org/dwc/terms/Event",
+                    "curie": "http://rs.tdwg.org/dwc/terms/Event"
+                  }
+                ],
+                "links": [
+                  {
+                    "uri": "http://purl.org/dsw/locatedAt",
+                    "curie": "http://purl.org/dsw/locatedAt",
+                    "target": {
+                      "nodeType": "cell-as-resource",
+                      "expression": "\"location/\"+value.urlify()",
+                      "isRowNumberCell": false,
+                      "columnName": "uuid",
+                      "rdfTypes": [
+                        {
+                          "uri": "http://purl.org/dc/terms/Location",
+                          "curie": "http://purl.org/dc/terms/Location"
+                        }
+                      ],
+                      "links": [
+                        {
+                          "uri": "http://www.w3.org/2003/01/geo/wgs84_pos#lat",
+                          "curie": "http://www.w3.org/2003/01/geo/wgs84_pos#lat",
+                          "target": {
+                            "nodeType": "cell-as-literal",
+                            "expression": "value",
+                            "isRowNumberCell": false,
+                            "valueType": "http://www.w3.org/2001/XMLSchema#double",
+                            "columnName": "st_y"
+                          }
+                        },
+                        {
+                          "uri": "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+                          "curie": "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+                          "target": {
+                            "nodeType": "cell-as-literal",
+                            "expression": "value",
+                            "isRowNumberCell": false,
+                            "valueType": "http://www.w3.org/2001/XMLSchema#double",
+                            "columnName": "st_x"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "uri": "http://rs.tdwg.org/dwc/terms/eventDate",
+                    "curie": "http://rs.tdwg.org/dwc/terms/eventDate",
+                    "target": {
+                      "nodeType": "cell-as-literal",
+                      "expression": "value",
+                      "isRowNumberCell": false,
+                      "columnName": "datedebut"
+                    }
+                  },
+                  {
+                    "uri": "http://rs.tdwg.org/dwc/terms/verbatimEventDate",
+                    "curie": "http://rs.tdwg.org/dwc/terms/verbatimEventDate",
+                    "target": {
+                      "nodeType": "cell-as-literal",
+                      "expression": "value.toDate(\"yyyy/MM/dd\").toString(\"yyyy-MM-dd\")",
+                      "isRowNumberCell": false,
+                      "valueType": "http://www.w3.org/2001/XMLSchema#date",
+                      "columnName": "datedebut"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "uri": "http://purl.org/dsw/toTaxon",
+              "curie": "http://purl.org/dsw/toTaxon",
+              "target": {
+                "nodeType": "cell-as-resource",
+                "expression": "\"taxon/\"+cells[\"binom\"].value",
+                "isRowNumberCell": false,
+                "columnName": "binom",
+                "rdfTypes": [],
+                "links": []
+              }
+            }
+          ]
+        },
+        {
+          "nodeType": "cell-as-resource",
+          "expression": "value",
+          "isRowNumberCell": true,
+          "rdfTypes": [],
+          "links": []
+        }
+      ]
+    }
+  }
+]
