@@ -206,46 +206,8 @@
                 "expression": "\"taxon/\"+cells[\"binom\"].value",
                 "isRowNumberCell": false,
                 "columnName": "binom",
-                "rdfTypes": [
-                  {
-                    "uri": "http://rs.tdwg.org/dwc/terms/Taxon",
-                    "curie": "http://rs.tdwg.org/dwc/terms/Taxon"
-                  }
-                ],
-                "links": [
-                  {
-                    "uri": "http://rs.tdwg.org/dwc/terms/scientificName",
-                    "curie": "http://rs.tdwg.org/dwc/terms/scientificName",
-                    "target": {
-                      "nodeType": "cell-as-literal",
-                      "expression": "value",
-                      "isRowNumberCell": false,
-                      "columnName": "nom_valide"
-                    }
-                  },
-                  {
-                    "uri": "http://rs.tdwg.org/dwc/terms/vernacularName",
-                    "curie": "http://rs.tdwg.org/dwc/terms/vernacularName",
-                    "target": {
-                      "nodeType": "cell-as-literal",
-                      "expression": "value",
-                      "isRowNumberCell": false,
-                      "columnName": "nom_vern"
-                    }
-                  },
-                  {
-                    "uri": "http://www.w3.org/2002/07/owl#sameAs",
-                    "curie": "http://www.w3.org/2002/07/owl#sameAs",
-                    "target": {
-                      "nodeType": "cell-as-resource",
-                      "expression": "\"http://taxref.mnhn.fr/lod/name/\" + value.urlify()",
-                      "isRowNumberCell": false,
-                      "columnName": "cd_nom",
-                      "rdfTypes": [],
-                      "links": []
-                    }
-                  }
-                ]
+                "rdfTypes": [],
+                "links": []
               }
             }
           ]
