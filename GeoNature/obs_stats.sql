@@ -1,5 +1,6 @@
 --nbre de données PNE produites
-SELECT COUNT(*) FROM synthese.syntheseff WHERE id_organisme = 2
+SELECT COUNT(*) FROM synthese.syntheseff 
+WHERE id_organisme = 2 AND supprime = false
 --par an
 AND EXTRACT('year' FROM dateobs) = 2017
 --limitation à un département
