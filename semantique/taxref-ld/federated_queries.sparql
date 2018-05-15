@@ -1,0 +1,101 @@
+#  Lien entre jeux de données occurence et taxref-ld
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX taxrefrk: <http://taxref.mnhn.fr/lod/taxrank/>
+
+PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX dsw:<http://purl.org/dsw/#>
+
+SELECT * WHERE {
+    ?event  dsw:toTaxon ?o.
+    ?o owl:sameAs ?taxrefName.
+    SERVICE <http://taxref.mnhn.fr/sparql> {
+        ?taxrefName a skos:Concept; 
+	rdfs:label "Lullula arborea (Linnaeus, 1758)".
+    }
+}
+LIMIT 100
+
+
+
+# Occurence des taxons "Lullula arborea (Linnaeus, 1758)".
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+
+
+PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
+PREFIX dsw:<http://purl.org/dsw/>
+
+PREFIX dsw:<http://purl.org/dsw/>
+
+PREFIX geo-pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+SELECT ?lat ?lon ?date ?taxon WHERE {
+    ?x dsw:toTaxon ?taxon.
+    ?x dwc:Event ?e.
+    ?e dwc:verbatimEventDate ?date.
+    ?e dsw:locatedAt ?l.
+    ?l geo-pos:lat ?lat.
+    ?l geo-pos:lat ?lon.
+    ?taxon owl:sameAs <http://taxref.mnhn.fr/lod/name/3670>
+}
+LIMIT 100
+
+
+#  Ressources dpdedia de Lullula arborea
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX taxrefrk: <http://taxref.mnhn.fr/lod/taxrank/>
+
+PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX dsw:<http://purl.org/dsw/#>
+PREFIX dbo:<http://dbpedia.org/ontology/>
+
+SELECT * WHERE {
+    ?o owl:sameAs ?taxrefName.
+    SERVICE <http://taxref.mnhn.fr/sparql> {
+        ?taxrefName a skos:Concept; 
+        rdfs:label "Lullula arborea (Linnaeus, 1758)".
+        ?taxrefName ?p ?dbpediaLink
+        FILTER(regex(str(?dbpediaLink), "dbpedia", "i"))
+    }.
+    OPTIONAL { SERVICE <http://dbpedia.org/sparql/> {
+	?dbpediaLink dbo:conservationStatus  ?uicn.
+	?dbpediaLink dbo:thumbnail  ?img.
+	?dbpediaLink dbo:abstract ?abstract.
+	     FILTER (lang(?abstract) = 'fr')
+    }
+  }
+}
+
+# Récupération de données sur dbpedia de la liste des taxons des occurences concernés
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX taxrefrk: <http://taxref.mnhn.fr/lod/taxrank/>
+
+PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX dsw:<http://purl.org/dsw/>
+PREFIX dbo:<http://dbpedia.org/ontology/>
+
+SELECT DISTINCT * where {
+    ?taxon a dwc:Taxon; owl:sameAs ?taxrefName.
+    SERVICE <http://taxref.mnhn.fr/sparql> {
+        ?taxrefName ?p ?dbpediaLink
+        FILTER(regex(str(?dbpediaLink), "dbpedia", "i"))
+    }.
+    OPTIONAL { SERVICE <http://dbpedia.org/sparql/> {
+	?dbpediaLink dbo:conservationStatus  ?uicn.
+    }}.
+    OPTIONAL { SERVICE <http://dbpedia.org/sparql/> {
+	?dbpediaLink dbo:thumbnail  ?img.
+    }}.
+    OPTIONAL { SERVICE <http://dbpedia.org/sparql/> {
+	?dbpediaLink dbo:abstract ?abstract.
+	     FILTER (lang(?abstract) = 'fr')
+    }
+  }
+} LIMIT 100
