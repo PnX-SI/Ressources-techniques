@@ -99,3 +99,32 @@ SELECT DISTINCT * where {
     }
   }
 } LIMIT 100
+
+
+
+# Liste des occurences des passeriformes
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX taxrefrk: <http://taxref.mnhn.fr/lod/taxrank/>
+
+PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX dsw:<http://purl.org/dsw/>
+PREFIX dbo:<http://dbpedia.org/ontology/>
+
+PREFIX geo-pos: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+SELECT * WHERE {
+    SERVICE <http://taxref.mnhn.fr/sparql> {
+               ?taxrefName a skos:Concept; rdfs:label "Passeriformes ".
+               ?t skos:broader* ?taxrefName.
+	   ?t rdfs:label ?species.
+    }.
+    ?taxon a dwc:Taxon; owl:sameAs ?t.
+    ?occurence dsw:toTaxon ?taxon.
+    ?occurence dwc:Event ?e.
+    ?e dwc:verbatimEventDate ?date.
+    ?e dsw:locatedAt ?l.
+    ?l geo-pos:lat ?lat.
+    ?l geo-pos:lat ?lon.
+} LIMIT 100
