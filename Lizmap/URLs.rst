@@ -11,6 +11,7 @@ Exemples de projets Lizmap
 - http://carto.aduga.org/ (Carto'ADUGA)
 - http://karunati.fr/ (Plateforme SINP de La Guadeloupe)
 - https://www.borbonica.re/ (Plateforme SINP de La Réunion)
+- www.cartes.cen-auvergne.fr (Outils de sciences participatives du CEN Auvergne)
 
 Autres
 ======
