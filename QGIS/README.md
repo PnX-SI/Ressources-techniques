@@ -7,6 +7,11 @@
   * https://github.com/PnGuadeloupe/db-style-manager
   * https://plugins.qgis.org/plugins/db-style-manager/
 
+ * template-loader:
+  * Petit plugin permettant de créer des cartes à partir de modèles prédéfinis
+  * Compatibilité Qgis 2.2 -> 2.18
+  * https://github.com/PnCevennes/Qgis-plugin-templateLoader
+  
 ## Autres plugins utiles pour QGIS:
 * QuickMapServices:
   * Ajout des fonds OSM et autres fournisseurs
