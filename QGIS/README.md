@@ -1,4 +1,4 @@
-# Ressources sur QGIS
+# Ressources sur QGIS Desktop
 
 ## Plugins développés en interne:
 
@@ -15,7 +15,12 @@
 ## Autres plugins utiles pour QGIS:
 * QuickMapServices:
   * Ajout des fonds OSM et autres fournisseurs
-  
+
+# Ressources sur QGIS Server
+* Installation avec Apache ou Nginx
+  * https://docs.qgis.org/2.18/en/docs/user_manual/working_with_ogc/server/getting_started.html#id3
+
+
 ## Bug
 * Si QGIS Server crash lors d'un GetPrint (avec ou sans HTML):
   * https://www.itopen.it/qgis-server-setup-notes/
