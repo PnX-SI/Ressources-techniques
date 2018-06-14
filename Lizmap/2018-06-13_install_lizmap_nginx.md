@@ -147,7 +147,8 @@ server {
 		fastcgi_param SERVER_NAME lizmap;
 		fastcgi_param PATH_INFO $path_info;
 		fastcgi_param PATH_TRANSLATED $document_root$path_info;
-		fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+		#fastcgi_pass unix:/run/php/php7.2-fpm.sock; # Ubuntu 18.04
+		fastcgi_pass unix:/run/php/php7.0-fpm.sock; # Debian 9
 	}
 
 	# Alias for QGIS 2.18
@@ -156,7 +157,7 @@ server {
 		include        fastcgi_params;
 		fastcgi_pass   unix:/var/run/fcgiwrap.socket;
 		fastcgi_param  SCRIPT_FILENAME /usr/lib/cgi-bin/qgis_mapserv.fcgi;
-		fastcgi_param  QGIS_SERVER_LOG_FILE /var/log/lizmap/qgis.log;;
+		fastcgi_param  QGIS_SERVER_LOG_FILE /var/log/lizmap/qgis.log;
 		fastcgi_param  QGIS_SERVER_LOG_LEVEL 2;
 		# fastcgi_param  DISPLAY       ":99";
 	}
@@ -192,7 +193,7 @@ Pour cela, se connecter dans Lizmap (admin/admin par défaut) et dans l'onglet `
 Si à l'enregistrement des paramètres, `500 - internal server error` apparait, il faut refaire:
 
 ```
-cd /var/www/mylizmap/
+cd /var/www/$MYAPP/
 lizmap/install/set_rights.sh www-data www-data
 ```
 
