@@ -107,7 +107,7 @@ php lizmap/install/installer.php
 
 ### Remarque ###
 
-Si l'installation renvoie des erreurs de version Jelix, ressayer toute l'installation de Lizmap en allant chercher directement sur github la version voulue.
+Si l'installation renvoie des erreurs de version Jelix, ressayer toute l'installation de Lizmap en allant chercher directement sur Github la version voulue ([Version master](https://github.com/3liz/lizmap-web-client/tree/master)).
 
 	
 ## Configuration de Nginx ##
