@@ -92,7 +92,7 @@ cp profiles.ini.php.dist profiles.ini.php
 
 Si l'on veut activer le répertoire de démo, on ajoute à `localconfig.ini.php`:
 
-```php
+```ini
 [modules]
 lizmap.installparam=demo
 ```
