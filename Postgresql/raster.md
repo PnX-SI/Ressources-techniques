@@ -1,5 +1,7 @@
 ## Utilisation des rasters dans PostGIS
 
+Utilisation d'un service `bd_png_new` et création d'une table `mnt` dans le schéma `alti`.
+
 ### Création de la table MNT
 ```sql
 CREATE TABLE alti.mnt(rid serial primary key, rast raster);
@@ -11,7 +13,7 @@ CREATE INDEX alti_mnt_rast_st_convexhull_idx ON alti.mnt USING gist( ST_ConvexHu
 ```bash
 for file in *.asc; do
 	[ -e "$file" ] || continue
-	raster2pgsql -a -s 2989 -C -x "$file" alti.mnt | psql "service=bd_png_new"
+	raster2pgsql -a -s 2989 -C -x "$file" alti.mnt | PGPASS='PASSWORD' psql "service=bd_png_new"
 done
 ```
 
