@@ -4,12 +4,12 @@ Exemple d'import d'une source CSV
 
 **Chargement du fichier CSV dans la base de données**
 
-La fonction ``gn_commons.load_csv_file('/path/to/file.csv', 'targetschema.targettable')``
+La fonction ``gn_imports.load_csv_file('/path/to/file.csv', 'targetschema.targettable')``
 permet d'importer directement dans la base de données GeoNature2 un fichier CSV.
 
 .. code:: sql
 
-    SELECT gn_commons.load_csv_file('/home/users/imports/Observations.csv', 'gn_imports.testimport');
+    SELECT gn_imports.load_csv_file('/home/users/imports/Observations.csv', 'gn_imports.testimport');
 
 Note ::
 
@@ -61,23 +61,38 @@ Notez bien le ``id_source`` retourné, nous devrons l'utiliser lors de l'import 
 **Mapping des champs du fichier source avec la synthese**
 
 Le schéma ``gn_imports`` comporte trois tables permettant de préparer le mapping des champs entre la table importée (source) et une table de destination (target).
-En attendant la création d'une interface permettant de faciliter l'import, vous devez remplir ces tables manuellement.
 
     * ``gn_imports.matching_tables`` permet de déclarer la table source et la table de destination. Noter le ``id_matching_table`` généré par la séquence lors de l'insertion d'un nouveau "matching" dans cette table.
     * ``gn_imports.matching_fields`` permet de faire le matching entre les champs de la table source et de la table de destination. Vous devez indiquer le type de chacun des champs de la table de destination ainsi que le ``id_matching_table``.
     * ``gn_imports.matching_geoms`` permet de préparer la création du geom dans la table de destination à partir du ou des champs constituant le geom fourni dans la table source : champs contenant les ``x`` et ``y`` pour un format "xy" ou le champ comportant le wkt pouor le format wkt.
 
-Une fois que le mapping est renseigné, vous pouvez lancer la fonction ``gn_imports.fct_prepare_import_query('table_source', 'table_cible');`` qui va générer la requête ``INSERT INTO``.
-Attention, pg_admin va tronquer le résultat. Pour obtenir l'ensemble de la requête utiliser le bouton d'export du résultat dans un fichier ou executé la requete avec psql.
-exemple
+En attendant la création d'une interface permettant de faciliter l'import, vous devez remplir ces tables manuellement.
+Cependant, la fonction ``gn_imports.fct_generate_mapping('table_source', 'table_cible', forcedelete)`` permet de pregénérer un mapping. Si le mapping source/cible existe, la fonction ne fait rien et un message d'erreur est levé. Si le mapping n'existe pas ou si le paramètre ``forcedelete`` (boolean default = false) est à ``true``, la fonction crée le mapping en remplissant la table ``gn_imports.matching_tables`` et la table``gn_imports.matching_fields`` avec une ligne par champ de la table cible. Il ne vous reste plus qu'à manuellement supprimer ou remplacer les valeurs 'replace me' dans le champs ``source_field`` ou les valeurs par défaut proposées par la fonction.
 
 .. code:: sql
 
-    SELECT gn_imports.fct_prepare_import_query('gn_imports.testimport', 'gn_synthese.synthese');
+    SELECT gn_imports.fct_generate_mapping('gn_imports.testimport', 'gn_synthese.synthese');
+    ou
+    SELECT gn_imports.fct_generate_mapping('gn_imports.testimport', 'gn_synthese.synthese', true);
+
+Note::
+
+    * Au moins un des 2 champs ``source_field`` ou ``source_default_value`` doit être renseigné.
+    * Si le champ ``source_field`` est renseigné, le champ ``source_default_value`` est ignoré.
+
+
+Une fois que le mapping est renseigné, vous pouvez lancer la fonction ``gn_imports.fct_generate_import_query('table_source', 'table_cible');`` qui va générer la requête ``INSERT INTO``.
+Attention, pg_admin va tronquer le résultat. Pour obtenir l'ensemble de la requête utiliser le bouton d'export du résultat dans un fichier ou executé la requête avec psql.
+
+Exemple
+
+.. code:: sql
+
+    SELECT gn_imports.fct_generate_import_query('gn_imports.testimport', 'gn_synthese.synthese');
 
 Note ::
 
-    Il est possible d'utiliser ce mécanisme générique pour insérer des données de n'importe quelle table vers n'importe quelle autre, à partir du moment où il est possible d'établir un mapping cohérent entre les champs et notamment que les types puissent correspondre ou soit "transtypables".
+    Il est possible d'utiliser ce mécanisme générique pour insérer des données de n'importe quelle table vers n'importe quelle autre, à partir du moment où il est possible d'établir un mapping cohérent entre les champs et notamment que les types puissent correspondre ou soient "transtypables".
 
 
 
