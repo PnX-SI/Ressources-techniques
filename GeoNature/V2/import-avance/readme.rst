@@ -90,13 +90,25 @@ En l'état vos données sont importées et stockées dans la base GeoNature. Cep
 3 - Création des métadonnées
 ----------------------------
 
+
+
+Il est nécessaire de rattacher les données importées à un jeu de données qui doit appartenir à un cadre d'acquisition. Si ceux-ci n'ont pas encore été créés dans la base, vous devez le faire dans gn_meta.t_acquisition_frameworks pour le cadre d'acquisition et dans gn_meta.t_datasets pour le jeu de données. Vous pouvez pour cela utiliser les formulaires disponibles ici : http://localhost/geonature/#/admin
+
+Le jeu de données doit être rattaché à un protocole décrivant la manière dont les données ont été collectées.
+
 .. code:: sql
 
     INSERT INTO gn_meta.sinp_datatype_protocols ( protocol_name, protocol_desc, id_nomenclature_protocol_type, protocol_url)
     VALUES ('ATBI', 'Inventaire ATBI Dans la réserve de Lauvitel - Date_debut : 2013-01-01 - Date_fin : 3000-01-01', 395, NULL) returning id_protocol;
 
+.. code:: sql
+
     INSERT INTO gn_meta.t_datasets(id_acquisition_framework, dataset_name, dataset_shortname, dataset_desc, id_nomenclature_data_type, keywords, marine_domain, terrestrial_domain, active)
     VALUES (1, 'Observations Flavia 2017', 'Observations Flavia 2017', 'Données ATBI Flavia pour l''année 2017', 326, 'Invertébrés, PNE, ATBI', FALSE, TRUE, TRUE) returning id_dataset;
+
+Il est également nécessaire, pour la synthese, de lui indiquer où sont stockées les données qu'elle contient et comment y accèder. Vous devez pour cela disposer d'une source de données dans gn_synthese.t_sources correspondant aux données à importer. Pour l'exemple nous allons créer une source de données avec la commande sql suivante
+
+.. code:: sql
 
     INSERT INTO gn_synthese.t_sources(name_source, desc_source)
     VALUES('ATBI', 'Données d'inventaire ATBI') returning id_source;
@@ -109,9 +121,24 @@ Note ::
     * id_role 3 et 4 dans utilisateurs.t_roles
     * id_organisme 1 dans utilisateurs.bib_organismes
 
+Note ::
+
+    Il est possible d'utiliser ce mécanisme générique pour insérer des données de n'importe quelle table vers n'importe quelle autre, à partir du moment où il est possible d'établir un mapping cohérent entre les champs et notamment que les types puissent correspondre ou soient "transtypables".
+
 
 4 - Création du mapping (source --> cible)
 ------------------------------------------
+
+Le schéma gn_imports comporte trois tables permettant de préparer le mapping des champs entre la table importée (source) et une table de destination (target).
+
+    * ``gn_imports.matching_tables`` permet de déclarer la table source et la table de destination. Noter le ``id_matching_table`` généré par la séquence lors de l'insertion d'un nouveau "matching" dans cette table.
+    * ``gn_imports.matching_fields`` permet de faire le matching entre les champs de la table source et de la table de destination. Vous devez indiquer le type de chacun des champs de la table de destination ainsi que le ``id_matching_table``.
+    * ``gn_imports.matching_geoms`` permet de préparer la création du geom dans la table de destination à partir du ou des champs constituant le geom fourni dans la table source : champs contenant les x et y pour un format ``xy`` ou le champ comportant le wkt pour le format ``wkt``.
+
+En attendant la création d'une interface permettant de faciliter l'import, vous devez remplir ces tables manuellement. Cependant, la fonction ``gn_imports.fct_generate_mapping('table_source', 'table_cible', forcedelete)`` permet de pregénérer un mapping. 
+
+Si le mapping source/cible existe, la fonction ne fait rien et un message d'erreur est levé. Si le mapping n'existe pas ou si le paramètre ``forcedelete (boolean default = false)`` est à ``true``, la fonction crée le mapping en remplissant la table ``gn_imports.matching_tables`` et la table``gn_imports.matching_fields`` avec une ligne par champ de la table cible. Il ne vous reste plus qu'à manuellement supprimer ou remplacer les valeurs 'replace me' dans le champs source_field ou les valeurs par défaut proposées par la fonction.
+
 
 **Déclarer les tables à mapper**
 
@@ -136,8 +163,18 @@ OU si besoin d'écraser un mapping des champs existant
 
 IL FAUT ICI METTRE A JOUR LA TABLE gn_imports_matching_fields pour établir manuellement la correspondance des champs entre la table source et la table cible (voir le mapping final pour le fichier csv fourni en exemple à la fin de cette page).
 
+Note::
+
+    * Au moins un des 2 champs ``source_field`` ou ``source_default_value`` doit être renseigné.
+    * Si le champ ``source_field`` est renseigné, le champ ``source_default_value`` est ignoré.
+
+Une fois que le mapping est renseigné, vous pouvez passer à l'étape suivante.
+
+
 5 - Construire la requête d'import
 ----------------------------------
+
+Attention, pg_admin va tronquer le résultat. Pour obtenir l'ensemble de la requête utiliser le bouton d'export du résultat dans un fichier ou executé la requête avec psql.
 
 **Génération de la requête d'import dans les tables de destination**
 
@@ -146,7 +183,8 @@ IL FAUT ICI METTRE A JOUR LA TABLE gn_imports_matching_fields pour établir manu
     SELECT gn_imports.fct_generate_import_query('gn_imports.testimport', 'gn_synthese.synthese');
     SELECT gn_imports.fct_generate_import_query('gn_imports.testimport', 'gn_synthese.cor_observer_synthese');
 
-Notes ::
+Note ::
+
     UTILISER LE BOUTON D'EXPORT DU RESULTAT DE LA REQUETE DE PGADMIN3 ou utiliser psql.
     IL EST NECESSAIRE D'ADAPTER LA REQUETE SI BESOIN DE FAIRE DES JOIN POUR RECUPERER DES VALEURS DANS D'AUTRES TABLES
 
