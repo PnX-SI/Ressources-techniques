@@ -115,7 +115,7 @@ Il est également nécessaire, pour la synthese, de lui indiquer où sont stock�
 .. code:: sql
 
     INSERT INTO gn_synthese.t_sources(name_source, desc_source)
-    VALUES('ATBI', 'Données d'inventaire ATBI') returning id_source;
+    VALUES('ATBI', 'Données d''inventaire ATBI') returning id_source;
 
 Note ::
     
