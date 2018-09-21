@@ -323,10 +323,11 @@ RESULTAT FINAL
     
     INSERT INTO gn_imports.matching_geoms (id_matching_geom, source_x_field, source_y_field, source_geom_field, source_geom_format, source_srid, target_geom_field, target_geom_srid, geom_comments, id_matching_table) VALUES (1, 'x', 'y', NULL, 'xy', 2154, 'the_geom_local', 2154, NULL, 1);
     INSERT INTO gn_imports.matching_geoms (id_matching_geom, source_x_field, source_y_field, source_geom_field, source_geom_format, source_srid, target_geom_field, target_geom_srid, geom_comments, id_matching_table) VALUES (2, NULL, NULL, 'POINT(6.064544 44.28787)', 'wkt', 4326, 'the_geom_4326', 4326, NULL, 1);
+    INSERT INTO gn_imports.matching_geoms (id_matching_geom, source_x_field, source_y_field, source_geom_field, source_geom_format, source_srid, target_geom_field, target_geom_srid, geom_comments, id_matching_table) VALUES (1, 'x', 'y', NULL, 'xy', 4326, 'the_geom_point', 4326, NULL, 1);
     
     
     SELECT pg_catalog.setval('gn_imports.matching_fields_id_matching_field_seq', 255, true);
-    SELECT pg_catalog.setval('gn_imports.matching_geoms_id_matching_geom_seq', 2, true);
+    SELECT pg_catalog.setval('gn_imports.matching_geoms_id_matching_geom_seq', 3, true);
     SELECT pg_catalog.setval('gn_imports.matching_tables_id_matching_table_seq', 2, true);
     
     ---------------
