@@ -1,244 +1,244 @@
-id_organisme;id_protocole;dateobs;observateurs;determinateur;taxon_saisi;cd_nom;X;Y;Cle;SRID;id_precision;altitude_retenue;id_critere_synthese;effectif_total;remarques;id_lot;id_source;id_data
-1;1;3/7/2017;4;3;Hada plebeja (Linnaeus, 1761);249493;939851.55116935;6432668.3590426;;2154;1;2615;103;27;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;1
-1;1;3/7/2017;4;3;Apamea furva (Denis & Schiffermüller, 1775);249393;939851.55116935;6432668.3590426;;2154;1;2615;103;4;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;2
-1;1;3/7/2017;4;3;Anarta odontites (Boisduval, 1828);778119;939851.55116935;6432668.3590426;;2154;1;2615;103;6;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;3
-1;1;3/7/2017;4;3;Elophos unicoloraria (Staudinger, 1871);248947;939851.55116935;6432668.3590426;;2154;1;2615;103;16;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;4
-1;1;3/7/2017;4;3;Hadena compta (Denis & Schiffermüller, 1775);249478;1939851.5511694;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;5
-1;1;3/7/2017;4;3;Apamea lateritia (Hufnagel, 1766);249392;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;6
-1;1;3/7/2017;4;3;Noctua pronuba (Linnaeus, 1758);249246;939851.55116935;6432668.3590426;;2154;1;2615;103;19;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;7
-1;1;3/7/2017;4;3;Arctia flavia (Fuessly, 1779);249054;939851.55116935;6432668.3590426;;2154;1;2615;103;21;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;8
-1;1;3/7/2017;4;3;Mythimna conigera (Denis & Schiffermüller, 1775);249546;939851.55116935;6432668.3590426;;2154;1;2615;103;4;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;9
-1;1;3/7/2017;4;3;Apamea crenata (Hufnagel, 1766);249389;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;10
-1;1;3/7/2017;4;3;Apamea monoglypha (Hufnagel, 1766);249385;939851.55116935;6432668.3590426;;2154;1;2615;103;6;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;11
-1;1;3/7/2017;4;3;Standfussiana lucernea (Linnaeus, 1758);249238;939851.55116935;6432668.3590426;;2154;1;2615;103;6;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;12
-1;1;3/7/2017;4;3;Mythimna anderreggii (Boisduval, 1840);778098;939851.55116935;6432668.3590426;;2154;1;2615;103;11;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;13
-1;1;3/7/2017;4;3;Apamea lithoxylaea (Denis & Schiffermüller, 1775);249387;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;14
-1;1;3/7/2017;4;3;Gnophos obfuscata (Denis & Schiffermüller, 1775);248967;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;15
-1;1;3/7/2017;4;3;Agrotis simplonia (Geyer, 1832);249208;939851.55116935;6432668.3590426;;2154;1;2615;103;14;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;16
-1;1;3/7/2017;4;3;Noctua fimbriata (Schreber, 1759);249250;939851.55116935;6432668.3590426;;2154;1;2615;103;4;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;17
-1;1;3/7/2017;4;3;Epirrhoe galiata (Denis & Schiffermüller, 1775);248775;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;18
-1;1;3/7/2017;4;3;Hadena tephroleuca (Boisduval, 1833);249492;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;19
-1;1;3/7/2017;4;3;Anaplectoides prasina (Denis & Schiffermüller, 1775);249289;939851.55116935;6432668.3590426;;2154;1;2615;103;2;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;20
-1;1;3/7/2017;4;3;Gynaephora fascelina (Linnaeus, 1758);784184;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;21
-1;1;3/7/2017;4;3;Cucullia umbratica (Linnaeus, 1758);249707;939851.55116935;6432668.3590426;;2154;1;2615;103;2;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;22
-1;1;3/7/2017;4;3;Apamea maillardi (Geyer, 1834);249394;939851.55116935;6432668.3590426;;2154;1;2615;103;4;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;23
-1;1;3/7/2017;4;3;Perizoma incultaria (Herrich-Schäffer, 1848);248741;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;24
-1;1;3/7/2017;4;3;Hydriomena ruberata (Freyer, 1831);248690;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;25
-1;1;3/7/2017;4;3;Epipsilia grisescens (Fabricius, 1794);345591;939851.55116935;6432668.3590426;;2154;1;2615;103;4;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;26
-1;1;3/7/2017;4;3;Standfussiana wiskotti (Standfuss, 1888);249234;939851.55116935;6432668.3590426;;2154;1;2615;103;4;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;27
-1;1;3/7/2017;4;3;Alcis repandata (Linnaeus, 1758);248880;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;28
-1;1;3/7/2017;4;3;Diarsia mendica (Fabricius, 1775);249265;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;29
-1;1;3/7/2017;4;3;Mniotype adusta (Esper, 1790);249598;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;30
-1;1;3/7/2017;4;3;Charissa glaucinaria (Hübner, 1799);458686;939851.55116935;6432668.3590426;;2154;1;2615;103;3;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;31
-1;1;3/7/2017;4;3;Agrotis ipsilon (Hufnagel, 1766);249200;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;32
-1;1;3/7/2017;4;3;Triphosa dubitata (Linnaeus, 1758);248745;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;33
-1;1;3/7/2017;4;3;Polia nebulosa (Hufnagel, 1766);249450;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;34
-1;1;3/7/2017;4;3;Eupithecia cretaceata (Packard, 1874);248660;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;35
-1;1;4/7/2017;4;3;Leucania comma (Linnaeus, 1761);249563;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;36
-1;1;4/7/2017;4;3;Aplocera praeformata (Hübner, 1826);248537;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;37
-1;1;4/7/2017;4;3;Cosmorhoe ocellata (Linnaeus, 1758);248584;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;38
-1;1;4/7/2017;4;3;Deilephila porcellus (Linnaeus, 1758);54856;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;39
-1;1;4/7/2017;4;3;Xanthorhoe montanata (Denis & Schiffermüller, 1775);248791;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;40
-1;1;4/7/2017;4;3;Thera cognata (Thunberg & Sebaldt, 1792);248558;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;41
-1;1;4/7/2017;4;3;Alcis repandata (Linnaeus, 1758);248880;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;42
-1;1;4/7/2017;4;3;Diarsia mendica (Fabricius, 1775);249265;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;43
-1;1;4/7/2017;4;3;Hada plebeja (Linnaeus, 1761);249493;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;44
-1;1;4/7/2017;4;3;Scopula ternata (Schrank, 1802);248510;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;45
-1;1;4/7/2017;4;3;Apamea maillardi (Geyer, 1834);249394;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;46
-1;1;4/7/2017;4;3;Perizoma obsoletata (Herrich-Schäffer, 1838);248740;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;47
-1;1;4/7/2017;4;3;Siona lineata (Scopoli, 1763);248939;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;48
-1;1;4/7/2017;4;3;Eupithecia veratraria Herrich-Schäffer, 1848;248659;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;49
-1;1;4/7/2017;4;3;Macaria brunneata (Thunberg, 1784);249004;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;50
-1;1;4/7/2017;4;3;Athetis pallustris (Hübner, 1808);249540;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;51
-1;1;4/7/2017;4;3;Setina irrorella (Linnaeus, 1758);249088;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;52
-1;1;4/7/2017;4;3;Cabera exanthemata (Scopoli, 1763);248913;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;53
-1;1;4/7/2017;4;3;Polia bombycina (Hufnagel, 1766);249448;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;54
-1;1;4/7/2017;4;3;Autographa bractea (Denis & Schiffermüller, 1775);249154;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;55
-1;1;4/7/2017;4;3;Notodonta dromedarius (Linnaeus, 1767);54578;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;56
-1;1;4/7/2017;4;3;Agrotis simplonia (Geyer, 1832);249208;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;57
-1;1;4/7/2017;4;3;Perizoma alchemillata (Linnaeus, 1758);248732;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;58
-1;1;4/7/2017;4;3;Gnophos obfuscata (Denis & Schiffermüller, 1775);248967;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;59
-1;1;4/7/2017;4;3;Diacrisia sannio (Linnaeus, 1758);249061;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;60
-1;1;4/7/2017;4;3;Eupithecia icterata (Villers, 1789);248679;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;61
-1;1;4/7/2017;4;3;Opisthograptis luteolata (Linnaeus, 1758);248938;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;62
-1;1;4/7/2017;4;3;Scopula immorata (Linnaeus, 1758);248491;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;63
-1;1;4/7/2017;4;3;Epirrhoe galiata (Denis & Schiffermüller, 1775);248775;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;64
-1;1;4/7/2017;4;3;Colostygia olivata (Denis & Schiffermüller, 1775);248545;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;65
-1;1;4/7/2017;4;3;Euphyia frustata (Treitschke, 1828);248589;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;66
-1;1;4/7/2017;4;3;Drepana falcataria (Linnaeus, 1758);248387;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;67
-1;1;4/7/2017;4;3;Catarhoe cuculata (Hufnagel, 1767);248781;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;68
-1;1;4/7/2017;4;3;Mesoligia furuncula (Denis & Schiffermüller, 1775);249342;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;69
-1;1;4/7/2017;4;3;Xanthorhoe fluctuata (Linnaeus, 1758);248784;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;70
-1;1;4/7/2017;4;3;Lacanobia contigua (Denis & Schiffermüller, 1775);249461;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;71
-1;1;4/7/2017;4;3;Hydriomena ruberata (Freyer, 1831);248690;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;72
-1;1;4/7/2017;4;3;Xestia ashworthii (Doubleday, 1855);249222;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;73
-1;1;4/7/2017;4;3;Ceramica pisi (Linnaeus, 1758);249499;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;74
-1;1;4/7/2017;4;3;Perizoma albulata (Denis & Schiffermüller, 1775);248738;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;75
-1;1;4/7/2017;4;3;Dysstroma truncata (Hufnagel, 1767);248567;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;76
-1;1;4/7/2017;4;3;Eilema lurideola (Zincken, 1817);249095;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;77
-1;1;4/7/2017;4;3;Epirrhoe molluginata (Hübner, 1813);248774;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;78
-1;1;4/7/2017;4;3;Eupithecia cretaceata (Packard, 1874);248660;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;79
-1;1;4/7/2017;4;3;Hadena confusa (Hufnagel, 1766);249479;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;80
-1;1;4/7/2017;4;3;Mythimna conigera (Denis & Schiffermüller, 1775);249546;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;81
-1;1;4/7/2017;4;3;Pheosia gnoma (Fabricius, 1776);54617;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;82
-1;1;4/7/2017;4;3;Selenia dentaria (Fabricius, 1775);248924;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;83
-1;1;4/7/2017;4;3;Caradrina gilva (Donzel, 1837);781877;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;84
-1;1;4/7/2017;4;3;Rusina ferruginea (Esper, 1785);249507;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;85
-1;1;4/7/2017;4;3;Hadena tephroleuca (Boisduval, 1833);249492;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;86
-1;1;4/7/2017;4;3;Mniotype adusta (Esper, 1790);249598;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;87
-1;1;4/7/2017;4;3;Mythimna anderreggii (Boisduval, 1840);778098;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;88
-1;1;4/7/2017;4;3;Gnophos furvata (Denis & Schiffermüller, 1775);248966;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;89
-1;1;26/7/2017;4;3;Epipsilia grisescens (Fabricius, 1794);345591;942463.10179503;6432731.8973765;;2154;1;2763;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;90
-1;1;26/7/2017;4;3;Elophos unicoloraria (Staudinger, 1871);248947;942463.10179503;6432731.8973765;;2154;1;2763;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;91
-1;1;27/7/2017;4;3;Perizoma blandiata (Denis & Schiffermüller, 1775);248737;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;92
-1;1;27/7/2017;4;3;Entephria caesiata (Denis & Schiffermüller, 1775);248704;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;93
-1;1;27/7/2017;4;3;Charissa glaucinaria (Hübner, 1799);458686;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;94
-1;1;27/7/2017;4;3;Xestia ochreago (Hübner, 1809);249226;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;95
-1;1;27/7/2017;4;3;Cosmorhoe ocellata (Linnaeus, 1758);248584;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;96
-1;1;27/7/2017;4;3;Euphyia frustata (Treitschke, 1828);248589;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;97
-1;1;27/7/2017;4;3;Setina irrorella (Linnaeus, 1758);249088;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;98
-1;1;27/7/2017;4;3;Eilema lurideola (Zincken, 1817);249095;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;99
-1;1;27/7/2017;4;3;Epirrhoe galiata (Denis & Schiffermüller, 1775);248775;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;100
-1;1;27/7/2017;4;3;Lasiocampa quercus (Linnaeus, 1758);54770;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;101
-1;1;27/7/2017;4;3;Thera cognata (Thunberg & Sebaldt, 1792);248558;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;102
-1;1;27/7/2017;4;3;Coscinia cribraria (Linnaeus, 1758);445269;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;103
-1;1;27/7/2017;4;3;Apamea maillardi (Geyer, 1834);249394;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;104
-1;1;27/7/2017;4;3;Lemonia taraxaci (Denis & Schiffermüller, 1775);54703;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;105
-1;1;27/7/2017;4;3;Aplocera praeformata (Hübner, 1826);248537;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;106
-1;1;27/7/2017;4;3;Syngrapha interrogationis (Linnaeus, 1758);249133;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;107
-1;1;27/7/2017;4;3;Colostygia olivata (Denis & Schiffermüller, 1775);248545;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;108
-1;1;27/7/2017;4;3;Sideridis rivularis (Fabricius, 1775);249445;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;109
-1;1;27/7/2017;4;3;Udea alpinalis (Denis & Schiffermüller, 1775);248184;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;110
-1;1;27/7/2017;4;3;Standfussiana lucernea (Linnaeus, 1758);249238;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;111
-1;1;27/7/2017;4;3;Autographa bractea (Denis & Schiffermüller, 1775);249154;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;112
-1;1;27/7/2017;4;3;Apamea crenata (Hufnagel, 1766);249389;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;113
-1;1;27/7/2017;4;3;Eulithis populata (Linnaeus, 1758);248576;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;114
-1;1;27/7/2017;4;3;Apamea monoglypha (Hufnagel, 1766);249385;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;115
-1;1;27/7/2017;4;3;Gynaephora fascelina (Linnaeus, 1758);784184;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;116
-1;1;27/7/2017;4;3;Euxoa decora (Denis & Schiffermüller, 1775);249169;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;117
-1;1;27/7/2017;4;3;Dichagyris musiva (Hübner, 1803);521549;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;118
-1;1;27/7/2017;4;3;Xanthorhoe montanata (Denis & Schiffermüller, 1775);248791;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;119
-1;1;27/7/2017;4;3;Gnophos furvata (Denis & Schiffermüller, 1775);248966;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;120
-1;1;27/7/2017;4;3;Alcis repandata (Linnaeus, 1758);248880;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;121
-1;1;27/7/2017;4;3;Scotopteryx bipunctaria (Denis & Schiffermüller, 1775);248801;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;122
-1;1;27/7/2017;4;3;Chersotis oreina Dufay, 1984;249276;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;123
-1;1;27/7/2017;4;3;Noctua fimbriata (Schreber, 1759);249250;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;124
-1;1;27/7/2017;4;3;Eupithecia icterata (Villers, 1789);248679;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;125
-1;1;27/7/2017;4;3;Apamea zeta (Treitschke, 1825);249395;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;126
-1;1;27/7/2017;4;3;Apamea furva (Denis & Schiffermüller, 1775);249393;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;127
-1;1;27/7/2017;4;3;Autographa jota (Linnaeus, 1758);249153;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;128
-1;1;27/7/2017;4;3;Mythimna conigera (Denis & Schiffermüller, 1775);249546;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;129
-1;1;27/7/2017;4;3;Hadena compta (Denis & Schiffermüller, 1775);249478;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;130
-1;1;27/7/2017;4;3;Polia bombycina (Hufnagel, 1766);249448;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;131
-1;1;27/7/2017;4;3;Aplocera simpliciata (Treitschke, 1835);248538;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;132
-1;1;27/7/2017;4;3;Chersotis ocellina (Denis & Schiffermüller, 1775);249274;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;133
-1;1;27/7/2017;4;3;Bryophila galathea Millière, 1875;719635;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;134
-1;1;27/7/2017;4;3;Diarsia mendica (Fabricius, 1775);249265;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;135
-1;1;27/7/2017;4;3;Eilema caniola (Hübner, 1808);249098;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;136
-1;1;27/7/2017;4;3;Leucania comma (Linnaeus, 1761);249563;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;137
-1;1;27/7/2017;4;3;Apamea lateritia (Hufnagel, 1766);249392;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;138
-1;1;27/7/2017;4;3;Dysstroma truncata (Hufnagel, 1767);248567;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;139
-1;1;27/7/2017;4;3;Mesotype verberata (Scopoli, 1763);248729;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;140
-1;1;27/7/2017;4;3;Arctia caja (Linnaeus, 1758);249053;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;141
-1;1;27/7/2017;4;3;Arctia flavia (Fuessly, 1779);249054;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;142
-1;1;27/7/2017;4;3;Euxoa culminicola (Staudinger, 1870);249167;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;143
-1;1;27/7/2017;4;3;Xestia ashworthii (Doubleday, 1855);249222;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;144
-1;1;27/7/2017;4;3;Noctua pronuba (Linnaeus, 1758);249246;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;145
-1;1;27/7/2017;4;3;Selenia dentaria (Fabricius, 1775);248924;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;146
-1;1;27/7/2017;4;3;Lomaspilis marginata (Linnaeus, 1758);248922;941565.87458605;6432152.3675734;;2154;1;1983;103;1;Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique;2;2;147
-1;1;3/7/2017;4;3;Apamea furva (Denis & Schiffermüller, 1775);249393;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;148
-1;1;3/7/2017;4;3;Rhyacia helvetina (Boisduval, 1833);249243;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;149
-1;1;3/7/2017;4;3;Euxoa culminicola (Staudinger, 1870);249167;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;150
-1;1;3/7/2017;4;3;Hadena caesia (Denis & Schiffermüller, 1775);249485;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;151
-1;1;3/7/2017;4;3;Leucania comma (Linnaeus, 1761);249563;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;152
-1;1;3/7/2017;4;3;Entephria nobiliaria (Herrich-Schäffer, 1852);248699;939851.55116935;6432668.3590426;;2154;1;2615;103;4;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;153
-1;1;3/7/2017;4;3;Entephria flavicinctata (Hübner, 1813);248701;939851.55116935;6432668.3590426;;2154;1;2615;103;3;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;154
-1;1;3/7/2017;4;3;Epirrhoe molluginata (Hübner, 1813);248774;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;155
-1;1;3/7/2017;4;3;Coenotephria salicata (Denis & Schiffermüller, 1775);248578;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;156
-1;1;3/7/2017;4;3;Eupithecia lariciata (Freyer, 1841);248632;939851.55116935;6432668.3590426;;2154;1;2615;103;2;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;157
-1;1;3/7/2017;4;3;Elophos caelibaria (Heydenreich, 1851);248948;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;158
-1;1;3/7/2017;4;3;Zeiraphera griseana (Hübner, 1799);247328;939851.55116935;6432668.3590426;;2154;1;2615;103;2;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;159
-1;1;3/7/2017;4;3;Oidaematophorus rogenhoferi (Mann, 1871);247790;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;160
-1;1;3/7/2017;4;3;Acompsia tripunctella (Denis & Schiffermüller, 1775);246639;939851.55116935;6432668.3590426;;2154;1;2615;103;2;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;161
-1;1;3/7/2017;4;3;Pyrausta aerealis (Hübner, 1793);248156;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;162
-1;1;3/7/2017;4;3;Eana penziana (Thunberg, 1791);247670;939851.55116935;6432668.3590426;;2154;1;2615;103;2;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;163
-1;1;3/7/2017;4;3;Sattleria melaleucella (Constant, 1865);246885;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;164
-1;1;3/7/2017;4;3;Argyresthia conjugella Zeller, 1839;245741;939851.55116935;6432668.3590426;;2154;1;2615;103;3;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;165
-1;1;3/7/2017;4;3;Plutella xylostella (Linnaeus, 1758);245818;939851.55116935;6432668.3590426;;2154;1;2615;103;3;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;166
-1;1;3/7/2017;4;3;Caryocolum interalbicella (Herrich-Schäffer, 1854);246911;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;167
-1;1;3/7/2017;4;3;Coleophora nubivagella Zeller, 1849;246495;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;168
-1;1;3/7/2017;4;3;Ypsolopha ustella (Clerck, 1759);245810;939851.55116935;6432668.3590426;;2154;1;2615;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;169
-1;1;4/7/2017;4;3;Orenaia alpestralis (Fabricius, 1787);248199;939846;6432550;;2154;1;2635.82007;103;1;Observation directe/Capture au filet à papillon - Jour - Genitalia;2;2;170
-1;1;4/7/2017;4;3;Catoptria luctiferella (Hübner, 1813);248270;939851;6432660;;2154;1;2608.45996;103;1;Observation directe/Capture au filet à papillon - Jour - Genitalia;2;2;171
-1;1;4/7/2017;4;3;Orenaia alpestralis (Fabricius, 1787);248199;939842;6432601;;2154;1;2628.8999;103;1;Observation directe/Capture au filet à papillon - Jour - Genitalia;2;2;172
-1;1;4/7/2017;4;3;Pyrgus cacaliae (Rambur, 1839);53264;940152;6432572;;2154;1;2489.90991;103;1;Observation directe/Capture au filet à papillon - Jour - Genitalia;2;2;173
-1;1;4/7/2017;4;3;Pyrausta aerealis (Hübner, 1793);248156;939868;6432633;;2154;1;2567.66992;103;1;Observation directe/Capture au filet à papillon - Jour - Genitalia;2;2;174
-1;1;4/7/2017;4;3;Glacies canaliculata (Hochenwarth, 1785);248941;940100;6432415;;2154;1;2549.58008;103;1;Observation directe/Capture au filet à papillon - Jour - Genitalia;2;2;175
-1;1;4/7/2017;4;3;Metaxmeste phrygialis (Hübner, 1796);248218;939996;6432655;;2154;1;2539.65991;103;1;Observation directe/Capture au filet à papillon - Jour - Genitalia;2;2;176
-1;1;4/7/2017;4;3;Pontia callidice (Hübner, 1800);54366;939858;6432627;;2154;1;2628.8999;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;177
-1;1;4/7/2017;4;3;Setina aurita (Esper, 1787);249090;939866;6432658;;2154;1;2596.51001;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;178
-1;1;4/7/2017;4;3;Pontia callidice (Hübner, 1800);54366;939998;6432652;;2154;1;2539.65991;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;179
-1;1;4/7/2017;4;3;Boloria euphrosyne (Linnaeus, 1758);219815;939998;6432660;;2154;1;2539.65991;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;180
-1;1;4/7/2017;4;3;Boloria euphrosyne (Linnaeus, 1758);219815;940014;6432513;;2154;1;2536.59009;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;181
-1;1;4/7/2017;4;3;Pontia callidice (Hübner, 1800);54366;940036;6432512;;2154;1;2536.59009;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;182
-1;1;4/7/2017;4;3;Setina aurita (Esper, 1787);249090;939925;6432636;;2154;1;2567.66992;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;183
-1;1;4/7/2017;4;3;Metaxmeste phrygialis (Hübner, 1796);248218;939926;6432629;;2154;1;2567.66992;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;184
-1;1;4/7/2017;4;3;Boloria graeca (Staudinger, 1870);53928;939931;6432629;;2154;1;2567.66992;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;185
-1;1;4/7/2017;4;3;Aglais urticae (Linnaeus, 1758);53754;940029;6432655;;2154;1;2497.18994;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;186
-1;1;4/7/2017;4;3;Pontia callidice (Hübner, 1800);54366;940049;6432649;;2154;1;2497.18994;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;187
-1;1;4/7/2017;4;3;Parasemia plantaginis (Linnaeus, 1758);249072;940153;6432603;;2154;1;2489.90991;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;188
-1;1;4/7/2017;4;3;Erebia pandrose (Borkhausen, 1788);53576;940146;6432605;;2154;1;2489.90991;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;189
-1;1;4/7/2017;4;3;Boloria pales (Denis & Schiffermüller, 1775);53918;940090;6432515;;2154;1;2506.69995;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;190
-1;1;4/7/2017;4;3;Papilio machaon Linnaeus, 1758;54468;940057;6432485;;2154;1;2577.09009;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;191
-1;1;4/7/2017;4;3;Erebia pandrose (Borkhausen, 1788);53576;940063;6432448;;2154;1;2577.09009;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;192
-1;1;4/7/2017;4;3;Papilio machaon Linnaeus, 1758;54468;940075;6432440;;2154;1;2577.09009;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;193
-1;1;4/7/2017;4;3;Boloria pales (Denis & Schiffermüller, 1775);53918;940096;6432415;;2154;1;2549.58008;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;194
-1;1;4/7/2017;4;3;Polyommatus icarus (Rottemburg, 1775);54279;940068;6432425;;2154;1;2577.09009;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;195
-1;1;4/7/2017;4;3;Boloria graeca (Staudinger, 1870);53928;940074;6432432;;2154;1;2577.09009;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;196
-1;1;4/7/2017;4;3;Boloria pales (Denis & Schiffermüller, 1775);53918;939988;6432480;;2154;1;2598.02002;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;197
-1;1;4/7/2017;4;3;Erebia pluto (Prunner, 1798);647144;939991;6432476;;2154;1;2598.02002;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;198
-1;1;4/7/2017;4;3;Pontia callidice (Hübner, 1800);54366;939908;6432535;;2154;1;2587.83008;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;199
-1;1;4/7/2017;4;3;Aglais urticae (Linnaeus, 1758);53754;939906;6432532;;2154;1;2587.83008;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;200
-1;1;4/7/2017;4;3;Boloria euphrosyne (Linnaeus, 1758);219815;939844;6432607;;2154;1;2628.8999;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;201
-1;1;4/7/2017;4;3;Zygaena exulans (Hohenwarth, 1792);247050;939856;6432638;;2154;1;2608.45996;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;202
-1;1;4/7/2017;4;3;Zygaena exulans (Hohenwarth, 1792);247050;939897;6432634;;2154;1;2567.66992;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;203
-1;1;4/7/2017;4;3;Aglais urticae (Linnaeus, 1758);53754;939891;6432637;;2154;1;2567.66992;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;204
-1;1;4/7/2017;4;3;Cyaniris semiargus (Rottemburg, 1775);54213;939893;6432635;;2154;1;2567.66992;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;205
-1;1;27/7/2017;4;3;Macaria fusca (Thunberg, 1792);781697;942491;6432747;;2154;1;2747.32007;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;206
-1;1;27/7/2017;4;3;Setina aurita (Esper, 1787);249090;942485;6432712;;2154;1;2781.42993;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;207
-1;1;27/7/2017;4;3;Setina aurita (Esper, 1787);249090;942479;6432705;;2154;1;2781.42993;103;1;Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique;2;2;208
-1;1;4/7/2017;4;3;Pyrausta aerealis (Hübner, 1793);248156;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;209
-1;1;4/7/2017;4;3;Merrifieldia leucodactyla (Denis & Schiffermüller, 1775);247800;940746.99769533;6434167.9465494;;2154;1;1942;103;2;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;210
-1;1;4/7/2017;4;3;Udea austriacalis (Herrich-Schäffer, 1851);248186;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;211
-1;1;4/7/2017;4;3;Eana argentana (Clerck, 1759);247659;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;212
-1;1;4/7/2017;4;3;Catoptria pyramidellus (Treitschke, 1832);248268;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;213
-1;1;4/7/2017;4;3;Catoptria speculalis Hübner, 1825;248267;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;214
-1;1;4/7/2017;4;3;Notocelia cynosbatella (Linnaeus, 1758);247261;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;215
-1;1;4/7/2017;4;3;Acompsia tripunctella (Denis & Schiffermüller, 1775);246639;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;216
-1;1;4/7/2017;4;3;Scoparia conicella (La Harpe, 1863);248356;940746.99769533;6434167.9465494;;2154;1;1942;103;2;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;217
-1;1;4/7/2017;4;3;Crambus lathoniellus (Zincken, 1817);248311;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;218
-1;1;4/7/2017;4;3;Metzneria ehikeella Gozmány, 1954;246726;940746.99769533;6434167.9465494;;2154;1;1942;103;3;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;219
-1;1;4/7/2017;4;3;Lathronympha strigana (Fabricius, 1775);247437;940746.99769533;6434167.9465494;;2154;1;1942;103;2;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;220
-1;1;4/7/2017;4;3;Mompha miscella (Denis & Schiffermüller, 1775);246531;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;221
-1;1;4/7/2017;4;3;Teleiopsis bagriotella (Duponchel, 1840);246793;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;222
-1;1;4/7/2017;4;3;Denisia nubilosella (Herrich-Schäffer, 1854);246199;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;223
-1;1;4/7/2017;4;3;Scrobipalpa samadensis (Pfaffenzeller, 1870);246967;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;224
-1;1;4/7/2017;4;3;Cochylis pallidana Zeller, 1847;247519;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;225
-1;1;4/7/2017;4;3;Argyresthia conjugella Zeller, 1839;245741;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;226
-1;1;4/7/2017;4;3;Infurcitinea roesslerella (Heyden, 1865);245435;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;227
-1;1;4/7/2017;4;3;Eupithecia pulchellata Stephens, 1831;248601;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;228
-1;1;4/7/2017;4;3;Eilema cereola (Hübner, 1803);784526;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;229
-1;1;4/7/2017;4;3;Eupithecia subumbrata (Denis & Schiffermüller, 1775);248685;940746.99769533;6434167.9465494;;2154;1;1942;103;2;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;230
-1;1;4/7/2017;4;3;Eupithecia absinthiata (Clerck, 1759);248665;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;231
-1;1;4/7/2017;4;3;Cucullia umbratica (Linnaeus, 1758);249707;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;232
-1;1;4/7/2017;4;3;Entephria caesiata (Denis & Schiffermüller, 1775);248704;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;233
-1;1;4/7/2017;4;3;Charissa glaucinaria (Hübner, 1799);458686;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;234
-1;1;4/7/2017;4;3;Charissa ambiguata (Duponchel, 1930);781812;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;235
-1;1;4/7/2017;4;3;Coenotephria tophaceata (Denis & Schiffermüller, 1775);248580;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;236
-1;1;4/7/2017;4;3;Scopula incanata (Linnaeus, 1758);248507;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;237
-1;1;4/7/2017;4;3;Hoplodrina respersa (Denis & Schiffermüller, 1775);249429;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;238
-1;1;4/7/2017;4;3;Hadena caesia (Denis & Schiffermüller, 1775);249485;940746.99769533;6434167.9465494;;2154;1;1942;103;3;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;239
-1;1;4/7/2017;4;3;Lasionycta proxima (Hübner, 1809);249456;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;240
-1;1;4/7/2017;4;3;Standfussiana lucernea (Linnaeus, 1758);249238;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique;2;2;241
-1;1;4/7/2017;4;3;Pempeliella ornatella (Denis & Schiffermüller, 1775);248032;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;242
-1;1;4/7/2017;4;3;Hoplodrina octogenaria (Goeze, 1781);249425;940746.99769533;6434167.9465494;;2154;1;1942;103;1;Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia;2;2;243
+"id_organisme";"id_protocole";"dateobs";"observateurs";"determinateur";"taxon_saisi";"cd_nom";"x";"y";"Cle";"SRID";"id_precision";"altitude_retenue";"id_critere_synthese";"effectif_total";"remarques";"id_lot";"id_source";"id_data"
+1;2;"3/7/2017";4;3;"Hada plebeja (Linnaeus, 1761)";249493;"939851.55116935";"6432668.3590426";;2154;1;2615;103;27;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;1
+1;2;"3/7/2017";4;3;"Apamea furva (Denis & Schiffermüller, 1775)";249393;"939851.55116935";"6432668.3590426";;2154;1;2615;103;4;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;2
+1;2;"3/7/2017";4;3;"Anarta odontites (Boisduval, 1828)";778119;"939851.55116935";"6432668.3590426";;2154;1;2615;103;6;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;3
+1;2;"3/7/2017";4;3;"Elophos unicoloraria (Staudinger, 1871)";248947;"939851.55116935";"6432668.3590426";;2154;1;2615;103;16;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;4
+1;2;"3/7/2017";4;3;"Hadena compta (Denis & Schiffermüller, 1775)";249478;"1939851.5511694";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;5
+1;2;"3/7/2017";4;3;"Apamea lateritia (Hufnagel, 1766)";249392;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;6
+1;2;"3/7/2017";4;3;"Noctua pronuba (Linnaeus, 1758)";249246;"939851.55116935";"6432668.3590426";;2154;1;2615;103;19;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;7
+1;2;"3/7/2017";4;3;"Arctia flavia (Fuessly, 1779)";249054;"939851.55116935";"6432668.3590426";;2154;1;2615;103;21;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;8
+1;2;"3/7/2017";4;3;"Mythimna conigera (Denis & Schiffermüller, 1775)";249546;"939851.55116935";"6432668.3590426";;2154;1;2615;103;4;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;9
+1;2;"3/7/2017";4;3;"Apamea crenata (Hufnagel, 1766)";249389;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;10
+1;2;"3/7/2017";4;3;"Apamea monoglypha (Hufnagel, 1766)";249385;"939851.55116935";"6432668.3590426";;2154;1;2615;103;6;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;11
+1;2;"3/7/2017";4;3;"Standfussiana lucernea (Linnaeus, 1758)";249238;"939851.55116935";"6432668.3590426";;2154;1;2615;103;6;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;12
+1;2;"3/7/2017";4;3;"Mythimna anderreggii (Boisduval, 1840)";778098;"939851.55116935";"6432668.3590426";;2154;1;2615;103;11;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;13
+1;2;"3/7/2017";4;3;"Apamea lithoxylaea (Denis & Schiffermüller, 1775)";249387;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;14
+1;2;"3/7/2017";4;3;"Gnophos obfuscata (Denis & Schiffermüller, 1775)";248967;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;15
+1;2;"3/7/2017";4;3;"Agrotis simplonia (Geyer, 1832)";249208;"939851.55116935";"6432668.3590426";;2154;1;2615;103;14;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;16
+1;2;"3/7/2017";4;3;"Noctua fimbriata (Schreber, 1759)";249250;"939851.55116935";"6432668.3590426";;2154;1;2615;103;4;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;17
+1;2;"3/7/2017";4;3;"Epirrhoe galiata (Denis & Schiffermüller, 1775)";248775;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;18
+1;2;"3/7/2017";4;3;"Hadena tephroleuca (Boisduval, 1833)";249492;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;19
+1;2;"3/7/2017";4;3;"Anaplectoides prasina (Denis & Schiffermüller, 1775)";249289;"939851.55116935";"6432668.3590426";;2154;1;2615;103;2;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;20
+1;2;"3/7/2017";4;3;"Gynaephora fascelina (Linnaeus, 1758)";784184;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;21
+1;2;"3/7/2017";4;3;"Cucullia umbratica (Linnaeus, 1758)";249707;"939851.55116935";"6432668.3590426";;2154;1;2615;103;2;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;22
+1;2;"3/7/2017";4;3;"Apamea maillardi (Geyer, 1834)";249394;"939851.55116935";"6432668.3590426";;2154;1;2615;103;4;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;23
+1;2;"3/7/2017";4;3;"Perizoma incultaria (Herrich-Schäffer, 1848)";248741;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;24
+1;2;"3/7/2017";4;3;"Hydriomena ruberata (Freyer, 1831)";248690;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;25
+1;2;"3/7/2017";4;3;"Epipsilia grisescens (Fabricius, 1794)";345591;"939851.55116935";"6432668.3590426";;2154;1;2615;103;4;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;26
+1;2;"3/7/2017";4;3;"Standfussiana wiskotti (Standfuss, 1888)";249234;"939851.55116935";"6432668.3590426";;2154;1;2615;103;4;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;27
+1;2;"3/7/2017";4;3;"Alcis repandata (Linnaeus, 1758)";248880;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;28
+1;2;"3/7/2017";4;3;"Diarsia mendica (Fabricius, 1775)";249265;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;29
+1;2;"3/7/2017";4;3;"Mniotype adusta (Esper, 1790)";249598;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;30
+1;2;"3/7/2017";4;3;"Charissa glaucinaria (Hübner, 1799)";458686;"939851.55116935";"6432668.3590426";;2154;1;2615;103;3;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;31
+1;2;"3/7/2017";4;3;"Agrotis ipsilon (Hufnagel, 1766)";249200;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;32
+1;2;"3/7/2017";4;3;"Triphosa dubitata (Linnaeus, 1758)";248745;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;33
+1;2;"3/7/2017";4;3;"Polia nebulosa (Hufnagel, 1766)";249450;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;34
+1;2;"3/7/2017";4;3;"Eupithecia cretaceata (Packard, 1874)";248660;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;35
+1;2;"4/7/2017";4;3;"Leucania comma (Linnaeus, 1761)";249563;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;36
+1;2;"4/7/2017";4;3;"Aplocera praeformata (Hübner, 1826)";248537;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;37
+1;2;"4/7/2017";4;3;"Cosmorhoe ocellata (Linnaeus, 1758)";248584;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;38
+1;2;"4/7/2017";4;3;"Deilephila porcellus (Linnaeus, 1758)";54856;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;39
+1;2;"4/7/2017";4;3;"Xanthorhoe montanata (Denis & Schiffermüller, 1775)";248791;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;40
+1;2;"4/7/2017";4;3;"Thera cognata (Thunberg & Sebaldt, 1792)";248558;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;41
+1;2;"4/7/2017";4;3;"Alcis repandata (Linnaeus, 1758)";248880;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;42
+1;2;"4/7/2017";4;3;"Diarsia mendica (Fabricius, 1775)";249265;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;43
+1;2;"4/7/2017";4;3;"Hada plebeja (Linnaeus, 1761)";249493;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;44
+1;2;"4/7/2017";4;3;"Scopula ternata (Schrank, 1802)";248510;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;45
+1;2;"4/7/2017";4;3;"Apamea maillardi (Geyer, 1834)";249394;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;46
+1;2;"4/7/2017";4;3;"Perizoma obsoletata (Herrich-Schäffer, 1838)";248740;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;47
+1;2;"4/7/2017";4;3;"Siona lineata (Scopoli, 1763)";248939;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;48
+1;2;"4/7/2017";4;3;"Eupithecia veratraria Herrich-Schäffer, 1848";248659;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;49
+1;2;"4/7/2017";4;3;"Macaria brunneata (Thunberg, 1784)";249004;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;50
+1;2;"4/7/2017";4;3;"Athetis pallustris (Hübner, 1808)";249540;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;51
+1;2;"4/7/2017";4;3;"Setina irrorella (Linnaeus, 1758)";249088;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;52
+1;2;"4/7/2017";4;3;"Cabera exanthemata (Scopoli, 1763)";248913;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;53
+1;2;"4/7/2017";4;3;"Polia bombycina (Hufnagel, 1766)";249448;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;54
+1;2;"4/7/2017";4;3;"Autographa bractea (Denis & Schiffermüller, 1775)";249154;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;55
+1;2;"4/7/2017";4;3;"Notodonta dromedarius (Linnaeus, 1767)";54578;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;56
+1;2;"4/7/2017";4;3;"Agrotis simplonia (Geyer, 1832)";249208;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;57
+1;2;"4/7/2017";4;3;"Perizoma alchemillata (Linnaeus, 1758)";248732;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;58
+1;2;"4/7/2017";4;3;"Gnophos obfuscata (Denis & Schiffermüller, 1775)";248967;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;59
+1;2;"4/7/2017";4;3;"Diacrisia sannio (Linnaeus, 1758)";249061;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;60
+1;2;"4/7/2017";4;3;"Eupithecia icterata (Villers, 1789)";248679;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;61
+1;2;"4/7/2017";4;3;"Opisthograptis luteolata (Linnaeus, 1758)";248938;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;62
+1;2;"4/7/2017";4;3;"Scopula immorata (Linnaeus, 1758)";248491;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;63
+1;2;"4/7/2017";4;3;"Epirrhoe galiata (Denis & Schiffermüller, 1775)";248775;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;64
+1;2;"4/7/2017";4;3;"Colostygia olivata (Denis & Schiffermüller, 1775)";248545;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;65
+1;2;"4/7/2017";4;3;"Euphyia frustata (Treitschke, 1828)";248589;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;66
+1;2;"4/7/2017";4;3;"Drepana falcataria (Linnaeus, 1758)";248387;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;67
+1;2;"4/7/2017";4;3;"Catarhoe cuculata (Hufnagel, 1767)";248781;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;68
+1;2;"4/7/2017";4;3;"Mesoligia furuncula (Denis & Schiffermüller, 1775)";249342;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;69
+1;2;"4/7/2017";4;3;"Xanthorhoe fluctuata (Linnaeus, 1758)";248784;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;70
+1;2;"4/7/2017";4;3;"Lacanobia contigua (Denis & Schiffermüller, 1775)";249461;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;71
+1;2;"4/7/2017";4;3;"Hydriomena ruberata (Freyer, 1831)";248690;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;72
+1;2;"4/7/2017";4;3;"Xestia ashworthii (Doubleday, 1855)";249222;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;73
+1;2;"4/7/2017";4;3;"Ceramica pisi (Linnaeus, 1758)";249499;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;74
+1;2;"4/7/2017";4;3;"Perizoma albulata (Denis & Schiffermüller, 1775)";248738;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;75
+1;2;"4/7/2017";4;3;"Dysstroma truncata (Hufnagel, 1767)";248567;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;76
+1;2;"4/7/2017";4;3;"Eilema lurideola (Zincken, 1817)";249095;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;77
+1;2;"4/7/2017";4;3;"Epirrhoe molluginata (Hübner, 1813)";248774;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;78
+1;2;"4/7/2017";4;3;"Eupithecia cretaceata (Packard, 1874)";248660;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;79
+1;2;"4/7/2017";4;3;"Hadena confusa (Hufnagel, 1766)";249479;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;80
+1;2;"4/7/2017";4;3;"Mythimna conigera (Denis & Schiffermüller, 1775)";249546;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;81
+1;2;"4/7/2017";4;3;"Pheosia gnoma (Fabricius, 1776)";54617;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;82
+1;2;"4/7/2017";4;3;"Selenia dentaria (Fabricius, 1775)";248924;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;83
+1;2;"4/7/2017";4;3;"Caradrina gilva (Donzel, 1837)";781877;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;84
+1;2;"4/7/2017";4;3;"Rusina ferruginea (Esper, 1785)";249507;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;85
+1;2;"4/7/2017";4;3;"Hadena tephroleuca (Boisduval, 1833)";249492;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;86
+1;2;"4/7/2017";4;3;"Mniotype adusta (Esper, 1790)";249598;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;87
+1;2;"4/7/2017";4;3;"Mythimna anderreggii (Boisduval, 1840)";778098;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;88
+1;2;"4/7/2017";4;3;"Gnophos furvata (Denis & Schiffermüller, 1775)";248966;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;89
+1;2;"26/7/2017";4;3;"Epipsilia grisescens (Fabricius, 1794)";345591;"942463.10179503";"6432731.8973765";;2154;1;2763;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;90
+1;2;"26/7/2017";4;3;"Elophos unicoloraria (Staudinger, 1871)";248947;"942463.10179503";"6432731.8973765";;2154;1;2763;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;91
+1;2;"27/7/2017";4;3;"Perizoma blandiata (Denis & Schiffermüller, 1775)";248737;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;92
+1;2;"27/7/2017";4;3;"Entephria caesiata (Denis & Schiffermüller, 1775)";248704;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;93
+1;2;"27/7/2017";4;3;"Charissa glaucinaria (Hübner, 1799)";458686;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;94
+1;2;"27/7/2017";4;3;"Xestia ochreago (Hübner, 1809)";249226;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;95
+1;2;"27/7/2017";4;3;"Cosmorhoe ocellata (Linnaeus, 1758)";248584;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;96
+1;2;"27/7/2017";4;3;"Euphyia frustata (Treitschke, 1828)";248589;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;97
+1;2;"27/7/2017";4;3;"Setina irrorella (Linnaeus, 1758)";249088;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;98
+1;2;"27/7/2017";4;3;"Eilema lurideola (Zincken, 1817)";249095;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;99
+1;2;"27/7/2017";4;3;"Epirrhoe galiata (Denis & Schiffermüller, 1775)";248775;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;100
+1;2;"27/7/2017";4;3;"Lasiocampa quercus (Linnaeus, 1758)";54770;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;101
+1;2;"27/7/2017";4;3;"Thera cognata (Thunberg & Sebaldt, 1792)";248558;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;102
+1;2;"27/7/2017";4;3;"Coscinia cribraria (Linnaeus, 1758)";445269;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;103
+1;2;"27/7/2017";4;3;"Apamea maillardi (Geyer, 1834)";249394;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;104
+1;2;"27/7/2017";4;3;"Lemonia taraxaci (Denis & Schiffermüller, 1775)";54703;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;105
+1;2;"27/7/2017";4;3;"Aplocera praeformata (Hübner, 1826)";248537;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;106
+1;2;"27/7/2017";4;3;"Syngrapha interrogationis (Linnaeus, 1758)";249133;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;107
+1;2;"27/7/2017";4;3;"Colostygia olivata (Denis & Schiffermüller, 1775)";248545;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;108
+1;2;"27/7/2017";4;3;"Sideridis rivularis (Fabricius, 1775)";249445;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;109
+1;2;"27/7/2017";4;3;"Udea alpinalis (Denis & Schiffermüller, 1775)";248184;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;110
+1;2;"27/7/2017";4;3;"Standfussiana lucernea (Linnaeus, 1758)";249238;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;111
+1;2;"27/7/2017";4;3;"Autographa bractea (Denis & Schiffermüller, 1775)";249154;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;112
+1;2;"27/7/2017";4;3;"Apamea crenata (Hufnagel, 1766)";249389;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;113
+1;2;"27/7/2017";4;3;"Eulithis populata (Linnaeus, 1758)";248576;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;114
+1;2;"27/7/2017";4;3;"Apamea monoglypha (Hufnagel, 1766)";249385;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;115
+1;2;"27/7/2017";4;3;"Gynaephora fascelina (Linnaeus, 1758)";784184;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;116
+1;2;"27/7/2017";4;3;"Euxoa decora (Denis & Schiffermüller, 1775)";249169;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;117
+1;2;"27/7/2017";4;3;"Dichagyris musiva (Hübner, 1803)";521549;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;118
+1;2;"27/7/2017";4;3;"Xanthorhoe montanata (Denis & Schiffermüller, 1775)";248791;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;119
+1;2;"27/7/2017";4;3;"Gnophos furvata (Denis & Schiffermüller, 1775)";248966;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;120
+1;2;"27/7/2017";4;3;"Alcis repandata (Linnaeus, 1758)";248880;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;121
+1;2;"27/7/2017";4;3;"Scotopteryx bipunctaria (Denis & Schiffermüller, 1775)";248801;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;122
+1;2;"27/7/2017";4;3;"Chersotis oreina Dufay, 1984";249276;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;123
+1;2;"27/7/2017";4;3;"Noctua fimbriata (Schreber, 1759)";249250;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;124
+1;2;"27/7/2017";4;3;"Eupithecia icterata (Villers, 1789)";248679;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;125
+1;2;"27/7/2017";4;3;"Apamea zeta (Treitschke, 1825)";249395;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;126
+1;2;"27/7/2017";4;3;"Apamea furva (Denis & Schiffermüller, 1775)";249393;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;127
+1;2;"27/7/2017";4;3;"Autographa jota (Linnaeus, 1758)";249153;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;128
+1;2;"27/7/2017";4;3;"Mythimna conigera (Denis & Schiffermüller, 1775)";249546;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;129
+1;2;"27/7/2017";4;3;"Hadena compta (Denis & Schiffermüller, 1775)";249478;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;130
+1;2;"27/7/2017";4;3;"Polia bombycina (Hufnagel, 1766)";249448;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;131
+1;2;"27/7/2017";4;3;"Aplocera simpliciata (Treitschke, 1835)";248538;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;132
+1;2;"27/7/2017";4;3;"Chersotis ocellina (Denis & Schiffermüller, 1775)";249274;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;133
+1;2;"27/7/2017";4;3;"Bryophila galathea Millière, 1875";719635;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;134
+1;2;"27/7/2017";4;3;"Diarsia mendica (Fabricius, 1775)";249265;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;135
+1;2;"27/7/2017";4;3;"Eilema caniola (Hübner, 1808)";249098;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;136
+1;2;"27/7/2017";4;3;"Leucania comma (Linnaeus, 1761)";249563;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;137
+1;2;"27/7/2017";4;3;"Apamea lateritia (Hufnagel, 1766)";249392;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;138
+1;2;"27/7/2017";4;3;"Dysstroma truncata (Hufnagel, 1767)";248567;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;139
+1;2;"27/7/2017";4;3;"Mesotype verberata (Scopoli, 1763)";248729;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;140
+1;2;"27/7/2017";4;3;"Arctia caja (Linnaeus, 1758)";249053;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;141
+1;2;"27/7/2017";4;3;"Arctia flavia (Fuessly, 1779)";249054;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;142
+1;2;"27/7/2017";4;3;"Euxoa culminicola (Staudinger, 1870)";249167;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;143
+1;2;"27/7/2017";4;3;"Xestia ashworthii (Doubleday, 1855)";249222;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;144
+1;2;"27/7/2017";4;3;"Noctua pronuba (Linnaeus, 1758)";249246;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;145
+1;2;"27/7/2017";4;3;"Selenia dentaria (Fabricius, 1775)";248924;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;146
+1;2;"27/7/2017";4;3;"Lomaspilis marginata (Linnaeus, 1758)";248922;"941565.87458605";"6432152.3675734";;2154;1;1983;103;1;"Piège à Cloche Moustiquaire - LepiLed - Examen Macroscopique";4;4;147
+1;2;"3/7/2017";4;3;"Apamea furva (Denis & Schiffermüller, 1775)";249393;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;148
+1;2;"3/7/2017";4;3;"Rhyacia helvetina (Boisduval, 1833)";249243;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;149
+1;2;"3/7/2017";4;3;"Euxoa culminicola (Staudinger, 1870)";249167;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;150
+1;2;"3/7/2017";4;3;"Hadena caesia (Denis & Schiffermüller, 1775)";249485;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;151
+1;2;"3/7/2017";4;3;"Leucania comma (Linnaeus, 1761)";249563;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;152
+1;2;"3/7/2017";4;3;"Entephria nobiliaria (Herrich-Schäffer, 1852)";248699;"939851.55116935";"6432668.3590426";;2154;1;2615;103;4;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;153
+1;2;"3/7/2017";4;3;"Entephria flavicinctata (Hübner, 1813)";248701;"939851.55116935";"6432668.3590426";;2154;1;2615;103;3;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;154
+1;2;"3/7/2017";4;3;"Epirrhoe molluginata (Hübner, 1813)";248774;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;155
+1;2;"3/7/2017";4;3;"Coenotephria salicata (Denis & Schiffermüller, 1775)";248578;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;156
+1;2;"3/7/2017";4;3;"Eupithecia lariciata (Freyer, 1841)";248632;"939851.55116935";"6432668.3590426";;2154;1;2615;103;2;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;157
+1;2;"3/7/2017";4;3;"Elophos caelibaria (Heydenreich, 1851)";248948;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;158
+1;2;"3/7/2017";4;3;"Zeiraphera griseana (Hübner, 1799)";247328;"939851.55116935";"6432668.3590426";;2154;1;2615;103;2;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;159
+1;2;"3/7/2017";4;3;"Oidaematophorus rogenhoferi (Mann, 1871)";247790;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;160
+1;2;"3/7/2017";4;3;"Acompsia tripunctella (Denis & Schiffermüller, 1775)";246639;"939851.55116935";"6432668.3590426";;2154;1;2615;103;2;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;161
+1;2;"3/7/2017";4;3;"Pyrausta aerealis (Hübner, 1793)";248156;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;162
+1;2;"3/7/2017";4;3;"Eana penziana (Thunberg, 1791)";247670;"939851.55116935";"6432668.3590426";;2154;1;2615;103;2;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;163
+1;2;"3/7/2017";4;3;"Sattleria melaleucella (Constant, 1865)";246885;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;164
+1;2;"3/7/2017";4;3;"Argyresthia conjugella Zeller, 1839";245741;"939851.55116935";"6432668.3590426";;2154;1;2615;103;3;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;165
+1;2;"3/7/2017";4;3;"Plutella xylostella (Linnaeus, 1758)";245818;"939851.55116935";"6432668.3590426";;2154;1;2615;103;3;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;166
+1;2;"3/7/2017";4;3;"Caryocolum interalbicella (Herrich-Schäffer, 1854)";246911;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;167
+1;2;"3/7/2017";4;3;"Coleophora nubivagella Zeller, 1849";246495;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;168
+1;2;"3/7/2017";4;3;"Ypsolopha ustella (Clerck, 1759)";245810;"939851.55116935";"6432668.3590426";;2154;1;2615;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;169
+1;2;"4/7/2017";4;3;"Orenaia alpestralis (Fabricius, 1787)";248199;939846;6432550;;2154;1;"2635.82007";103;1;"Observation directe/Capture au filet à papillon - Jour - Genitalia";4;4;170
+1;2;"4/7/2017";4;3;"Catoptria luctiferella (Hübner, 1813)";248270;939851;6432660;;2154;1;"2608.45996";103;1;"Observation directe/Capture au filet à papillon - Jour - Genitalia";4;4;171
+1;2;"4/7/2017";4;3;"Orenaia alpestralis (Fabricius, 1787)";248199;939842;6432601;;2154;1;"2628.8999";103;1;"Observation directe/Capture au filet à papillon - Jour - Genitalia";4;4;172
+1;2;"4/7/2017";4;3;"Pyrgus cacaliae (Rambur, 1839)";53264;940152;6432572;;2154;1;"2489.90991";103;1;"Observation directe/Capture au filet à papillon - Jour - Genitalia";4;4;173
+1;2;"4/7/2017";4;3;"Pyrausta aerealis (Hübner, 1793)";248156;939868;6432633;;2154;1;"2567.66992";103;1;"Observation directe/Capture au filet à papillon - Jour - Genitalia";4;4;174
+1;2;"4/7/2017";4;3;"Glacies canaliculata (Hochenwarth, 1785)";248941;940100;6432415;;2154;1;"2549.58008";103;1;"Observation directe/Capture au filet à papillon - Jour - Genitalia";4;4;175
+1;2;"4/7/2017";4;3;"Metaxmeste phrygialis (Hübner, 1796)";248218;939996;6432655;;2154;1;"2539.65991";103;1;"Observation directe/Capture au filet à papillon - Jour - Genitalia";4;4;176
+1;2;"4/7/2017";4;3;"Pontia callidice (Hübner, 1800)";54366;939858;6432627;;2154;1;"2628.8999";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;177
+1;2;"4/7/2017";4;3;"Setina aurita (Esper, 1787)";249090;939866;6432658;;2154;1;"2596.51001";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;178
+1;2;"4/7/2017";4;3;"Pontia callidice (Hübner, 1800)";54366;939998;6432652;;2154;1;"2539.65991";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;179
+1;2;"4/7/2017";4;3;"Boloria euphrosyne (Linnaeus, 1758)";219815;939998;6432660;;2154;1;"2539.65991";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;180
+1;2;"4/7/2017";4;3;"Boloria euphrosyne (Linnaeus, 1758)";219815;940014;6432513;;2154;1;"2536.59009";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;181
+1;2;"4/7/2017";4;3;"Pontia callidice (Hübner, 1800)";54366;940036;6432512;;2154;1;"2536.59009";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;182
+1;2;"4/7/2017";4;3;"Setina aurita (Esper, 1787)";249090;939925;6432636;;2154;1;"2567.66992";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;183
+1;2;"4/7/2017";4;3;"Metaxmeste phrygialis (Hübner, 1796)";248218;939926;6432629;;2154;1;"2567.66992";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;184
+1;2;"4/7/2017";4;3;"Boloria graeca (Staudinger, 1870)";53928;939931;6432629;;2154;1;"2567.66992";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;185
+1;2;"4/7/2017";4;3;"Aglais urticae (Linnaeus, 1758)";53754;940029;6432655;;2154;1;"2497.18994";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;186
+1;2;"4/7/2017";4;3;"Pontia callidice (Hübner, 1800)";54366;940049;6432649;;2154;1;"2497.18994";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;187
+1;2;"4/7/2017";4;3;"Parasemia plantaginis (Linnaeus, 1758)";249072;940153;6432603;;2154;1;"2489.90991";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;188
+1;2;"4/7/2017";4;3;"Erebia pandrose (Borkhausen, 1788)";53576;940146;6432605;;2154;1;"2489.90991";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;189
+1;2;"4/7/2017";4;3;"Boloria pales (Denis & Schiffermüller, 1775)";53918;940090;6432515;;2154;1;"2506.69995";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;190
+1;2;"4/7/2017";4;3;"Papilio machaon Linnaeus, 1758";54468;940057;6432485;;2154;1;"2577.09009";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;191
+1;2;"4/7/2017";4;3;"Erebia pandrose (Borkhausen, 1788)";53576;940063;6432448;;2154;1;"2577.09009";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;192
+1;2;"4/7/2017";4;3;"Papilio machaon Linnaeus, 1758";54468;940075;6432440;;2154;1;"2577.09009";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;193
+1;2;"4/7/2017";4;3;"Boloria pales (Denis & Schiffermüller, 1775)";53918;940096;6432415;;2154;1;"2549.58008";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;194
+1;2;"4/7/2017";4;3;"Polyommatus icarus (Rottemburg, 1775)";54279;940068;6432425;;2154;1;"2577.09009";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;195
+1;2;"4/7/2017";4;3;"Boloria graeca (Staudinger, 1870)";53928;940074;6432432;;2154;1;"2577.09009";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;196
+1;2;"4/7/2017";4;3;"Boloria pales (Denis & Schiffermüller, 1775)";53918;939988;6432480;;2154;1;"2598.02002";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;197
+1;2;"4/7/2017";4;3;"Erebia pluto (Prunner, 1798)";647144;939991;6432476;;2154;1;"2598.02002";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;198
+1;2;"4/7/2017";4;3;"Pontia callidice (Hübner, 1800)";54366;939908;6432535;;2154;1;"2587.83008";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;199
+1;2;"4/7/2017";4;3;"Aglais urticae (Linnaeus, 1758)";53754;939906;6432532;;2154;1;"2587.83008";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;200
+1;2;"4/7/2017";4;3;"Boloria euphrosyne (Linnaeus, 1758)";219815;939844;6432607;;2154;1;"2628.8999";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;201
+1;2;"4/7/2017";4;3;"Zygaena exulans (Hohenwarth, 1792)";247050;939856;6432638;;2154;1;"2608.45996";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;202
+1;2;"4/7/2017";4;3;"Zygaena exulans (Hohenwarth, 1792)";247050;939897;6432634;;2154;1;"2567.66992";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;203
+1;2;"4/7/2017";4;3;"Aglais urticae (Linnaeus, 1758)";53754;939891;6432637;;2154;1;"2567.66992";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;204
+1;2;"4/7/2017";4;3;"Cyaniris semiargus (Rottemburg, 1775)";54213;939893;6432635;;2154;1;"2567.66992";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;205
+1;2;"27/7/2017";4;3;"Macaria fusca (Thunberg, 1792)";781697;942491;6432747;;2154;1;"2747.32007";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;206
+1;2;"27/7/2017";4;3;"Setina aurita (Esper, 1787)";249090;942485;6432712;;2154;1;"2781.42993";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;207
+1;2;"27/7/2017";4;3;"Setina aurita (Esper, 1787)";249090;942479;6432705;;2154;1;"2781.42993";103;1;"Observation directe/Capture au filet à papillon - Jour - Examen Macroscopique";4;4;208
+1;2;"4/7/2017";4;3;"Pyrausta aerealis (Hübner, 1793)";248156;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;209
+1;2;"4/7/2017";4;3;"Merrifieldia leucodactyla (Denis & Schiffermüller, 1775)";247800;"940746.99769533";"6434167.9465494";;2154;1;1942;103;2;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;210
+1;2;"4/7/2017";4;3;"Udea austriacalis (Herrich-Schäffer, 1851)";248186;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;211
+1;2;"4/7/2017";4;3;"Eana argentana (Clerck, 1759)";247659;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;212
+1;2;"4/7/2017";4;3;"Catoptria pyramidellus (Treitschke, 1832)";248268;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;213
+1;2;"4/7/2017";4;3;"Catoptria speculalis Hübner, 1825";248267;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;214
+1;2;"4/7/2017";4;3;"Notocelia cynosbatella (Linnaeus, 1758)";247261;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;215
+1;2;"4/7/2017";4;3;"Acompsia tripunctella (Denis & Schiffermüller, 1775)";246639;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;216
+1;2;"4/7/2017";4;3;"Scoparia conicella (La Harpe, 1863)";248356;"940746.99769533";"6434167.9465494";;2154;1;1942;103;2;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;217
+1;2;"4/7/2017";4;3;"Crambus lathoniellus (Zincken, 1817)";248311;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;218
+1;2;"4/7/2017";4;3;"Metzneria ehikeella Gozmány, 1954";246726;"940746.99769533";"6434167.9465494";;2154;1;1942;103;3;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;219
+1;2;"4/7/2017";4;3;"Lathronympha strigana (Fabricius, 1775)";247437;"940746.99769533";"6434167.9465494";;2154;1;1942;103;2;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;220
+1;2;"4/7/2017";4;3;"Mompha miscella (Denis & Schiffermüller, 1775)";246531;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;221
+1;2;"4/7/2017";4;3;"Teleiopsis bagriotella (Duponchel, 1840)";246793;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;222
+1;2;"4/7/2017";4;3;"Denisia nubilosella (Herrich-Schäffer, 1854)";246199;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;223
+1;2;"4/7/2017";4;3;"Scrobipalpa samadensis (Pfaffenzeller, 1870)";246967;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;224
+1;2;"4/7/2017";4;3;"Cochylis pallidana Zeller, 1847";247519;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;225
+1;2;"4/7/2017";4;3;"Argyresthia conjugella Zeller, 1839";245741;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;226
+1;2;"4/7/2017";4;3;"Infurcitinea roesslerella (Heyden, 1865)";245435;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;227
+1;2;"4/7/2017";4;3;"Eupithecia pulchellata Stephens, 1831";248601;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;228
+1;2;"4/7/2017";4;3;"Eilema cereola (Hübner, 1803)";784526;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;229
+1;2;"4/7/2017";4;3;"Eupithecia subumbrata (Denis & Schiffermüller, 1775)";248685;"940746.99769533";"6434167.9465494";;2154;1;1942;103;2;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;230
+1;2;"4/7/2017";4;3;"Eupithecia absinthiata (Clerck, 1759)";248665;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;231
+1;2;"4/7/2017";4;3;"Cucullia umbratica (Linnaeus, 1758)";249707;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;232
+1;2;"4/7/2017";4;3;"Entephria caesiata (Denis & Schiffermüller, 1775)";248704;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;233
+1;2;"4/7/2017";4;3;"Charissa glaucinaria (Hübner, 1799)";458686;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;234
+1;2;"4/7/2017";4;3;"Charissa ambiguata (Duponchel, 1930)";781812;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;235
+1;2;"4/7/2017";4;3;"Coenotephria tophaceata (Denis & Schiffermüller, 1775)";248580;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;236
+1;2;"4/7/2017";4;3;"Scopula incanata (Linnaeus, 1758)";248507;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;237
+1;2;"4/7/2017";4;3;"Hoplodrina respersa (Denis & Schiffermüller, 1775)";249429;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;238
+1;2;"4/7/2017";4;3;"Hadena caesia (Denis & Schiffermüller, 1775)";249485;"940746.99769533";"6434167.9465494";;2154;1;1942;103;3;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;239
+1;2;"4/7/2017";4;3;"Lasionycta proxima (Hübner, 1809)";249456;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;240
+1;2;"4/7/2017";4;3;"Standfussiana lucernea (Linnaeus, 1758)";249238;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Examen Macroscopique";4;4;241
+1;2;"4/7/2017";4;3;"Pempeliella ornatella (Denis & Schiffermüller, 1775)";248032;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;242
+1;2;"4/7/2017";4;3;"Hoplodrina octogenaria (Goeze, 1781)";249425;"940746.99769533";"6434167.9465494";;2154;1;1942;103;1;"Piège à Cloche Moustiquaire - Dmerc 125W - Genitalia";4;4;243
