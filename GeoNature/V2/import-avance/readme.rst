@@ -321,8 +321,8 @@ RESULTAT FINAL
     INSERT INTO gn_imports.matching_fields (id_matching_field, source_field, source_default_value, target_field, target_field_type, field_comments, id_matching_table) VALUES (249, NULL, 'u.nom_role || '' '' || u.prenom_role', 'determiner', 'character varying', NULL, 1);
     INSERT INTO gn_imports.matching_fields (id_matching_field, source_field, source_default_value, target_field, target_field_type, field_comments, id_matching_table) VALUES (234, 'taxon_saisi', NULL, 'nom_cite', 'character varying', NULL, 1);
     
-    INSERT INTO gn_imports.matching_fields (id_matching_field, source_field, source_default_value, target_field, target_field_type, field_comments, id_matching_table) VALUES (256, 'id_data', NULL, 'id_synthese', 'integer', NULL, 1);
-    INSERT INTO gn_imports.matching_fields (id_matching_field, source_field, source_default_value, target_field, target_field_type, field_comments, id_matching_table) VALUES (257, 'observateurs', NULL, 'id_role', 'integer', NULL, 1);
+    INSERT INTO gn_imports.matching_fields (id_matching_field, source_field, source_default_value, target_field, target_field_type, field_comments, id_matching_table) VALUES (256, 'id_data', NULL, 'id_synthese', 'integer', NULL, 2);
+    INSERT INTO gn_imports.matching_fields (id_matching_field, source_field, source_default_value, target_field, target_field_type, field_comments, id_matching_table) VALUES (257, 'observateurs', NULL, 'id_role', 'integer', NULL, 2);
 
     
     INSERT INTO gn_imports.matching_geoms (id_matching_geom, source_x_field, source_y_field, source_geom_field, source_geom_format, source_srid, target_geom_field, target_geom_srid, geom_comments, id_matching_table) VALUES (1, 'x', 'y', NULL, 'xy', 2154, 'the_geom_local', 2154, NULL, 1);
