@@ -163,9 +163,9 @@ OU si besoin d'écraser un mapping des champs existant
     SELECT gn_imports.fct_generate_matching('gn_imports.testimport', 'gn_synthese.synthese', true);
     SELECT gn_imports.fct_generate_matching('gn_imports.testimport', 'gn_synthese.cor_observer_synthese',true);
 
-IL FAUT ICI METTRE A JOUR LA TABLE gn_imports_matching_fields pour établir manuellement la correspondance des champs entre la table source et la table cible (voir le mapping final pour le fichier csv fourni en exemple à la fin de cette page).
+IL FAUT ICI METTRE A JOUR LA TABLE ``gn_imports_matching_fields`` pour établir manuellement la correspondance des champs entre la table source et la table cible (voir le mapping final pour le fichier csv fourni en exemple à la fin de cette page).
 
-Note::
+Note ::
 
     * Au moins un des 2 champs ``source_field`` ou ``source_default_value`` doit être renseigné.
     * Si le champ ``source_field`` est renseigné, le champ ``source_default_value`` est ignoré.
@@ -194,7 +194,7 @@ Note ::
 6- Chargement des données dans la table de destination (synthese ici)
 ---------------------------------------------------------------------
 
-Voir la requête d'import en synthèse dans à la fin de cette page.
+Voir la requête d'import en synthèse à la fin de cette page.
 
 
 7 - On gère les nouveaux taxons vis à vis la saisie
