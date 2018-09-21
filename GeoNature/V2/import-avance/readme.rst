@@ -92,10 +92,14 @@ En l'état vos données sont importées et stockées dans la base GeoNature. Cep
 
 
 
-Il est nécessaire de rattacher les données importées à un jeu de données qui doit appartenir à un cadre d'acquisition. Si ceux-ci n'ont pas encore été créés dans la base, vous devez le faire dans gn_meta.t_acquisition_frameworks pour le cadre d'acquisition et dans gn_meta.t_datasets pour le jeu de données. Vous pouvez pour cela utiliser les formulaires disponibles ici : http://localhost/geonature/#/admin
+Il est nécessaire de rattacher les données importées à un jeu de données qui doit appartenir à un cadre d'acquisition. Si ceux-ci n'ont pas encore été créés dans la base, vous devez le faire dans ``gn_meta.t_acquisition_frameworks`` pour le cadre d'acquisition et dans ``gn_meta.t_datasets`` pour le jeu de données. Vous pouvez pour cela utiliser les formulaires disponibles dans l'interface d'aministration de GeoNature : http://localhost/geonature/#/admin
 
 Le jeu de données doit être rattaché à un protocole décrivant la manière dont les données ont été collectées.
 
+Note ::
+
+    Noter les ID retournés lors des insertions.
+    
 .. code:: sql
 
     INSERT INTO gn_meta.sinp_datatype_protocols ( protocol_name, protocol_desc, id_nomenclature_protocol_type, protocol_url)
@@ -112,8 +116,6 @@ Il est également nécessaire, pour la synthese, de lui indiquer où sont stock�
 
     INSERT INTO gn_synthese.t_sources(name_source, desc_source)
     VALUES('ATBI', 'Données d'inventaire ATBI') returning id_source;
-
-Noter les ID retournés lors des insertions.
 
 Note ::
     
