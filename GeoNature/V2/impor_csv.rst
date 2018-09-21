@@ -71,9 +71,9 @@ Cependant, la fonction ``gn_imports.fct_generate_mapping('table_source', 'table_
 
 .. code:: sql
 
-    SELECT gn_imports.fct_generate_mapping('gn_imports.testimport', 'gn_synthese.synthese');
+    SELECT gn_imports.fct_generate_matching('gn_imports.testimport', 'gn_synthese.synthese');
     ou
-    SELECT gn_imports.fct_generate_mapping('gn_imports.testimport', 'gn_synthese.synthese', true);
+    SELECT gn_imports.fct_generate_matching('gn_imports.testimport', 'gn_synthese.synthese', true);
 
 Note::
 
