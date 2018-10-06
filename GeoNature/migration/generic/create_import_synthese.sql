@@ -23,13 +23,13 @@ RETURNS BOOLEAN
  LANGUAGE plpgsql AS
 $$
 DECLARE
-   -- Fonction permettant d'importer des sources de données "externes" dans la synthèse
+   -- Fonction permettant d'importer des sources de données "externes" dans la synthèse de GeoNature
    --   Elle permet de gérer les données de sources actives
-   --       Insertion des données non présentent dans la synthese
+   --       Insertion des données non présentes dans la synthèse
    --       Modification des données qui ont été modifiées depuis la dernière synchro
-   --       Suppression des données qui ne sont plus présentent dans la source
+   --       Suppression des données qui ne sont plus présentes dans la source
    --   L'identification des données se fait à partir du champ entity_source_pk_value et de id_source
-   --       C'est champs doivent donc être unique et avoir une pérénité au niveau de la source
+   --       Ces champs doivent donc être uniques et avoir une pérénité au niveau de la source
 
     _insertfield text; --prepared field to insert
     _updatefield text; --prepared field to insert
@@ -55,7 +55,7 @@ BEGIN
 
    --test si la table source est fournie sinon on retourne un message d'erreur
   IF length(mysource_table) > 0 THEN
-    --split schema.table n deux chaines
+    --split schema.table en deux chaines
     SELECT split_part(mysource_table, '.', 1) INTO ssname;
     SELECT split_part(mysource_table, '.', 2) INTO stname;
   ELSE
@@ -91,7 +91,7 @@ BEGIN
   ON s.column_name = c.column_name;
   
 
-  -- Création d'une table temporaire permettant de réaliser le suivis des opérations
+  -- Création d'une table temporaire permettant de réaliser le suivi des opérations
   BEGIN
 	  CREATE TEMP TABLE IF NOT EXISTS synt_ids (
 	    id_synthese int, 
@@ -264,5 +264,3 @@ BEGIN
 
   RETURN FALSE;
 END $$;
-
-
