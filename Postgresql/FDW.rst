@@ -73,13 +73,22 @@ Lister les foreigns data wrapper
 
 En SQL
 ::
-
+	-- Liste des FDW définis
 	SELECT srvname, srvowner::regrole, w.fdwname, srvtype, srvversion, srvacl, srvoptions  
 	FROM pg_foreign_server 
 	JOIN pg_foreign_data_wrapper w 
 	ON w.oid = srvfdw;
 	
+	-- Liste des mappings utilisateurs
+	SELECT s.srvname, m.* 
+	FROM pg_user_mappings m 
+	JOIN pg_foreign_server s ON s.oid = m.srvid;
+
+	
 En psql
 :: 
 	\des+
 
+docs System Catalogs :
+ * https://www.postgresql.org/docs/current/static/catalog-pg-foreign-server.html
+ * https://www.postgresql.org/docs/current/static/view-pg-user-mappings.html
