@@ -92,3 +92,26 @@ En psql
 docs System Catalogs :
  * https://www.postgresql.org/docs/current/static/catalog-pg-foreign-server.html
  * https://www.postgresql.org/docs/current/static/view-pg-user-mappings.html
+
+
+lister l'ensemble des fdw d'un serveur
+---------------------------------------
+
+le résultat est stocké dans un fichier csv /tmp/output.csv
+
+
+::
+
+	db_user_pg=monsuperuser
+	db_user_pg_pass=monpassachanger
+	db_host=monhote
+
+
+	echo "db_name;srvname;srvowner;fdwname;srvtype;srvversion;srvacl;srvoptions"  > /tmp/output.csv
+	export PGPASSWORD=${db_user_pg_pass};psql -tl -h $db_host -U $db_user_pg | while read -a Record ; do
+	    echo ${Record[0]}
+		export PGPASSWORD=${db_user_pg_pass};psql -h $db_host -U $db_user_pg -d ${Record[0]} -t -A -F ";" -c "SELECT '${Record[0]}', srvname, srvowner::regrole, w.fdwname, srvtype, srvversion, srvacl, srvoptions
+		FROM pg_foreign_server
+		JOIN pg_foreign_data_wrapper w
+		ON w.oid = srvfdw;"  >> /tmp/output.csv
+	done
