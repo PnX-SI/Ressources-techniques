@@ -66,3 +66,20 @@ Les vues matérialisées permettent de stocker le résultat d'une vue et donc d'
 Néanmoins il faut rafraichir ces données si la donnée source a été modifiée. Cela peut-être manuellement, vue matérialisée par vue matérialisée. 
 
 Il est aussi possible de mettre en place une fonction qui rafraichit toutes les vues matérialisées et de lancer celle-ci régulièrement à l'aide d'un CRON comme expliqué dans la documentation de GeoNature-atlas : https://github.com/PnEcrins/GeoNature-atlas/blob/master/docs/vues_materialisees_maj.rst#mise-%C3%A0-jour-des-vues-mat%C3%A9rialis%C3%A9es
+
+
+Lister les foreigns data wrapper
+================================
+
+En SQL
+::
+
+	SELECT srvname, srvowner::regrole, w.fdwname, srvtype, srvversion, srvacl, srvoptions  
+	FROM pg_foreign_server 
+	JOIN pg_foreign_data_wrapper w 
+	ON w.oid = srvfdw;
+	
+En psql
+:: 
+	\des+
+
