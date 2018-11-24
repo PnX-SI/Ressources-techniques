@@ -92,11 +92,15 @@ SELECT DISTINCT
       bp.nom_fr AS type_fr,
       bp.nom_en AS type_en,
       bp.nom_it AS type_it,
-      p.public_fr,
-      p.public_en, 
-      p.public_it, 
-      structure,
-      array_agg(et.evenement) AS randos_liees
+      p.public_fr AS publie_fr,
+      p.public_en AS publie_en, 
+      p.public_it AS publie_it, 
+      array_agg(et.evenement) AS randonnees,
+      date_publication,
+      date(ev.date_insert) AS date_creation,
+      date(ev.date_update) AS date_modification,
+      st.name AS source
+      
 FROM etrek et
 JOIN epoi ep ON et.troncon = ep.troncon 
     AND (
@@ -107,9 +111,10 @@ JOIN epoi ep ON et.troncon = ep.troncon
 JOIN rando.o_t_poi p ON p.evenement = ep.evenement
 JOIN geotrek.e_t_evenement ev ON ev.id = p.evenement
 JOIN rando.o_b_poi bp ON bp.id = p.type
+JOIN geotrek.authent_structure st ON st.id = p.structure
 WHERE et.evenement IN (SELECT id_rando FROM rando.o_v_randos_pne_opendata) AND p.public = true
 GROUP BY 
-p.evenement, 
+      p.evenement, 
       ev.geom, 
       p.nom_fr,
       p.nom_en,
@@ -123,5 +128,11 @@ p.evenement,
       p.public_fr,
       p.public_en, 
       p.public_it, 
-      structure
+      date_publication,
+      ev.date_insert,
+      ev.date_update,
+      st.name
 ORDER BY p.nom_fr;
+
+COMMENT ON VIEW rando.o_v_poi_pne_opendata
+  IS 'Vues des POI publiés et associés aux randonnées du PNE';
