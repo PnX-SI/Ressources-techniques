@@ -1,5 +1,6 @@
 ## Scripts de migration Serena-2 vers GeoNature v2 ##
 
+Par Xavier Arbez (PNR Pilat) - Janvier 2019
 
 __IMPORTANT :__
 
@@ -26,4 +27,3 @@ Ce cas n'est pas documenté ici mais il l'est pour ObsOcc -> GeoNature par [@ama
 
 _Note :_ Prenez soin de lire les commentaires qui jalonnent les différents scripts. 
 Certains blocs de SQL contiennent des requêtes de type SELECT qui peuvent servir à étudier et/ou contrôler des tables et des relations avant une opération plus impactante (INSERT, UPDATE, DELETE).
-
