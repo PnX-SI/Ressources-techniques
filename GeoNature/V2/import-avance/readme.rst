@@ -26,4 +26,4 @@ L'exercice consiste à importer le fichier ``observations.csv`` dans GeoNature V
 
 8 - On archive la table où on veut.
 
-Exercice disponible sur https://geonature.readthedocs.io/fr/develop/import-level-2.html
+Exercice disponible sur https://geonature.readthedocs.io/fr/latest/import-level-2.html
