@@ -6,4 +6,4 @@ pour ensuite intégrer ces données dans la synthèse de GeoNature.
 
 On utilisera le fichier d'exempe ``01-observations-faune-2008-2010.csv``.
 
-Exercice disponible sur https://geonature.readthedocs.io/fr/develop/import-level-1.html
+Exercice disponible sur https://geonature.readthedocs.io/fr/latest/import-level-1.html
