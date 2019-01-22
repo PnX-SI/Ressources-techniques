@@ -1,4 +1,4 @@
-## Scripts de migration Serena-2 vers Geonature-v2 ##
+## Scripts de migration Serena-2 vers GeoNature v2 ##
 
 
 __IMPORTANT :__
@@ -9,12 +9,12 @@ Il est donc INDISPENSABLE de les éxécuter manuellement et après avoir pris so
 En particulier pour ce qui concerne :
 
 * la création et l'attribution de métadonnées (cadres d'acquisitions, jeux de données, sources)
-* La portabilité du référentiels d'utilisateurs (observateurs, déterminateur, valiateur et organismes rattachés)
+* la portabilité du référentiels d'utilisateurs (observateurs, déterminateur, valiateur et organismes rattachés)
 * les correspondances de nomenclatures et de vocabulaires spécifiques à certains attributs.
 * la gestion des géométries (format non-spatial et non-standard dans Serena), de leur types (point, polylignes, polygones) et de leur nature (précise, portée par un site, une commune, une maille etc.)
 
 _Note :_ Avec ces adaptations dépendantes de votre contexte d'utilisation de Serena (pseudo-champ, gestion des utilisateurs, des géométries etc.) et la mise en place de triggers, il est possible de conserver Serena comme une source de données vivante qui alimente la synthèse de GeoNature.
-Ce cas n'est pas documenté ici mais il l'est pour ObsOcc -> GeonNature par [@amandine-sahl](@amandine-sahl) ici : [Import générique](https://github.com/PnX-SI/Ressources-techniques/tree/master/GeoNature/migration/generic)
+Ce cas n'est pas documenté ici mais il l'est pour ObsOcc -> GeoNature par [@amandine-sahl](@amandine-sahl) ici : [Import générique](https://github.com/PnX-SI/Ressources-techniques/tree/master/GeoNature/migration/generic)
 
 -----------------------
 ### Procédure : ###
