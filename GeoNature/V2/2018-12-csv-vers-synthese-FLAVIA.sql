@@ -197,7 +197,10 @@ SELECT
 	
 	,a.reference_photo_specimen::text AS non_digital_proof
 	
-	,'Collection : '||a.collection_personnelle::text AS digital_proof
+	,CASE 
+		WHEN (a.collection_personnelle IS NOT NULL AND a.collection_personnelle !='') THEN ('Collection : '||a.collection_personnelle)::text 
+		ELSE ('')
+		END AS digital_proof
 		
 	,'67'::integer AS id_nomenclature_sensitivity
 	
