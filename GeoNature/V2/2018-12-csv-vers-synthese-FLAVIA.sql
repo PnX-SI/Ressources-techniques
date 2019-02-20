@@ -197,7 +197,10 @@ SELECT
 	
 	,a.reference_photo_specimen::text AS non_digital_proof
 	
-	,'Collection : '||a.collection_personnelle::text AS digital_proof
+	,CASE 
+		WHEN (a.collection_personnelle IS NOT NULL AND a.collection_personnelle !='') THEN ('Collection : '||a.collection_personnelle)::text 
+		ELSE ('')
+		END AS digital_proof
 		
 	,'67'::integer AS id_nomenclature_sensitivity
 	
@@ -235,7 +238,7 @@ SELECT
 			END AS id_nomenclature_sex
 	
 	,CASE WHEN(precisions_coordonnees='Pointage exact') THEN ('175')::integer
-			ELSE ('173')::integer 
+			ELSE ('174')::integer 
 			END AS id_nomenclature_geo_object_nature
 	
 	,'134'::integer AS id_nomenclature_grp_typ
