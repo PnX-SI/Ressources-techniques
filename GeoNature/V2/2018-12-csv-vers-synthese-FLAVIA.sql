@@ -43,6 +43,7 @@ CREATE TABLE gn_imports.rattachement_mabase_taxref
 
 -- Renseigner la table en association un unique cd_nom à chaque nom binomial utilisé
 -- Le rattachement se fait entre le nom binomial de la mabase et le nom binomial du taxref. Lorsque le nom binomial a plusieurs cd_nom dans le taxref, le dernier (le plus élevé) est conservé.
+-- edit : mauvaise pratique, mieux vaut rattacher manuellement les noms binomiaux pour lesquels plusieurs cd_ref existent pour éviter les rattachements aléatoires). 
 INSERT INTO gn_imports.rattachement_mabase_taxref (nom_binomial,cd_nom,rattachement)
 	(
 	SELECT DISTINCT (f.nom_binomial),MAX(t.cd_nom),'Automatique'
@@ -233,8 +234,8 @@ SELECT
 			WHEN (nombre_male!='NA' AND nombre_femelle!='NA') THEN('171')::integer
 			END AS id_nomenclature_sex
 	
-	,CASE WHEN(precisions_coordonnees='Pointage exact') THEN ('173')::integer
-			ELSE ('175')::integer 
+	,CASE WHEN(precisions_coordonnees='Pointage exact') THEN ('175')::integer
+			ELSE ('173')::integer 
 			END AS id_nomenclature_geo_object_nature
 	
 	,'134'::integer AS id_nomenclature_grp_typ
