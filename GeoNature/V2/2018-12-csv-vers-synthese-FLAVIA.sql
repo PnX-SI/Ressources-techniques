@@ -235,7 +235,7 @@ SELECT
 			END AS id_nomenclature_sex
 	
 	,CASE WHEN(precisions_coordonnees='Pointage exact') THEN ('175')::integer
-			ELSE ('173')::integer 
+			ELSE ('174')::integer 
 			END AS id_nomenclature_geo_object_nature
 	
 	,'134'::integer AS id_nomenclature_grp_typ
