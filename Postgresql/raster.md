@@ -20,7 +20,7 @@ done
 ### Function d'altitude
 
 ```sql
-DROP FUNCTION altitude(pos geometry) ;
+DROP FUNCTION IF EXISTS altitude(pos geometry) ;
 CREATE OR REPLACE FUNCTION altitude(pos geometry) 
   RETURNS float AS
 $func$
