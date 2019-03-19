@@ -11,13 +11,11 @@ Procédure de migration
 ----------------------
 
 **Dans Vsphere**
-
     * arrêter la VM 
     * supprimer les éventuels snapshots
     * noter les paramètres de la VM (taille CPU, RAM et disque)
 
 **Dans le manager OVH**
-
     * migrer l’IP failover sur le server proxmox, 
     * noter ou copier coller l’adresse mac virtuelle
 
@@ -37,8 +35,7 @@ soit depuis l’hyperviseur proxmox::
 
 **Dans l’interface proxmox** créer une nouvelle VM avec les mêmes paramètres que la VM esxi (cpu, RAM, disque)
 
-Pour des VM récentes (Debian > 8 ) :
-
+Pour des VM récentes (Debian > 8 )
     * noter l’id = vmid (par ex 104)
     * choisir « no media » pour l’onglet « OS »
     * créer un disque dur **scsi0**
@@ -49,11 +46,9 @@ Pour des VM récentes (Debian > 8 ) :
     * créer la carte réseau en virtio avec pour adresse mac, la mac virtuelle correspondant à l’IP de la VM
     * ne pas démarrer la VM
 
-*Si la VM est ancienne (Debian 7 par ex) il faut procéder ainsi* :
-
+*Si la VM est ancienne (Debian 7 par ex) il faut procéder ainsi*
     * créer un disque dur de type **ide0**
     * ne pas créer de carte réseau à ce stade
-
 
 **Sur l’hyperviseur proxmox, en console** convertir le fichier vmdk en qcow2::
 	
@@ -67,21 +62,16 @@ Pour des VM récentes (Debian > 8 ) :
 .. note:: Proxmox peux faire tourner des VM avec des disques au format vmdk. Cette option se justifie s'il est envisager de revenir sous ESXI ou si les deux solutions de virtualisation sont utilisées simultanément. Dans ce cas, la conversion doit tout de même être faite : ``qemu-img convert -O vmdk vmname.vmdk ../images/vmid/vmname.vmdk``. *A tester*
 
 *Pour les anciennes VM uniquement*
-
 	* Options → ordre de boot → ide0 en premier
 
 **Dans l'interface Proxmox DEMARRER LA VM** (en croisant les doigts)
 
 *Pour les anciennes VM uniquement*
-
 	* Matériel → ajouter → carte réseau  →  E1000 (configurer l’adresse MAC correspondant à l’IP)
 	* redémarrer la VM
 
 **En console** (console proxmox) se connecter dans la VM directement en root
-
-    * On va vider tous les blocks non alloués (=commande fstrim)
-
-        on libère les blocs disque non alloués (TRIM)::
+    * On va vider tous les blocks non alloués (=commande fstrim)::
 
             fstrim -av #machine récente
             fstrim -v / # si l'option -a n'est pas reconnue
@@ -107,7 +97,6 @@ Si tout s’est bien passé on peut faire un peu de ménage (espace disque notam
 .. note:: **Pourquoi déplacer le disque en « zvol » (volume ZFS) ?** 
     
     ZFS est un système de fichiers « copy on write ». qcow2 (qemu copy on write) est aussi un systéme de fichiers « copy on write ». Et empiler l’un sur l’autre n’est pas une bonne pratique, voir risqué. `<https://forum.proxmox.com/threads/no-qcow2-on-zfs.37518/>`
-
 
     * arrêter la VM
     * matériel → disque → déplacer le disque :
@@ -144,7 +133,6 @@ Tout ce petit monde représente un peu plus de 2500 Go d'espace disque alloué a
 **Quelques bonnes pratiques dénichées sur le net ou issues de tests :**
 
 Concernant les options des disques scsi :
-
     * cocher l’option « discard » dans les options du disque pour indiquer à ZFS de faire le TRIM en continu.
     * cocher l’option « IOTread » dans les options du disque semble améliorer très légèrement les performances de lecture/écriture. Mais avec le format zvol cela bloque les sauvegardes...
     * choisir cache = « write back » est recommandé par proxmox. Cette option ralenti l'écriture mais accélère la lecture.
