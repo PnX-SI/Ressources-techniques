@@ -28,7 +28,7 @@ Ci dessous deux requetes qui permettent de générer du sql de suppression des v
             AND NOT r.ev_class = 'monschema.mavue'::regclass
             AND classid = 'pg_rewrite'::regclass 
         UNION ALL
-        SELECT distinct t.dependant_view::text as orig_view, r.ev_class::regclass as views, t.i +1 as i
+        SELECT DISTINCT t.dependant_view::text as orig_view, r.ev_class::regclass as views, t.i +1 as i
         FROM pg_depend d
         JOIN pg_rewrite r ON r.oid = d.objid 
         JOIN t ON refobjid = t.dependant_view::regclass
@@ -57,7 +57,7 @@ Ci dessous deux requetes qui permettent de générer du sql de suppression des v
             AND NOT r.ev_class = 'monschema.mavue'::regclass
             AND classid = 'pg_rewrite'::regclass 
         UNION ALL
-        SELECT distinct t.dependant_view::text as orig_view, r.ev_class::regclass as views, t.i +1 as i
+        SELECT DISTINCT t.dependant_view::text as orig_view, r.ev_class::regclass as views, t.i +1 as i
         FROM pg_depend d
         JOIN pg_rewrite r ON r.oid = d.objid 
         JOIN t ON refobjid = t.dependant_view::regclass
