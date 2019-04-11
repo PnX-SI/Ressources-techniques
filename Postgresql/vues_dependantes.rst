@@ -51,10 +51,11 @@ Ci dessous deux requetes qui permettent de générer du sql de suppression des v
     --Création du script de recréation des vues dépendantes
 
     WITH RECURSIVE t(orig_view, dependant_view, i) AS (
-        SELECT DISTINCT 'monschema.mavue' as orig_view, r.ev_class::regclass as views, 1 as i
-        FROM pg_depend d JOIN pg_rewrite r ON r.oid = d.objid 
-        WHERE refobjid = 'monschema.mavue'::regclass
-            AND NOT r.ev_class = 'monschema.mavue'::regclass
+        SELECT DISTINCT 'synthese.v_saisie_enjeux' as orig_view, r.ev_class::regclass as views, 1 as i
+        FROM pg_depend d 
+        JOIN pg_rewrite r ON r.oid = d.objid 
+        WHERE refobjid = 'synthese.v_saisie_enjeux'::regclass
+            AND NOT r.ev_class = 'synthese.v_saisie_enjeux'::regclass
             AND classid = 'pg_rewrite'::regclass 
         UNION ALL
         SELECT DISTINCT t.dependant_view::text as orig_view, r.ev_class::regclass as views, t.i +1 as i
@@ -64,15 +65,26 @@ Ci dessous deux requetes qui permettent de générer du sql de suppression des v
         WHERE refclassid = 'pg_class'::regclass
             AND NOT r.ev_class = t.dependant_view::regclass
             AND classid = 'pg_rewrite'::regclass 
+    ), owners AS (
+        SELECT rolname, dependant_view
+        FROM pg_shdepend d 
+        JOIN t 
+        ON d.objid = t.dependant_view::regclass
+        JOIN pg_roles r on r.oid = d.refobjid
+        WHERE deptype='o'
     )
     SELECT 
         'CREATE ' || 
         CASE WHEN NOT m.schemaname IS NULL THEN 'MATERIALIZED' ELSE '' END
-        || ' VIEW ' || dependant_view || E' AS \n' || pg_get_viewdef(dependant_view, true) || ';'
+        || ' VIEW ' || t.dependant_view || E' AS \n' || pg_get_viewdef(t.dependant_view, true) || ';' ||
+        '\n ALTER TABLE ' || t.dependant_view || ' OWNER TO '|| rolname || ';'
     FROM t
+    JOIN owners o 
+    ON o.dependant_view = t.dependant_view
     LEFT OUTER JOIN pg_matviews m
-    ON schemaname || '.' || matviewname = dependant_view::text
+    ON schemaname || '.' || matviewname = t.dependant_view::text
     ORDER BY i ASC;
+
 
 Automatisation
 ==============
