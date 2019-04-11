@@ -1,8 +1,19 @@
 Génération automatique de scripts sql de suppression/creation des vues dépendantes d'un objet
 =====
-Lorsque l'on veut rajouter un champ à une vue ou modifier le type de données d'une colonne, postgresql bloque les modifications (a raison) s'il y a des objets dépendants.
 
-Ci dessous deux requetes qui permettent de générer du sql de suppression des vues dépendantes et de recréation de ces vues
+Lorsque l'on veut rajouter un champ à une vue ou modifier le type de données d'une colonne, postgresql bloque les modifications (a raison) s'il y a des objets dépendants.
+Si vous en avez mare d'avoir le message d'erreur suivant et de faire de copier coller
+
+.. code-block:: sql
+
+    ERROR: cannot drop view XXX because other objects depend on it
+    État SQL :2BP01
+    Détail : ....
+    Astuce : Use DROP ... CASCADE to drop the dependent objects too.
+
+
+
+Ci dessous deux requetes qui permettent de générer du sql de suppression des vues dépendantes et de recréation de ces vues de façon récursive.
 
 .. code-block:: sql
 
@@ -65,7 +76,8 @@ Ci dessous deux requetes qui permettent de générer du sql de suppression des v
 Automatisation
 ==============
 Utilisation avec psql de façon à générer les scripts
-..
+
+.. code-block:: sh
 
     \t
     \o /tmp/drop.sql
@@ -73,4 +85,13 @@ Utilisation avec psql de façon à générer les scripts
 
     \o /tmp/create.sql
     RECREATE QUERY;
+    
+Pour aller plus loin il serait possible de créer des fonctions ou de passer le nom de la vue en paramètre psql
+
+
+.. code-block:: sh
+    
+    psql -v mavar="'Hello World'"
+    
+    select :mavar;
 
