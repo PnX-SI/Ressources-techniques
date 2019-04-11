@@ -2,7 +2,8 @@ Génération automatique de scripts sql de suppression/creation des vues dépend
 =====
 
 Lorsque l'on veut rajouter un champ à une vue ou modifier le type de données d'une colonne, postgresql bloque les modifications (a raison) s'il y a des objets dépendants.
-Si vous en avez mare d'avoir le message d'erreur suivant et de faire de copier coller
+
+Si vous en avez mare d'avoir le message d'erreur suivant et de faire de copier coller du code sql des vues dépendantes
 
 .. code-block:: sql
 
