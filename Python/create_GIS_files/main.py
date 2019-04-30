@@ -49,16 +49,14 @@ conn = engine.connect()
 with fiona.open(
     config.EXPORT_PATH,
     "w",
-    layer="points",
     driver=config.EXPORT_FORMAT,
     schema=config.EXPORT_SCHEMA,
     crs=from_epsg(config.SRID),
 ) as dst:
     results = conn.execute(config.SQL_QUERY)
     for r in results:
-        geom_geojson = wkb_to_geojson(r, config.GEOMETRY_COLUMN_NAME)
         feature = {
-            "geometry": geom_geojson,
+            "geometry": wkb_to_geojson(r, config.GEOMETRY_COLUMN_NAME),
             "properties": as_dict(r)
         }
         dst.write(feature)
