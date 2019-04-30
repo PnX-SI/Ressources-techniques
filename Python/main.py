@@ -1,7 +1,9 @@
 """
 Script for create geospatial files (Shapefile, GeoPackage, GeoJson) from the Fiona librairie
 """
+import datetime
 import fiona
+import uuid
 
 from sqlalchemy import create_engine
 from geoalchemy2.shape import to_shape
@@ -29,8 +31,14 @@ def wkt_to_geojson(row, wkt_col):
     return mapping(my_wkt)
 
 
-def create_feature(row):
-    pass
+def as_dict(row):
+    feature_dict = {}
+    for prop in config.EXPORT_SCHEMA['properties']:
+        value = getattr(row, prop[0])
+        if type(value) is uuid.UUID:
+            value = str(value)
+        feature_dict[prop[0]] = value
+    return feature_dict
 
 
 # database connection
@@ -38,45 +46,20 @@ engine = create_engine(config.URI_DB_CONNECTION)
 conn = engine.connect()
 
 
-query = """SELECT dateobs, observateurs, s.cd_nom, lb_nom, nom_vern, regne, phylum, 
-classe, ordre, famille, nom_lot, ST_Transform(s.the_geom_point, 2154) as wkb
-FROM synthese.syntheseff s
-JOIN taxonomie.taxref t ON t.cd_nom = s.cd_nom 
-JOIN meta.bib_lots lot ON lot.id_lot = s.id_lot
-JOIN layers.foret_temp f ON ST_Intersects(f.geom, s.the_geom_local)
-WHERE id_organisme = 2
-AND date_part('year', dateobs) >= 1973
-AND group2_inpn != 'Poissons'
-AND s.cd_nom NOT IN (2645, 2869, 2860, 2852, 2856)
-"""
-
-
 with fiona.open(
     config.EXPORT_PATH,
     "w",
     layer="points",
-    driver="GPKG",
+    driver=config.EXPORT_FORMAT,
     schema=config.EXPORT_SCHEMA,
     crs=from_epsg(config.SRID),
 ) as dst:
-    results = conn.execute(query)
+    results = conn.execute(config.SQL_QUERY)
     for r in results:
         geom_geojson = wkb_to_geojson(r, "wkb")
         feature = {
             "geometry": geom_geojson,
-            "properties": {
-                "dateobs": r.dateobs.isoformat(),
-                "observateurs": r.observateurs,
-                "cd_nom": r.cd_nom,
-                "lb_nom": r.lb_nom,
-                "nom_vern": r.nom_vern,
-                "regne": r.regne,
-                "phylum": r.phylum,
-                "classe": r.classe,
-                "ordre": r.ordre,
-                "famille": r.famille,
-                "nom_lot": r.nom_lot,
-            },
+            "properties": as_dict(r)
         }
         dst.write(feature)
 
