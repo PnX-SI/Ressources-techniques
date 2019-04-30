@@ -16,9 +16,9 @@ Créer un environnement virtuel python (``sudo apt-get install sudo apt-get inst
 
 Editer le fichier ``config.py`` et renseigner 
 - vos identifiants de connexion de BDD
-- un requête SQL qui à minima contenir un champ de type geometry et les colonnes que l'on souhaite exporter
+- un requête SQL contenant à minima un champ de type geometry et les colonnes que l'on souhaite exporter
 - le schéma du fichier en sortie (colonnes et leur types) en s'inspirant de l'exemple fournit. Voir https://fiona.readthedocs.io/en/latest/manual.html#field-types
-- le format de fichier en sortie (Shapefile ou GeoPackage)
+- le format de fichier en sortie (Shapefile ou GeoPackage). Non testé mais doit fonctionner avec les autres types fournit par Fiona (MapInfo, Idrisi ...). Voir https://gis.stackexchange.com/questions/191365/drivers-of-fiona
 - le SRID
 - l'emplacement du fichier en sortie
 
@@ -27,3 +27,5 @@ Lancer le script:
 ::
 
     python main.py
+
+NB: le script ne permet pas de générer des fichiers contenant différents type de géometrie. Le type est unique pour l'ensemble du fichier: Point ou Polygon ou Polyligne ... Adaptez votre requête SQL en conséquence
