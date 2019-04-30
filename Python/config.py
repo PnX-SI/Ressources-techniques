@@ -1,4 +1,4 @@
-URI_DB_CONNECTION = "postgresql://geonatadmin:monpassachanger@localhost:5432/geonature2db"
+URI_DB_CONNECTION = "postgresql://geonatadmin:monpassachanger@localhost:5432/geonature2db_test"
 
 SQL_QUERY = """
 SELECT date_min, observers, s.cd_nom, lb_nom, nom_vern, regne, phylum, 
@@ -8,6 +8,11 @@ JOIN taxonomie.taxref t ON t.cd_nom = s.cd_nom
 JOIN gn_meta.t_datasets d ON d.id_dataset = s.id_dataset
 """
 
+GEOMETRY_COLUMN_NAME = 'wkb'
+
+# Export schema column
+# For geometry look at Fiona Geometry Types: https://fiona.readthedocs.io/en/latest/manual.html#geometry-types
+# For columns types look at Fiona fiels types: https://fiona.readthedocs.io/en/latest/manual.html#geometry-types
 EXPORT_SCHEMA = {
     "geometry": "Point",
     "properties": [

@@ -56,10 +56,9 @@ with fiona.open(
 ) as dst:
     results = conn.execute(config.SQL_QUERY)
     for r in results:
-        geom_geojson = wkb_to_geojson(r, "wkb")
+        geom_geojson = wkb_to_geojson(r, config.GEOMETRY_COLUMN_NAME)
         feature = {
             "geometry": geom_geojson,
             "properties": as_dict(r)
         }
         dst.write(feature)
-
