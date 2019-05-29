@@ -13,7 +13,7 @@ Elle permet de gérer les données de sources actives :
 
 Idée générale : Importer les données d'une table dans la table synthèse.
 
-La table gn_imports.gn_imports_log stoke les actions d'imports :
+La table ```gn_imports.gn_imports_log``` stoke les actions d'imports :
 * date de l'import
 * nom de la table des données importées
 * succès: oui/nom
