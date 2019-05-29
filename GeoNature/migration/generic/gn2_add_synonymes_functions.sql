@@ -10,7 +10,8 @@ BEGIN
     cd_nomenclature character varying(255),
     mnemonique character varying(255),
     label_default character varying(255),
-    initial_value character varying(255)
+    initial_value character varying(255),
+    id_nomenclature int
   );
 EXCEPTION WHEN others THEN
 	RAISE NOTICE 'Table ref_nomenclatures.t_synonymes already exists';
@@ -20,10 +21,10 @@ END$$;
 
 CREATE OR REPLACE FUNCTION ref_nomenclatures.get_synonymes_nomenclature(
     mytype character varying,
-    myvalue character varying)
+    myvalue character varying
+)
   RETURNS int AS
 $BODY$
---Function which return the id_nomenclature from an mnemonique_type and an cd_nomenclature
 DECLARE thecodenomenclature  int;
   BEGIN
     SELECT INTO thecodenomenclature id_nomenclature

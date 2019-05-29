@@ -1,0 +1,271 @@
+-- Import des synonymes qui permettent de faire la correspondance 
+--    entre le vocabulaire obs_occ et geonature2 et d'autres sources
+
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+--  Le mapping n'est pas encore au top et il y a certainement des coquilles mais c'est un début
+
+CREATE TABLE public.tmp_syn (
+    code_type character varying(255),
+    cd_nomenclature character varying(255),
+    mnemonique character varying(255),
+    label_default character varying(255),
+    initial_value character varying(255)
+);
+
+
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', NULL, NULL, NULL, 'Indice de présence');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', NULL, NULL, NULL, 'Cadavre');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', NULL, NULL, NULL, 'Capture');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', NULL, NULL, NULL, 'Piège photographique');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, '10');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Angiospermes');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Bourgeon');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Dissémination');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Floraison');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Fructification');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Gymnospermes');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Humus forestier');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'i,');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Litière forestière');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Sélectionnez');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Sénescence');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Sol herbeux');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Sol moussu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Sol nu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Substrat végétal');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', NULL, NULL, NULL, 'Végétatif');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'Oeuf/ponte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', NULL, NULL, NULL, 'Colonie/touffe');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', NULL, NULL, NULL, 'Multiplication végétative');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', NULL, NULL, NULL, 'Reproduction sexuée');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', NULL, NULL, NULL, 'Tige florifère (ramet)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '7', 'Chenille', 'Chenille', 'Chenille/larve'
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '1', 'Indéterminé', 'Indéterminé', 'Indéterminé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'Adulte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '3', 'Juvénile', 'Juvénile', 'Juvénile');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '5', 'Sub-adulte', 'Sub-adulte', 'Sub-adulte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '15', 'Imago', 'Imago', 'Imago');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'Vu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '1', 'Entendu', 'Entendu', 'Entendu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '8', 'Nid/Gîte', 'Nid/Gîte', 'dortoir');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '1', 'Indéterminé', 'Indéterminé', 'indeterminée');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '1', 'Indéterminé', 'Indéterminé', 'Indéterminé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '1', 'Indéterminé', 'Indéterminé', 'IND');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'Adulte transportant des éléments pour la construction d''un nid');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'adulte tentative d''accouplement');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'Adultes transportant de la nourriture');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'adultes + tandem + ponte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'adultes et exuvies');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'adulte(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'adultes');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'Adulte-émergent');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'Adulte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'adulte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'AD');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'ad');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'accouplement + adulte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'accouplement');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '2', 'Adulte', 'Adulte', 'A');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '3', 'Juvénile', 'Juvénile', 'Poussin');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '3', 'Juvénile', 'Juvénile', 'Juvénile');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '3', 'Juvénile', 'Juvénile', 'juvénile');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '3', 'Juvénile', 'Juvénile', 'JUV');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '3', 'Juvénile', 'Juvénile', 'juv');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '3', 'Juvénile', 'Juvénile', 'Jeunes volants');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '3', 'Juvénile', 'Juvénile', 'J?');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '3', 'Juvénile', 'Juvénile', 'J');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '4', 'Immature', 'Immature', 'immatures');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '4', 'Immature', 'Immature', 'Immature');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '4', 'Immature', 'Immature', 'immature');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '5', 'Sub-adulte', 'Sub-adulte', 'Sub-adulte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '5', 'Sub-adulte', 'Sub-adulte', 'Subadulte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '5', 'Sub-adulte', 'Sub-adulte', 'SUBAD');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '5', 'Sub-adulte', 'Sub-adulte', 'subad');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '6', 'Larve', 'Larve', 'LARVE;PONTE');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '6', 'Larve', 'Larve', 'LARVE');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '6', 'Larve', 'Larve', 'Larve');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '6', 'Larve', 'Larve', 'LAR');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '7', 'Chenille', 'Chenille', 'chenille(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '7', 'Chenille', 'Chenille', 'Chenille/larve');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '7', 'Chenille', 'Chenille', 'chenille');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'pontes');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'PONTE');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'Ponte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'ponte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'Pond');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'PON');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'Oeuf/Trace de ponte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'Œufs');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'oeufs');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'Oeuf/ponte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '9', 'Œuf', 'Œuf', 'Oeuf');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '11', 'Exuvie', 'Exuvie', 'exuvies');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '11', 'Exuvie', 'Exuvie', 'Exuvie');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '11', 'Exuvie', 'Exuvie', 'exuvie');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '11', 'Exuvie', 'Exuvie', 'Emergent');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '11', 'Exuvie', 'Exuvie', 'émergence / exuvie + adultes');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '11', 'Exuvie', 'Exuvie', 'émergence / exuvie');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '11', 'Exuvie', 'Exuvie', 'émergence');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '11', 'Exuvie', 'Exuvie', 'déplacement');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '15', 'Imago', 'Imago', 'imago(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '15', 'Imago', 'Imago', 'imago qui pond');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '15', 'Imago', 'Imago', 'Imago-Adulte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '15', 'Imago', 'Imago', 'Imago');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '15', 'Imago', 'Imago', 'imago');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STADE_VIE', '15', 'Imago', 'Imago', 'hivernage');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'vu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'Observation par corps');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'capturé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'V');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'mort');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'Vu & Entendu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'capture');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'écrasé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'Piégeage');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'identifié à la loupe binoculaire');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'vu et mue');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '0', 'Vu', 'Vu', 'Loupe de terrain');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '1', 'Entendu', 'Entendu', 'en');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '1', 'Entendu', 'Entendu', 'Entendu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '1', 'Entendu', 'Entendu', 'entendu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'empreinte;trace;Abri ou catiche');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'empreinte;Autre espèce observée');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'trace;Donnée historique');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'empreinte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'empreinte;Donnée historique');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'empreinte;trace');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'trace;Cadavre');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'empreinte;trace;Autre espèce observée');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'trace');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'Empreinte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '4', 'Empreintes', 'Empreintes', 'empreinte;abri ou catiche');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '6', 'Fèces/Guano/Epreintes', 'Fèces/Guano/Epreintes', 'crottes');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '6', 'Fèces/Guano/Epreintes', 'Fèces/Guano/Epreintes', 'Crotte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '11', 'Poils/plumes/phanères', 'Poils/plumes/phanères', 'Plume');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '25', 'Vu et entendu', 'Vu et entendu', 'V+E');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '25', 'Vu et entendu', 'Vu et entendu', 'entendu et capturé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '25', 'Vu et entendu', 'Vu et entendu', 'entendu et vu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '25', 'Vu et entendu', 'Vu et entendu', 'vu et entendu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('METH_OBS', '25', 'Vu et entendu', 'Vu et entendu', 'vuen');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '1', 'Indéterminé', 'Indéterminé', 'Indéterminé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('ETA_BIO', '0', 'NSP', 'NSP', 'Indice de présence');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('ETA_BIO', '2', 'Observé vivant', 'Observé vivant', 'Piège photographique');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('ETA_BIO', '2', 'Observé vivant', 'Observé vivant', 'Capture');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('ETA_BIO', '2', 'Observé vivant', 'Observé vivant', 'Entendu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('ETA_BIO', '2', 'Observé vivant', 'Observé vivant', 'Vu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('ETA_BIO', '3', 'Trouvé mort', 'Trouvé mort', 'Cadavre');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '1', 'Indéterminé', 'Indéterminé', 'Indéterminé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'Femelle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'Mâle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'Mâle et femelle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'Couple');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '1', 'Certain - très probable', 'Certain - très probable', 'validée');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '4', 'Invalide', 'Invalide', 'non valide');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '0', 'En attente de validation', 'En attente de validation', 'à valider');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '1', 'Indéterminé', 'Indéterminé', 'indéterminé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '1', 'Indéterminé', 'Indéterminé', 'ind.');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '1', 'Indéterminé', 'Indéterminé', 'ind');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '1', 'Indéterminé', 'Indéterminé', 'IND');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '1', 'Indéterminé', 'Indéterminé', 'immature(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '1', 'Indéterminé', 'Indéterminé', 'immature');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'Imago femelle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'femelle(s) imago(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'Femelle(s) imago(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'femelle(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'femelle immature');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'femelle adulte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'Femelle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'femelle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'F?');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'f ad;juv');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'f ad');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '2', 'Femelle', 'Femelle', 'F');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'Subimago mâle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'mâle(s) immature(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'mâle(s) imago(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'mâle(s) et femelles(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'mâle(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'mâle immature');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'Mâle Imago(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'mâle imago');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'mâle chanteur');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'mâle adulte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'Mâle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'mâle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'Male');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'm ad');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'm');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'M');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'Imago mâle; Exuvie');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '3', 'Mâle', 'Mâle', 'Imago mâle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'Mixte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'mf');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'mâle(s) et femelle(s) imago(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'Mâle(s) et femelle(s) imago(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'mâle(s) et femelle(s)');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'Mâle et femelle imagos');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'mâle et femelle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'Mâle et femelle');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'm&f ad;juv');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'm&f ad');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('SEXE', '5', 'Mixte', 'Mixte', 'M&F');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '13', 'Capture directe (capture à vue, capture relâche)', 'Capture directe (capture à vue, capture relâche)', 'vu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '13', 'Capture directe (capture à vue, capture relâche)', 'Capture directe (capture à vue, capture relâche)', 'Observation par corps');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '13', 'Capture directe (capture à vue, capture relâche)', 'Capture directe (capture à vue, capture relâche)', 'capturé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '13', 'Capture directe (capture à vue, capture relâche)', 'Capture directe (capture à vue, capture relâche)', 'Vu & Entendu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '13', 'Capture directe (capture à vue, capture relâche)', 'Capture directe (capture à vue, capture relâche)', 'capture');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '13', 'Capture directe (capture à vue, capture relâche)', 'Capture directe (capture à vue, capture relâche)', 'entendu et capturé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '13', 'Capture directe (capture à vue, capture relâche)', 'Capture directe (capture à vue, capture relâche)', 'Piégeage');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '13', 'Capture directe (capture à vue, capture relâche)', 'Capture directe (capture à vue, capture relâche)', 'Capture');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '24', 'Ecoute directe (reconnaissance sonore directe, détection auditive)', 'Ecoute directe (reconnaissance sonore directe, détection auditive)', 'en');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '24', 'Ecoute directe (reconnaissance sonore directe, détection auditive)', 'Ecoute directe (reconnaissance sonore directe, détection auditive)', 'Entendu');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '24', 'Ecoute directe (reconnaissance sonore directe, détection auditive)', 'Ecoute directe (reconnaissance sonore directe, détection auditive)', 'écoute');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'empreinte;trace;Abri ou catiche');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'empreinte;Autre espèce observée');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'trace;Donnée historique');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'empreinte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'dortoir');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'Plume');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'crottes');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'empreinte;Donnée historique');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'empreinte;trace');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'trace;Cadavre');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'Indice de présence');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'Crotte');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'empreinte;trace;Autre espèce observée');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'indice de présence');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '57', 'Observation d''indices de présence', 'Observation d''indices de présence', 'empreinte;abri ou catiche');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '59', 'Observation directe terrestre diurne (chasse à vue de jour)', 'Observation directe terrestre diurne (chasse à vue de jour)', 'V');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '59', 'Observation directe terrestre diurne (chasse à vue de jour)', 'Observation directe terrestre diurne (chasse à vue de jour)', 'mort');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '59', 'Observation directe terrestre diurne (chasse à vue de jour)', 'Observation directe terrestre diurne (chasse à vue de jour)', 'V+E');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '59', 'Observation directe terrestre diurne (chasse à vue de jour)', 'Observation directe terrestre diurne (chasse à vue de jour)', 'écrasé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '59', 'Observation directe terrestre diurne (chasse à vue de jour)', 'Observation directe terrestre diurne (chasse à vue de jour)', 'identifié à la loupe binoculaire');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '59', 'Observation directe terrestre diurne (chasse à vue de jour)', 'Observation directe terrestre diurne (chasse à vue de jour)', 'vuen');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '59', 'Observation directe terrestre diurne (chasse à vue de jour)', 'Observation directe terrestre diurne (chasse à vue de jour)', 'vu et mue');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '59', 'Observation directe terrestre diurne (chasse à vue de jour)', 'Observation directe terrestre diurne (chasse à vue de jour)', 'Loupe de terrain');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '67', 'Observation par piège photographique', 'Observation par piège photographique', 'Piège photographique');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('TECHNIQUE_OBS', '67', 'Observation par piège photographique', 'Observation par piège photographique', 'mort et photographié');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '1', 'Certain - très probable', 'Certain - très probable', 'validé');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '1', 'Certain - très probable', 'Certain - très probable', 'Validée');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '1', 'Certain - très probable', 'Certain - très probable', 'Valide');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '1', 'Certain - très probable', 'Certain - très probable', 'valide');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '1', 'Certain - très probable', 'Certain - très probable', 'Donnée valide');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '1', 'Certain - très probable', 'Certain - très probable', 'validée');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '2', 'Probable', 'Probable', 'possible');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '5', 'Non réalisable', 'Non réalisable', 'non valide');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '6', 'Inconnu', 'Inconnu', 'Validité inconnue');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '0', 'En attente de validation', 'En attente de validation', 'à valider');
+INSERT INTO public.tmp_syn (code_type, cd_nomenclature, mnemonique, label_default, initial_value) VALUES ('STATUT_VALID', '0', 'En attente de validation', 'En attente de validation', 'Pas encore validée');
+
+INSERT INTO ref_nomenclatures.t_synonymes(
+            id_type, cd_nomenclature, mnemonique, label_default, initial_value, 
+            id_nomenclature)
+
+SELECT b.id_type , b.cd_nomenclature, b.mnemonique, b.label_default, b.initial_value, n.id_nomenclature
+FROM tmp_syn s
+JOIN ref_nomenclatures.bib_nomenclatures_types b
+ON s.code_type = b.mnemonique
+LEFT OUTER JOIN ref_nomenclatures.t_nomenclatures n
+ON n.id_type = b.id_type AND s.cd_nomenclature = n.cd_nomenclature;
+
+DROP TABLE tmp_syn;

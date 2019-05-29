@@ -1,3 +1,0 @@
-DROP SERVER obs_occ_server CASCADE;
-
-DROP SCHEMA IF EXISTS import_obs_occ CASCADE;

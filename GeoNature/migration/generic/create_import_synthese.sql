@@ -1,266 +1,500 @@
 
-CREATE SCHEMA import_synthese;
-
-CREATE TABLE import_synthese.t_synchronisation_configs (
- id_synchro serial PRIMARY KEY,
- code_name varchar(250) NOT NULL UNIQUE,
- table_name varchar(250),
- with_observers BOOLEAN DEFAULT (FALSE)
+CREATE TABLE gn_imports.gn_imports_log (
+    id_log SERIAL PRIMARY KEY,
+    table_name varchar(500),
+    success boolean,
+    error_msg text,
+    start_time timestamp,
+    end_time timestamp,
+    nb_insert int DEFAULT(0), 
+    nb_update int DEFAULT(0), 
+    nb_delete int DEFAULT(0)
 );
 
-CREATE TABLE import_synthese.t_synchronisation_logs (
-	id_log serial PRIMARY KEY,
-	id_synchro int REFERENCES import_synthese.t_synchronisation_configs (id_synchro),
-	date_synchro TIMESTAMP DEFAULT (NOW()),
-	success BOOLEAN DEFAULT (FALSE)
-);
+CREATE OR REPLACE FUNCTION gn_imports.import_static_source(
+    tablename character varying,
+    idsource integer,
+    iddataset integer)
+  RETURNS boolean AS
+$BODY$
+  DECLARE
+    i int;
+    insert_cmd text;
+    insert_columns text;
+    select_cmd text;
+    select_columns text;
+    update_columns text;
+    update_cmd text;
 
+    v_error_stack text;
+    start_time timestamp;
 
-CREATE OR REPLACE FUNCTION import_synthese.fct_sync_synthese(
-  code_sync TEXT
-) 
-RETURNS BOOLEAN
- LANGUAGE plpgsql AS
-$$
-DECLARE
-   -- Fonction permettant d'importer des sources de données "externes" dans la synthèse de GeoNature
-   --   Elle permet de gérer les données de sources actives
-   --       Insertion des données non présentes dans la synthèse
-   --       Modification des données qui ont été modifiées depuis la dernière synchro
-   --       Suppression des données qui ne sont plus présentes dans la source
-   --   L'identification des données se fait à partir du champ entity_source_pk_value et de id_source
-   --       Ces champs doivent donc être uniques et avoir une pérénité au niveau de la source
-
-    _insertfield text; --prepared field to insert
-    _updatefield text; --prepared field to insert
-    _selectfield text; --prepared field in select clause
-    _sqlimport text; --returned query AS text
-    mysource_table TEXT; --source schema.table name
-    _with_observers BOOLEAN; --proceed observers or not
-    _last_sync TIMESTAMP; --date of the last sync
-    _id_log INt; -- Id of the current log entry
-    ssname text; --source schema name    
-    stname text; --source table name
-BEGIN
-
--- @ TODO fonction de test des données
---  Table existe bien, les données sont valides (Champ not null)
-  SELECT  table_name, with_observers, COALESCE(MAX(date_synchro) FILTER (WHERE success), '0001-01-01')
-	INTO mysource_table, _with_observers, _last_sync
-  FROM import_synthese.t_synchronisation_configs c
-  LEFT OUTER JOIN import_synthese.t_synchronisation_logs l
-  ON c.id_synchro = l.id_synchro
-  WHERE code_name = code_sync
-  GROUP BY table_name, with_observers;
-
-   --test si la table source est fournie sinon on retourne un message d'erreur
-  IF length(mysource_table) > 0 THEN
-    --split schema.table en deux chaines
-    SELECT split_part(mysource_table, '.', 1) INTO ssname;
-    SELECT split_part(mysource_table, '.', 2) INTO stname;
-  ELSE
-      BEGIN
-          RAISE WARNING 'ERREUR : %', 'Vous devez passer en paramètre une table source et une table de destination.';
-      END;
-  END IF;
-
-	INSERT INTO import_synthese.t_synchronisation_logs (id_synchro)
-	SELECT id_synchro
-	FROM import_synthese.t_synchronisation_configs c
-	WHERE code_name = code_sync
-	RETURNING id_log INTO _id_log;
-	
-   
-  -- préparation des requêtes
-  SELECT 
-    string_agg(c.column_name, ',') AS sql_insert_col,
-    string_agg('d.' || c.column_name, ',') AS sql_insert_cmd,
-    string_agg(c.column_name || ' = d.' || c.column_name, ',') AS sql_update
-    INTO _insertfield, _selectfield, _updatefield
-  FROM (
-    SELECT *
-    FROM information_schema.columns  
-    WHERE table_schema = ssname AND table_name = stname
-      AND NOT column_name = 'id_synthese'
-  ) c
-  JOIN (
-    SELECT *
-    FROM information_schema.columns  
-    WHERE table_schema = 'gn_synthese' AND table_name = 'synthese'
-  ) s
-  ON s.column_name = c.column_name;
-  
-
-  -- Création d'une table temporaire permettant de réaliser le suivi des opérations
+    --Error
+    v_state   TEXT;
+    v_msg     TEXT;
+    v_detail  TEXT;
+    v_hint    TEXT;
+    v_context TEXT;
   BEGIN
-	  CREATE TEMP TABLE IF NOT EXISTS synt_ids (
-	    id_synthese int, 
-	    action char(1),
-	    entity_source_pk_value varchar
-	  );
-	  TRUNCATE TABLE synt_ids;
+  
+    -- ######################################### ---
+    --  TESTS
+    -- ######################################### ---
+    -- Table existe
+    -- Champs obligatoires existent
+    -- Champ entity_source_pk_value bien unique
+    BEGIN
+        IF NOT EXISTS (
+            SELECT DISTINCT 1
+            FROM pg_attribute
+            WHERE  attrelid = tablename::regclass
+               AND attname::text IN ('entity_source_pk_value')
+        ) THEN
+            RAISE EXCEPTION 'Field  entity_source_pk_value is mandatory';
+        ELSE
+            EXECUTE format('
+                SELECT 1 
+                FROM %1$s
+                GROUP BY entity_source_pk_value
+                HAVING count(*) >1
+            ', tablename);
+            
+            GET DIAGNOSTICS i = ROW_COUNT;
+            IF i>0 THEN  
+                RAISE EXCEPTION 'Field entity_source_pk_value must have unique value';
+            END IF;
+        END IF;
+    EXCEPTION WHEN OTHERS THEN
+        GET STACKED DIAGNOSTICS
+            v_state   = RETURNED_SQLSTATE,
+            v_msg     = MESSAGE_TEXT,
+            v_detail  = PG_EXCEPTION_DETAIL,
+            v_hint    = PG_EXCEPTION_HINT,
+            v_context = PG_EXCEPTION_CONTEXT;
+        
+        RAISE EXCEPTION '%', v_msg
+            USING HINT = v_hint;
+    END;
 
-	  ALTER TABLE gn_synthese.synthese DISABLE TRIGGER ALL;
-	  
+    
+   -- ######################################### ---
+   --   CREATION DES REQUETES
+   -- ######################################### ---
 
-	  -- mise à jour des données
-	  RAISE NOTICE 'Mise à jour des données';
-	  EXECUTE FORMAT(
-	    'WITH d AS (
-	      SELECT %s FROM %s d
-	      WHERE meta_update_date > %L
-	    ), cmd AS (
-	      UPDATE gn_synthese.synthese s SET %s
-	      FROM (
-		SELECT 
-		  s.id_synthese, 
-		  d.*
-		FROM d
-		JOIN gn_synthese.synthese s
-		ON (s.entity_source_pk_value = d.entity_source_pk_value::varchar AND s.id_source = d.id_source)
-	      ) d
-	      WHERE d.id_synthese = s.id_synthese
-	      RETURNING s.id_synthese, d.entity_source_pk_value
-	    ) INSERT INTO synt_ids SELECT id_synthese, ''U'', entity_source_pk_value::varchar FROM cmd;',
-	    _selectfield, mysource_table, _last_sync, _updatefield
-	  );
-		
-	  -- insertion des données
+   
+   -- Création de la requete d'insertion
+    insert_cmd := 'INSERT INTO gn_synthese.synthese ( id_source, ';
+    select_cmd := 'SELECT ' || idsource || ' as id_source, ';
+    update_cmd := '';
 
-	  RAISE NOTICE 'Insertion des données';
-	  EXECUTE FORMAT(
-	    'WITH source AS (
-			SELECT DISTINCT id_source FROM %s d
-		), data AS (
-			SELECT DISTINCT %s
-			FROM %s d
-			LEFT OUTER JOIN (
-				SELECT * FROM gn_synthese.synthese s WHERE id_source IN (SELECT id_source FROM source)
-			) s
-			ON s.entity_source_pk_value = d.entity_source_pk_value AND s.id_source = d.id_source 
-			WHERE s.id_synthese IS NULL
-		), cmd AS (
-			INSERT INTO gn_synthese.synthese (%s)
-			SELECT *
-			FROM data
-			RETURNING id_synthese, entity_source_pk_value
-		) INSERT INTO synt_ids SELECT id_synthese, ''I'',  entity_source_pk_value::varchar FROM cmd;',
-	    mysource_table, _selectfield, mysource_table, _insertfield
-	  );
-	  
-	  -- suppression des données
-	  RAISE NOTICE 'Suppression des données';
-	  EXECUTE FORMAT(
-	    'WITH d AS (
-	      SELECT id_synthese
-	      FROM (
-			SELECT id_synthese, id_source, entity_source_pk_value
-			FROM gn_synthese.synthese s 
-			WHERE id_source IN ( SELECT DISTINCT id_source FROM %s d)
-	      )s
-	      LEFT OUTER JOIN %s d
-	      ON d.id_source = s.id_source AND d.entity_source_pk_value::varchar = s.entity_source_pk_value
-	      WHERE d.entity_source_pk_value IS NULL
-	    ), cmd AS (
-	      DELETE FROM gn_synthese.synthese sd
-	      USING d
-	      WHERE d.id_synthese = sd.id_synthese
-	      RETURNING sd.id_synthese
-	    ) INSERT INTO synt_ids SELECT id_synthese, ''D'', NULL FROM cmd;',
-	    mysource_table, mysource_table
-	  );
-	  
-	  -- Si cor_observers
-	  IF _with_observers
-		AND ( 
-		    SELECT count(*)
-		    FROM information_schema.columns  
-		    WHERE table_schema = ssname AND table_name = stname AND column_name = 'id_observers'
-		) > 0
-	  THEN 
-		  RAISE NOTICE 'Traitement cor_observer_synthese';
-		  
-		  DELETE FROM gn_synthese.cor_observer_synthese
-		  WHERE id_synthese IN (SELECT id_synthese FROM synt_ids);
+    start_time := (SELECT clock_timestamp());
 
-		  EXECUTE FORMAT(
-		    'INSERT INTO gn_synthese.cor_observer_synthese (id_synthese, id_role)
-			SELECT  d.id_synthese, d.id_role
-			FROM (
-				SELECT id_synthese, unnest(id_observers)::int AS id_role
-				FROM %s d
-				JOIN synt_ids s
-				ON s.entity_source_pk_value = d.entity_source_pk_value::varchar
-			)d
-			JOIN utilisateurs.t_roles r
-			ON r.id_role = d.id_role;',
-		    mysource_table
-		  );
-	  END IF;
+    RAISE NOTICE 'START %', start_time;
+    --Test si id_dataset est spécifié
+    IF (
+        SELECT true
+        FROM   pg_attribute
+        WHERE  attrelid = tablename::regclass
+            AND    attname::text = 'id_dataset'
+    ) IS NULL THEN
+        insert_cmd := insert_cmd || 'id_dataset, ';
+        select_cmd := select_cmd || iddataset || ' AS id_dataset, ';
+        update_cmd := 'id_dataset = ' || iddataset || ', ';
+    END IF;
 
-	  --Mise à jour des données liées cor_area_synthese
-	  RAISE NOTICE 'Traitement cor_area_synthese';
-	  DELETE FROM gn_synthese.cor_area_synthese
-	  WHERE id_synthese IN (SELECT id_synthese FROM synt_ids);
+    WITH import_col AS (
+        SELECT attname::text as column_name
+        FROM   pg_attribute
+        WHERE  attrelid = tablename::regclass
+            AND    attnum > 0
+            AND    NOT attisdropped
+    ), synt_col AS (
+        SELECT column_name, column_default, CASE WHEN data_type = 'USER-DEFINED' THEN NULL ELSE data_type END as data_type
+        FROM information_schema.columns  
+        WHERE table_schema || '.' || table_name = 'gn_synthese.synthese'
+    )
+    SELECT 
+        string_agg(s.column_name, ',')  as insert_columns,
+        string_agg(
+            CASE 
+                WHEN NOT column_default IS NULL THEN 'COALESCE(d.' || i.column_name  || COALESCE('::' || data_type, '') || ', ' || column_default || ') as ' || i.column_name
+            ELSE 'd.' || i.column_name || COALESCE('::' || data_type, '')
+            END, ',' 
+        ) as select_columns ,
+        string_agg(
+            s.column_name || '=' || CASE 
+                WHEN NOT column_default IS NULL THEN 'COALESCE(d.' || i.column_name  || COALESCE('::' || data_type, '') || ', ' || column_default || ') '
+            ELSE 'd.' || i.column_name || COALESCE('::' || data_type, '')
+            END
+        , ',') 
+    INTO insert_columns, select_columns, update_columns
+    FROM synt_col s
+    JOIN import_col i
+    ON i.column_name = s.column_name;
+    
 
-	  INSERT INTO gn_synthese.cor_area_synthese SELECT
-	      s.id_synthese,
-	      a.id_area
-	  FROM ref_geo.l_areas a
-	  JOIN gn_synthese.synthese s ON st_intersects(s.the_geom_local, a.geom)
-	  JOIN synt_ids m ON m.id_synthese = s.id_synthese;
+   -- ######################################### ---
+   --   IMPORT DES DONNEES
+   -- ######################################### ---
+
+    -- désactivation des triggers pour des questions de perfs
+    ALTER TABLE gn_synthese.synthese DISABLE TRIGGER ALL;
+    
+    RAISE NOTICE 'Import data : %', clock_timestamp();
+ 
+    -- Création d'une table temporaire résumant les données importées
+    DROP TABLE IF EXISTS tmp_process_import;
+    CREATE TEMP TABLE tmp_process_import (
+        id_synthese int, 
+        entity_source_pk_value varchar, 
+        cd_nom int,
+        action char(1)
+    );
+
+    -- Insertion des données dans la synthese
+    EXECUTE 'WITH inserted_rows as (' || 
+            insert_cmd || insert_columns || ') ' || select_cmd || select_columns  || 
+            ' FROM ' || tablename ||' d 
+            LEFT OUTER JOIN gn_synthese.synthese s
+            ON d.entity_source_pk_value::varchar = s.entity_source_pk_value AND id_source = ' || idsource || '
+            WHERE s.id_synthese IS NULL 
+            RETURNING id_synthese, entity_source_pk_value::varchar, cd_nom
+        )
+        INSERT INTO tmp_process_import
+        SELECT id_synthese, entity_source_pk_value, cd_nom, ''I'' as action
+        FROM inserted_rows'
+    ;
+
+    -- Mise à jour des données dans la synthese
+    EXECUTE 'WITH updated_rows as (
+            UPDATE gn_synthese.synthese s SET ' || update_cmd || update_columns ||
+            ' FROM ' || tablename || ' d
+            LEFT OUTER JOIN tmp_process_import t
+            ON t.entity_source_pk_value = d.entity_source_pk_value::varchar
+            WHERE 
+                t.entity_source_pk_value IS NULL
+                AND id_source = ' || idsource || '
+                AND d.entity_source_pk_value::varchar = s.entity_source_pk_value
+            RETURNING s.id_synthese, s.entity_source_pk_value, s.cd_nom
+        )
+        INSERT INTO tmp_process_import
+        SELECT id_synthese, entity_source_pk_value, cd_nom, ''U'' as action
+        FROM updated_rows'
+    ;
+
+    
+   -- ######################################### ---
+   --   Traitements des données importées 
+   --       pour simuler les triggers désactivés
+   -- ######################################### ---
+
+   -- #########
+   -- cor_area_synthese et cor_area_taxon
+   -- #########
+
+    RAISE NOTICE 'Update cor_area_synthese and cor_area_taxon : %', clock_timestamp();
+
+    -- Déactivation des triggers de cor_area_synthese pour des questions de perfs
+    ALTER TABLE gn_synthese.cor_area_synthese DISABLE TRIGGER ALL;
+    COPY (
+        SELECT DISTINCT c.cd_nom, ca.id_area
+        FROM gn_synthese.cor_area_synthese ca
+        JOIN tmp_process_import c
+        ON c.id_synthese = ca.id_synthese
+        ORDER BY c.cd_nom, ca.id_area
+    )
+    TO '/tmp/to_del_cor_area_taxon.csv' 
+    WITH CSV HEADER;
+    
+    -- Suppression des données de gn_synthese.cor_area_synthese qui doivent être recalculées
+    DELETE FROM gn_synthese.cor_area_synthese
+    WHERE id_synthese IN (SELECT id_synthese FROM tmp_process_import);
+    
+    -- Import des données de gn_synthese.cor_area_synthese
+    WITH not_in_corarea AS (
+        SELECT s.id_synthese, s.the_geom_local 
+        FROM gn_synthese.synthese  s
+        JOIN tmp_process_import c
+        ON c.id_synthese = s.id_synthese
+        WHERE c.action IN ('I', 'U')
+    )
+    INSERT INTO gn_synthese.cor_area_synthese
+    SELECT DISTINCT id_synthese, id_area
+    FROM  not_in_corarea s
+    JOIN ref_geo.l_areas l
+    ON st_intersects(s.the_geom_local, l.geom);
+
+    -- Suppression des données de gn_synthese.cor_area_taxon qui doivent être recalculées
+    WITH data AS (
+        SELECT DISTINCT c.cd_nom, ca.id_area
+        FROM gn_synthese.cor_area_synthese ca
+        JOIN  tmp_process_import c
+        ON c.id_synthese = ca.id_synthese
+    )
+    DELETE FROM gn_synthese.cor_area_taxon c
+    USING data
+    WHERE c.cd_nom = data.cd_nom AND c.id_area  = data.id_area;
+
+    -- Import des données de gn_synthese.cor_area_taxon
+    COPY (
+       SELECT DISTINCT c.cd_nom, ca.id_area
+        FROM gn_synthese.cor_area_synthese ca
+        JOIN  tmp_process_import c
+        ON c.id_synthese = ca.id_synthese
+        ORDER BY c.cd_nom, ca.id_area
+    )
+    TO '/tmp/to_add_cor_area_taxon.csv' 
+    WITH CSV HEADER;
+
+    
+    WITH data AS (
+        SELECT DISTINCT c.cd_nom, ca.id_area
+        FROM gn_synthese.cor_area_synthese ca
+        JOIN  tmp_process_import c
+        ON c.id_synthese = ca.id_synthese
+        ORDER BY c.cd_nom, ca.id_area
+    )
+    INSERT INTO gn_synthese.cor_area_taxon (id_area, cd_nom, last_date, nb_obs)
+    SELECT cor.id_area, s.cd_nom,  max(s.date_min) AS last_date, count(DISTINCT s.id_synthese) AS nb_obs
+    FROM gn_synthese.synthese s 
+    JOIN gn_synthese.cor_area_synthese cor
+        ON s.id_synthese = cor.id_synthese
+    JOIN taxonomie.taxref t 
+        ON s.cd_nom = t.cd_nom
+    JOIN data c
+        ON s.cd_nom = c.cd_nom AND cor.id_area = c.id_area
+    GROUP BY cor.id_area, s.cd_nom
+    ORDER BY s.cd_nom, id_area; 
+    
+    -- #########
+    -- taxons_synthese_autocomplete
+    -- #########
+    RAISE NOTICE 'Update taxons_synthese_autocomplete : %', clock_timestamp();
+    WITH new_cd_nom AS (
+        SELECT DISTINCT c.cd_nom
+        FROM gn_synthese.taxons_synthese_autocomplete s
+        LEFT OUTER JOIN tmp_process_import c
+        ON c.cd_nom = s.cd_nom
+        WHERE s.cd_nom IS NULL AND c.action IN ('I', 'U')
+    )
+    INSERT INTO gn_synthese.taxons_synthese_autocomplete
+    SELECT t.cd_nom,
+                  t.cd_ref,
+              concat(t.lb_nom, ' = <i>', t.nom_valide, '</i>', ' - [', t.id_rang, ' - ', t.cd_nom , ']') AS search_name,
+              t.nom_valide,
+              t.lb_nom,
+              t.regne,
+              t.group2_inpn
+    FROM taxonomie.taxref t  WHERE cd_nom IN (SELECT DISTINCT cd_nom FROM new_cd_nom)
+    UNION
+    SELECT t.cd_nom,
+    t.cd_ref,
+    concat(t.nom_vern, ' =  <i> ', t.nom_valide, '</i>', ' - [', t.id_rang, ' - ', t.cd_nom , ']' ) AS search_name,
+    t.nom_valide,
+    t.lb_nom,
+    t.regne,
+    t.group2_inpn
+    FROM taxonomie.taxref t  WHERE t.nom_vern IS NOT NULL AND cd_nom IN (SELECT DISTINCT cd_nom FROM new_cd_nom);
+
+    WITH old_cd_nom AS (
+        SELECT DISTINCT c.cd_nom
+        FROM gn_synthese.taxons_synthese_autocomplete c
+        LEFT OUTER JOIN  gn_synthese.synthese s
+        ON c.cd_nom = s.cd_nom
+        WHERE s.cd_nom IS NULL 
+    )
+    DELETE FROM gn_synthese.taxons_synthese_autocomplete s
+    WHERE s.cd_nom IN (SELECT cd_nom FROM old_cd_nom);
+
+   -- ######################################### ---
+   --   Import des observateurs 
+   --       si une colonne ids_observateur existe
+   -- ######################################### ---
+    --Test si ids_observateur est spécifié
+    IF (
+        SELECT true
+        FROM   pg_attribute
+        WHERE  attrelid = tablename::regclass
+            AND    attname::text = 'ids_observateur'
+    ) IS TRUE THEN
+        RAISE NOTICE 'Import des observateurs : %', clock_timestamp();
+        -- Import des observateurs
+
+        ALTER TABLE gn_synthese.cor_observer_synthese DISABLE TRIGGER ALL;
+        
+        DELETE FROM gn_synthese.cor_observer_synthese
+        WHERE id_synthese IN (SELECT id_synthese FROM tmp_process_import);
+        
+        EXECUTE FORMAT (
+            'WITH obs AS (
+                SELECT id_synthese,  unnest(ids_observateur)::int as id_role
+                FROM %s d
+                JOIN tmp_process_import c
+                on d.entity_source_pk_value = d.entity_source_pk_value
+                WHERE c.action IN (''I'', ''U'')
+            )
+            INSERT INTO gn_synthese.cor_observer_synthese (id_synthese, id_role)
+            SELECT DISTINCT id_synthese, id_role
+            FROM obs
+            JOIN utilisateurs.t_roles 
+            USING(id_role)
+            ',
+            tablename
+          );
+        ALTER TABLE gn_synthese.cor_observer_synthese ENABLE TRIGGER ALL;
+    END IF;
+
+    
+    -- ######################################### ---
+    --   Post opérations
+    -- ######################################### ---
+
+    -- Réactivation des triggers
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER ALL;
+    ALTER TABLE gn_synthese.cor_area_synthese ENABLE TRIGGER ALL;
+
+    -- Enregistrement dans la table log de l'import réalisé
+    INSERT INTO gn_imports.gn_imports_log (
+    table_name, success, error_msg, start_time, end_time, nb_insert, nb_update, nb_delete
+    )
+    SELECT 
+        tablename, true, NULL, start_time, clock_timestamp(), 
+        count(*) FILTER (WHERE action='I') as nb_insert,
+        count(*) FILTER (WHERE action='U') as nb_update,
+        count(*) FILTER (WHERE action='D') as nb_delete
+    FROM tmp_process_import;
+    
+    RAISE NOTICE 'END : %', clock_timestamp();
+    RETURN true;
+
+EXCEPTION
+   WHEN OTHERS THEN
+   
+   -- ######################################### ---
+   --   Traitement des erreurs
+   -- ######################################### ---
+    RAISE NOTICE 'Error during import process .... ';
+            GET STACKED DIAGNOSTICS
+            v_state   = RETURNED_SQLSTATE,
+            v_msg     = MESSAGE_TEXT,
+            v_detail  = PG_EXCEPTION_DETAIL,
+            v_hint    = PG_EXCEPTION_HINT,
+            v_context = PG_EXCEPTION_CONTEXT;
+    raise WARNING E'Got exception:
+            state  : %
+            message: %
+            detail : %
+            hint   : %
+            context: %', v_state, v_msg, v_detail, v_hint, v_context;
+  
+    -- Activation de tous les triggers potentiellement désactivés
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER ALL;
+    ALTER TABLE gn_synthese.cor_observer_synthese ENABLE TRIGGER ALL;
+    ALTER TABLE gn_synthese.cor_area_synthese ENABLE TRIGGER ALL;
+
+    -- Enregistrement dans la table log de l'import réalisé avec la mention succes=false
+    INSERT INTO gn_imports.gn_imports_log (table_name, success, error_msg, start_time, end_time)
+    VALUES (tablename, false, v_msg || ' ' || v_error_stack, start_time, clock_timestamp());
+    
+    RETURN false;
+  END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 
 
-	  --Mise à jour des données liées taxons_synthese_autocomplete
-	  RAISE NOTICE 'Traitement taxons_synthese_autocomplete';
-	  DELETE FROM gn_synthese.taxons_synthese_autocomplete auto
-	  WHERE NOT  auto.cd_nom IN (
-	  SELECT DISTINCT cd_nom 
-	  FROM gn_synthese.synthese
-	  );
 
-	  WITH missing_cd_nom AS (
-	    SELECT DISTINCT s.cd_nom
-	    FROM gn_synthese.synthese s
-	    LEFT OUTER JOIN gn_synthese.taxons_synthese_autocomplete auto
-	    ON s.cd_nom = auto.cd_nom
-	    WHERE auto.cd_nom IS NULL
-	  )
-	  INSERT INTO gn_synthese.taxons_synthese_autocomplete
-	  SELECT t.cd_nom,
-	    t.cd_ref,
-	    concat(t.lb_nom, ' = <i>', t.nom_valide, '</i>') AS search_name,
-	    t.nom_valide,
-	    t.lb_nom,
-	    t.regne,
-	    t.group2_inpn
-	  FROM taxonomie.taxref t  
-	  WHERE cd_nom IN (SELECT cd_nom FROM missing_cd_nom)
-	  UNION
-	  SELECT t.cd_nom,
-	  t.cd_ref,
-	  concat(t.nom_vern, ' =  <i> ', t.nom_valide, '</i>' ) AS search_name,
-	  t.nom_valide,
-	  t.lb_nom,
-	  t.regne,
-	  t.group2_inpn
-	  FROM taxonomie.taxref t  
-	  WHERE t.nom_vern IS NOT NULL AND cd_nom IN (SELECT cd_nom FROM missing_cd_nom);
+CREATE OR REPLACE FUNCTION gn_imports.delete_static_source(
+    tablename character varying, id_source int)
+  RETURNS boolean AS
+$BODY$
+  DECLARE
+  
+    v_error_stack text;
+    start_time timestamp;
+  BEGIN
+    start_time := (SELECT clock_timestamp());
 
-	  ALTER TABLE gn_synthese.synthese ENABLE TRIGGER ALL;
+    DROP TABLE IF EXISTS tmp_process_import;
+    CREATE TEMP TABLE tmp_process_import (
+        id_synthese int, 
+        entity_source_pk_value varchar, 
+        cd_nom int,
+        action char(1),
+        idareas int[]
+    );
 
-	  UPDATE import_synthese.t_synchronisation_logs SET success = TRUE 
-	  WHERE id_log = _id_log;
-	  
-	  RETURN TRUE;
+    -- Récupération des id_synthese qui vont être supprimé
+    EXECUTE 
+        'WITH deleted_row AS (
+            SELECT s.id_synthese, s.entity_source_pk_value, s.cd_nom, array_agg(id_area) as id_areas
+            FROM gn_synthese.synthese s
+            JOIN ' ||tablename || ' d 
+            ON s.id_source = ' ||id_source || ' AND s.entity_source_pk_value = d.entity_source_pk_value::varchar
+            JOIN gn_synthese.cor_area_synthese cor
+            ON  s.id_synthese = cor.id_synthese
+            GROUP BY s.id_synthese, s.entity_source_pk_value, s.cd_nom
+        )
+        INSERT INTO tmp_process_import (id_synthese, entity_source_pk_value, cd_nom, action, idareas)
+        SELECT id_synthese, entity_source_pk_value, cd_nom, ''D'' as action, id_areas
+        FROM deleted_row
+        ';
 
-	EXCEPTION when others then 
-		
-		ALTER TABLE gn_synthese.synthese ENABLE TRIGGER ALL;
-		RAISE NOTICE '% %', SQLERRM, SQLSTATE;
-		RETURN FALSE;
-	  
-	end;
+    --Suppression de cor_area_taxon et cor_area_synthese
+    RAISE NOTICE 'delete data : %', clock_timestamp();
+    
+    ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
 
-  RETURN FALSE;
-END $$;
+    DELETE FROM gn_synthese.cor_area_taxon s
+    USING tmp_process_import d 
+    WHERE s.cd_nom = d.cd_nom AND s.id_area = ANY (idareas);
+
+    DELETE FROM gn_synthese.cor_area_synthese s
+    USING tmp_process_import d 
+    WHERE s.id_synthese = d.id_synthese;
+
+    DELETE FROM gn_synthese.synthese s
+    USING tmp_process_import d 
+    WHERE s.id_synthese = d.id_synthese;
+    
+    INSERT INTO gn_synthese.cor_area_taxon (cd_nom, nb_obs, id_area, last_date)
+    SELECT s.cd_nom, count(DISTINCT s.id_synthese), cor.id_area,  max(s.date_min)
+    FROM gn_synthese.cor_area_synthese cor
+    JOIN gn_synthese.synthese s 
+    ON s.id_synthese = cor.id_synthese
+    JOIN tmp_process_import d 
+    ON s.cd_nom = d.cd_nom AND cor.id_area = ANY (idareas)
+    JOIN taxonomie.taxref t
+    ON t.cd_nom = s.cd_nom
+    GROUP BY cor.id_area, s.cd_nom;
+    
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
+
+
+    RAISE NOTICE 'START %', start_time;
+    INSERT INTO gn_imports.gn_imports_log (
+        table_name, success, error_msg, start_time, end_time, nb_delete
+    )
+    SELECT 
+        tablename, true, NULL, start_time, clock_timestamp(), 
+        count(*) FILTER (WHERE action='D') as nb_delete
+    FROM tmp_process_import;
+    
+    RAISE NOTICE 'END : %', clock_timestamp();
+    RETURN true;
+EXCEPTION
+   WHEN OTHERS THEN
+    RAISE NOTICE 'Error during delete process .... ';
+    GET STACKED DIAGNOSTICS v_error_stack = PG_EXCEPTION_CONTEXT;
+    RAISE WARNING 'The stack trace of the error is: "%"', v_error_stack;
+    
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
+    
+    INSERT INTO gn_imports.gn_imports_log (table_name, success, error_msg, start_time, end_time)
+    VALUES (tablename, false, v_error_stack, start_time, clock_timestamp());
+    
+    RETURN false;
+  END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;

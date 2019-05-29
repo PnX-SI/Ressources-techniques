@@ -1,6 +1,6 @@
 
 
-  CREATE EXTENSION IF NOT EXISTS postgres_fdw;
+CREATE EXTENSION IF NOT EXISTS postgres_fdw;
 
 --DROP SERVER obs_occ_server CASCADE;
 CREATE SERVER obs_occ_server  
@@ -12,14 +12,12 @@ CREATE USER MAPPING
         SERVER obs_occ_server
         OPTIONS (password 'obsocc_user_pass',user 'obsocc_user');
 
-
-DROP SCHEMA IF EXISTS import_obs_occ CASCADE;
-CREATE SCHEMA IF NOT EXISTS import_obs_occ;
-
-CREATE FOREIGN TABLE import_obs_occ.fdw_obs_occ_data
+CREATE FOREIGN TABLE gn_imports.fdw_obs_occ_data
    (date_insert timestamp without time zone ,
     date_last_update timestamp without time zone ,
+    unique_dataset_id uuid,
     id_obs integer ,
+    unique_uuid uuid,
     date_obs date ,
     date_debut_obs date ,
     date_fin_obs date ,
@@ -70,7 +68,12 @@ CREATE FOREIGN TABLE import_obs_occ.fdw_obs_occ_data
    SERVER obs_occ_server
    OPTIONS (schema_name 'saisie', table_name 'v_export_for_synthese_gn2');
    
- IMPORT FOREIGN SCHEMA md
-    LIMIT TO (md.etude, md.protocole)
-    FROM SERVER obs_occ_server
-    INTO import_obs_occ;
+
+
+CREATE FOREIGN TABLE gn_imports.fdw_obs_occ_deleted (
+  entity_source_pk_value int, 
+  date_operation timestamp
+)
+   SERVER obs_occ_server
+   OPTIONS (schema_name 'saisie', table_name 'v_export_deleted_data');
+   
