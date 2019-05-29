@@ -69,8 +69,8 @@ gn_imports.delete_static_source(
 ```
 
 ### Principe
-La table source doit obligatoirement avoir le champ entity_source_pk_value et ce champ doit avoir des valeurs uniques qui permettent de remonter de façon non ambigue à la donnée d'origine. Ce champ est extrement important car il est utilisé pour trouver les données à supprimer dans la table ```gn_synthese.synthese```.
+La table source doit obligatoirement avoir le champ ```entity_source_pk_value``` et ce champ doit avoir des valeurs uniques qui permettent de remonter de façon non ambigue à la donnée d'origine. Ce champ est extrement important car il est utilisé pour trouver les données à supprimer dans la table ```gn_synthese.synthese```.
 
-La fonction va trouver et supprimer les données de la source indiqué qui correspondent a la liste d'identifiant du champ entity_source_pk_value.
+La fonction va trouver et supprimer les données de la source indiqué qui correspondent a la liste d'identifiant du champ ```entity_source_pk_value```.
 
 Une fois l'import réalisé, la fonction insère un enregistrement dans la table ```gn_imports.gn_imports_log```.
