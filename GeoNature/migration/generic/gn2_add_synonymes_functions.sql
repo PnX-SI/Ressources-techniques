@@ -29,7 +29,7 @@ DECLARE thecodenomenclature  int;
   BEGIN
     SELECT INTO thecodenomenclature id_nomenclature
     FROM ref_nomenclatures.t_synonymes n
-    WHERE n.id_type = ref_nomenclatures.get_id_nomenclature_type(mytype) AND myvalue = n.initial_value;
+    WHERE n.id_type = ref_nomenclatures.get_id_nomenclature_type(mytype) AND  unaccent(myvalue) ilike unaccent(n.initial_value);
 
     IF (thecodenomenclature IS NOT NULL) THEN
       RETURN thecodenomenclature;
