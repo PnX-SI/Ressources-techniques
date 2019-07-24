@@ -217,7 +217,7 @@ $BODY$
     
     RAISE NOTICE 'END : %', clock_timestamp();
     RETURN true;
-    /*
+    
 EXCEPTION
    WHEN OTHERS THEN
     RAISE NOTICE 'Error during import process .... ';
@@ -230,14 +230,11 @@ EXCEPTION
     INSERT INTO gn_imports.gn_imports_log (table_name, success, error_msg, start_time, end_time)
     VALUES (tablename, false, v_error_stack, start_time, clock_timestamp());
     
-    RETURN false;*/
+    RETURN false;
   END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION gn_imports.import_static_source(character varying, integer, integer)
-  OWNER TO dbadmin;
-
 
 
 CREATE OR REPLACE FUNCTION gn_imports.delete_static_source(
