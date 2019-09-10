@@ -6,10 +6,10 @@ Plugin Qgis
     * Plugin reloader
 
 Traduction:
-    * Génération fichier ts de traduction :
-        lupdate your_plugin_dialog_base.ui -ts your_plugin_en.ts
-    * Génération fichier qm:
-        lrelease your_plugin_en.ts
+ - Génération fichier ts de traduction :
+        `lupdate your_plugin_dialog_base.ui -ts your_plugin_en.ts`
+ - Génération fichier qm:
+        `lrelease your_plugin_en.ts`
 
 Ressources:
 
