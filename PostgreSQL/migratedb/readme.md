@@ -1,15 +1,14 @@
 MIGRATION DE BASES ENTRE SERVEUR POSTGRESQL COMPORTANT DES VERSIONS POSTGIS DISTANTES
 =====================================================================================
 
-
-Adapter le contenu des 2 fichiers sample_*.sh à votre contexte et notamment les paramètres de connexion, nom des schémas et des tables à migrer. Prendre également soin de d'intégrer au script la création des extentions postgresql nécessaires au fonctionnement de la base.
-
+Adapter le contenu des 2 fichiers sample_xxx.sh à votre contexte et notamment les paramètres de connexion, nom des schémas et des tables à migrer. Prendre également soin de d'intégrer au script la création des extensions PostgreSQL nécessaires au fonctionnement de la BDD.
 
 Sur le serveur source
 ---------------------
 
-Adapter le contenu du fichier sample_svgdb.sh au contenu de la base en tenant notamment compte des tables et vues contenues dans le schéma public
-copier le fichier sample_svgdb.sh sur le serveur pg source (pg9.1 et postgis 1.5 pour l'example)
+Adapter le contenu du fichier sample_svgdb.sh au contenu de la base en tenant notamment compte des tables et vues contenues dans le schéma ``public``
+
+Copier le fichier sample_svgdb.sh sur le serveur pg source (pg9.1 et postgis 1.5 pour l'example)
 
 	scp -p 22 sample_svgdb.sh user@1.2.3.4:/home/MYLINUXUSER/
 
