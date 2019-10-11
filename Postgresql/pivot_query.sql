@@ -1,3 +1,4 @@
+-- Assistant de création de requetes pivot
 
 CREATE OR REPLACE FUNCTION public.pivot_query (tablename IN text, keycol text, alias in jsonb)
 RETURNS text
