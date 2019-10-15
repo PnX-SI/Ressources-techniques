@@ -1,20 +1,38 @@
 -- Assistant de création de requetes pivot
 
-CREATE OR REPLACE FUNCTION public.pivot_query (tablename IN text, keycol text, alias in jsonb)
-RETURNS text
-AS 
-$$ 
+
+CREATE OR REPLACE FUNCTION public.pivot_query(
+    tablename text,
+    keycol text,
+    alias jsonb,
+    valtype text
+ )
+  RETURNS text AS
+$BODY$ 
+/** 
+Fonction qui permet de générer une requete de type crosstable en se basant sur les fonctions json de postgresql
+PARAMS :
+    tablename text: Nom de la table
+    keycol text: Nom de la colonne de clé
+    alias jsonb: Liste des alias
+    valtype text:  type de la valeur
+ RETURNS : text
+    Requete correspondant au select unpivot 
+**/
 DECLARE
     k varchar;
     v varchar;
     q text;
 BEGIN
-    q := (SELECT 'SELECT ' || keycol || ' , ' || string_agg(CONCAT('data->>''', key, ''' AS ' ,value), ',') || ' FROM  ' || tablename || ';' from jsonb_each_text(alias));
+    q := (SELECT 'SELECT ' || keycol || ' , ' || string_agg(CONCAT('(data->>''', key, ''')::', valtype,' AS ' ,value), ',') || ' FROM  ' || tablename || ';' from jsonb_each_text(alias));
     return q;
 
 END;
-$$
-LANGUAGE plpgsql;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+
 
 
 CREATE OR REPLACE FUNCTION public.pivot_query_return_results (query IN text, tablename IN text, keycol IN text, keycoltype IN text, alias IN jsonb, keyvaltype IN text)
