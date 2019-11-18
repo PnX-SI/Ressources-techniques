@@ -9,19 +9,24 @@
 
 * template-loader:
   * Petit plugin permettant de créer des cartes à partir de modèles prédéfinis
-  * Compatibilité Qgis 2.2 -> 2.18
+  * Compatibilité QGIS 2.2 -> 2.18
   * https://github.com/PnCevennes/Qgis-plugin-templateLoader
   
 ## Autres plugins utiles pour QGIS:
+
 * QuickMapServices:
   * Ajout des fonds OSM et autres fournisseurs
+  
+## Développement QGIS
+
+* Formation Python QGIS - https://github.com/Gustry/formation-pyqgis
 
 # Ressources sur QGIS Server
+
 * Installation avec Apache ou Nginx
   * https://docs.qgis.org/2.18/en/docs/user_manual/working_with_ogc/server/getting_started.html#id3
 
-
 ## Bug
-* Si QGIS Server crash lors d'un GetPrint (avec ou sans HTML):
+* Si QGIS Server crashe lors d'un GetPrint (avec ou sans HTML):
   * https://www.itopen.it/qgis-server-setup-notes/
-  * Fonctionne avec nginx et apache
+  * Fonctionne avec Nginx et Apache
