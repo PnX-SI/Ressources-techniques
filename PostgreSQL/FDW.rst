@@ -1,3 +1,7 @@
+=====================
+Foreign data wrappers
+=====================
+
 Les Foreign Data Wrappers permettent à une BDD PostgreSQL de lancer une requête locale qui interroge une source distance (BDD PostgreSQL, fichier CSV, SHP, MySQL, Access...).
 
 Voir la documentation officielle : https://www.postgresql.org/docs/9.5/static/postgres-fdw.html
@@ -44,7 +48,7 @@ Depuis PostgreSQL 9.5, il est possible d'importer automatiquement la structure d
   IMPORT FOREIGN SCHEMA synthese
     FROM SERVER geonaturedbserver INTO synthese;
 
-On fait pareil avec le schéma `taxonomie` :
+On fait pareil avec le schéma ``taxonomie`` :
 
 ::
 
@@ -72,7 +76,9 @@ Lister les foreigns data wrapper
 ================================
 
 En SQL
+
 ::
+	
 	-- Liste des FDW définis
 	SELECT srvname, srvowner::regrole, w.fdwname, srvtype, srvversion, srvacl, srvoptions  
 	FROM pg_foreign_server 
@@ -86,19 +92,21 @@ En SQL
 
 	
 En psql
+
 :: 
+	
 	\des+
 
-docs System Catalogs :
- * https://www.postgresql.org/docs/current/static/catalog-pg-foreign-server.html
- * https://www.postgresql.org/docs/current/static/view-pg-user-mappings.html
+Docs System Catalogs :
+
+* https://www.postgresql.org/docs/current/static/catalog-pg-foreign-server.html
+* https://www.postgresql.org/docs/current/static/view-pg-user-mappings.html
 
 
-lister l'ensemble des fdw d'un serveur
+Lister l'ensemble des FDW d'un serveur
 ---------------------------------------
 
-le résultat est stocké dans un fichier csv /tmp/output.csv
-
+Le résultat est stocké dans un fichier csv ``/tmp/output.csv``
 
 ::
 
