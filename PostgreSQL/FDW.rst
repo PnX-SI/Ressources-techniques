@@ -2,13 +2,13 @@
 Foreign data wrappers
 =====================
 
-Les Foreign Data Wrappers permettent à une BDD PostgreSQL de lancer une requête locale qui interroge une source distance (BDD PostgreSQL, fichier CSV, SHP, MySQL, Access...).
+Les Foreign Data Wrappers permettent à une BDD PostgreSQL de lancer une requête locale qui interroge directement une source distante (BDD PostgreSQL, fichier CSV, SHP, MySQL, Access...).
 
 Voir la documentation officielle : https://www.postgresql.org/docs/9.5/static/postgres-fdw.html
 
 Il faut recréer localement la structure de la source distante. Dans cet exemple, on va se connecter à une BDD PostgreSQL.
 
-Commencer par ajouter l'extension à la BDD locale (lizmapdb dans notre cas) en ligne de commande : 
+Commencer par ajouter l'extension à la BDD locale (``lizmapdb`` dans notre cas) en ligne de commande : 
 
 ::
 
@@ -20,7 +20,7 @@ Ou directement en SQL :
 
   CREATE EXTENSION IF NOT EXISTS postgres_fdw;
 
-Créez ensuite localement la connexion au serveur source (nommée geonaturedbserver dans notre cas) :
+Créez ensuite localement la connexion au serveur source (nommée ``geonaturedbserver`` dans notre cas) :
 
 ::
 
@@ -56,7 +56,8 @@ On fait pareil avec le schéma ``taxonomie`` :
   IMPORT FOREIGN SCHEMA taxonomie
     FROM SERVER geonaturedbserver INTO taxonomie;
 	
-On peut alors créer localement des vues matérialisées pour disposer des données mises en forme localement. 
+On peut alors créer localement des vues matérialisées pour disposer des données mises en forme localement.
+
 Exemple de toutes observations d'un organisme : 
 
 ::
@@ -75,7 +76,7 @@ Il est aussi possible de mettre en place une fonction qui rafraichit toutes les 
 Lister les foreigns data wrapper
 ================================
 
-En SQL
+En SQL :
 
 ::
 	
@@ -91,7 +92,7 @@ En SQL
 	JOIN pg_foreign_server s ON s.oid = m.srvid;
 
 	
-En psql
+En psql :
 
 :: 
 	
