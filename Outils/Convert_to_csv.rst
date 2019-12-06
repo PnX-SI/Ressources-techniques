@@ -3,9 +3,9 @@ Convertir avec libre office
 
 Exemple ligne de commande pour convertir un fichier en csv avec les paramètres suivants :
 
-  - Field separator : ,
-  - Text Delimiter : "
-  - Encoding : UTF-8
+  - Field separator : , -> (44), ; -> (59)
+  - Text Delimiter : " -> (34)
+  - Encoding : UTF-8 -> (76)
   - Number of First Line : 1
 
 Plus de doc : 
