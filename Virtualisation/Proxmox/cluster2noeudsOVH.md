@@ -358,3 +358,83 @@ Datacenter --> Stockage --> ajouter --> ZFS
     taille des blocs : 8k
 
 Dans mon cas l'espace de stockage "local-zfs" existait déjà avec cette configuration. Il a du être créer lors de la mise en cluster des 2 noeuds.
+
+
+QUELQUES TESTS
+==============
+
+STOR2
+-----
+
+Sur le pool ZFS du STOR2, donc sur les disques SATA
+
+"compression=lz4" "atime=on"
+
+    zfs create rpool/test
+    cd /rpool/test
+    dd if=/dev/zero of=tempfile bs=1M count=4096 conv=fdatasync,notrunc # (4.3 GB, 4.0 GiB) copied, 1.79521 s, 2.4 GB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=64k count=65536 conv=fdatasync,notrunc # (4.3 GB, 4.0 GiB) copied, 2.72023 s, 1.6 GB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=4k count=1048576 conv=fdatasync,notrunc # (4.3 GB, 4.0 GiB) copied, 8.83952 s, 486 MB/s
+    rm tempfile
+    zfs destroy rpool/test
+
+"compression=lz4" "atime=off"
+
+    zfs set atime=off rpool/test
+    dd if=/dev/zero of=tempfile bs=1M count=4096 conv=fdatasync,notrunc # (4.3 GB, 4.0 GiB) copied, 1.77703 s, 2.4 GB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=64k count=65536 conv=fdatasync,notrunc # (4.3 GB, 4.0 GiB) copied, 2.72827 s, 1.6 GB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=4k count=1048576 conv=fdatasync,notrunc # (4.3 GB, 4.0 GiB) copied, 8.88948 s, 483 MB/s
+    rm tempfile
+    zfs destroy rpool/test
+
+Sur les disques SSD du STOR2 (ces disques sont en EXT4)
+
+    cd /tmp
+    dd if=/dev/zero of=tempfile bs=1M count=4096 conv=fdatasync,notrunc # (4.3 GB, 4.0 GiB) copied, 17.2624 s, 249 MB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=64k count=65536 conv=fdatasync,notrunc # (4.3 GB, 4.0 GiB) copied, 16.0334 s, 268 MB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=4k count=1048576 conv=fdatasync,notrunc # (4.3 GB, 4.0 GiB) copied, 16.7741 s, 256 MB/s
+    rm tempfile
+
+INFRA3
+------
+
+Sur les disques NVMe de l'INFRA3
+
+"compression=on" "atime=off"
+
+    zfs create rpool/test
+    cd /rpool/test
+    dd if=/dev/zero of=tempfile bs=1M count=4096 conv=fdatasync,notrunc # (4,3 GB, 4,0 GiB) copiés, 2,26821 s, 1,9 GB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=64k count=65536 conv=fdatasync,notrunc # (4,3 GB, 4,0 GiB) copiés, 3,10152 s, 1,4 GB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=4k count=1048576 conv=fdatasync,notrunc # (4,3 GB, 4,0 GiB) copiés, 6,29717 s, 682 MB/s
+    rm tempfile
+
+"compression=lz4" "atime=off"
+
+    zfs set compression=lz4 rpool/test
+    dd if=/dev/zero of=tempfile bs=1M count=4096 conv=fdatasync,notrunc # (4,3 GB, 4,0 GiB) copiés, 1,96405 s, 2,2 GB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=64k count=65536 conv=fdatasync,notrunc # (4,3 GB, 4,0 GiB) copiés, 2,73529 s, 1,6 GB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=4k count=1048576 conv=fdatasync,notrunc # (4,3 GB, 4,0 GiB) copiés, 6,30592 s, 681 MB/s
+    rm tempfile
+    zfs destroy rpool/test
+
+"compression=lz4" "atime=on"
+
+    zfs set atime=on rpool/test
+    dd if=/dev/zero of=tempfile bs=1M count=4096 conv=fdatasync,notrunc # (4,3 GB, 4,0 GiB) copiés, 2,10488 s, 2,0 GB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=64k count=65536 conv=fdatasync,notrunc # (4,3 GB, 4,0 GiB) copiés, 2,9023 s, 1,5 GB/s
+    rm tempfile
+    dd if=/dev/zero of=tempfile bs=4k count=1048576 conv=fdatasync,notrunc # (4,3 GB, 4,0 GiB) copiés, 7,65062 s, 561 MB/s
+    rm tempfile
+    zfs destroy rpool/test
