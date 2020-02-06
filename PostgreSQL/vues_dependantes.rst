@@ -34,6 +34,7 @@ Création table de stockage des dépendances
 Fonction qui stocke et supprime les dépendances
 
 .. code-block:: sql
+
     CREATE OR REPLACE FUNCTION gn_commons.deps_save_and_drop_dependencies(
         p_view_schema character varying,
         p_view_name character varying)
@@ -131,6 +132,7 @@ Fonction qui stocke et supprime les dépendances
 Fonction de restauration des dépendances
 
 .. code-block:: sql
+
     CREATE OR REPLACE FUNCTION gn_commons.deps_restore_dependencies(
         p_view_schema character varying,
         p_view_name character varying)
@@ -159,6 +161,7 @@ Fonction de restauration des dépendances
 Exemple d'utilisation
 
 .. code-block:: sql
+
     SELECT gn_commons.deps_save_and_drop_dependencies('taxonomie', 'taxref');
 
     ALTER TABLE taxonomie.taxref ALTER COLUMN  nom_valide TYPE character varying(500) USING nom_valide::character varying(500);
