@@ -15,3 +15,5 @@ Outils
 ======
  * Corese / KGRAM : http://wimmics.inria.fr/corese
     * Outil simplissime permettant de charger des données en rdf et de réaliser des requêtes sparql
+ * Convertion de format (ttl => rdf/xml) : http://rdfvalidator.mybluemix.net/
+ * Visualisation, validation, ... : https://www.w3.org/RDF/Validator/
