@@ -22,6 +22,19 @@ WHERE cda.id_organism = 2
    AND actorrole.cd_nomenclature in ('1','2','3','4','5','6','7','8')
 ORDER BY dataset_name
 
+-- Liste des JDD et de leurs différents acteurs
+SELECT d.id_dataset, d.dataset_name, cda.id_organism, o.nom_organisme as acteur_organisme, cda.id_role, r.nom_role || ' ' || r.prenom_role as acteur_role, cda.id_nomenclature_actor_role, n.mnemonique, count(s.*) as nb_obs
+FROM gn_synthese.synthese s 
+RIGHT JOIN gn_meta.t_datasets d ON d.id_dataset = s.id_dataset
+LEFT JOIN gn_meta.cor_dataset_actor cda ON cda.id_dataset  = d.id_dataset 
+LEFT JOIN ref_nomenclatures.t_nomenclatures n ON n.id_nomenclature = cda.id_nomenclature_actor_role 
+LEFT JOIN utilisateurs.t_roles r ON r.id_role = cda.id_role 
+LEFT JOIN utilisateurs.bib_organismes o ON o.id_organisme = cda.id_organism 
+--WHERE cda.id_organism = 2
+--AND n.cd_nomenclature in('1','2','3','4','5','6','7','8')
+GROUP BY d.id_dataset, d.dataset_name, cda.id_organism, o.nom_organisme, cda.id_role, r.nom_role || ' ' || r.prenom_role, cda.id_nomenclature_actor_role, n.mnemonique
+ORDER BY d.id_dataset;
+
 -- Nombre de taxons observés en 2001
 WITH nby AS
 (
