@@ -97,6 +97,7 @@ ORDER BY NbObs DESC;
 -- Pour être plus précis, on pourrait utiliser son id_role dans la table gn_synthese.cor_observer_synthese
 WITH TaxonsConnusAvant2017 AS
 (
+ -- Lister les taxons connus avant 2017
  SELECT DISTINCT taxonomie.find_cdref(s.cd_nom) 
  FROM gn_synthese.synthese s 
  WHERE EXTRACT('year' FROM date_min) < 2017
@@ -106,6 +107,7 @@ SELECT DISTINCT t.cd_ref, t.nom_complet, t.nom_vern, count(s.id_synthese) AS NbO
 WHERE EXTRACT('year' FROM s.date_min) >= 2017
   AND EXTRACT('year' FROM s.date_max) <= 2020
   AND s.observers ILIKE '%corail%'
+  -- Ne garder que les taxons qui ne sont pas dans la liste des taxons connus avant 2017
   AND t.cd_ref NOT IN (Select * FROM TaxonsConnusAvant2017)
 GROUP BY t.cd_ref, t.nom_complet, t.nom_vern
 ORDER BY NbObs DESC;
