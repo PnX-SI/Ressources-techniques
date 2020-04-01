@@ -1,5 +1,4 @@
--- Export de toutes les données d'un JDD (47 dans notre cas)
-
+-- Export de toutes les données d'un JDD ('47' dans notre cas)
 SELECT 
   t.nom_valide, 
   t.nom_vern, 
@@ -14,3 +13,11 @@ SELECT
 FROM gn_synthese.v_synthese_for_export e
 JOIN taxonomie.taxref t ON t.cd_nom = e."cdNom"
 WHERE "jddId" = 47;
+
+-- Export de toutes les données d'une classe
+SELECT 
+ e.* 
+FROM gn_synthese.v_synthese_for_export e
+ JOIN taxonomie.taxref t ON t.cd_nom = e."cdNom"
+WHERE t.classe = 'Chilopoda'
+ORDER by "dateDebut"
