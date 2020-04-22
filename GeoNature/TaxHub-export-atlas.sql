@@ -8,4 +8,4 @@ SELECT
     END AS value
    FROM taxonomie.cor_taxon_attribut
   WHERE cor_taxon_attribut.id_attribut = ANY (ARRAY[100, 101, 102, 103])
-  ORDER BY cor_taxon_attribut.cd_ref
+  ORDER BY cor_taxon_attribut.cd_ref, cor_taxon_attribut.id_attribut;
