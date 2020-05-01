@@ -35,6 +35,28 @@ LEFT JOIN utilisateurs.bib_organismes o ON o.id_organisme = cda.id_organism
 GROUP BY d.id_dataset, d.dataset_name, cda.id_organism, o.nom_organisme, cda.id_role, r.nom_role || ' ' || r.prenom_role, cda.id_nomenclature_actor_role, n.mnemonique
 ORDER BY d.id_dataset;
 
+-- Observations et acteurs de leurs JDD - Par Amandine Sahl
+ WITH ds_actors AS (
+         SELECT cda.id_dataset,
+            t_1.mnemonique,
+            array_agg(o.nom_organisme) AS actors
+           FROM gn_meta.cor_dataset_actor cda
+             JOIN ref_nomenclatures.t_nomenclatures t_1 ON cda.id_nomenclature_actor_role = t_1.id_nomenclature
+             JOIN utilisateurs.bib_organismes o ON cda.id_organism = o.id_organisme
+          GROUP BY cda.id_dataset, t_1.mnemonique
+        ), dsa_json AS (
+         SELECT ds_actors.id_dataset,
+            json_object_agg(ds_actors.mnemonique, ds_actors.actors) AS jdd_actors
+           FROM ds_actors
+          GROUP BY ds_actors.id_dataset
+        )
+ SELECT s.id_synthese AS "idSynthese",
+    dsa_json.jdd_actors
+   FROM gn_synthese.synthese s
+     JOIN gn_meta.t_datasets d ON d.id_dataset = s.id_dataset
+     JOIN dsa_json ON dsa_json.id_dataset = d.id_dataset
+ LIMIT 1000;
+
 -- Nombre de taxons observés en 2001
 WITH nby AS
 (
