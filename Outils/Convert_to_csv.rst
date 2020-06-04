@@ -14,3 +14,17 @@ https://wiki.openoffice.org/wiki/Documentation/DevGuide/Spreadsheets/Filter_Opti
 .. code-block::
 
   libreoffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":44,34,76,1,1 --outdir /tmp/csv_out *.xlsx
+
+CSVKIT
+======
+https://csvkit.readthedocs.io
+
+Librairie permettant de manipuler des fichiers csv
+
+Avec notamment :
+  - `in2csv <https://csvkit.readthedocs.io/en/latest/scripts/in2csv.html>`_ : conversion de fichier (excel) en csv
+  - `csvsql <https://csvkit.readthedocs.io/en/latest/scripts/csvsql.html>`_ : manipulation des fichiers csv en mode sql :
+  
+      - selection
+      - import en base de données
+    
