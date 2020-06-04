@@ -38,7 +38,7 @@ Exemple script :
   for tbl in $(in2csv -n mon_fichier.xls)
   do
      echo ${tbl}
-     # Convertion en sql
+     # Convertion en csv
      in2csv --sheet ${tbl} mon_fichier.xls > ${tbl}.csv
      # Import en base
      csvsql --db postgresql://user:pass@localhost:5432/db_name --db-schema tmp_process --tables apoid_${tbl} --insert --overwrite ${tbl}.csv
