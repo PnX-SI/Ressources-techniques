@@ -14,12 +14,10 @@ CREATE TABLE gn_imports.gn_imports_log (
 
 -- DROP FUNCTION gn_imports.import_static_source(character varying, integer, integer);
 
-CREATE OR REPLACE FUNCTION gn_imports.import_static_source(
-    tablename character varying,
-    idsource integer,
-    iddataset integer)
-  RETURNS boolean AS
-$BODY$
+CREATE OR REPLACE FUNCTION gn_imports.import_static_source(tablename character varying, idsource integer, iddataset integer)
+ RETURNS boolean
+ LANGUAGE plpgsql
+AS $function$
   DECLARE
     insert_cmd text;
     insert_columns text;
@@ -81,7 +79,9 @@ $BODY$
     ON i.column_name = s.column_name;
     
 
-    ALTER TABLE gn_synthese.synthese DISABLE TRIGGER ALL;
+    ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
+    ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_insert_cor_area_synthese;
+    ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_update_cor_area_taxon_update_cd_nom;
     
     RAISE NOTICE 'Import data : %', clock_timestamp();
     DROP TABLE IF EXISTS tmp_process_import;
@@ -112,8 +112,8 @@ $BODY$
             ON t.entity_source_pk_value = d.entity_source_pk_value::varchar
             WHERE 
                 t.entity_source_pk_value IS NULL
-                AND d.id_source = ' || idsource || '
                 AND d.entity_source_pk_value::varchar = s.entity_source_pk_value
+                AND s.id_source = ' || idsource || '
             RETURNING s.id_synthese, s.entity_source_pk_value, s.cd_nom
         )
         INSERT INTO tmp_process_import
@@ -149,7 +149,7 @@ $BODY$
         RAISE NOTICE 'Import des observateurs : %', clock_timestamp();
         -- Import des observateurs
 
-        ALTER TABLE gn_synthese.cor_observer_synthese DISABLE TRIGGER ALL;
+        ALTER TABLE gn_synthese.cor_observer_synthese DISABLE TRIGGER trg_maj_synthese_observers_txt;
         
         RAISE NOTICE '	Clean observateurs : %', clock_timestamp();
         DELETE FROM gn_synthese.cor_observer_synthese
@@ -173,7 +173,8 @@ $BODY$
             ',
             tablename
           );
-        ALTER TABLE gn_synthese.cor_observer_synthese ENABLE TRIGGER ALL;
+          
+        ALTER TABLE gn_synthese.cor_observer_synthese ENABLE TRIGGER trg_maj_synthese_observers_txt;
     END IF;
 
     RAISE NOTICE 'Update taxons_synthese_autocomplete A FINALISER manque la suppression : %', clock_timestamp();
@@ -202,8 +203,10 @@ $BODY$
     t.regne,
     t.group2_inpn
     FROM taxonomie.taxref t  WHERE t.nom_vern IS NOT NULL AND cd_nom IN (SELECT DISTINCT cd_nom FROM new_cd_nom);
-
-    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER ALL;
+    
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_insert_cor_area_synthese;
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_update_cor_area_taxon_update_cd_nom;
 
     INSERT INTO gn_imports.gn_imports_log (
     table_name, success, error_msg, start_time, end_time, nb_insert, nb_update, nb_delete
@@ -224,17 +227,21 @@ EXCEPTION
     GET STACKED DIAGNOSTICS v_error_stack = PG_EXCEPTION_CONTEXT;
     RAISE WARNING 'The stack trace of the error is: "%"', v_error_stack;
     
-    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER ALL;
-    ALTER TABLE gn_synthese.cor_observer_synthese ENABLE TRIGGER ALL;
-
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER trg_refresh_taxons_forautocomplete;
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_insert_cor_area_synthese;
+    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_update_cor_area_taxon_update_cd_nom;
+    
+    ALTER TABLE gn_synthese.cor_observer_synthese ENABLE TRIGGER trg_maj_synthese_observers_txt;
+    
     INSERT INTO gn_imports.gn_imports_log (table_name, success, error_msg, start_time, end_time)
     VALUES (tablename, false, v_error_stack, start_time, clock_timestamp());
     
     RETURN false;
   END;
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
+$function$
+;
+
 
 
 CREATE OR REPLACE FUNCTION gn_imports.delete_static_source(
