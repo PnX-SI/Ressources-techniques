@@ -14,10 +14,12 @@ CREATE TABLE gn_imports.gn_imports_log (
 
 -- DROP FUNCTION gn_imports.import_static_source(character varying, integer, integer);
 
-CREATE OR REPLACE FUNCTION gn_imports.import_static_source(tablename character varying, idsource integer, iddataset integer)
- RETURNS boolean
- LANGUAGE plpgsql
-AS $function$
+CREATE OR REPLACE FUNCTION gn_imports.import_static_source(
+    tablename character varying,
+    idsource integer,
+    iddataset integer)
+  RETURNS boolean AS
+$BODY$
   DECLARE
     insert_cmd text;
     insert_columns text;
@@ -177,33 +179,6 @@ AS $function$
         ALTER TABLE gn_synthese.cor_observer_synthese ENABLE TRIGGER trg_maj_synthese_observers_txt;
     END IF;
 
-    RAISE NOTICE 'Update taxons_synthese_autocomplete A FINALISER manque la suppression : %', clock_timestamp();
-        WITH new_cd_nom AS (
-        SELECT DISTINCT c.cd_nom
-        FROM gn_synthese.taxons_synthese_autocomplete s
-        LEFT OUTER JOIN tmp_process_import c
-        ON c.cd_nom = s.cd_nom
-        WHERE s.cd_nom IS NULL AND c.action IN ('I', 'U')
-   )
-    INSERT INTO gn_synthese.taxons_synthese_autocomplete
-    SELECT t.cd_nom,
-                  t.cd_ref,
-              concat(t.lb_nom, ' = <i>', t.nom_valide, '</i>', ' - [', t.id_rang, ' - ', t.cd_nom , ']') AS search_name,
-              t.nom_valide,
-              t.lb_nom,
-              t.regne,
-              t.group2_inpn
-    FROM taxonomie.taxref t  WHERE cd_nom IN (SELECT DISTINCT cd_nom FROM new_cd_nom)
-    UNION
-    SELECT t.cd_nom,
-    t.cd_ref,
-    concat(t.nom_vern, ' =  <i> ', t.nom_valide, '</i>', ' - [', t.id_rang, ' - ', t.cd_nom , ']' ) AS search_name,
-    t.nom_valide,
-    t.lb_nom,
-    t.regne,
-    t.group2_inpn
-    FROM taxonomie.taxref t  WHERE t.nom_vern IS NOT NULL AND cd_nom IN (SELECT DISTINCT cd_nom FROM new_cd_nom);
-    
     ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
     ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_insert_cor_area_synthese;
     ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_update_cor_area_taxon_update_cd_nom;
@@ -227,7 +202,6 @@ EXCEPTION
     GET STACKED DIAGNOSTICS v_error_stack = PG_EXCEPTION_CONTEXT;
     RAISE WARNING 'The stack trace of the error is: "%"', v_error_stack;
     
-    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER trg_refresh_taxons_forautocomplete;
     ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
     ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_insert_cor_area_synthese;
     ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_update_cor_area_taxon_update_cd_nom;
@@ -239,9 +213,9 @@ EXCEPTION
     
     RETURN false;
   END;
-$function$
-;
-
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 
 
 CREATE OR REPLACE FUNCTION gn_imports.delete_static_source(
