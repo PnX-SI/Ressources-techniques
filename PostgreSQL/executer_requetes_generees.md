@@ -20,4 +20,20 @@ BEGIN
    END LOOP;
 END
 $$;
+-- Mise à jour des vm
+DO
+$$
+DECLARE
+   rec   record;
+BEGIN
+   FOR rec IN
+      SELECT concat('REFRESH MATERIALIZED VIEW ', schemaname, '.', matviewname, ';') AS sql
+		FROM pg_catalog.pg_matviews 
+		ORDER BY schemaname, matviewname
+   LOOP
+      raise notice ' %', rec.sql;
+      EXECUTE rec.sql;
+   END LOOP;
+END
+$$;
 ```
