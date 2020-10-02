@@ -1,0 +1,15 @@
+db_host=localhost
+
+# PostgreSQL port
+db_port=5432
+
+# GeoNature database name
+db_gn_name=gnoo
+
+db_oo_name=obsocc
+
+# GeoNature database owner username
+user_pg=xxxx
+
+# GeoNature database owner password
+user_pg_pass=xxxxx
