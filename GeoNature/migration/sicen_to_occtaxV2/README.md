@@ -14,21 +14,21 @@ Travail effectué pour l'instant:
 Afin de simplifier l'écriture on notera :
 
 - `OO` pour `ObsOcc`
-- `GN` pour `GéoNaure`
+- `GN` pour `GeoNature`
 - `CA` pour cadre d'aquisition
 - `JDD` pour jeux de données
 - (`dev`) pour les actions de développement et de test d'intégration des données
 
 
-Pour le nom des table on utilise la notation suivante
+Pour le nom des tables on utilise la notation suivante
 
 ``` APPLICATION:schema.table```
 
-Par exemple: `OO:md.etudes` ou `GN:gn_synthese.synthese`
+Par exemple : `OO:md.etudes` ou `GN:gn_synthese.synthese`
 
 # Pré-requis
 
-Avoir une base `GN` à la version 2.5.0 en bon état de marche
+Avoir une base `GN` à la version 2.5.0 en bon état de fonctionnement
 
 # Configuration
 
@@ -50,7 +50,7 @@ Avant toute chose, il faut créer et compléter le fichier `settings.ini`
 
 # Import des données
 
-La commandes suivante permet d'intégrer les données de `OO` vers `GN` à partir du ficher dump de la base de données de `OO`
+La commande suivante permet d'intégrer les données de `OO` vers `GN` à partir du ficher dump de la base de données de `OO`
 
 ```
 ./import_obs_occ.sh -f <chemin vers le fichier du dump de la base `OO`>
@@ -68,38 +68,36 @@ les options (**obligatoire en gras**) :
 
 ## Les actions de la commande
 
-Cette commande va effectuer les actions suivantes:
+Cette commande va effectuer les actions suivantes :
 
 ### Restauration de la base `OO`
 
 - Si la base de nom `${db_oo_name}` n'existe pas, on la crée à partir du fichier dump.
-  - *Si on veux la re-créer il faut la supprimer à la main et relancer le script*.
+  - *Si on veut la re-créer il faut la supprimer à la main et relancer le script*.
 
 ### Création et remplissage du schéma `OO:export_oo`
 
-- Si le schéma `OO:export_oo` n 'existe pas:
+- Si le schéma `OO:export_oo` n'existe pas:
   - Creation du schema `OO:export_oo`.
-  - Crétion des vues et des table de `OO:export_oo`
+  - Création des vues et des table de `OO:export_oo`
   
-- Ce shéma contient les vues et les tables pour préformarter les données pour les insérer dans `GN`
+- Ce schéma contient les vues et les tables pour préformater les données pour les insérer dans `GN`
 
 - *(`dev`) On peut forcer la supression et le re-création avec l'option `-d`*
 
-### Crétion du lien FWD entre `OO` et `GN`
+### Création du lien FWD entre `OO` et `GN`
 
 - `OO:export_oo` -> `GN:export_oo`
 
-### Vérification des correspondance entre `JDD`, études et protocole
+### Vérification des correspondances entre `JDD`, études et protocole
 
 - Si `GN:export_oo.cor_etude_protocole_dataset` n'a pas ses champs `id_data_set` renseignés:
   - précision des lignes où l'`id_dataset` n'est pas renseigné.
   - Arrêt du script
 
-
-
 - A ce stade il faut pouvoir renseigner la table `GN:export_oo.cor_etude_protocole_dataset`. Voir le paragraphe sur les `JDD` pour plus de détails.
 
-- *(`dev`) Avec l'option `-p`, on peut créer un `CA` et `JDD` test et l'assigner à toutes les lignes de `GN:export_oo.cor_etude_protocole_dataset` afin de testerla suite de l'intégration des données.*
+- *(`dev`) Avec l'option `-p`, on peut créer un `CA` et `JDD` test et l'assigner à toutes les lignes de `GN:export_oo.cor_etude_protocole_dataset` afin de tester la suite de l'intégration des données.*
 
 
 ### Intégration des données
@@ -132,11 +130,11 @@ On propose de créer une table de correspondance avec tous les couples  `id_prot
 Cette table est créée automatiquement avec des `id_dataset=NULL`.
 Les champs `id_dataset` sont à compléter à la main.
 
-Les JDD sont à créer dans le module GéoNature métodonnées.
+Les JDD sont à créer dans le module GeoNature métadonnées.
 
 #### Améliorations
 
-- Il peut être pertinent d'ajouter le champs id_organisme à cette table pour une gestion plus fine de ces JDD.
+- Il peut être pertinent d'ajouter le champs `id_organisme` à cette table pour une gestion plus fine de ces JDD.
 - ??? Faire une interface de saisie pour la correspondance entre JDD et (etude, protocole)
 
 ### Les organismes / utilisateurs
