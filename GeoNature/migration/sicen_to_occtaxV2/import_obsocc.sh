@@ -16,7 +16,7 @@ Usage: ./$(basename $BASH_SOURCE)[options]
      -v | --verbose: display more infos
      -x | --debug: display debug script infos
      -f | --dump_file_path: path to obsocc dump file
-     -d | --drop-export-gn: re-create export_gn schema
+     -d | --drop-export-gn: re-create export_oo schema
      -p | --apply-patch: apply patch for JDD (one for all)
 
 EOF
@@ -80,13 +80,13 @@ function main() {
     import_bd_obsocc ${obsocc_dump_file}
 
     if ! [ -z ${drop_import_schema} ]; then
-        drop_export_gn
+        drop_export_oo
     fi
 
     # ne recrée pas si export est déjà existant
-    create_export_gn
+    create_export_oo
 
-    # fdw de OO export_gn vers GN import_oo
+    # fdw de OO export_oo vers GN export_oo
     create_fdw_obsocc
 
     if [ -n "${apply_patch}" ] ;  then

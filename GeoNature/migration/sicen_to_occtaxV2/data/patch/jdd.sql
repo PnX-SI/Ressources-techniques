@@ -6,7 +6,7 @@
 -- Toutes les données auront le même JDD
 
 -- Cette partie doit être faite 'à la main'
--- cad creer les CA et JDD GN et les associer aux protocoles et etude OO dans la table import_oo.cor_dataset
+-- cad creer les CA et JDD GN et les associer aux protocoles et etude OO dans la table export_oo.cor_dataset
 
 -- on fait en sorte de ne pas pouvoir recreer les infos deux fois
 
@@ -48,7 +48,7 @@ INSERT INTO gn_meta.t_datasets(
 ;
 
 -- ASSIGN id_dataset
-UPDATE import_oo.cor_etude_protocole_dataset SET (id_dataset) = ( 
+UPDATE export_oo.cor_etude_protocole_dataset SET (id_dataset) = ( 
     SELECT id_dataset 
     FROM gn_meta.t_datasets
     WHERE  dataset_name = 'test import obsocc'

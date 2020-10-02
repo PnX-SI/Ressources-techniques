@@ -1,7 +1,7 @@
 -- BASE OO
 
-DROP VIEW IF EXISTS export_gn.v_utilisateurs_bib_organismes CASCADE;
-CREATE VIEW export_gn.v_utilisateurs_bib_organismes AS
+DROP VIEW IF EXISTS export_oo.v_utilisateurs_bib_organismes CASCADE;
+CREATE VIEW export_oo.v_utilisateurs_bib_organismes AS
     SELECT
         id_structure,
         nom_structure AS nom_organisme,
@@ -15,8 +15,8 @@ CREATE VIEW export_gn.v_utilisateurs_bib_organismes AS
     FROM md.structure
 ;
 
-DROP VIEW IF EXISTS export_gn.v_utilisateurs_t_roles;
-CREATE VIEW export_gn.v_utilisateurs_t_roles AS
+DROP VIEW IF EXISTS export_oo.v_utilisateurs_t_roles;
+CREATE VIEW export_oo.v_utilisateurs_t_roles AS
     WITH 
         champs_addi AS
             ( SELECT

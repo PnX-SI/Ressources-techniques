@@ -29,7 +29,7 @@ INSERT INTO utilisateurs.bib_organismes (
         vo.fax_organisme,
         vo.email_organisme,
         vo.url_organisme
-    FROM import_oo.v_utilisateurs_bib_organismes vo
+    FROM export_oo.v_utilisateurs_bib_organismes vo
     LEFT JOIN utilisateurs.bib_organismes o
         ON vo.nom_organisme = o.nom_organisme
     WHERE o.nom_organisme IS NULL 
@@ -60,10 +60,10 @@ INSERT INTO utilisateurs.t_roles(
         vr.champs_addi,
         o.id_organisme,
         FALSE
-    FROM import_oo.v_utilisateurs_t_roles vr
+    FROM export_oo.v_utilisateurs_t_roles vr
     JOIN utilisateurs.bib_organismes o 
         ON vr.id_structure = o.id_structure
-    LEFT JOIN import_oo.v_utilisateurs_t_roles r
+    LEFT JOIN export_oo.v_utilisateurs_t_roles r
         ON r.nom_role = vr.nom_role 
             AND r.prenom_role = vr.prenom_role
     WHERE r.nom_role IS NULL

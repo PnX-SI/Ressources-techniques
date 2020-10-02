@@ -6,7 +6,7 @@
 --   et pour facilité l'assignation à postériori des id_dataset
 
 
-CREATE TABLE export_gn.cor_etude_protocole_dataset AS
+CREATE TABLE export_oo.cor_etude_protocole_dataset AS
 SELECT DISTINCT
     s.id_protocole,
     s.id_etude,

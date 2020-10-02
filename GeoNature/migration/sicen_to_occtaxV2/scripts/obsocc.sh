@@ -32,57 +32,57 @@ function import_bd_obsocc() {
 }
 
 
-# DESC: drop schema export_gn
+# DESC: drop schema export_oo
 # ARGS: NONE
 # OUTS: NONE
-function drop_export_gn() {
+function drop_export_oo() {
 
-    echo "suppression du shema OO export_gn"
+    echo "suppression du shema OO export_oo"
 
-    # drop schema OO export_gn
+    # drop schema OO export_oo
     export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} -c \
-        "DROP SCHEMA IF EXISTS export_gn CASCADE" \
+        "DROP SCHEMA IF EXISTS export_oo CASCADE" \
         &>> ${log_dir}/sql.log
 
 }
 
 
-# DESC: Create and fill OO schema export_gn
+# DESC: Create and fill OO schema export_oo
 # ARGS: NONE
 # OUTS: NONE
-function create_export_gn() {
+function create_export_oo() {
 
-    if schema_exists ${db_oo_name} export_gn; then
-        echo "OO export_gn : suppression"
+    if schema_exists ${db_oo_name} export_oo; then
+        echo "OO export_oo : suppression"
         return 0
     fi
 
-    # create schema OO export_gn
-    echo "OO export_gn : creation"
+    # create schema OO export_oo
+    echo "OO export_oo : creation"
     export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} -c \
-        "CREATE SCHEMA export_gn" \
+        "CREATE SCHEMA export_oo" \
         &>> ${log_dir}/sql.log
 
 
     # create data users, organisms
-    echo "OO export_gn : add users, organism"
+    echo "OO export_oo : add users, organism"
     export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
-        -f ${root_dir}/data/export_gn/user.sql \
+        -f ${root_dir}/data/export_oo/user.sql \
         &>> ${log_dir}/sql.log
 
     # create cor_etude_protocol_dataset
-    echo "OO export_gn : add cor_jdd"
+    echo "OO export_oo : add cor_jdd"
     export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
-        -f ${root_dir}/data/export_gn/jdd.sql \
+        -f ${root_dir}/data/export_oo/jdd.sql \
         &>> ${log_dir}/sql.log
     # export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \ 
-    #     -f ${root_dir}/data/export_gn/jdd.sql \
+    #     -f ${root_dir}/data/export_oo/jdd.sql \
     #     &>> ${log_dir}/sql.log
 
 }
 
 
-# DESC: create fdw schema GN import_oo from OO export_gn
+# DESC: create fdw schema GN export_oo from OO export_oo
 # ARGS: NONE
 # OUTS: NONE
 function create_fdw_obsocc() {
@@ -117,32 +117,32 @@ function apply_patch_jdd() {
 }
 
 
-# DESC: test if GN import_oo.cor_etude_module_dataset exists
+# DESC: test if GN export_oo.cor_etude_module_dataset exists
 #       and if id_dataset are not NULL
 # ARGS: NONE
 # OUTS: 0 if true
 function test_import_gn_cor_etude_protocol_dataset() {
 
-    if ! table_exists ${db_gn_name} import_oo cor_etude_protocole_dataset; then
-        echo La table GN import_oo cor_etude_protocole_dataset n existe pas
+    if ! table_exists ${db_gn_name} export_oo cor_etude_protocole_dataset; then
+        echo La table GN export_oo cor_etude_protocole_dataset n existe pas
         return 1
     fi
 
-    export PGPASSWORD=${user_pg_pass};res=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "SELECT libelle_protocole, nom_etude Etude FROM import_oo.cor_etude_protocole_dataset WHERE id_dataset IS NULL;")
+    export PGPASSWORD=${user_pg_pass};res=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "SELECT libelle_protocole, nom_etude Etude FROM export_oo.cor_etude_protocole_dataset WHERE id_dataset IS NULL;")
 
     if [ -n "$res" ] ; then 
-        echo Dans la table import_oo.cor_etude_protocole_dataset, il n y a pas de JDD associé pour les ligne suivantes
+        echo Dans la table export_oo.cor_etude_protocole_dataset, il n y a pas de JDD associé pour les ligne suivantes
         echo
         echo $res | sed -e "s/;/\n/g" -e "s/|/\t\t/g" | sort
         return 1
     fi
 
-    echo " import_oo.cor_etude_protocole_dataset OK"
+    echo " export_oo.cor_etude_protocole_dataset OK"
 
     return 0
 }
 
-# DESC: insert_data from GN.import_oo INTO GN
+# DESC: insert_data from GN.export_oo INTO GN
 # ARGS: NONE
 # OUTS: NONE
 function insert_data() {

@@ -10,8 +10,8 @@ CREATE USER MAPPING
         SERVER obsocc_server
         OPTIONS (password :'user_pg_pass',user :'user_pg');
 
-DROP SCHEMA IF EXISTS import_oo;
-CREATE SCHEMA IF NOT EXISTS import_oo;
-IMPORT FOREIGN SCHEMA export_gn
-      FROM SERVER obsocc_server INTO import_oo;
+DROP SCHEMA IF EXISTS export_oo;
+CREATE SCHEMA IF NOT EXISTS export_oo;
+IMPORT FOREIGN SCHEMA export_oo
+      FROM SERVER obsocc_server INTO export_oo;
 

@@ -6,6 +6,7 @@ db_port=5432
 # GeoNature database name
 db_gn_name=gnoo
 
+# ObsOcc database name
 db_oo_name=obsocc
 
 # GeoNature database owner username
