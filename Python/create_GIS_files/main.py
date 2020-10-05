@@ -8,7 +8,6 @@ import uuid
 from sqlalchemy import create_engine
 from geoalchemy2.shape import to_shape
 from fiona.crs import from_epsg
-from geoalchemy2.shape import to_shape
 from shapely.geometry import Point, Polygon, MultiPolygon, mapping
 from shapely import wkb, wkt
 
