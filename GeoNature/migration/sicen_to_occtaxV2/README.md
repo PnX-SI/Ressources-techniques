@@ -91,15 +91,15 @@ Cette commande va effectuer les actions suivantes:
 
 ### Vérification des correspondance entre `JDD`, études et protocole
 
-- Si `GN:export_oo.cor_etude_protocole_dataset` n'a pas ses champs `id_data_set` renseignés:
+- Si `GN:export_oo.cor_dataset` n'a pas ses champs `id_data_set` renseignés:
   - précision des lignes où l'`id_dataset` n'est pas renseigné.
   - Arrêt du script
 
 
 
-- A ce stade il faut pouvoir renseigner la table `GN:export_oo.cor_etude_protocole_dataset`. Voir le paragraphe sur les `JDD` pour plus de détails.
+- A ce stade il faut pouvoir renseigner la table `GN:export_oo.cor_dataset`. Voir le paragraphe sur les `JDD` pour plus de détails.
 
-- *(`dev`) Avec l'option `-p`, on peut créer un `CA` et `JDD` test et l'assigner à toutes les lignes de `GN:export_oo.cor_etude_protocole_dataset` afin de testerla suite de l'intégration des données.*
+- *(`dev`) Avec l'option `-p`, on peut créer un `CA` et `JDD` test et l'assigner à toutes les lignes de `GN:export_oo.cor_dataset` afin de testerla suite de l'intégration des données.*
 
 
 ### Intégration des données
@@ -113,10 +113,10 @@ Cette commande va effectuer les actions suivantes:
 ### `JDD`
 #### But
 
-Créer la table `export_oo.cor_etude_protocole_dataset` définissant les correspondances entre Jeux de données GéoNature, et études et protocoles de `OO`.
+Créer la table `export_oo.cor_dataset` définissant les correspondances entre Jeux de données GéoNature, et études et protocoles de `OO`.
 
 ```
-export_oo.cor_etude_protocole_dataset
+export_oo.cor_dataset
 
 id_protocole
 id_etude
@@ -133,6 +133,7 @@ Cette table est créée automatiquement avec des `id_dataset=NULL`.
 Les champs `id_dataset` sont à compléter à la main.
 
 Les JDD sont à créer dans le module GéoNature métodonnées.
+
 
 #### Améliorations
 

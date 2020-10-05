@@ -1,3 +1,4 @@
+# PostgreSQL host
 db_host=localhost
 
 # PostgreSQL port

@@ -3,7 +3,7 @@
 
 -- add columns to keep information
 
-ALTER TABLE utilisateurs.bib_organismes ADD id_structure INTEGER;
+ALTER TABLE utilisateurs.bib_organismes ADD COLUMN IF NOT EXISTS id_structure INTEGER;
 
 
 -- utilisateur.bib_organismes
@@ -36,7 +36,7 @@ INSERT INTO utilisateurs.bib_organismes (
 ;
 
 -- utilisateurs.t_roles
--- pas 2 utilisateurs qui s'appellent pareil.
+-- pas 2 utilisateurs qui s'appellent pareil. ??
 
 
 INSERT INTO utilisateurs.t_roles(
@@ -63,11 +63,12 @@ INSERT INTO utilisateurs.t_roles(
     FROM export_oo.v_utilisateurs_t_roles vr
     JOIN utilisateurs.bib_organismes o 
         ON vr.id_structure = o.id_structure
-    LEFT JOIN export_oo.v_utilisateurs_t_roles r
+    LEFT JOIN utilisateurs.t_roles r
         ON r.nom_role = vr.nom_role 
             AND r.prenom_role = vr.prenom_role
     WHERE r.nom_role IS NULL
 ;
+
 
 -- gestion des droits (TODO affiner)
 
@@ -77,14 +78,27 @@ INSERT INTO utilisateurs.t_roles(
 --  - admin -> Grp_admin
 --  - observ -> Grp_observateur
 
+
+-- il y surement plus simple pour eviter d'ecrire 2 fois cette ligne.
+-- mais il n'est pas possbile d'uiliser ON CONFLIT DO NOTHING en l'état.
+
 INSERT INTO utilisateurs.t_roles(
     groupe,
     nom_role,
+    identifiant,
     desc_role,
     remarques
     )
-    VALUES (TRUE, 'Grp_observateurs', 'Tous les observateurs', 'Groupe sans droit (pour les listes)')
+    SELECT TRUE, 'Grp_observateurs', 'Grp_observateurs', 'Tous les observateurs', 'Groupe d''observateurs sans droit (pour les listes)'
+        FROM utilisateurs.t_roles r, (
+		SELECT COUNT(*) AS cpt 
+			FROM utilisateurs.t_roles r
+			WHERE nom_role = 'Grp_observateurs'
+	)a
+     WHERE a.cpt = 0
+     LIMIT 1;
 ;
+
 
 
 INSERT INTO utilisateurs.cor_roles
@@ -101,6 +115,7 @@ SELECT
 	END
 	FROM utilisateurs.t_roles r
 	WHERE champs_addi->>'role' IS NOT NULL
+ON CONFLICT DO NOTHING;
 ;
 
 

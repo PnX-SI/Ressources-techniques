@@ -161,14 +161,22 @@ function getValue() {
 }
 
 
+    # export PGPASSWORD=${user_pg_pass}; \
+    #     psql -h ${db_host}  -p ${db_port} -U ${user_pg} \
+    #     -d ${db_name} \
+    #     ${s_action}
+
+
+
 # DESC: check if DB exists
 # ARGS: $1 : database name
-# OUTS: 0 if false
+# OUTS: 0 if true
 # USAGE: database_exists test
 function database_exists () {
     # /!\ Will return false if psql can't list database. Edit your pg_hba.conf
     # as appropriate.
 
+    db_name=$1
 
     if [ -z $1 ]
         then
@@ -176,7 +184,10 @@ function database_exists () {
         return 1
     else
         # Grep DB name in the list of databases
-        export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d postgres -tAl | grep -q "^$1|" &>> ${log_dir}/sql.log
+        export PGPASSWORD=${user_pg_pass};\
+        psql -tAl -h ${db_host}  -p ${db_port} -U ${user_pg} -d postgres -tAl | grep  "${db_name}" \
+        &>> ${log_dir}/sql.log
+        
         return $?
     fi
 }
@@ -192,18 +203,20 @@ function schema_exists () {
     if [[ $# -lt 2 ]]; then
         exitScript 'Missing required arguments (2) to schema_exists ()' 2
     fi
-    
+
+    db_name=$1
+    schema_name=$2
+
     if ! database_exists $1; then
-        # Argument is null
         return 1
+    fi
+
+    res=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_name} -c "SELECT schema_name FROM information_schema.schemata WHERE schema_name = '${schema_name}'")
+
+    if [ -n "$res" ] ; then  
+        return 0
     else
-        # Grep DB name in the list of databases
-        export PGPASSWORD=${user_pg_pass};res=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d $1 -c "SELECT schema_name FROM information_schema.schemata WHERE schema_name = '$2'")  &>> ${log_dir}/sql.log
-        if [ -n "$res" ] ; then  
-            return 0
-        else
-            return 1
-        fi
+        return 1
     fi
 }
 
@@ -221,16 +234,19 @@ function table_exists () {
         exitScript 'Missing required arguments (3) to table_exists ()' 2
     fi
     
-    if ! schema_exists $1 $2; then
-        # Argument is null
+    db_name=$1
+    schema_name=$2
+    table_name=$3
+
+    if ! schema_exists ${db_name} ${schema_name}; then
         return 1
+    fi
+
+    res=$(psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_name} -c "SELECT * FROM information_schema.tables WHERE table_schema = '${schema_name}' AND table_name = '${table_name}';")
+
+    if [ -n "$res" ] ; then  
+        return 0
     else
-        # Grep DB name in the list of databases
-        export PGPASSWORD=${user_pg_pass};res=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d $1 -c "SELECT * FROM information_schema.tables WHERE table_schema = '$2' AND table_name = '$3';")
-        if [ -n "$res" ] ; then  
-            return 0
-        else
-            return 1
-        fi
+        return 1
     fi
 }

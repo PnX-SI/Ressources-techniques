@@ -1,2 +1,5 @@
 settings.ini
 *.log
+tmp/*
+dumps/*
+!.gitkeep

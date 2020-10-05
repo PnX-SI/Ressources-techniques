@@ -13,22 +13,54 @@ function import_bd_obsocc() {
 
     # test if db exist return
     if database_exists "${db_oo_name}"; then
-        echo La base de données OBSOCC:  ${db_oo_name} existe déjà. 
+        echo Restore OO : la base de données OO ${db_oo_name} existe déjà. 
         return 0
     fi
 
-    echo La base de données OBSOCC:  ${db_oo_name} n existe pas. 
+    if [ ! -f ${obsocc_dump_file} ] ; then 
+        echo "Le fichier ${obsocc_dump_file} n'existe pas"
+        return 1
+    fi
+
+    echo Restauration de la base de données OBSOCC:  ${db_oo_name}. 
 
 
-    # Create DB & extentions
-    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d postgres -c "CREATE DATABASE ${db_oo_name}";
-    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} -c "CREATE EXTENSION IF NOT EXISTS postgis";
-    # ?? postgis-raster
-    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"';
+    # Create DB
+
+    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d postgres \
+        -c "CREATE DATABASE ${db_oo_name}" \
+        &>> ${log_dir}/restore_oo.log
+    
+
+    # extensions
+
+    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
+        -c "CREATE EXTENSION IF NOT EXISTS postgis" \
+        &>> ${log_dir}/restore_oo.log
+    
+    # ??? postgis-raster test si postgis 3 ou le faire dans tous les cas ?
+    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
+        -c "CREATE EXTENSION IF NOT EXISTS postgis_raster" \
+        &>> ${log_dir}/restore_oo.log
+
+    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
+        -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"' \
+        &>> ${log_dir}/restore_oo.log
+
 
     # retore dump into ${db_oo_name}
-    export PGPASSWORD=${user_pg_pass};pg_restore  -h ${db_host} -p ${db_port} --role=${user_pg} --no-owner --no-acl -U ${user_pg} -d ${db_oo_name} $obsocc_dump_file
 
+    export PGPASSWORD=${user_pg_pass}; \
+        pg_restore  -h ${db_host} -p ${db_port} --role=${user_pg} --no-owner --no-acl -U ${user_pg} \
+        -d ${db_oo_name} ${obsocc_dump_file} \
+        &>> ${log_dir}/restore_oo.log
+
+    # Affichage des erreurs (ou test sur l'extence des schemas???
+    err=$(grep ERR ${log_dir}/restore_oo.log)
+
+    echo $err
+
+    return 0
 }
 
 
@@ -53,7 +85,7 @@ function drop_export_oo() {
 function create_export_oo() {
 
     if schema_exists ${db_oo_name} export_oo; then
-        echo "OO export_oo : suppression"
+        echo "OO export_oo : le shema existe déjà"
         return 0
     fi
 
@@ -97,7 +129,7 @@ function create_fdw_obsocc() {
         -f ${root_dir}/data/fdw.sql \
         &>> ${log_dir}/sql.log
 
-    echo FDW établi
+    echo OO GN: FDW établi
 
 }
 
@@ -107,7 +139,7 @@ function create_fdw_obsocc() {
 # OUTS: NONE
 function apply_patch_jdd() {
 
-    echo "apply patch jdd"
+    echo "GN: apply patch jdd"
 
     export PGPASSWORD=${user_pg_pass}; \
     psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
@@ -121,23 +153,23 @@ function apply_patch_jdd() {
 #       and if id_dataset are not NULL
 # ARGS: NONE
 # OUTS: 0 if true
-function test_import_gn_cor_etude_protocol_dataset() {
+function test_cor_dataset() {
 
-    if ! table_exists ${db_gn_name} export_oo cor_etude_protocole_dataset; then
-        echo La table GN export_oo cor_etude_protocole_dataset n existe pas
+    if ! table_exists ${db_gn_name} export_oo cor_dataset; then
+        echo La table GN export_oo cor_dataset n existe pas
         return 1
     fi
 
-    export PGPASSWORD=${user_pg_pass};res=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "SELECT libelle_protocole, nom_etude Etude FROM export_oo.cor_etude_protocole_dataset WHERE id_dataset IS NULL;")
+    export PGPASSWORD=${user_pg_pass};res=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "SELECT libelle_protocole, nom_etude Etude FROM export_oo.cor_dataset WHERE id_dataset IS NULL;")
 
     if [ -n "$res" ] ; then 
-        echo Dans la table export_oo.cor_etude_protocole_dataset, il n y a pas de JDD associé pour les ligne suivantes
+        echo Dans la table export_oo.cor_dataset, il n y a pas de JDD associé pour les ligne suivantes
         echo
         echo $res | sed -e "s/;/\n/g" -e "s/|/\t\t/g" | sort
         return 1
     fi
 
-    echo " export_oo.cor_etude_protocole_dataset OK"
+    echo "GN: export_oo.cor_dataset OK"
 
     return 0
 }

@@ -1,3 +1,30 @@
 TODO
 
-psql -v pour fwd
+nomenclature
+
+Non attribués
+
+STADE VIE type_effectif
+    disparu
+
+ETA_BIO determination
+    Indices de présence
+
+METH_OBS determination
+    Cadavre (ETA_BIO)
+
+SEXE phenologie
+
+STATUT_VALID statut_validation
+
+
+ajout jsonb dans occtax ISSUE et PR dans GN
+
+petites modifs
+
+function pour afficher les messages
+Voir le nombre de donnée insérée dans les message ?
+fonction Tester les parametres de connexion à postgres
+fonction Test si postgis 3 et install extension postgis-raster (cf install gn)
+
+

@@ -48,7 +48,7 @@ INSERT INTO gn_meta.t_datasets(
 ;
 
 -- ASSIGN id_dataset
-UPDATE export_oo.cor_etude_protocole_dataset SET (id_dataset) = ( 
+UPDATE export_oo.cor_dataset SET (id_dataset) = ( 
     SELECT id_dataset 
     FROM gn_meta.t_datasets
     WHERE  dataset_name = 'test import obsocc'
