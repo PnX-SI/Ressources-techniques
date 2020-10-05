@@ -74,8 +74,6 @@ function main() {
     # init script
     file_names="utils.sh config.sh obsocc.sh"
     for file_name in ${file_names}; do
-        echo $file_name
-
         source "$(dirname "${BASH_SOURCE[0]}")/scripts/${file_name}"
     done
 
@@ -84,7 +82,7 @@ function main() {
 
     # init files
 
-    rm -f ${log_dir}/*.log
+    rm -f ${sql_log_file}
     rm -Rf ${tmp_dir}
     mkdir -p ${tmp_dir}
     cp -R ${root_dir}/data/csv /tmp/.
@@ -107,6 +105,7 @@ function main() {
     if ! schema_exists ${db_oo_name} md ; then
         echo "Le schema 00:md n'existe pas, il y a un  problème dans l'import de la base"
         echo "Veuillez supprimer la base ${db_oo_name} et relancer le script"
+        echo "Voir le fichier ${export_oo_log_file} pour plus d'informations"
         return 1
     fi
 
@@ -150,7 +149,7 @@ function main() {
 
     # print SQL ERROR
 
-    grep ERR ${log_dir}/sql.log
+    grep ERR ${sql_log_file}
 
 }
 

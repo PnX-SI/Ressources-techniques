@@ -63,56 +63,98 @@ $$;
 
 DROP FUNCTION IF EXISTS export_oo.check_synonyme_cd_nomenclature;
 CREATE OR REPLACE FUNCTION export_oo.check_synonyme_cd_nomenclature(code_type_in text, colname_in text)
- RETURNS TABLE(obsocc_value text, cd_nomenclature text, label_default text)  
+ RETURNS TABLE(
+	code_type text,
+	obsocc_field_name text,
+	obsocc_value text,
+	cd_nomenclature text,
+	label_default text
+)  
 --RETURNS SETOF RECORD
 LANGUAGE plpgsql 
 AS
 $$
 BEGIN
    RETURN QUERY EXECUTE format('
-   SELECT DISTINCT  
-%I::text, 
-a.cd_nomenclature::text, 
-s.label_default::text
-FROM ( SELECT DISTINCT 
-	%I,
-	export_oo.get_synonyme_cd_nomenclature($2, %I::text) as cd_nomenclature
-	FROM saisie.saisie_observation o
-)a
- LEFT JOIN export_oo.t_synonymes s 
-	ON s.cd_nomenclature = a.cd_nomenclature
-		AND s.code_type = $2
-;', colname_in, colname_in, colname_in)
-USING colname_in, code_type_in;
+WITH obsocc_values AS (
+	SELECT DISTINCT 
+		%I::text AS obsocc_value
+	FROM saisie.saisie_observation
+), obsocc_synonymes AS (
+	SELECT DISTINCT
+		obsocc_value,
+		export_oo.get_synonyme_cd_nomenclature($1, obsocc_value)::text AS cd_nomenclature,
+		export_oo.format_value(obsocc_value) AS test_value
+	FROM obsocc_values
+)
+
+SELECT
+
+	$1 AS code_type,
+	$2 AS obsocc_field_name,
+	os.obsocc_value,
+	os.cd_nomenclature,
+	s.label_default::text
+--	, s.test_value
+FROM obsocc_synonymes os
+LEFT JOIN export_oo.t_synonymes s 
+	ON s.cd_nomenclature = os.cd_nomenclature
+		AND s.obsocc_value = os.obsocc_value
+		AND s.code_type = $1
+ORDER BY cd_nomenclature, obsocc_value
+;
+;', colname_in)
+USING code_type_in, colname_in;
 --RETURN ;
 END
 $$
 ;
 
+-- WITH obsocc_values AS (
+-- 	
+-- 	SELECT DISTINCT 
+-- 	phenologie AS obsocc_value
+-- 	FROM saisie.saisie_observation
+-- 
+-- ), obsocc_synonymes AS (
+-- 	SELECT 
+-- 		obsocc_value,
+-- 		export_oo.get_synonyme_cd_nomenclature('STADE_VIE', obsocc_value)::text AS cd_nomenclature,
+-- 		export_oo.format_value(obsocc_value) AS test_value
+-- 	FROM obsocc_values
+-- )
+-- 
+-- SELECT
+-- 
+-- 	'STADE_VIE' AS code_type,
+-- 	'phenologie' AS obsocc_field_name,
+-- 	os.obsocc_value,
+-- 	os.cd_nomenclature,
+-- 	s.label_default::text
+-- --	, s.test_value
+-- FROM obsocc_synonymes os
+-- LEFT JOIN export_oo.t_synonymes s 
+-- 	ON s.cd_nomenclature = os.cd_nomenclature
+-- 		AND s.test_value = os.test_value
+-- 		AND s.obsocc_value = os.obsocc_value
+-- 		AND s.code_type = 'STADE_VIE'
+-- ORDER BY cd_nomenclature, obsocc_value;
+-- 
+-- 
+-- 	SELECT *
+-- 	FROM export_oo.t_synonymes s 
+-- 	WHERE s.code_type = 'STADE_VIE';
+
+	
 SELECT * FROM export_oo.check_synonyme_cd_nomenclature('ETA_BIO', 'determination');
+SELECT * FROM export_oo.check_synonyme_cd_nomenclature('ETA_BIO', 'phenologie');
+
 SELECT * FROM export_oo.check_synonyme_cd_nomenclature('METH_OBS', 'determination');
 SELECT * FROM export_oo.check_synonyme_cd_nomenclature('STADE_VIE', 'type_effectif');
+SELECT * FROM export_oo.check_synonyme_cd_nomenclature('STADE_VIE', 'phenologie');
+
 SELECT * FROM export_oo.check_synonyme_cd_nomenclature('STATUT_VALID', 'statut_validation');
 SELECT * FROM export_oo.check_synonyme_cd_nomenclature('SEXE', 'phenologie');
 
 
-
---SELECT DISTINCT
-  
---type_effectif::text, a.cd_nomenclature::text, s.label_default::text
---FROM ( SELECT DISTINCT 
---	type_effectif,
---	export_oo.get_synonyme_cd_nomenclature('STADE_VIE', type_effectif) as cd_nomenclature
---	FROM saisie.saisie_observation o
---)a
---JOIN export_oo.t_synonymes s 
---	ON s.cd_nomenclature = a.cd_nomenclature
---		AND s.code_type = 'STADE_VIE'
---;
-
---SELECT DISTINCT 
---	determination,
---	export_oo.get_synonyme_cd_nomenclature('METH_OBS', determination::text) 
---	FROM saisie.saisie_observation o
---;
 

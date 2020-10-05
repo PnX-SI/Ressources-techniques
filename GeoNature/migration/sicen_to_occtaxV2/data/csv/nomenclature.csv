@@ -4,6 +4,7 @@
 "ETA_BIO","2","Observé vivant","Observé vivant","Piège photographique"
 "ETA_BIO","2","Observé vivant","Observé vivant","Vu"
 "ETA_BIO","3","Trouvé mort","Trouvé mort","Cadavre"
+"ETA_BIO","3","Trouvé mort","Trouvé mort","mort"
 "METH_OBS","0","Vu","Vu","capture"
 "METH_OBS","0","Vu","Vu","capturé"
 "METH_OBS","0","Vu","Vu","écrasé"
