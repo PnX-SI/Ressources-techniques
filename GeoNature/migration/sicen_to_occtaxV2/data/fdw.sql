@@ -14,4 +14,3 @@ DROP SCHEMA IF EXISTS export_oo;
 CREATE SCHEMA IF NOT EXISTS export_oo;
 IMPORT FOREIGN SCHEMA export_oo
       FROM SERVER obsocc_server INTO export_oo;
-

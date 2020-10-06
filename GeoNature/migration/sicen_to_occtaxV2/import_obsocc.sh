@@ -62,9 +62,6 @@ function parseScriptOptions() {
         esac
     done
 
-    # if [ -z ${obsocc_dump_file} ]; then
-    #     exitScript "Please enter path to obsocc dump file (option -p or --obsocc-dump-file) ! Use -h option to know more" 2
-    # fi 
 }
 
 # DESC: Main control flow
@@ -73,13 +70,16 @@ function parseScriptOptions() {
 function main() {
 
     # init script
+
     file_names="utils.sh config.sh obsocc.sh"
     for file_name in ${file_names}; do
         source "$(dirname "${BASH_SOURCE[0]}")/scripts/${file_name}"
     done
 
     parseScriptOptions "${@}"
+
     initScript "${@}"
+
 
     # init files
 
@@ -91,12 +91,14 @@ function main() {
 
     # init config
 
+    printPretty "1 . Initialisation de la configuration"
     if ! init_config; then 
         return 1
     fi
 
 
     # import bd obsocc from dump file (if needed)
+    printPretty "2 . base OO"
 
     if ! database_exists ${db_oo_name} ;  then
         ! import_bd_obsocc ${obsocc_dump_file} && return 1
@@ -105,8 +107,8 @@ function main() {
 
     # correction geometrie, doublons
 
-    if [ -n ${correct_oo} ] ; then
-        echo "Correct OO"
+    if [ -n "${correct_oo}" ] ; then
+        log SQL "Correct OO"
         export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
             -f ${root_dir}/data/post_restore_oo.sql \
             &>> ${export_oo_log_file}
@@ -115,15 +117,15 @@ function main() {
 
     # test si la base OO est ok
     if ! schema_exists ${db_oo_name} md ; then
-        echo "Le schema 00:md n'existe pas, il y a un  problème dans l'import de la base"
-        echo "Veuillez supprimer la base ${db_oo_name} et relancer le script"
-        echo "Voir le fichier ${export_oo_log_file} pour plus d'informations"
-        return 1
+        exitScript "Le schema 00:md n'existe pas, il y a un  problème dans l'import de la base\
+Veuillez supprimer la base ${db_oo_name} et relancer le script\
+Voir le fichier ${export_oo_log_file} pour plus d'informations" 2
     fi
 
+    printPretty "2 . schema export_oo"
 
     # (dev) drop i
-    echo drop_export_oo ${drop_export_oo}
+    log SQL drop_export_oo ${drop_export_oo}
     if [ -n "${drop_export_oo}" ]; then
         drop_export_oo
     fi
@@ -133,11 +135,10 @@ function main() {
 
     create_export_oo
 
-
     # fdw de OO:export_oo -> GN:export_oo
+    printPretty "3 . FDW"
 
     create_fdw_obsocc
-
 
     # (dev) patch for JDD (1 CA and 1 JDD 'test' for each data)
 
@@ -156,6 +157,8 @@ function main() {
     
     # TODO
     # Ok pour user
+    printPretty "4 . Insertion des données"
+
     insert_data
 
 

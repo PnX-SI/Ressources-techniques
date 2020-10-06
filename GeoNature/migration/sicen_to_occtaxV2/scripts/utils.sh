@@ -50,6 +50,47 @@ function initScript() {
     readonly ta_none="$(tput sgr0 2> /dev/null || true)"
 }
 
+# DESC log
+# ARGS  
+#       $1 : log_type 
+#       $2 : log message
+# OUT none
+log() {
+    
+    if [[ $# -lt 2 ]]; then
+        exitScript 'log 2 arguments required' 2
+    fi
+
+    log_type=$1
+    log_message=$2
+
+    if [ "${log_type}" = "RESTORE" ] ; then
+        log_file=${export_oo_log_file}
+    fi
+
+    if [ "${log_type}" = "SQL" ] ; then
+        log_file=${sql_log_file}
+    fi
+
+    echo >> ${log_file}
+    echo ${log_message} >> ${log_file}
+
+    if [ -n "${verbose}" ] ; then
+        echo ${echo_opts} ${log_message}
+    fi
+}
+
+# ARGS $1 file
+        # $2 exit message
+#
+checkError() {
+    file_path=$1
+    exitMessage=$2
+    if grep "ERR" ${file_path} ; then
+        err=$(grep "ERR" ${file_path})
+        exitScript "${exitMessage}\n\n${err}" 2
+    fi
+}
 
 #################################
 # ExitScript

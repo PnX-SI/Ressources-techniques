@@ -1,53 +1,80 @@
 ﻿DROP TABLE IF EXISTS export_oo.t_releves_occtax CASCADE;
 CREATE TABLE export_oo.t_releves_occtax AS 
-WITH d_date_hour AS (
+WITH date_hour AS (
 	SELECT 
 		id_obs,
+		date_obs,
 		CASE 
-			WHEN heure_obs IS NOT NULL THEN TRIM(CONCAT(date_obs, ' ', heure_obs))
-			ELSE CONCAT(date_obs, ' 00:00:00')
-		END AS date_hour
+			WHEN heure_obs IS NOT NULL THEN heure_obs
+			ELSE '00:00:00'
+		END AS heure_obs
 	FROM saisie.saisie_observation
 ), observers AS (
 	SELECT 
 		id_obs,
 		REGEXP_SPLIT_TO_ARRAY(observateur, '&') AS observers
 		FROM saisie.saisie_observation
-)
-
+), elevation AS (
+	SELECT
+		id_obs,
+		CASE WHEN elevation::int >= 0 THEN elevation::int ELSE NULL END AS alt_min,
+		CASE WHEN elevation::int < 0 THEN elevation::int ELSE NULL END AS depth_min
+		FROM saisie.saisie_observation
+)		
 
 SELECT 
 	COUNT(*),
-	d.date_hour,
+	d.date_obs AS date_min,
+	d.date_obs AS date_max,
+	d.heure_obs AS hour_min,
+	d.heure_obs AS hour_max,
 	o.geometrie,
+	e.alt_min AS altitude_min,
+	e.depth_min,
+	id_protocole,
+	id_etude,
 	ARRAY_AGG(o.id_obs) AS ids_obs,
 	ob.observers,
 	numerisateur,
-	'133' AS id_nomenclature_tech_collect_campanule, -- (Non renseigné) 'TECHNIQUE_OBS'
-	'NSP' AS id_nomenclature_grp_typ -- TYP_GRP
+	'133' AS cd_nomenclature_tech_collect_campanule, -- (Non renseigné) 'TECHNIQUE_OBS'
+	'NSP' AS cd_nomenclature_grp_typ, -- TYP_GRP
 	
 	-- place_name id_lieu_dit
 	-- date_minmax
 	-- hour minmax
-	STRING_AGG(DISTINCT o.remarque_obs, ', '), --comment
-	precision,
+	STRING_AGG(DISTINCT o.remarque_obs, ', ') AS comment, --comment
+	export_oo.get_synonyme_cd_nomenclature('PRECISION', precision::text) AS precision,
 	uuid_generate_v4() AS unique_id_sinp_grp,
 	'end'
 	
 	FROM saisie.saisie_observation o
 	
-	JOIN d_date_hour d
+	JOIN date_hour d
 		ON d.id_obs = o.id_obs
 	JOIN observers ob
 		ON ob.id_obs = o.id_obs
-	
-GROUP BY d.date_hour,
+	JOIN elevation e
+		ON e.id_obs = o.id_obs
+
+GROUP BY 
+	id_protocole,
+	id_etude,
+	altitude_min,
+	depth_min,
+	date_min,
+	date_max,
+	hour_min,
+	hour_max,
+	elevation,
 	o.geometrie,
 	ob.observers,
 	numerisateur,
 	precision
 	
-ORDER BY COUNT(*) DESC;
+ORDER BY COUNT(*) DESC
+LIMIT 10
+
+;
 
 
 DROP TABLE IF EXISTS export_oo.t_occurences_occtax CASCADE;
@@ -102,10 +129,10 @@ SELECT
 	FROM saisie.saisie_observation o
  	JOIN export_oo.t_releves_occtax r
  		ON o.id_obs =  ANY(r.ids_obs)
+ 	WHERE NOT cd_nom LIKE '%.%'-- pn_pyr ???
  	GROUP BY cd_nom, r.unique_id_sinp_grp, nom_complet, determination, phenologie, comportement
  	ORDER BY COUNT(*) DESC
 ;
-
 
 DROP TABLE IF EXISTS export_oo.t_counting_occtax CASCADE;
 CREATE TABLE export_oo.t_counting_occtax AS 
@@ -130,13 +157,10 @@ SELECT
 	
 	'end'
 
+	
+
 	FROM saisie.saisie_observation o
 
 	JOIN export_oo.t_occurences_occtax oo
 		ON o.id_obs =  ANY(oo.ids_obs)
 ;
-
-SELECT COUNT(*) 
-	FROM export_oo.t_counting_occtax
-	WHERE cd_nomenclature_obj_count IS NOT NULL
-	LIMIT 10;
