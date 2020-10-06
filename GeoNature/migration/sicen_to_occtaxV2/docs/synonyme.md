@@ -1,8 +1,8 @@
 # Correspondances entre nomenclatures `GN` et champs `OO`
 
-## `nomenclature.csv`
+## `data/csv/synonyme.csv`
 
-- `data/csv/synonyme.csv` : correspondance entre les champs suivants
+Correspondances entre les champs suivants :
    - `code_type` : type de nomenclature (par ex. `ETA_BIO` pour État biologique de l'observation)
    - `cd_nomenclature` : code de la nomenclature  ( part pour `ETA_BIO` `2` qui correspond à `Observé vivant`)
    - `obs_occ_value` : la valeur d'un champs de la table `OO:saisie.saisie_observation` 

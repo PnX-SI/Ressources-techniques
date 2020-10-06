@@ -6,5 +6,10 @@
 FROM ref_nomenclatures.t_nomenclatures n
 JOIN ref_nomenclatures.bib_nomenclatures_types t
 	ON t.id_type = n.id_type
-WHERE t.mnemonique = 'TYP_DENBR'
-ORDER BY cd_nomenclature
+WHERE t.mnemonique = 'NIV_PRECIS'
+ORDER BY n.cd_nomenclature
+;
+
+-- NIV_PRECIS
+
+select * from ref_nomenclatures.bib_nomenclatures_types t ordeR BY mnemonique;

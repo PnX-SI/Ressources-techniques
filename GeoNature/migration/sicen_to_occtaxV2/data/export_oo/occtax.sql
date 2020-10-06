@@ -23,8 +23,9 @@ SELECT
 	ARRAY_AGG(o.id_obs) AS ids_obs,
 	ob.observers,
 	numerisateur,
-	-- id_nomenclature_tech_collect_campanule 'TECHNIQUE_OBS'
-	-- id_nomenclature_grp_typ TYP_GRP
+	'133' AS id_nomenclature_tech_collect_campanule, -- (Non renseigné) 'TECHNIQUE_OBS'
+	'NSP' AS id_nomenclature_grp_typ -- TYP_GRP
+	
 	-- place_name id_lieu_dit
 	-- date_minmax
 	-- hour minmax
@@ -56,7 +57,7 @@ SELECT
 	uuid_generate_v4() AS unique_id_occurence_occtax,
 	r.unique_id_sinp_grp,
 	ARRAY_AGG(o.id_obs) AS ids_obs,
-	export_oo.get_synonyme_cd_nomenclature('METH_OBS', determination::text) AS cd_nomenclature_obs_technique, -- METH OBS
+	export_oo.get_synonyme_cd_nomenclature('METH_OBS', determination::text) AS cd_nomenclature_obs_technique, -- METH_OBS
 	COALESCE (
 		export_oo.get_synonyme_cd_nomenclature('ETA_BIO', determination::text),
 		export_oo.get_synonyme_cd_nomenclature('ETA_BIO', phenologie::text)
