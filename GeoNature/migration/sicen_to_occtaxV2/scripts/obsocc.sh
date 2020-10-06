@@ -58,12 +58,14 @@ function import_bd_obsocc() {
         -d ${db_oo_name} ${obsocc_dump_file} \
         &>> ${export_oo_log_file}
 
-    echo GLOUIB!!!
-
     # Affichage des erreurs (ou test sur l'extence des schemas???
     err=$(grep ERR ${export_oo_log_file})
 
-    echo $err
+    if [ -n ${err} ] ; then 
+        echo "Il y a eu des erreurs durant la restauratio de la bdd OO ${db_oo_name}"
+        echo "Il peu d'agir d'erreur mineure qui ne vont pas perturber la suite des opérations"
+        echo "Voir le fichier ${export_oo_log_file} pour plus d'informations"
+    fi
 
     return 0
 }
