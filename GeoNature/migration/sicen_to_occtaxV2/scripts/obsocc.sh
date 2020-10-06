@@ -9,7 +9,7 @@ function import_bd_obsocc() {
 
 
     if [[ $# -lt 1 ]]; then
-        exitScript 'Missing required argument to getRepositoryOptions()!' 2
+        exitScript '<dump file> is required for import_bd_obsocc()' 2
     fi
 
     obsocc_dump_file=$1
@@ -59,6 +59,7 @@ function import_bd_obsocc() {
         &>> ${export_oo_log_file}
 
     # Affichage des erreurs (ou test sur l'extence des schemas???
+
     err=$(grep ERR ${export_oo_log_file})
 
     if [ -n ${err} ] ; then 

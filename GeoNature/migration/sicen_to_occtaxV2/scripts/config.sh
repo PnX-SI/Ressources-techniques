@@ -37,8 +37,6 @@ function init_config {
     export sql_log_file="${log_dir}/sql_${db_oo_name}.log"
     export export_oo_log_file="${log_dir}/export_oo_${db_oo_name}.log"
 
-    echo $sql_log_file
-
     # check if GN database exists
 
     if ! database_exists ${db_gn_name} ;  then 

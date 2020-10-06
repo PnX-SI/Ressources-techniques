@@ -20,8 +20,7 @@ Usage: ./$(basename $BASH_SOURCE)[options]
      -p | --apply-patch: apply patch for JDD (one for all)
      -g | --db-gn-name: GN database name
      -o | --db-oo-name: OO database name
-
-
+     -c | --correct-oo: correct OO:saisie.saisie_observation geometry and doublons 
 EOF
     exit 0
 }
@@ -42,12 +41,13 @@ function parseScriptOptions() {
             "--apply-patch") set -- "${@}" "-p";; 
             "--db-oo-name")  set -- "${@}" "-o";;
             "--db-gn-name")  set -- "${@}" "-g";;
+            "--correct-oo") set -- "${@}" "-c";;
             "--"*) exitScript "ERROR : parameter '${arg}' invalid ! Use -h option to know more." 1 ;;
             *) set -- "${@}" "${arg}"
         esac
     done
 
-    while getopts "hvxepdf:g:o:" option; do
+    while getopts "cdef:g:ho:pvx" option; do
         case "${option}" in
             "h") printScriptUsage ;;
             "v") readonly verbose=true ;;
@@ -57,6 +57,7 @@ function parseScriptOptions() {
             "p") apply_patch=true ;;
             "o") db_oo_name_opt="${OPTARG}" ;;
             "g") db_gn_name_opt="${OPTARG}" ;;
+            "c") correct_oo=true ;;
             *) exitScript "ERROR : parameter invalid ! Use -h option to know more." 1 ;;
         esac
     done
@@ -100,6 +101,17 @@ function main() {
     if ! database_exists ${db_oo_name} ;  then
         ! import_bd_obsocc ${obsocc_dump_file} && return 1
     fi
+
+
+    # correction geometrie, doublons
+
+    if [ -n ${correct_oo} ] ; then
+        echo "Correct OO"
+        export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
+            -f ${root_dir}/data/post_restore_oo.sql \
+            &>> ${export_oo_log_file}
+    fi
+
 
     # test si la base OO est ok
     if ! schema_exists ${db_oo_name} md ; then

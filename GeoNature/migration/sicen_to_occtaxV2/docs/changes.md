@@ -5,3 +5,8 @@
 - `data/export_oo/nomenclature.sql`
   - gestion des correspondances multi champs (en cours)
 - affichage des jdd *propre*
+
+# 06/10/2020
+
+- tables preformattées pour les releves occurence denombrement
+- avancées sur les nomenclatures
