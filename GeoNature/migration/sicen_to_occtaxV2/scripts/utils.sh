@@ -86,8 +86,8 @@ log() {
 checkError() {
     file_path=$1
     exitMessage=$2
-    if grep "ERR" ${file_path} ; then
-        err=$(grep "ERR" ${file_path})
+    err=$(grep -i "err" ${file_path})
+    if [ -n "$err" ] ; then
         exitScript "${exitMessage}\n\n${err}" 2
     fi
 }

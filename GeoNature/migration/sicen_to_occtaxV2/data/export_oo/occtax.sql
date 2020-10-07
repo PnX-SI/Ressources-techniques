@@ -72,7 +72,6 @@ GROUP BY
 	precision
 	
 ORDER BY COUNT(*) DESC
-LIMIT 10
 
 ;
 

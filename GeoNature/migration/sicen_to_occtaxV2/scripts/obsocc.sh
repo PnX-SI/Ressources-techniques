@@ -59,7 +59,7 @@ function import_bd_obsocc() {
         &>> ${export_oo_log_file}
 
     # Affichage des erreurs (ou test sur l'extence des schemas???
-
+    echo aaaa   
     err=$(grep ERR ${export_oo_log_file})
 
     if [ -n "${err}" ] ; then 
@@ -178,6 +178,8 @@ function apply_patch_jdd() {
         -f ${root_dir}/data/patch/jdd.sql \
         &>> ${sql_log_file}
 
+    checkError ${sql_log_file} "export_oo : Problème avec le fichier ${root_dir}/data/patch/jdd.sql"
+
 }
 
 
@@ -222,19 +224,16 @@ function test_cor_dataset() {
 # OUTS: NONE
 function insert_data() {
 
-    log SQL "Insert Data"
-
-    file_names=" \
-        user.sql
-    "
-    for file_name in $(echo ${file_names})
-    do
-        log SQL "process file ${file_name}"
-        export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-            -f ${root_dir}/data/insert/${file_name} \
-            &>> ${sql_log_file}
-        checkError ${sql_log_file} "Insert data : Problème avec le fichier ${file_name}"
+    log SQL "Insert Data : process user"
+    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
+        -f ${root_dir}/data/insert/user.sql \
+        &>> ${sql_log_file}
+    checkError ${sql_log_file} "Insert data : Problème avec le fichier ${root_dir}/data/insert/user.sql"
         
-    done
+    log SQL "Insert Data : process occtax (patienter)"
+    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
+        -f ${root_dir}/data/insert/occtax.sql \
+        &>> ${sql_log_file}
+    checkError ${sql_log_file} "Insert data : Problème avec le fichier ${root_dir}/data/insert/occtax   .sql"
 
 }

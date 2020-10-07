@@ -4,7 +4,7 @@
 # Migrate GeoNature from v2.1.2 to v2.4.0
 #
 # Documentation : https://github.com/joelclems/install_gn
-set -eo pipefail
+set -o pipefail
 
 # DESC: Usage help
 # ARGS: None
@@ -24,6 +24,7 @@ Usage: ./$(basename $BASH_SOURCE)[options]
 EOF
     exit 0
 }
+
 
 # DESC: Parameter parser
 # ARGS: $@ (optional): Arguments provided to the script
@@ -101,7 +102,8 @@ function main() {
     printPretty "2 . base OO"
 
     if ! database_exists ${db_oo_name} ;  then
-        ! import_bd_obsocc ${obsocc_dump_file} && return 1
+        echo aa
+        import_bd_obsocc ${obsocc_dump_file}
     fi
 
 
