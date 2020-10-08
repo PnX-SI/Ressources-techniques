@@ -5,7 +5,7 @@
 # OUTS: None
 function import_bd_obsocc() {
 
-    rm -f ${export_oo_log_file}
+    rm -f ${restore_oo_log_file}
 
 
     if [[ $# -lt 1 ]]; then
@@ -32,23 +32,23 @@ function import_bd_obsocc() {
     log RESTORE "Creation de la base ${d_oo_name}"
     export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d postgres \
         -c "CREATE DATABASE ${db_oo_name}" \
-        &>> ${export_oo_log_file}
+        &>> ${restore_oo_log_file}
     
 
     # extensions
     log RESTORE "Creation des extensions"
     export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
         -c "CREATE EXTENSION IF NOT EXISTS postgis" \
-        &>> ${export_oo_log_file}
+        &>> ${restore_oo_log_file}
     
     # ??? postgis-raster test si postgis 3 ou le faire dans tous les cas ?
 #    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
 #        -c "CREATE EXTENSION IF NOT EXISTS postgis_raster" \
-#       &>> ${export_oo_log_file}
+#       &>> ${restore_oo_log_file}
 
     export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
         -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"' \
-        &>> ${export_oo_log_file}
+        &>> ${restore_oo_log_file}
 
 
     # retore dump into ${db_oo_name}
@@ -56,34 +56,18 @@ function import_bd_obsocc() {
     export PGPASSWORD=${user_pg_pass}; \
         pg_restore  -h ${db_host} -p ${db_port} --role=${user_pg} --no-owner --no-acl -U ${user_pg} \
         -d ${db_oo_name} ${obsocc_dump_file} \
-        &>> ${export_oo_log_file}
+        &>> ${restore_oo_log_file}
 
     # Affichage des erreurs (ou test sur l'extence des schemas???
-    echo aaaa   
-    err=$(grep ERR ${export_oo_log_file})
+    err=$(grep ERR ${restore_oo_log_file})
 
     if [ -n "${err}" ] ; then 
         log RESTORE "Il y a eu des erreurs durant la restauratio de la bdd OO ${db_oo_name}"
         log RESTORE "Il peut s'agir d'erreurs mineures qui ne vont pas perturber la suite des opérations"
-        log RESTORE "Voir le fichier ${export_oo_log_file} pour plus d'informations"
+        log RESTORE "Voir le fichier ${restore_oo_log_file} pour plus d'informations"
     fi
 
     return 0
-}
-
-
-# DESC: drop schema export_oo
-# ARGS: NONE
-# OUTS: NONE
-function drop_export_oo() {
-
-    log SQL "suppression du shema OO export_oo"
-
-    # drop schema OO export_oo
-    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} -c \
-        "DROP SCHEMA IF EXISTS export_oo CASCADE" \
-        &>> ${sql_log_file}
-
 }
 
 
@@ -92,52 +76,53 @@ function drop_export_oo() {
 # OUTS: NONE
 function create_export_oo() {
 
+    # (dev) drop export_oo
+    if [ -n "${drop_export_oo}" ]; then
+        log SQL "suppression du shema OO export_oo"
+
+        # drop schema OO export_oo
+        export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} -c \
+            "DROP SCHEMA IF EXISTS export_oo CASCADE" \
+            &>> ${sql_log_file}
+    fi
+
+
     if schema_exists ${db_oo_name} export_oo; then
-        log SQL "OO export_oo : le shema existe déjà"
+        log SQL "le shema existe déjà"
         return 0
     fi
 
     # create schema OO export_oo
-    log SQL "OO export_oo : creation"
+
+    log SQL "creation"
+
     export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} -c \
         "CREATE SCHEMA export_oo" \
         &>> ${sql_log_file}
 
 
     # create data users, organisms
-    log SQL "OO export_oo : add users, organism"
-    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
-        -f ${root_dir}/data/export_oo/user.sql \
-        &>> ${sql_log_file}
-    checkError ${sql_log_file} "export_oo : Problème avec le fichier ${root_dir}/data/export_oo/user.sql"
 
+    exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/user.sql "add users, organism"
 
 
     # create cor_etude_protocol_dataset
-    log SQL "OO export_oo : add cor_jdd"
-    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
-        -f ${root_dir}/data/export_oo/jdd.sql \
-        &>> ${sql_log_file}
-    checkError ${sql_log_file} "export_oo : Problème avec le fichier ${root_dir}/data/export_oo/jdd.sql"
-
-    log SQL "Prepare Data"
-
+    
+    exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/jdd.sql "add cor_jdd"
+    
     # synonymes
+    
     cp -rf ${root_dir}/data/csv/ /tmp/.
-    log SQL "OO export_oo : create synonyme for nomenclature"
-    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} \
-        -d ${db_oo_name} -f ${root_dir}/data/export_oo/synonyme.sql \
-        &>> ${sql_log_file}
-    checkError ${sql_log_file} "Problème à la creation de synomymes pour occtax"
-
+    
+    exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/synonyme.sql "synonymes"
+    
 
     # create cor_etude_protocol_dataset
-    log SQL "OO export_oo : create tables for OCCTAX revele occurrence and couting (patienter)"
-    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} \
-        -d ${db_oo_name} -f ${root_dir}/data/export_oo/occtax.sql \
-        &>> ${sql_log_file}
-    checkError ${sql_log_file} "Problème à la creation de table pour occtax"
-
+    
+    exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/releve.sql "add releves (patienter)"
+    exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/occurrence.sql "add occurrences (patienter)"
+    # exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/counting.sql "add countings (patienter)"
+    
 
 }
 
@@ -161,7 +146,7 @@ function create_fdw_obsocc() {
     checkError ${sql_log_file} "Problème à la creation du fwd"
 
 
-    log SQL OO GN: FDW établi
+    log SQL "FDW établi"
 
 }
 
@@ -171,14 +156,7 @@ function create_fdw_obsocc() {
 # OUTS: NONE
 function apply_patch_jdd() {
 
-    log SQL "GN: apply patch jdd"
-
-    export PGPASSWORD=${user_pg_pass}; \
-    psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-        -f ${root_dir}/data/patch/jdd.sql \
-        &>> ${sql_log_file}
-
-    checkError ${sql_log_file} "export_oo : Problème avec le fichier ${root_dir}/data/patch/jdd.sql"
+    exec_sql_file ${db_gn_name} ${root_dir}/data/patch/jdd.sql "GN: apply patch jdd" "-v db_oo_name=${db_oo_name}"
 
 }
 
@@ -224,16 +202,9 @@ function test_cor_dataset() {
 # OUTS: NONE
 function insert_data() {
 
-    log SQL "Insert Data : process user"
-    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-        -f ${root_dir}/data/insert/user.sql \
-        &>> ${sql_log_file}
-    checkError ${sql_log_file} "Insert data : Problème avec le fichier ${root_dir}/data/insert/user.sql"
-        
-    log SQL "Insert Data : process occtax (patienter)"
-    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-        -f ${root_dir}/data/insert/occtax.sql \
-        &>> ${sql_log_file}
-    checkError ${sql_log_file} "Insert data : Problème avec le fichier ${root_dir}/data/insert/occtax   .sql"
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/user.sql "Insert Data : process user"
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/releve.sql "Insert Data : process releves (patienter)"
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/occurrence.sql "Insert Data : process occurrences (patienter)"
+    # exec_sql_file ${db_gn_name} ${root_dir}/data/insert/couting.sql "Insert Data : process denombrement (patienter)"
 
 }

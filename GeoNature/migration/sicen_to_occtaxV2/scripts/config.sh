@@ -33,9 +33,9 @@ function init_config {
     # pour les fichiers logs (indexés avec ${db_oo_name})
     
     export sql_log_file="${log_dir}/sql_${db_oo_name}.log"
-    export export_oo_log_file="${log_dir}/export_oo_${db_oo_name}.log"
+    export restore_oo_log_file="${log_dir}/restore_oo_${db_oo_name}.log"
 
-    rm -f ${sql_log_file} ${export_oo_log_file}
+    rm -f ${sql_log_file} ${restore_oo_log_file}
 
     # check if GN database exists
 

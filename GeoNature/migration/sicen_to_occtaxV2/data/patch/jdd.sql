@@ -12,11 +12,11 @@
 
 DELETE FROM pr_occtax.t_releves_occtax r 
 USING gn_meta.t_datasets d 
-WHERE r.id_dataset = d.id_dataset AND d.dataset_name = 'test import obsocc';
+WHERE r.id_dataset = d.id_dataset AND d.dataset_name = :'db_oo_name';
 
-DELETE FROM gn_meta.t_datasets WHERE dataset_name = 'test import obsocc';
+DELETE FROM gn_meta.t_datasets WHERE dataset_name = :'db_oo_name';
 
-DELETE FROM gn_meta.t_acquisition_frameworks WHERE acquisition_framework_name = 'test import obsocc';
+DELETE FROM gn_meta.t_acquisition_frameworks WHERE acquisition_framework_name = :'db_oo_name';
 
 -- INSERT CA
 INSERT INTO gn_meta.t_acquisition_frameworks(
@@ -25,8 +25,8 @@ INSERT INTO gn_meta.t_acquisition_frameworks(
         acquisition_framework_start_date
 )
 VALUES (
-    'test import obsocc',
-    'CA pour test import obsocc',
+    :'db_oo_name',
+    :'db_oo_name',
     '2020-01-01'
 );
 
@@ -41,20 +41,20 @@ INSERT INTO gn_meta.t_datasets(
     ) 
     SELECT
         af.id_acquisition_framework,
-        'test import obsocc',
-        'test import oo',
-        'JDD pour test import obsocc',
+        :'db_oo_name',
+        :'db_oo_name',
+        :'db_oo_name',
         FALSE,
         FALSE
         
         FROM gn_meta.t_acquisition_frameworks af
-        WHERE af.acquisition_framework_name = 'test import obsocc'
+        WHERE af.acquisition_framework_name = :'db_oo_name'
 ;
 
 -- ASSIGN id_dataset
 UPDATE export_oo.cor_dataset SET (id_dataset) = ( 
     SELECT id_dataset 
     FROM gn_meta.t_datasets
-    WHERE  dataset_name = 'test import obsocc'
+    WHERE  dataset_name = :'db_oo_name'
 ) 
 ;

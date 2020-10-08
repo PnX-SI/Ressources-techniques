@@ -102,7 +102,6 @@ function main() {
     printPretty "2 . base OO"
 
     if ! database_exists ${db_oo_name} ;  then
-        echo aa
         import_bd_obsocc ${obsocc_dump_file}
     fi
 
@@ -110,10 +109,7 @@ function main() {
     # correction geometrie, doublons
 
     if [ -n "${correct_oo}" ] ; then
-        log SQL "Correct OO"
-        export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
-            -f ${root_dir}/data/post_restore_oo.sql \
-            &>> ${export_oo_log_file}
+        exec_sql_file ${db_oo_name} ${root_dir}/data/correct_oo.sql "Correction OO : doublons et geometries"
     fi
 
 
@@ -121,17 +117,10 @@ function main() {
     if ! schema_exists ${db_oo_name} md ; then
         exitScript "Le schema 00:md n'existe pas, il y a un  problème dans l'import de la base\
 Veuillez supprimer la base ${db_oo_name} et relancer le script\
-Voir le fichier ${export_oo_log_file} pour plus d'informations" 2
+Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     fi
 
     printPretty "2 . schema export_oo"
-
-    # (dev) drop i
-    log SQL drop_export_oo ${drop_export_oo}
-    if [ -n "${drop_export_oo}" ]; then
-        drop_export_oo
-    fi
-
 
     # create export_oo schema (data from OO pre-formated for GN)
 
@@ -143,6 +132,7 @@ Voir le fichier ${export_oo_log_file} pour plus d'informations" 2
     create_fdw_obsocc
 
     # (dev) patch for JDD (1 CA and 1 JDD 'test' for each data)
+    printPretty "4 . JDD"
 
     if [ -n "${apply_patch}" ] ;  then
         apply_patch_jdd
@@ -159,14 +149,9 @@ Voir le fichier ${export_oo_log_file} pour plus d'informations" 2
     
     # TODO
     # Ok pour user
-    printPretty "4 . Insertion des données"
+    printPretty "5 . Insertion des données"
 
     insert_data
-
-
-    # print SQL ERROR
-
-    grep ERR ${sql_log_file}
 
 }
 

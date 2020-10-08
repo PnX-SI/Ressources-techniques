@@ -65,7 +65,7 @@ log() {
     log_message=$2
 
     if [ "${log_type}" = "RESTORE" ] ; then
-        log_file=${export_oo_log_file}
+        log_file=${restore_oo_log_file}
     fi
 
     if [ "${log_type}" = "SQL" ] ; then
@@ -76,7 +76,7 @@ log() {
     echo ${log_message} >> ${log_file}
 
     if [ -n "${verbose}" ] ; then
-        echo ${echo_opts} ${log_message}
+        echo ${echo_opts} " - "${log_message}
     fi
 }
 
@@ -90,6 +90,31 @@ checkError() {
     if [ -n "$err" ] ; then
         exitScript "${exitMessage}\n\n${err}" 2
     fi
+}
+
+
+# DESC: exec a ps file
+# ARGS: $1 : db_name
+#       $2 : file_path
+#       $3 : msg_log
+#       $4 : msg_error
+#
+exec_sql_file() {
+
+    db_name=$1
+    file_path=$2
+    msg_log=$3
+    options=$4
+
+    log SQL "${msg_log}"
+
+    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_name} \
+        ${options} \
+        -f ${file_path} \
+        &>> ${sql_log_file}
+
+    checkError ${sql_log_file} "${msg_log} : Erreur(s)"
+
 }
 
 #################################

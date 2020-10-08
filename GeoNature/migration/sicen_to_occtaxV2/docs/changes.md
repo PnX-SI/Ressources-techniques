@@ -8,5 +8,5 @@
 
 # 06/10/2020
 
-- tables preformattées pour les releves occurence denombrement
+- tables preformattées pour les releves occurrence denombrement
 - avancées sur les nomenclatures
