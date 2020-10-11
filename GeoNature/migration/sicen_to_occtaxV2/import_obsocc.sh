@@ -17,7 +17,8 @@ Usage: ./$(basename $BASH_SOURCE)[options]
      -x | --debug: display debug script infos
      -f | --dump_file_path: path to obsocc dump file
      -d | --drop-export-gn: re-create export_oo schema
-     -p | --apply-patch: apply patch for JDD (one for all)
+     -p | --apply-patch: apply patch :
+        TAX: for taxonomy (ignore invalid cd_nom)
      -g | --db-gn-name: GN database name
      -o | --db-oo-name: OO database name
      -c | --correct-oo: correct OO:saisie.saisie_observation geometry and doublons 
@@ -39,7 +40,8 @@ function parseScriptOptions() {
             "--debug") set -- "${@}" "-x" ;;
             "--obscocc-dump-file") set -- "${@}" "-f" ;;
             "--drop-export-gn") set -- "${@}" "-d";; 
-            "--apply-patch") set -- "${@}" "-p";; 
+            "--apply-patch-jdd") set -- "${@}" "-p";; 
+            "--apply-patch-taxonomie") set -- "${@}" "-t";; 
             "--db-oo-name")  set -- "${@}" "-o";;
             "--db-gn-name")  set -- "${@}" "-g";;
             "--correct-oo") set -- "${@}" "-c";;
@@ -48,14 +50,14 @@ function parseScriptOptions() {
         esac
     done
 
-    while getopts "cdef:g:ho:pvx" option; do
+    while getopts "cdef:g:ho:p:tvx" option; do
         case "${option}" in
             "h") printScriptUsage ;;
             "v") readonly verbose=true ;;
             "x") readonly debug=true; set -x ;;
             "f") obsocc_dump_file="${OPTARG}" ;;
             "d") drop_export_oo=true ;;
-            "p") apply_patch=true ;;
+            "p") patch="${OPTARG}" ;;
             "o") db_oo_name_opt="${OPTARG}" ;;
             "g") db_gn_name_opt="${OPTARG}" ;;
             "c") correct_oo=true ;;
@@ -72,7 +74,12 @@ function main() {
 
     # init script
 
-    file_names="utils.sh config.sh obsocc.sh"
+    file_names="
+        utils.sh
+        config.sh 
+        obsocc.sh 
+        test.sh
+    "
     for file_name in ${file_names}; do
         source "$(dirname "${BASH_SOURCE[0]}")/scripts/${file_name}"
     done
@@ -91,25 +98,19 @@ function main() {
 
 
     # init config
-
-    printPretty "1 . Initialisation de la configuration"
-    if ! init_config; then 
-        return 1
-    fi
-
+    printTitle "Initialisation de la configuration"
+    init_config;
+    
 
     # import bd obsocc from dump file (if needed)
-    printPretty "2 . base OO"
+    printTitle "Restauration de la base ObsOcc depuis le fichier ${obsocc_dump_file}"
 
-    if ! database_exists ${db_oo_name} ;  then
-        import_bd_obsocc ${obsocc_dump_file}
-    fi
+    import_bd_obsocc ${obsocc_dump_file}
 
 
     # correction geometrie, doublons
-
     if [ -n "${correct_oo}" ] ; then
-        exec_sql_file ${db_oo_name} ${root_dir}/data/correct_oo.sql "Correction OO : doublons et geometries"
+        exec_sql_file ${db_oo_name} ${root_dir}/data/correct_oo.sql "Correction dans la base ${db_oo_name} doublons et geometries"
     fi
 
 
@@ -120,37 +121,28 @@ Veuillez supprimer la base ${db_oo_name} et relancer le script\
 Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     fi
 
-    printPretty "2 . schema export_oo"
-
     # create export_oo schema (data from OO pre-formated for GN)
-
+    printTitle "Schema export_oo"
     create_export_oo
 
     # fdw de OO:export_oo -> GN:export_oo
-    printPretty "3 . FDW"
-
+    printTitle "FDW"
     create_fdw_obsocc
 
-    # (dev) patch for JDD (1 CA and 1 JDD 'test' for each data)
-    printPretty "4 . JDD"
+    # Synonymes
+    printTitle "Synonymes (nomenclatures et taxons)"
+    exec_sql_file ${db_gn_name} ${root_dir}/data/export_oo/synonyme.sql "synonymes"
 
-    if [ -n "${apply_patch}" ] ;  then
-        apply_patch_jdd
-    fi
-
-    # test if id_dataset is not NULL for each line of GN:export_oo.cor_dataset
-
-    if ! test_cor_dataset ; then 
-        return 1
-    fi
+    # Tests
+    printTitle "Vérification des données"
+    test_geometry
+    test_patch 'TAX' || test_taxonomy
+    test_date
+    test_patch 'JDD' && patch_jdd 
+    test_jdd
 
 
-    # Insert data into GN (occtax (??or synthese))
-    
-    # TODO
-    # Ok pour user
-    printPretty "5 . Insertion des données"
-
+    printTitle "Insertion des données"
     insert_data
 
 }

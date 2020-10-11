@@ -5,7 +5,7 @@
 -- on ajoute les champs nom_etude et libelle_protocole pour plus de lisibilité
 --   et pour facilité l'assignation à postériori des id_dataset
 
-DROP TABLE IF EXISTS export_oo.cor_dataset;
+--DROP TABLE IF EXISTS export_oo.cor_dataset;
 
 CREATE TABLE IF NOT EXISTS export_oo.cor_dataset AS
 WITH count_protocole AS (
@@ -20,7 +20,7 @@ SELECT
     s.id_etude,
     e.nom_etude,
     p.libelle AS libelle_protocole,
-    NULL AS id_dataset,
+    NULL::int AS id_dataset,
     COUNT(*) AS nb_row,
     cp.nb_by_protocole
 

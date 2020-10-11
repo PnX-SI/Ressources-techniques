@@ -1,19 +1,38 @@
 ﻿	
--- table synonymes
+-- table nomenclature
 
-DROP TABLE IF EXISTS export_oo.t_synonymes;
-CREATE TABLE IF NOT EXISTS export_oo.t_synonymes (
+DROP TABLE IF EXISTS export_oo.t_nomenclature_synonymes;
+CREATE TABLE IF NOT EXISTS export_oo.t_nomenclature_synonymes (
     id_synonyme SERIAL NOT NULL,
+	id_nomenclature INTEGER,
     code_type character varying(255),
     cd_nomenclature character varying(255),
     label_default character varying(255),
     obsocc_value character varying(255),
     test_value character varying(255),
-    CONSTRAINT pk_t_synonymes_id_synonyme PRIMARY KEY (id_synonyme),
-    CONSTRAINT unique_t_synonymes_code_type_cd_nomenclature_obsocc_value UNIQUE (code_type, cd_nomenclature, obsocc_value)
+    CONSTRAINT pk_t_nomenclature_synonymes_id_synonyme PRIMARY KEY (id_synonyme),
+	CONSTRAINT fk_t_nomenclature_synonymes_id_nomenclature FOREIGN KEY (id_nomenclature)
+		REFERENCES ref_nomenclatures.t_nomenclatures (id_nomenclature) ON UPDATE CASCADE,
+
+    CONSTRAINT unique_t_nomenclature_synonymes_code_type_cd_nomenclature_obsocc_value UNIQUE (code_type, cd_nomenclature, obsocc_value)
 );
 
-COPY export_oo.t_synonymes (code_type, cd_nomenclature, label_default, obsocc_value) FROM '/tmp/csv/synonyme.csv' CSV;
+COPY export_oo.t_nomenclature_synonymes (code_type, cd_nomenclature, label_default, obsocc_value) FROM '/tmp/csv/nomenclature.csv' CSV;
+
+
+DROP TABLE IF EXISTS export_oo.t_taxonomie_synonymes;
+CREATE TABLE IF NOT EXISTS export_oo.t_taxonomie_synonymes (
+    id_synonyme SERIAL NOT NULL,
+    cd_nom_invalid INTEGER,
+    nom_cite_invalid character varying(255),
+    cd_nom_valid INTEGER,
+    nom_complet_valid character varying(255),
+    CONSTRAINT pk_t_taxonomie_synonymes_id_synonyme PRIMARY KEY (id_synonyme),
+    CONSTRAINT unique_t_taxonomie_synonymes_code_type_cd_nomenclature_obsocc_value UNIQUE (cd_nom_invalid)
+);
+
+COPY export_oo.t_taxonomie_synonymes (cd_nom_invalid, nom_cite_invalid, cd_nom_valid, nom_complet_valid) FROM '/tmp/csv/taxonomie_custom.csv' CSV;
+COPY export_oo.t_taxonomie_synonymes (cd_nom_invalid, nom_cite_invalid, cd_nom_valid, nom_complet_valid) FROM '/tmp/csv/taxonomie.csv' CSV;
 
 
 -- Fonction pour s'affranchir des MAJ min accents etc...
@@ -26,38 +45,43 @@ $$
 DECLARE value_out character varying;
   BEGIN
 SELECT INTO value_out
-	TRIM(
-		TRANSLATE(
-			LOWER(value_in),
-			'àâéèêîïôöùü',
-			'aaeeeiioouu'
-		)	
-	)
+	TRIM(UNACCENT(value_in))
 ;
 return value_out;
   END;
 $$;
 
-UPDATE export_oo.t_synonymes SET test_value=export_oo.format_value(obsocc_value);
+UPDATE export_oo.t_nomenclature_synonymes SET test_value=export_oo.format_value(obsocc_value);
 
-CREATE INDEX export_oo_t_synonymes_test_value_idx ON export_oo.t_synonymes(test_value);
+UPDATE export_oo.t_nomenclature_synonymes ns SET id_nomenclature=n.id_nomenclature FROM (
+	SELECT n.cd_nomenclature, n.id_nomenclature, t.mnemonique
+		FROM ref_nomenclatures.t_nomenclatures n
+		JOIN ref_nomenclatures.bib_nomenclatures_types t
+			ON t.id_type = n.id_type
+)n 
+WHERE ns.code_type = n.mnemonique 
+	AND ns.cd_nomenclature = n.cd_nomenclature;
+
+
+
+CREATE INDEX export_oo_t_nomenclature_synonymes_test_value_idx ON export_oo.t_nomenclature_synonymes(test_value);
 
 -- Fonction (CODE_TYPE, VALUE_OBSOCC) => CD_NOMENCLATURE
 
 DROP FUNCTION IF EXISTS export_oo.get_synonyme_cd_nomenclature;
-CREATE OR REPLACE FUNCTION export_oo.get_synonyme_cd_nomenclature(code_type_in text, obsocc_value_in text) RETURNS text
+CREATE OR REPLACE FUNCTION export_oo.get_synonyme_id_nomenclature(code_type_in text, obsocc_value_in text) RETURNS INTEGER
 IMMUTABLE
 LANGUAGE plpgsql AS
 $$
-DECLARE cd_nomenclature_out text;
+DECLARE id_nomenclature_out text;
   BEGIN
   
-  SELECT INTO cd_nomenclature_out cd_nomenclature 
-	FROM export_oo.t_synonymes
+  SELECT INTO id_nomenclature_out id_nomenclature 
+	FROM export_oo.t_nomenclature_synonymes
 	WHERE test_value = export_oo.format_value(obsocc_value_in)
 		AND code_type = code_type_in
 ;
-return cd_nomenclature_out;
+return id_nomenclature_out;
   END;
 $$;
 
@@ -69,6 +93,7 @@ CREATE OR REPLACE FUNCTION export_oo.check_synonyme_cd_nomenclature(code_type_in
 	obsocc_field_name text,
 	obsocc_value text,
 	cd_nomenclature text,
+	id_nomenclature text,
 	label_default text
 )  
 --RETURNS SETOF RECORD
@@ -84,7 +109,7 @@ WITH obsocc_values AS (
 ), obsocc_synonymes AS (
 	SELECT DISTINCT
 		obsocc_value,
-		export_oo.get_synonyme_cd_nomenclature($1, obsocc_value)::text AS cd_nomenclature,
+		export_oo.get_synonyme_id_nomenclature($1, obsocc_value)::text AS cd_nomenclature,
 		export_oo.format_value(obsocc_value) AS test_value
 	FROM obsocc_values
 )
@@ -95,11 +120,12 @@ SELECT DISTINCT
 	$2 AS obsocc_field_name,
 	os.obsocc_value,
 	os.cd_nomenclature,
+	os.id_nomenclature,
 	s.label_default::text
 --	, s.test_value
 FROM obsocc_synonymes os
-LEFT JOIN export_oo.t_synonymes s 
-	ON s.cd_nomenclature = os.cd_nomenclature
+LEFT JOIN export_oo.t_nomenclature_synonymes s 
+	ON s.id_nomenclature = os.id_nomenclature
 		AND s.obsocc_value = os.obsocc_value
 		AND s.code_type = $1
 ORDER BY cd_nomenclature, obsocc_value

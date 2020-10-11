@@ -1,6 +1,6 @@
 # Correspondances entre nomenclatures `GN` et champs `OO`
 
-## `data/csv/synonyme.csv`
+## `data/csv/nomenclature.csv`
 
 Correspondances entre les champs suivants :
    - `code_type` : type de nomenclature (par ex. `ETA_BIO` pour État biologique de l'observation)
@@ -65,7 +65,7 @@ cette table peut contenir une information sur plusieurs types de nomenclature.
       - Sinon `0` `(Inconnu)`
 
   - `id_nomenclature_observation_status`
-    - type : `STATUS_OBS`
+    - type : `STATUT_OBS`
     - default : `Pr` (`Présent`)
 
   - `id_nomenclature_blurring`
@@ -101,5 +101,5 @@ cette table peut contenir une information sur plusieurs types de nomenclature.
     - cor: `phenologie`, `type_effectif`
 
   - `id_nomenclature_typ_count`
-    - type : `TYP_GRP`
+    - type : `TYP_DENBR`
     - defaut : `NSP` (`Ne sais pas`)

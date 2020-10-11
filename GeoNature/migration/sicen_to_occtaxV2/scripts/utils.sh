@@ -166,6 +166,17 @@ function printPretty() {
     fi
 }
 
+
+function printTitle() {
+    if [ ! -n "$cpt_title" ] ; then
+        cpt_title=0
+    fi
+
+    export cpt_title=$((cpt_title+1))
+
+    printPretty "${cpt_title}. $1"
+}
+
 # DESC: Print a section message
 # ARGS: $1 (required): Message to print
 # OUTS: None
@@ -315,4 +326,11 @@ function table_exists () {
     else
         return 1
     fi
+}
+
+
+test_patch() {
+    test_value=$1
+    res=$(echo "${patch}" | grep "${test_value}")
+    return $?
 }
