@@ -1,0 +1,6 @@
+-- DELETE FROM 
+-- SELECT DISTINCT o.cd_nom, nom_cite 
+--      FROM export_oo.t_occurrences_occtax o 
+--      LEFT JOIN taxonomie.taxref t ON t.cd_nom = o.cd_nom
+--      LEFT JOIN export_oo.t_taxonomie_synonymes s ON s.cd_nom_invalid = o.cd_nom 
+--      WHERE t.cd_nom IS NULL AND s.cd_nom_valid IS NULL
