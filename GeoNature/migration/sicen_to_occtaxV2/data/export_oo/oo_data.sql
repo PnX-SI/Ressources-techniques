@@ -138,7 +138,8 @@ JOIN date_comp d
     ON d.id_obs = s.id_obs
 WHERE regne != 'Habitat'
 
-LIMIT 10
+--LIMIT 10
+
 ;
 
 

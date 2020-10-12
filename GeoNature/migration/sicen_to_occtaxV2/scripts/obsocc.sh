@@ -170,7 +170,7 @@ function insert_data() {
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/releve.sql "Relevés (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/occurrence.sql "Occurrences (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/counting.sql "Dénombrement (patienter)"
-    # exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert"
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert (patienter)"
 
     # exec_sql_file ${db_gn_name} ${root_dir}/data/insert/couting.sql "Insert Data : process denombrement (patienter)"
 
