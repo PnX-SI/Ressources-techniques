@@ -37,7 +37,6 @@ INSERT INTO pr_occtax.t_releves_occtax(
     ST_TRANSFORM(geometrie, 4326) AS geom_4326,
     ARRAY_AGG(id_obs) AS ids_obs_releve
 
-
     FROM export_oo.saisie_observation s
         JOIN export_oo.cor_dataset cd
             ON cd.id_etude = s.id_etude AND cd.id_protocole = s.id_protocole

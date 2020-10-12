@@ -99,8 +99,8 @@ SELECT
 				THEN (COALESCE(date_min, date_obs, date_from_text) + interval '1 day')::DATE
 			ELSE COALESCE(date_max, date_min, date_obs, date_from_text)
 		END AS date_max,
-		hour_min,
-		hour_max,
+		COALESCE(hour_min, '00:00:00') AS hour_min,
+		COALESCE(hour_max, hour_min, '00:00:00') AS hour_max,
 		date_from_text,
 		date_textuelle,
 		date_obs
