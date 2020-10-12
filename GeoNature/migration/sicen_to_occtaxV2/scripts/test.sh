@@ -84,7 +84,7 @@ test_date() {
     res=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
      -c "SELECT id_obs 
      FROM export_oo.saisie_observation s 
-     WHERE date_min IS NULL or date_max IS NULL"
+     WHERE date_min IS NULL or date_max IS NULL OR date_max < date_min"
     )
 
     if [ -n "$res" ] ; then
