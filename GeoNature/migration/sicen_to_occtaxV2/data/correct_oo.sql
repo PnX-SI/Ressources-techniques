@@ -63,8 +63,8 @@ WHERE correct.id_obs = so.id_obs
         famille,
         nom_valide,
         qualification,
-        comportement,
-        taille_cm
+        comportement--,
+--        taille_cm
 --        uri_mobile
 
        HAVING count(*)>1
@@ -86,3 +86,13 @@ UPDATE saisie.saisie_observation s1
     date_fin_obs=date_debut_obs
   
   WHERE date_debut_obs > date_fin_obs 
+;
+
+-- correction effectif_min, effectif_max
+UPDATE saisie.saisie_observation
+  SET 
+    effectif_min = effectif_max,
+    effectif_max = effectif_min
+  
+  WHERE effectif_min > effectif_max
+;

@@ -92,3 +92,26 @@ test_date() {
 Voir le fichier data.export_oo/oo_data.sql." 1
     fi
 }
+
+
+test_effectif() {
+    log SQL "Test effectif"
+
+    export PGPASSWORD=${user_pg_pass};\
+    res=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
+     -c "SELECT id_obs , effectif_min, effectif_max
+     FROM export_oo.saisie_observation s 
+     WHERE effectif_min > effectif_max"
+    )
+           if [ -n "$res" ] ; then
+pretty_res=$(echo $res | sed -e "s/;/\n/g" -e "s/|/\t/g" | awk -F $'\t' '
+    BEGIN {
+        printf "%20s %20s %20s\n\n", "id_obs", "effectif_min", "effectif_max";
+    } {
+        printf "%20s %20s %20s\n", $1, $2, $3
+    }')
+        exitScript "Il y a des lignes avec des effectifs_min > effectif_max dans la table 'export_oo.saisie_observation'.
+        \n${pretty_res}\n
+Veuillez corriger ces geométries (ou bien relancer le script avec l'option -c" 1
+    fi
+}

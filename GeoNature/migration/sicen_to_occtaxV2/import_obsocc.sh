@@ -138,6 +138,7 @@ Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     test_geometry
     test_patch 'TAX' || test_taxonomy
     test_date
+    test_effectif
     test_patch 'JDD' && patch_jdd 
     test_jdd
 
