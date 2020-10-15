@@ -15,13 +15,49 @@ Usage: ./$(basename $BASH_SOURCE)[options]
      -h | --help: display this help
      -v | --verbose: display more infos
      -x | --debug: display debug script infos
-     -f | --dump_file_path: path to obsocc dump file
+     -f | --oo-dump-file <path to obsocc dump file>
+     -n | --gn-dump-file <path to geonature dump file>
      -d | --drop-export-gn: re-create export_oo schema
-     -p | --apply-patch: apply patch :
-        TAX: for taxonomy (ignore invalid cd_nom)
+     -p | --patch: <"PATCH1|PATCH2|...">  (details below)
      -g | --db-gn-name: GN database name
      -o | --db-oo-name: OO database name
      -c | --correct-oo: correct OO:saisie.saisie_observation geometry and doublons 
+     -e | --etude-ca: etude=cadre aquisition (par defaut protcole=cadre aquisition) 
+
+     -p | --apply-patch
+
+        Taxonomy     
+ 
+            Sans cette options le script affiche les cd_nom non attribués et renvoie une erreur
+            A partir de cette liste, on peut soit
+              corriger les cd_nom dans la base obsocc
+              choisir de les ignorer avec l'option qui suit
+
+            TAX: ignore unassociated cd_nom
+
+
+        Acquisition framework and datasets
+
+            Il est conseillé de lancer le script sans cette option une première fois
+            Il va permettre de voir la structure (protocole, etude, organisme) des données
+            On peut alors relancer le script et choisir une des options suivantes
+
+            JDD_1       1 CA 'test' and 1 JDD 'test' for all data (pour tester la migration)
+            JDD_EP      CA = etude, and JDD = (etude, protocole) 
+            JDD_PE      CA = protocole, and JDD = (protocole, etude) 
+            JDD_EPO     CA = etude, and JDD = (etude, protocole, organisme) 
+            JDD_PEO     CA = protocole, and JDD = (protocole, etude, organisme) 
+
+            Dans tout ces cas, il est conseillé d'éditer à post les jeux de données et cadres d'aquisition 
+            afin de les renseigner au mieux
+
+            Une autre option est de 
+                créer les JDD depuis le module métadonnées 
+                et de les assigner dans la table export_oo.cor_daset
+           
+        Exemple:
+            ./import_obsocc <...autres options ...> -p "TAX|JDD1"
+
 EOF
     exit 0
 }
@@ -35,32 +71,35 @@ function parseScriptOptions() {
     for arg in "${@}"; do
         shift
         case "${arg}" in
+            "--correct-oo") set -- "${@}" "-c";;
+            "--drop-export-gn") set -- "${@}" "-d";; 
+            "--oo-dump-file") set -- "${@}" "-f" ;;
+            "--db-gn-name")  set -- "${@}" "-g";;
+            "--etude-ca") set -- "${@}" "-e";;
             "--help") set -- "${@}" "-h" ;;
+            "--gn-dump-file") set -- "${@}" "-n" ;;
+            "--db-oo-name")  set -- "${@}" "-o";;
+            "--patch") set -- "${@}" "-p";; 
             "--verbose") set -- "${@}" "-v" ;;
             "--debug") set -- "${@}" "-x" ;;
-            "--obscocc-dump-file") set -- "${@}" "-f" ;;
-            "--drop-export-gn") set -- "${@}" "-d";; 
-            "--apply-patch-jdd") set -- "${@}" "-p";; 
-            "--apply-patch-taxonomie") set -- "${@}" "-t";; 
-            "--db-oo-name")  set -- "${@}" "-o";;
-            "--db-gn-name")  set -- "${@}" "-g";;
-            "--correct-oo") set -- "${@}" "-c";;
             "--"*) exitScript "ERROR : parameter '${arg}' invalid ! Use -h option to know more." 1 ;;
             *) set -- "${@}" "${arg}"
         esac
     done
 
-    while getopts "cdef:g:ho:p:tvx" option; do
+    while getopts "cdef:g:hn:o:p:tvx" option; do
         case "${option}" in
+            "c") correct_oo=true ;;
+            "d") drop_export_oo=true ;;
+            "e") cadre_aquisition=${etude};;
+            "f") oo_dump_file="${OPTARG}" ;;
+            "g") db_gn_name_opt="${OPTARG}" ;;
             "h") printScriptUsage ;;
+            "n") gn_dump_file="${OPTARG}" ;;
+            "o") db_oo_name_opt="${OPTARG}" ;;
+            "p") patch="${OPTARG}" ;;
             "v") readonly verbose=true ;;
             "x") readonly debug=true; set -x ;;
-            "f") obsocc_dump_file="${OPTARG}" ;;
-            "d") drop_export_oo=true ;;
-            "p") patch="${OPTARG}" ;;
-            "o") db_oo_name_opt="${OPTARG}" ;;
-            "g") db_gn_name_opt="${OPTARG}" ;;
-            "c") correct_oo=true ;;
             *) exitScript "ERROR : parameter invalid ! Use -h option to know more." 1 ;;
         esac
     done
@@ -103,9 +142,9 @@ function main() {
     
 
     # import bd obsocc from dump file (if needed)
-    printTitle "Restauration de la base ObsOcc depuis le fichier ${obsocc_dump_file}"
+    printTitle "Restauration de la base ObsOcc depuis le fichier ${oo_dump_file}"
 
-    import_bd_obsocc ${obsocc_dump_file}
+    import_bd_obsocc ${oo_dump_file}
 
 
     # correction geometrie, doublons

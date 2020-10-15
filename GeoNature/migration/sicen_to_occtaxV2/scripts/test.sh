@@ -4,7 +4,7 @@
 # OUTS: 0 if true
 function test_jdd() {
 
-    log SQL "Test geometrie"
+    log SQL "Test JDD"
         
     if ! table_exists ${db_gn_name} export_oo cor_dataset; then
         log SQL "La table GN export_oo cor_dataset n existe pas"
@@ -12,21 +12,64 @@ function test_jdd() {
     fi
 
     export PGPASSWORD=${user_pg_pass};\
-        res=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "SELECT libelle_protocole, nom_etude, nb_row, nb_by_protocole FROM export_oo.cor_dataset WHERE id_dataset IS NULL;")
+        res_pe=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "\
+            SELECT libelle_protocole, nom_etude, nom_structure,\
+                nb_protocole, nb_protocole_etude, nb_protocole_etude_structure \
+                FROM export_oo.cor_dataset WHERE id_dataset IS NULL \
+                ORDER BY nb_protocole DESC, nb_protocole_etude DESC, nb_protocole_etude_structure DESC \
+                ")
 
-    if [ -n "$res" ] ; then 
-        echo "Dans la table export_oo.cor_dataset, il n y a pas de JDD associé pour les ligne suivantes"
+        res_ep=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "\
+            SELECT nom_etude, libelle_protocole, nom_structure,\
+                nb_etude, nb_protocole_etude, nb_protocole_etude_structure \
+                FROM export_oo.cor_dataset WHERE id_dataset IS NULL \
+                ORDER BY nb_etude DESC, nb_protocole_etude DESC, nb_protocole_etude_structure DESC \
+                ")
+
+    if [ "${cadre_aquisition}" = "etude" ] ; then 
+        res=$res_ep
+    else
+        res=$res_pe
+        ca_name="Protocole"; jdd_name="Etude"
+    fi
+
+    if [ -n "$res" ] ; then
+
+        print_format="%-50s %10s     %-50s %10s     %-50s %10s" 
+        echo "Dans la table export_oo.cor_dataset, il n y a pas de JDD associé pour les lignes suivantes"
         echo        
         echo $res | sed -e "s/;/\n/g" -e "s/|/\t/g" \
             | awk -F $'\t' '
             BEGIN { 
-                protcole=""; printf "%-50s %-50s %20s\n","Protocole", "Etude", "Nombre de données"
+                protcole="";
+                etude="";
+                printf "'"${print_format}"'\n","'${ca_name}'", "", "'${jdd_name}'", "", "Organisme", ""
             }
             {
-                if ( $1!=protocole ) {printf "\n%-50s %-50s %20s\n",$1, "", "("$4")"};
-                if ( $1!=protocole ) {protocole=$1};
-                printf "%-50s %-50s %20s\n", "", $2, $3
-            }'
+                if ( $1!=protocole ) {
+                    printf "\n'"${print_format}"'\n",$1, $4, $2, $5, $3, $6 ;
+                    protocole=$1;
+                    etude=$2;
+                    n_structure=0
+                }
+                else if ( $2!=etude ) {
+                    if (n_structure != 0) {
+                        printf "'"${print_format}"'\n","", "", "", "", "-", "";
+                    };
+                    printf "'"${print_format}"'\n","", "", $2, $5, $3, $6;
+                    etude=$2;
+                    n_structure=0
+                }
+                else {
+                    printf "'"${print_format}"'\n", "", "", "", "", $3, $6
+                    n_structure=1
+                };
+
+            }
+            END {
+                printf "\n"
+            }
+            '
         exitScript "Veuillez completer la table export_oo.cor_dataset avant de continuer" 2 
         return 1
     fi

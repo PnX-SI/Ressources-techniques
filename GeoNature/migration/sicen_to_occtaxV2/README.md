@@ -43,7 +43,7 @@ Avant toute chose, il faut créer et compléter le fichier `settings.ini`
   - `db_host=localhost`
   - `db_port=5432`
   - `db_gn_name=geonature2` : nom de la base `GN` existante
-  - `db_oo_name=obsocc` : nom de la base `OO` dans laquelle on placera le dump de la base obsocc d'origine, elle ne doit pas exister.
+  - `db_oo_name=obsocc` : nom de la base `OO` dans laquelle on placera le dump de la base obsocc d'origine, s'il n'existe pas le script peut retaure un fichier dump précisé par l'option `-f` ou `--dump-file`.
   - `user_pg=xxxx` : nom de l'utilisateur POSTGRESQL
   - `user_pg_pass=xxxx` : mot de passse POSTGRESQL
 

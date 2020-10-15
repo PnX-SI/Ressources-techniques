@@ -140,7 +140,7 @@ JOIN date_comp d
     ON d.id_obs = s.id_obs
 WHERE regne != 'Habitat'
 AND NOT ST_GeometryType(geometrie) = 'ST_GeometryCollection' -- 'patch cev ?
---LIMIT 10
+LIMIT 10
 
 ;
 

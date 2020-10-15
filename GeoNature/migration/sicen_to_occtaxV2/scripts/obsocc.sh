@@ -7,7 +7,7 @@ function import_bd_obsocc() {
 
     rm -f ${restore_oo_log_file}
 
-    obsocc_dump_file=$1
+    oo_dump_file=$1
 
     # test if db exist return
     if database_exists "${db_oo_name}"; then
@@ -20,9 +20,9 @@ function import_bd_obsocc() {
     fi
 
 
-    if [ ! -f ${obsocc_dump_file} ] ; then 
+    if [ ! -f ${oo_dump_file} ] ; then 
 
-        exitScript "Le fichier d'import pour la base OO ${obsocc_dump_file} n'existe pas" 2
+        exitScript "Le fichier d'import pour la base OO ${oo_dump_file} n'existe pas" 2
     fi
 
     log RESTORE "Restauration de la base de données OBSOCC:  ${db_oo_name}." 
@@ -52,10 +52,10 @@ function import_bd_obsocc() {
 
 
     # retore dump into ${db_oo_name}
-    log RESTORE "Restauration depuis le fichier ${obsocc_dump_file} (patienter)"
+    log RESTORE "Restauration depuis le fichier ${oo_dump_file} (patienter)"
     export PGPASSWORD=${user_pg_pass}; \
         pg_restore  -h ${db_host} -p ${db_port} --role=${user_pg} --no-owner --no-acl -U ${user_pg} \
-        -d ${db_oo_name} ${obsocc_dump_file} \
+        -d ${db_oo_name} ${oo_dump_file} \
         &>> ${restore_oo_log_file}
 
     # Affichage des erreurs (ou test sur l'extence des schemas???
