@@ -141,9 +141,15 @@ function create_fdw_obsocc() {
 # ARGS: NONE
 # OUTS: NONE
 function patch_jdd() {
-
-    exec_sql_file ${db_gn_name} ${root_dir}/data/patch/jdd.sql "Patch jdd" "-v db_oo_name=${db_oo_name}"
-
+    
+    test_patch "JDD_TEST" && \
+        exec_sql_file ${db_gn_name} ${root_dir}/data/patch/jdd_test.sql \
+        "Patch jdd test" \
+        "-v db_oo_name=${db_oo_name}"
+    test_patch "JDD_EP" && \
+        exec_sql_file ${db_gn_name} ${root_dir}/data/patch/jdd_ep.sql\
+        "Patch jdd ca=etude jdd=protocole"\
+        "-v db_oo_name=${db_oo_name} -v ca_field_name=nom_etude -v jdd_field_name=libelle_protocole"
 }
 
 
