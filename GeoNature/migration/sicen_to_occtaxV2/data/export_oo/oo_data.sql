@@ -49,6 +49,8 @@ SELECT
 			THEN (MY_TO_DATE(SUBSTRING(date_textuelle, '\d{4}'), 'YYYY') + interval '6 month')::DATE
 		WHEN date_textuelle LIKE '%avril-mai%' 
 			THEN (MY_TO_DATE(SUBSTRING(date_textuelle, '\d{4}'), 'YYYY') + interval '3 month')::DATE
+		WHEN date_textuelle LIKE '%fin%' 
+			THEN MY_TO_DATE(TRIM(SUBSTRING(date_textuelle, 4)), 'month YYYY') + interval '1 month' - interval '1 day'
 		ELSE NULL
 	END AS date_min,
 
@@ -99,8 +101,8 @@ SELECT
 				THEN (COALESCE(date_min, date_obs, date_from_text) + interval '1 day')::DATE
 			ELSE COALESCE(date_max, date_min, date_obs, date_from_text)
 		END AS date_max,
-		hour_min,
-		hour_max,
+		COALESCE(hour_min, '00:00:00') AS hour_min,
+		COALESCE(hour_max, hour_min, '00:00:00') AS hour_max,
 		date_from_text,
 		date_textuelle,
 		date_obs
@@ -137,8 +139,9 @@ FROM saisie.saisie_observation s
 JOIN date_comp d
     ON d.id_obs = s.id_obs
 WHERE regne != 'Habitat'
-
+AND NOT ST_GeometryType(geometrie) = 'ST_GeometryCollection' -- 'patch cev ?
 LIMIT 10
+
 ;
 
 

@@ -72,11 +72,18 @@ log() {
         log_file=${sql_log_file}
     fi
 
+    if [ -z "${init_time}" ] ; then 
+        init_time=$(date +%s)
+    fi
+
+    cur_time=$(date +%s)
+    elapsed_time=$(date -u -d "0 ${cur_time} seconds - ${init_time} seconds" +"%H:%M:%S")
+ 
     echo >> ${log_file}
-    echo ${log_message} >> ${log_file}
+    echo "(${elapsed_time}) ${log_message}" >> ${log_file}
 
     if [ -n "${verbose}" ] ; then
-        echo ${echo_opts} " - "${log_message}
+        echo "${echo_opts} - (${elapsed_time}) ${log_message}"
     fi
 }
 

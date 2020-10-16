@@ -46,7 +46,7 @@ function init_config {
 
     # check if OO database exists or if option -f (--obsocc-dump-file) is set
 
-    if ! database_exists ${db_oo_name} && [ -z "${obsocc_dump_file}" ] ;  then 
+    if ! database_exists ${db_oo_name} && [ -z "${oo_dump_file}" ] ;  then 
         exitScript "La base OO ${db_oo_name} n existe pas, veuillez préciser le fichier d une sauvegarde de cette base. avec l'option -f=<file_path>" 2
     fi
 

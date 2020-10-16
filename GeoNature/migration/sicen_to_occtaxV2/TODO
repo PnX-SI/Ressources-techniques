@@ -1,12 +1,11 @@
 TODO
 
+JDD patch plusieurs CHOIX + assigner organisme
+test pe ep peo epo custom
+
 RESTORE db
     restore gn ?
 
 MODIFS GEONATURE
 
     ajout jsonb dans occtax ISSUE et PR dans GN
-
-PETITES MODIFS
-
-    fonction Test si postgis 3 et install extension postgis-raster (cf install gn (besoin???))
