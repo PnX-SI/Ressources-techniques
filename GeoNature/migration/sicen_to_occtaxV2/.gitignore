@@ -2,4 +2,5 @@ settings.ini
 *.log
 tmp/*
 dumps/*
+media/*
 !.gitkeep
