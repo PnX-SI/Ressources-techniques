@@ -93,9 +93,10 @@ log() {
 checkError() {
     file_path=$1
     exitMessage=$2
-    err=$(grep -i "err" ${file_path})
+    cmd=$3
+    err=$(grep -A1 -i "err" ${file_path})
     if [ -n "$err" ] ; then
-        exitScript "${exitMessage}\n\n${err}" 2
+        exitScript "${exitMessage}\n\n${err}\n\n${cmd}" 2
     fi
 }
 
@@ -120,7 +121,9 @@ exec_sql_file() {
         -f ${file_path} \
         &>> ${sql_log_file}
 
-    checkError ${sql_log_file} "${msg_log} : Erreur(s)"
+    cmd="psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_name} ${options} -f ${file_path}"
+
+    checkError ${sql_log_file} "${msg_log} : Erreur(s)" "${cmd}"
 
 }
 

@@ -15,12 +15,13 @@ INSERT INTO pr_occtax.t_releves_occtax(
     precision,
     geom_local,
     geom_4326,
-    ids_obs_releve
+    ids_obs_releve,
+    observateur
 
 ) SELECT 
 
 	uuid_generate_v4() AS unique_id_sinp_grp,
-    cd.id_dataset,
+    cd.id_dataset::int,
     ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS', '133') AS id_nomenclature_tech_collect_campanule,
     ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'NSP') AS id_nomenclature_grp_typ,
     s.date_min,
@@ -35,7 +36,8 @@ INSERT INTO pr_occtax.t_releves_occtax(
     export_oo.get_synonyme_id_nomenclature('PRECISION', precision::text) AS precision,
     ST_TRANSFORM(geometrie, 2154) AS geom_local,
     ST_TRANSFORM(geometrie, 4326) AS geom_4326,
-    ARRAY_AGG(id_obs) AS ids_obs_releve
+    ARRAY_AGG(id_obs) AS ids_obs_releve,
+    s.observateur
 
     FROM export_oo.saisie_observation s
         JOIN export_oo.cor_dataset cd
@@ -50,5 +52,22 @@ INSERT INTO pr_occtax.t_releves_occtax(
         altitude,
         depth,
         precision,
-        geometrie
+        geometrie,
+        observateur
+;
 
+
+
+WITH observers AS (
+    SELECT UNNEST(STRING_TO_ARRAY(observateur, '&'))::int AS id_personne,
+    id_releve_occtax
+    FROM pr_occtax.t_releves_occtax ro
+)
+INSERT INTO pr_occtax.cor_role_releves_occtax (id_role, id_releve_occtax)
+    SELECT DISTINCT r.id_role, ro.id_releve_occtax  
+    FROM pr_occtax.t_releves_occtax ro
+    JOIN observers o 
+        ON o.id_releve_occtax = ro.id_releve_occtax
+    JOIN utilisateurs.t_roles r 
+        ON r.id_personne = o.id_personne 
+;

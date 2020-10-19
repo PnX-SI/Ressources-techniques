@@ -1,10 +1,6 @@
 ﻿-- BASE GN
 
 
--- add columns to keep information
-
-ALTER TABLE utilisateurs.bib_organismes ADD COLUMN IF NOT EXISTS id_structure INTEGER;
-
 
 -- utilisateur.bib_organismes
 
@@ -18,7 +14,7 @@ INSERT INTO utilisateurs.bib_organismes (
         fax_organisme,
         email_organisme,
         url_organisme
-    )
+)    
     SELECT
         vo.id_structure,
         vo.nom_organisme,
@@ -29,6 +25,8 @@ INSERT INTO utilisateurs.bib_organismes (
         vo.fax_organisme,
         vo.email_organisme,
         vo.url_organisme
+
+
     FROM export_oo.v_utilisateurs_bib_organismes vo
     LEFT JOIN utilisateurs.bib_organismes o
         ON vo.nom_organisme = o.nom_organisme
@@ -40,6 +38,7 @@ INSERT INTO utilisateurs.bib_organismes (
 
 
 INSERT INTO utilisateurs.t_roles(
+        id_personne,
         remarques,
         prenom_role,
         nom_role,
@@ -51,6 +50,7 @@ INSERT INTO utilisateurs.t_roles(
         groupe
     )
     SELECT
+        vr.id_personne,
         vr.remarques,
         vr.prenom_role,
         vr.nom_role,
@@ -60,6 +60,7 @@ INSERT INTO utilisateurs.t_roles(
         vr.champs_addi,
         o.id_organisme,
         FALSE
+
     FROM export_oo.v_utilisateurs_t_roles vr
     JOIN utilisateurs.bib_organismes o 
         ON vr.id_structure = o.id_structure
@@ -122,5 +123,3 @@ ON CONFLICT DO NOTHING;
 -- create list occtax ??
 
 -- drop additional column
-
-ALTER TABLE utilisateurs.bib_organismes DROP id_structure;

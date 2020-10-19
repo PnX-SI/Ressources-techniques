@@ -82,3 +82,6 @@ INSERT INTO pr_occtax.t_occurrences_occtax(
             t.cd_nom,
             st.cd_nom_valid,
             s.nom_complet
+
+
+

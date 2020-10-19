@@ -133,43 +133,13 @@ SELECT
 	comportement,
 	type_effectif,
 	effectif_min,
-	effectif_max
+	effectif_max,
+	observateur
 
 FROM saisie.saisie_observation s
 JOIN date_comp d
     ON d.id_obs = s.id_obs
 WHERE regne != 'Habitat'
-AND NOT ST_GeometryType(geometrie) = 'ST_GeometryCollection' -- 'patch cev ?
-LIMIT 10
+--LIMIT 10
 
 ;
-
-
--- -- utilisateurs
-
--- DROP TABLE IF EXISTS export_oo.personne;
--- CREATE TABLE export_oo.personne AS
--- SELECT * FROM md.personne
--- ;
-
--- -- organismes
-
--- DROP TABLE IF EXISTS export_oo.structure;
--- CREATE TABLE export_oo.structure AS
--- SELECT * FROM md.structure
--- ;
-
--- -- etudes
-
--- DROP TABLE IF EXISTS export_oo.etude;
--- CREATE TABLE export_oo.etude AS
--- SELECT * FROM md.etude
--- ;
-
--- -- protocoles
-
--- DROP TABLE IF EXISTS export_oo.protocole;
--- CREATE TABLE export_oo.protocole AS
--- SELECT * FROM md.protocole
--- ;
-

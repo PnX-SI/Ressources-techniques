@@ -35,6 +35,7 @@ CREATE VIEW export_oo.v_utilisateurs_t_roles AS
                 FROM md.personne
             )
     SELECT
+        p.id_personne, 
         remarque AS remarques,
         prenom AS prenom_role,
         nom AS nom_role,
@@ -45,4 +46,5 @@ CREATE VIEW export_oo.v_utilisateurs_t_roles AS
         id_structure
     FROM md.personne p
     JOIN champs_addi ca ON ca.id_personne = p.id_personne
+
 ;

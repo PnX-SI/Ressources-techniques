@@ -23,6 +23,7 @@ Usage: ./$(basename $BASH_SOURCE)[options]
      -o | --db-oo-name: OO database name
      -c | --correct-oo: correct OO:saisie.saisie_observation geometry and doublons 
      -e | --etude-ca: etude=cadre aquisition (par defaut protcole=cadre aquisition) 
+     -z | --clean : clean previous attemps
 
      -p | --apply-patch
 
@@ -183,6 +184,7 @@ Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
 
 
     printTitle "Insertion des données"
+
     insert_data
 
 }
