@@ -28,8 +28,21 @@ Par exemple : `OO:md.etudes` ou `GN:gn_synthese.synthese`
 
 # Pré-requis
 
-Avoir une base `GN` à la version 2.5.2 en bon état de fonctionnement
+Avoir une base `GN` à la version 2.5.2 en bon état de fonctionnement.
 
+Quelques corrections peuvent être apportée à la base `OBSOCC`
+
+### Obligatoire
+
+- Etre à jour de TaxRef V11.0 
+- Etre sûr des fichiers medias (les champs url_photo ne pointent pas vers un fichier inexistant)
+
+### Peut être gérer avec l'option `-c`
+
+- Ne pas avoir de géométries invalides
+- Pas de Date min > Date max
+- Pas de Effectif min > Effectif max
+ 
 # Configuration
 
 ## setting.ini
@@ -50,11 +63,23 @@ Avant toute chose, il faut créer et compléter le fichier `settings.ini`
 
 # Import des données
 
+### Commande simple
+
 La commande suivante permet d'intégrer les données de `OO` vers `GN` à partir du ficher dump de la base de données de `OO`
 
 ```
 ./import_obs_occ.sh -f <chemin vers le fichier du dump de la base `OO`>
 ```
+
+### Correction de la base (option `-c`)
+
+```
+./import_obs_occ.sh -f <chemin vers le fichier du dump de la base `OO`> -c
+```
+
+Quelques élément sont corrigés automatiquement (date min/max, effectifs min/max, géométries non valides)
+
+### Intégration des médias
 
 - pour intégrer les médias on peut lancer cette commande avec les options suivantes
 
@@ -68,7 +93,7 @@ ici le dossier des médias est celui qui contient les répertoires `amateur`, `e
 cp ./media/out/<nom de la base obscocc>/* <chemin_vers_geonature>/static/media/.
 ```
 
-les options (sortie de `./import_obsc.sh -h`) :
+### les options (sortie de `./import_obsc.sh -h`) :
 ```
 Usage: ./import_obsc.sh [options]
      -h | --help: display this help
@@ -106,8 +131,6 @@ Usage: ./import_obsc.sh [options]
             JDD_1       1 CA 'test' and 1 JDD 'test' for all data (pour tester la migration)
             JDD_EP      CA = etude, and JDD = (etude, protocole) 
             JDD_PE      CA = protocole, and JDD = (protocole, etude) 
-            JDD_EPO     CA = etude, and JDD = (etude, protocole, organisme) 
-            JDD_PEO     CA = protocole, and JDD = (protocole, etude, organisme) 
 
             Dans tout ces cas, il est conseillé d'éditer à post les jeux de données et cadres d'aquisition 
             afin de les renseigner au mieux
@@ -181,7 +204,8 @@ id_protocole
 id_etude
 nom_etude
 libele_protocole
-id_data_set
+id_data_set, 
+id_structure ? 
 ```
 
 L'utilisation des tables etude et protocoles peux différer selon les cas.
@@ -192,6 +216,8 @@ Cette table est créée automatiquement avec des `id_dataset=NULL`.
 Les champs `id_dataset` sont à compléter à la main.
 
 Les JDD sont à créer dans le module GeoNature métadonnées.
+
+Une creation de jeux de données en fonction des etudes et protocoles est possbile (option `-p JDD_EP` ou `-p JDD_PE`) selon que l'on choisisse l'étude en tant que cadre d'aquisition (`JDD_EP`) ou le protocole (`JDD_PE`)
 
 
 #### Améliorations
