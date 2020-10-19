@@ -35,6 +35,15 @@ function init_config {
     export sql_log_file="${log_dir}/sql_${db_oo_name}.log"
     export restore_oo_log_file="${log_dir}/restore_oo_${db_oo_name}.log"
 
+
+    # pour les medias
+
+    export media_in_dir=${root_dir}/media/in/${db_oo_name}
+    export media_patch_dir=${root_dir}/media/patch/${db_oo_name}
+    export media_test_dir=${root_dir}/media/test/${db_oo_name}
+    export media_out_dir=${root_dir}/media/out/medias_${db_oo_name}
+
+
     rm -f ${sql_log_file} ${restore_oo_log_file}
 
     # check if GN database exists

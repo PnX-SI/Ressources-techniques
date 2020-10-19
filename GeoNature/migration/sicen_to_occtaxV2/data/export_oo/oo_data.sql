@@ -130,6 +130,7 @@ SELECT
 	determination::text,
 	phenologie::text,
 	url_photo,
+	commentaire_photo,
 	comportement,
 	type_effectif,
 	effectif_min,

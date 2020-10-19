@@ -161,13 +161,30 @@ function patch_jdd() {
 }
 
 
+function patch_media() {
 
-# DESC: apply patch for taxonomie (delete line without match avec taxref)
-# ARGS: NONE
-# OUTS: NONE
-function apply_patch_jdd() {
+    log SQL "Patch media"
 
-    exec_sql_file ${db_gn_name} ${root_dir}/data/patch/taxonomie.sql "Apply patch jdd" "-v db_oo_name=${db_oo_name}"
+
+    res_media_oo=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
+            -c "SELECT TRANSLATE(url_photo, ' ()''', '____') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
+            &>> ${sql_log_file})
+
+
+    rm -rf ${media_patch_dir}
+    mkdir -p ${media_patch_dir}
+
+
+    # patch create dir (wo patch copy dir to medias)
+    for file_name in ${res_media_oo}; do
+        dir_name=${file_name}
+        mkdir -p ${media_patch_dir}/$(dirname ${file_name})
+        touch ${media_patch_dir}/${file_name}
+    done
+
+    clean_media_file_name
+
+    export media_dir=${media_patch_dir}
 
 }
 
@@ -181,11 +198,48 @@ function insert_data() {
 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/before_insert.sql "Pre - insert"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/user.sql "Utilisateurs, organismes"
+    insert_media
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/releve.sql "Relevés (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/occurrence.sql "Occurrences (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/counting.sql "Dénombrement (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert (patienter)"
 
     # exec_sql_file ${db_gn_name} ${root_dir}/data/insert/couting.sql "Insert Data : process denombrement (patienter)"
+
+}
+
+function insert_media() {
+
+if [ ! -n "${media_dir}" ]; then 
+    return 0
+fi
+
+
+# patch create media
+
+mkdir -p ${media_in_dir}
+rm -rf ${media_in_dir}
+cp -rf ${media_dir} ${media_in_dir}
+
+clean_media_file_name
+
+rm -rf ${media_out_dir}
+mkdir -p ${media_out_dir}
+
+
+# insertion des medias en base
+
+exec_sql_file ${db_gn_name} ${root_dir}/data/insert/media.sql "Medias"
+
+
+# SQL + AWK + BASH (TODO SQL + BASH ??)
+
+res_media_copy=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
+        -c "SELECT url_photo, media_path FROM gn_commons.t_medias WHERE url_photo IS NOT NULL"
+        &>> ${sql_log_file})
+echo ${res_media_copy} | sed -e "s/;/\n/g" -e "s/|/ /g" \
+    | awk '{
+        printf("mkdir -p $(dirname %s/%s)\n cp %s/%s %s/%s\n", "'${media_out_dir}'", $2, "'${media_in_dir}'", $1, "'${media_out_dir}'", $2)}' \
+ | bash
 
 }

@@ -120,6 +120,42 @@ Veuillez au choix:
 }
 
 
+test_media() {
+    [ ! -n "${media_dir}" ] && return 0
+
+    log SQL "Test Média"
+
+    [ ! -d "${media_dir}" ] && exitScript "Le repertoire pour les medias ${media_dir} n'existe pas"
+
+    res_media_oo=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
+        -c "SELECT TRANSLATE(url_photo, ' ()''', '____') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
+        &>> ${sql_log_file})
+
+    mkdir -p ${media_test_dir}
+    rm -rf ${media_test_dir}
+    cp -r ${media_dir} ${media_test_dir}
+
+    clean_media_file_name
+
+    res_file_missing=''
+    for file_name in ${res_media_oo}; do
+        if [ ! -f "${media_test_dir}/${file_name}" ]; then
+            echo file_name ${media_test_dir}/$file_name
+            res_file_missing="${res_file_missing} ${file_name}"
+        fi
+    done
+
+if [ -n "${res_file_missing}" ]; then 
+    echo $res_file_missing
+    pretty_res=$(echo ${res_file_missing} | sed -e 's/ /\n/')
+    exitScript "Il y a des fichiers médias inexistants dans le dossier ${media_dir}: \n\n ${pretty_res}\n" 2
+fi
+
+    rm -rf ${media_test_dir}
+
+
+}
+
 test_date() {
     log SQL "Test date"
 
@@ -135,7 +171,6 @@ test_date() {
 Voir le fichier data.export_oo/oo_data.sql." 1
     fi
 }
-
 
 test_effectif() {
     log SQL "Test effectif"

@@ -24,6 +24,7 @@ Usage: ./$(basename $BASH_SOURCE)[options]
      -c | --correct-oo: correct OO:saisie.saisie_observation geometry and doublons 
      -e | --etude-ca: etude=cadre aquisition (par defaut protcole=cadre aquisition) 
      -z | --clean : clean previous attemps
+     -m | --media_dir : path to media dir
 
      -p | --apply-patch
 
@@ -57,6 +58,7 @@ Usage: ./$(basename $BASH_SOURCE)[options]
                 et de les assigner dans la table export_oo.cor_daset
            
         Exemple:
+
             ./import_obsocc <...autres options ...> -p "TAX|JDD1"
 
 EOF
@@ -83,12 +85,13 @@ function parseScriptOptions() {
             "--patch") set -- "${@}" "-p";; 
             "--verbose") set -- "${@}" "-v" ;;
             "--debug") set -- "${@}" "-x" ;;
+            "--media-dir") set -- "${@}" "-m" ;;
             "--"*) exitScript "ERROR : parameter '${arg}' invalid ! Use -h option to know more." 1 ;;
             *) set -- "${@}" "${arg}"
         esac
     done
 
-    while getopts "cdef:g:hn:o:p:tvx" option; do
+    while getopts "cdef:g:hn:m:o:p:tvx" option; do
         case "${option}" in
             "c") correct_oo=true ;;
             "d") drop_export_oo=true ;;
@@ -101,6 +104,7 @@ function parseScriptOptions() {
             "p") patch="${OPTARG}" ;;
             "v") readonly verbose=true ;;
             "x") readonly debug=true; set -x ;;
+            "m") readonly media_dir=${OPTARG} ;;
             *) exitScript "ERROR : parameter invalid ! Use -h option to know more." 1 ;;
         esac
     done
@@ -177,6 +181,10 @@ Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     printTitle "Vérification des données"
     test_geometry
     test_patch 'TAX' || test_taxonomy
+    
+    test_patch 'MEDIA' && patch_media
+    test_media
+    
     test_date
     test_effectif
     test_patch 'JDD' && patch_jdd 

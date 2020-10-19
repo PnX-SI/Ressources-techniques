@@ -28,7 +28,7 @@ Par exemple : `OO:md.etudes` ou `GN:gn_synthese.synthese`
 
 # Pré-requis
 
-Avoir une base `GN` à la version 2.5.0 en bon état de fonctionnement
+Avoir une base `GN` à la version 2.5.2 en bon état de fonctionnement
 
 # Configuration
 
@@ -56,15 +56,70 @@ La commande suivante permet d'intégrer les données de `OO` vers `GN` à partir
 ./import_obs_occ.sh -f <chemin vers le fichier du dump de la base `OO`>
 ```
 
-les options (**obligatoire en gras**) :
- - **`f` : chemin vers le fichier du dump de la base `OO`**
- - `h` : descrition des options
- - `x` : mode `DEBUG`
- - `d` :(`dev`) suppression du schéma intermédiare `OO:export_oo` 
- - `p`: (`dev`) applique un `patch` sur les `JDD` 
-   - un `CA`test et un `JDD` test sont crées
-   - toutes les données ont le même JDD 
-   - cela permet de tester la suite de l'intégration et de voir la viabilité du script.
+- pour intégrer les médias on peut lancer cette commande avec les options suivantes
+
+```
+./import_obs_occ.sh -f <chemin vers le fichier du dump de la base `OO`> -m <chemin vers le dossier ds médias>
+```
+
+ici le dossier des médias est celui qui contient les répertoires `amateur`, `expert`, etc...
+
+```
+cp ./media/out/<nom de la base obscocc>/* <chemin_vers_geonature>/static/media/.
+```
+
+les options (sortie de `./import_obsc.sh -h`) :
+```
+Usage: ./import_obsc.sh [options]
+     -h | --help: display this help
+     -v | --verbose: display more infos
+     -x | --debug: display debug script infos
+     -f | --oo-dump-file <path to obsocc dump file>
+     -n | --gn-dump-file <path to geonature dump file>
+     -d | --drop-export-gn: re-create export_oo schema
+     -p | --patch: <"PATCH1|PATCH2|...">  (details below)
+     -g | --db-gn-name: GN database name
+     -o | --db-oo-name: OO database name
+     -c | --correct-oo: correct OO:saisie.saisie_observation geometry and doublons 
+     -e | --etude-ca: etude=cadre aquisition (par defaut protcole=cadre aquisition) 
+     -z | --clean : clean previous attemps
+     -m | --media_dir : path to media dir
+
+     -p | --apply-patch
+
+        Taxonomy     
+ 
+            Sans cette options le script affiche les cd_nom non attribués et renvoie une erreur
+            A partir de cette liste, on peut soit
+              corriger les cd_nom dans la base obsocc
+              choisir de les ignorer avec l'option qui suit
+
+            TAX: ignore unassociated cd_nom
+
+
+        Acquisition framework and datasets
+
+            Il est conseillé de lancer le script sans cette option une première fois
+            Il va permettre de voir la structure (protocole, etude, organisme) des données
+            On peut alors relancer le script et choisir une des options suivantes
+
+            JDD_1       1 CA 'test' and 1 JDD 'test' for all data (pour tester la migration)
+            JDD_EP      CA = etude, and JDD = (etude, protocole) 
+            JDD_PE      CA = protocole, and JDD = (protocole, etude) 
+            JDD_EPO     CA = etude, and JDD = (etude, protocole, organisme) 
+            JDD_PEO     CA = protocole, and JDD = (protocole, etude, organisme) 
+
+            Dans tout ces cas, il est conseillé d'éditer à post les jeux de données et cadres d'aquisition 
+            afin de les renseigner au mieux
+
+            Une autre option est de 
+                créer les JDD depuis le module métadonnées 
+                et de les assigner dans la table export_oo.cor_daset
+           
+        Exemple:
+
+            ./import_obsocc <...autres options ...> -p "TAX|JDD1"
+```
 
 ## Les actions de la commande
 
@@ -73,6 +128,7 @@ Cette commande va effectuer les actions suivantes :
 ### Restauration de la base `OO`
 
 - Si la base de nom `${db_oo_name}` n'existe pas, on la crée à partir du fichier dump.
+  - option `-f <path_to_dump_file>`
   - *Si on veut la re-créer il faut la supprimer à la main et relancer le script*.
 
 ### Création et remplissage du schéma `OO:export_oo`
@@ -97,13 +153,18 @@ Cette commande va effectuer les actions suivantes :
 
 - A ce stade il faut pouvoir renseigner la table `GN:export_oo.cor_dataset`. Voir le paragraphe sur les `JDD` pour plus de détails.
 
-- *(`dev`) Avec l'option `-p`, on peut créer un `CA` et `JDD` `test` et l'assigner à toutes les lignes de `GN:export_oo.cor_dataset` afin de testerla suite de l'intégration des données.*
-
+- *(`dev`) Avec l'option `-p JDD_1`, on peut créer un `CA` et `JDD` `test` et l'assigner à toutes les lignes de `GN:export_oo.cor_dataset` afin de testerla suite de l'intégration des données.*
+- on peut choisir d'assigner 
 
 ### Intégration des données
 
+  - Désactivatiopn des trigger synthèse
   - Utilisateurs et organismes.
-  - TODO
+  - Medias
+  - Releves
+  - Occurences
+  - Dénombrements
+  - Rejoue et reactive les triggers synthèse
 
 
 ## Détails
@@ -136,6 +197,3 @@ Les JDD sont à créer dans le module GeoNature métadonnées.
 #### Améliorations
 
 - Il peut être pertinent d'ajouter le champs `id_organisme` à cette table pour une gestion plus fine de ces JDD.
-- ??? Faire une interface de saisie pour la correspondance entre JDD et (etude, protocole)
-
-### Les organismes / utilisateurs

@@ -176,6 +176,10 @@ function printPretty() {
     fi
 }
 
+function clean_media_file_name() {
+    find -wholename "*media*[ \(\)']*" -type f | rename "s/[ \(\)']/_/g"
+
+}
 
 function printTitle() {
     if [ ! -n "$cpt_title" ] ; then
