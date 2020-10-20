@@ -25,6 +25,7 @@ Usage: ./$(basename $BASH_SOURCE)[options]
      -e | --etude-ca: etude=cadre aquisition (par defaut protcole=cadre aquisition) 
      -z | --clean : clean previous attemps
      -m | --media_dir : path to media dir
+     -l | --limit set limit to test
 
      -p | --apply-patch
 
@@ -87,12 +88,13 @@ function parseScriptOptions() {
             "--debug") set -- "${@}" "-x" ;;
             "--media-dir") set -- "${@}" "-m" ;;
             "--clean") set -- "${@}" "-z" ;;
+            "--limit") set -- "${@}" "-l" ;;
             "--"*) exitScript "ERROR : parameter '${arg}' invalid ! Use -h option to know more." 1 ;;
             *) set -- "${@}" "${arg}"
         esac
     done
 
-    while getopts "cdef:g:hn:m:o:p:tvxz" option; do
+    while getopts "cdef:g:hl:m:n:o:p:tvxz" option; do
         case "${option}" in
             "c") correct_oo=true ;;
             "d") drop_export_oo=true ;;
@@ -107,6 +109,7 @@ function parseScriptOptions() {
             "x") debug=true; set -x ;;
             "m") media_dir=${OPTARG} ;;
             "z") clean=true ;;
+            "l") limit=${OPTARG} ;;
             *) exitScript "ERROR : parameter invalid ! Use -h option to know more." 1 ;;
         esac
     done
@@ -121,6 +124,8 @@ function main() {
     # init script
 
     verbose=true 
+    
+    limit=10000000000000000
 
     file_names="
         utils.sh

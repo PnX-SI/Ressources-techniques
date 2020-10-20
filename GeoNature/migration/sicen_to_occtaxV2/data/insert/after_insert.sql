@@ -47,33 +47,40 @@ DELETE FROM gn_synthese.cor_area_synthese cos
 
 WITH point AS (
     SELECT
-        id_area,
+        s.the_geom_local,
         id_synthese
-        FROM ref_geo.l_areas a
-        JOIN gn_synthese.synthese s
-        	ON public.ST_INTERSECTS(s.the_geom_local, a.geom)
+        FROM gn_synthese.synthese s
         JOIN export_oo.saisie_observation so
 			ON so.unique_id_sinp_occtax = s.unique_id_sinp
 	WHERE public.ST_GEOMETRYTYPE(s.the_geom_local) = 'ST_Point'     
 ), not_point AS (
     SELECT
-        id_area,
+ s.the_geom_local,
         id_synthese
-        FROM ref_geo.l_areas a
-        JOIN gn_synthese.synthese s
-        	ON public.ST_INTERSECTS(s.the_geom_local, a.geom)
-        	  AND public.ST_TOUCHES(s.the_geom_local, a.geom)
+        FROM gn_synthese.synthese s
         JOIN export_oo.saisie_observation so
 			ON so.unique_id_sinp_occtax = s.unique_id_sinp
-	WHERE public.ST_GEOMETRYTYPE(s.the_geom_local) != 'ST_Point'
-	)
+    	WHERE public.ST_GEOMETRYTYPE(s.the_geom_local) != 'ST_Point'
+	), point2 AS (
+        SELECT id_area, id_synthese
+           FROM ref_geo.l_areas a
+           JOIN point p 
+            ON public.ST_INTERSECTS(p.the_geom_local, a.geom)
+    ), not_point2 AS (
+        SELECT id_area, id_synthese
+           FROM ref_geo.l_areas a
+           JOIN not_point np 
+            ON public.ST_INTERSECTS(np.the_geom_local, a.geom)
+             AND NOT ST_TOUCHES(np.the_geom_local,a.geom)
+
+    )
 INSERT INTO gn_synthese.cor_area_synthese(
     id_area,
     id_synthese
 )
-SELECT id_area, id_synthese FROM point p
+SELECT id_area, id_synthese FROM point2
 UNION
-SELECT id_area, id_synthese FROM not_point np
+SELECT id_area, id_synthese FROM not_point2
 ;
 
 -- 
@@ -103,6 +110,8 @@ DELETE FROM gn_synthese.cor_area_taxon cat
 -- enable triggers
 
 ALTER TABLE pr_occtax.cor_counting_occtax ENABLE TRIGGER tri_insert_synthese_cor_counting_occtax;
+
+ALTER TABLE gn_synthese.cor_area_synthese ENABLE TRIGGER tri_maj_cor_area_taxon;
 ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
 ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_insert_cor_area_synthese;
 ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_update_cor_area_taxon_update_cd_nom;

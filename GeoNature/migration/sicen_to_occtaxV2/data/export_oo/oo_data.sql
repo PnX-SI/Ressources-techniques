@@ -141,6 +141,7 @@ FROM saisie.saisie_observation s
 JOIN date_comp d
     ON d.id_obs = s.id_obs
 WHERE regne != 'Habitat'
-LIMIT 100000
+--LIMIT 1
+LIMIT :limit
 
 ;

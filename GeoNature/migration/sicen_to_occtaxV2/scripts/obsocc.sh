@@ -108,7 +108,7 @@ function create_export_oo() {
 
 
     # create schema OO export_oo
-    exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/oo_data.sql "Ajout des tables dans le schema export_oo (patienter)"
+    exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/oo_data.sql "Ajout des tables dans le schema export_oo (patienter)" "-v limit=${limit}"
 
     # create cor_etude_protocol_dataset
     exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/jdd.sql "Correspondance JDD études protocoles"
