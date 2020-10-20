@@ -5,6 +5,9 @@
 
 **Procédure d'import en cours de développent.**
 
+**Ne pas exécuter dans une base de production**
+
+
 Travail effectué pour l'instant:
 
 - table de correspondance des jeux de données
