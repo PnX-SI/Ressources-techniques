@@ -1,3 +1,7 @@
+WITH dataset AS (
+    SELECT DISTINCT id_protocole, id_dataset, id_etude FROM export_oo.cor_dataset
+)
+
 INSERT INTO pr_occtax.t_releves_occtax(
     unique_id_sinp_grp,
     id_dataset,
@@ -21,7 +25,7 @@ INSERT INTO pr_occtax.t_releves_occtax(
 ) SELECT 
 
 	uuid_generate_v4() AS unique_id_sinp_grp,
-    cd.id_dataset::int,
+    d.id_dataset::int,
     ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS', '133') AS id_nomenclature_tech_collect_campanule,
     ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'NSP') AS id_nomenclature_grp_typ,
     s.date_min,
@@ -40,8 +44,8 @@ INSERT INTO pr_occtax.t_releves_occtax(
     s.observateur
 
     FROM export_oo.saisie_observation s
-        JOIN export_oo.cor_dataset cd
-            ON cd.id_etude = s.id_etude AND cd.id_protocole = s.id_protocole
+        JOIN dataset d
+            ON d.id_etude = s.id_etude AND d.id_protocole = s.id_protocole
 
     GROUP BY 
         id_dataset,
@@ -69,5 +73,6 @@ INSERT INTO pr_occtax.cor_role_releves_occtax (id_role, id_releve_occtax)
     JOIN observers o 
         ON o.id_releve_occtax = ro.id_releve_occtax
     JOIN utilisateurs.t_roles r 
-        ON r.id_personne = o.id_personne 
+        ON (r.champs_addi->>'id_personne')::int = o.id_personne
+            AND r.champs_addi->>'base_origine' = :'db_oo_name'
 ;

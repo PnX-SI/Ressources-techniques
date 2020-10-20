@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS export_oo.t_taxonomie_synonymes (
 );
 
 COPY export_oo.t_taxonomie_synonymes (cd_nom_invalid, nom_cite_invalid, cd_nom_valid, nom_complet_valid) FROM '/tmp/csv/taxonomie_custom.csv' CSV;
-COPY export_oo.t_taxonomie_synonymes (cd_nom_invalid, nom_cite_invalid, cd_nom_valid, nom_complet_valid) FROM '/tmp/csv/taxonomie.csv' CSV;
+--COPY export_oo.t_taxonomie_synonymes (cd_nom_invalid, nom_cite_invalid, cd_nom_valid, nom_complet_valid) FROM '/tmp/csv/taxonomie.csv' CSV;
 
 
 -- Fonction pour s'affranchir des MAJ min accents etc...

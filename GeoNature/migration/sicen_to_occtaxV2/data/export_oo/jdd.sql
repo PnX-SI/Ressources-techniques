@@ -81,6 +81,8 @@ SELECT
 
     FROM
         saisie.saisie_observation so
+    JOIN export_oo.saisie_observation so2
+        ON so2.id_obs = so.id_obs
     JOIN saisie_structure st ON
         st.id_obs = so.id_obs
     JOIN md.protocole p ON

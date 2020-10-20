@@ -1,5 +1,3 @@
-
-
 # DESC: Restore bdd obsocc
 # ARGS: base_path: path to obsocc dump file
 # OUTS: None
@@ -70,6 +68,14 @@ function import_bd_obsocc() {
     return 0
 }
 
+function clean_data() {
+    if [ -n "${clean}" ]; then 
+        # create data users, organisms
+        exec_sql_file ${db_gn_name} ${root_dir}/data/clean.sql "Suppression des données précédentes"\
+            "-v db_oo_name=${db_oo_name}"
+    fi
+}
+
 
 # DESC: Create and fill OO schema export_oo
 # ARGS: NONE
@@ -97,7 +103,9 @@ function create_export_oo() {
             &>> ${sql_log_file}
 
     # create data users, organisms
-    exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/user.sql "Personne Organismes"
+    exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/user.sql "Personne Organismes"\
+        "-v db_oo_name=${db_oo_name}"
+
 
     # create schema OO export_oo
     exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/oo_data.sql "Ajout des tables dans le schema export_oo (patienter)"
@@ -197,12 +205,12 @@ function patch_media() {
 function insert_data() {
 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/before_insert.sql "Pre - insert"
-    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/user.sql "Utilisateurs, organismes"
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/user.sql "Utilisateurs, organismes" "-v db_oo_name=${db_oo_name}"
     insert_media
-    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/releve.sql "Relevés (patienter)"
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/releve.sql "Relevés (patienter)" "-v db_oo_name=${db_oo_name}"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/occurrence.sql "Occurrences (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/counting.sql "Dénombrement (patienter)"
-    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert (patienter)"
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert (patienter)" 
 
     # exec_sql_file ${db_gn_name} ${root_dir}/data/insert/couting.sql "Insert Data : process denombrement (patienter)"
 

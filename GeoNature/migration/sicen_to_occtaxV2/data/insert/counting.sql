@@ -1,3 +1,10 @@
+-- occurrence.sql
+WITH ids_obs AS (
+
+    SELECT id_occurrence_occtax, UNNEST(ids_obs_occurrence) AS id_obs
+    FROM pr_occtax.t_occurrences_occtax
+)
+
 INSERT INTO pr_occtax.cor_counting_occtax (
 
     id_obs,
@@ -38,7 +45,8 @@ INSERT INTO pr_occtax.cor_counting_occtax (
     COALESCE(effectif_min, effectif_max, 1) AS count_min,
     COALESCE(effectif_max, effectif_min, 1) AS count_max
 
-    FROM export_oo.saisie_observation s
-    JOIN pr_occtax.t_occurrences_occtax o
-        ON s.id_obs = ANY(o.ids_obs_occurrence)
-;
+    FROM pr_occtax.t_occurrences_occtax o
+    JOIN ids_obs io 
+        ON io.id_occurrence_occtax = o.id_occurrence_occtax
+    JOIN export_oo.saisie_observation s
+        ON s.id_obs = io.id_obs;

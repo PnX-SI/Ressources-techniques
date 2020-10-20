@@ -86,12 +86,13 @@ function parseScriptOptions() {
             "--verbose") set -- "${@}" "-v" ;;
             "--debug") set -- "${@}" "-x" ;;
             "--media-dir") set -- "${@}" "-m" ;;
+            "--clean") set -- "${@}" "-z" ;;
             "--"*) exitScript "ERROR : parameter '${arg}' invalid ! Use -h option to know more." 1 ;;
             *) set -- "${@}" "${arg}"
         esac
     done
 
-    while getopts "cdef:g:hn:m:o:p:tvx" option; do
+    while getopts "cdef:g:hn:m:o:p:tvxz" option; do
         case "${option}" in
             "c") correct_oo=true ;;
             "d") drop_export_oo=true ;;
@@ -102,9 +103,10 @@ function parseScriptOptions() {
             "n") gn_dump_file="${OPTARG}" ;;
             "o") db_oo_name_opt="${OPTARG}" ;;
             "p") patch="${OPTARG}" ;;
-            "v") readonly verbose=true ;;
-            "x") readonly debug=true; set -x ;;
-            "m") readonly media_dir=${OPTARG} ;;
+            "v") verbose=true ;;
+            "x") debug=true; set -x ;;
+            "m") media_dir=${OPTARG} ;;
+            "z") clean=true ;;
             *) exitScript "ERROR : parameter invalid ! Use -h option to know more." 1 ;;
         esac
     done
@@ -117,6 +119,8 @@ function parseScriptOptions() {
 function main() {
 
     # init script
+
+    verbose=true 
 
     file_names="
         utils.sh
@@ -140,11 +144,11 @@ function main() {
     mkdir -p ${tmp_dir}
     cp -R ${root_dir}/data/csv /tmp/.
 
-
     # init config
     printTitle "Initialisation de la configuration"
     init_config;
     
+    clean_data
 
     # import bd obsocc from dump file (if needed)
     printTitle "Restauration de la base ObsOcc depuis le fichier ${oo_dump_file}"
@@ -168,6 +172,7 @@ Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     # create export_oo schema (data from OO pre-formated for GN)
     printTitle "Schema export_oo"
     create_export_oo
+
 
     # fdw de OO:export_oo -> GN:export_oo
     printTitle "FDW"
@@ -194,6 +199,8 @@ Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     printTitle "Insertion des données"
 
     insert_data
+
+    log SQL "FIN"
 
 }
 

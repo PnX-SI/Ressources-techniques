@@ -94,7 +94,8 @@ checkError() {
     file_path=$1
     exitMessage=$2
     cmd=$3
-    err=$(grep -A1 -i "err" ${file_path})
+    err=$(grep -A1 -i -E 'erreur|error' ${file_path})
+
     if [ -n "$err" ] ; then
         exitScript "${exitMessage}\n\n${err}\n\n${cmd}" 2
     fi

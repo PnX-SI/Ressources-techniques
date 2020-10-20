@@ -1,5 +1,9 @@
 -- occurrence.sql
+WITH ids_obs AS (
 
+    SELECT id_releve_occtax, UNNEST(ids_obs_releve) AS id_obs
+    FROM pr_occtax.t_releves_occtax
+)
 INSERT INTO pr_occtax.t_occurrences_occtax(
 
     ids_obs_occurrence,
@@ -61,9 +65,11 @@ INSERT INTO pr_occtax.t_occurrences_occtax(
         (SELECT gn_commons.get_default_parameter('taxref_version')) AS meta_v_taxref,
         STRING_AGG(DISTINCT s.remarque_obs, ', ') AS comment
 
-        FROM export_oo.saisie_observation s
-        JOIN pr_occtax.t_releves_occtax r
-            ON s.id_obs = ANY (r.ids_obs_releve)
+        FROM pr_occtax.t_releves_occtax r
+        JOIN ids_obs io
+            ON io.id_releve_occtax = r.id_releve_occtax
+        JOIN export_oo.saisie_observation s
+            ON s.id_obs = io.id_obs
         JOIN gn_meta.t_datasets d
             ON d.id_dataset = r.id_dataset
         LEFT JOIN export_oo.t_taxonomie_synonymes st

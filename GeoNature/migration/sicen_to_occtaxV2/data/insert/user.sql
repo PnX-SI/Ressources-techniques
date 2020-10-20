@@ -13,7 +13,8 @@ INSERT INTO utilisateurs.bib_organismes (
         tel_organisme,
         fax_organisme,
         email_organisme,
-        url_organisme
+        url_organisme,
+        url_logo
 )    
     SELECT
         vo.id_structure,
@@ -24,13 +25,14 @@ INSERT INTO utilisateurs.bib_organismes (
         vo.tel_organisme,
         vo.fax_organisme,
         vo.email_organisme,
-        vo.url_organisme
-
+        vo.url_organisme,
+        vo.url_logo
 
     FROM export_oo.v_utilisateurs_bib_organismes vo
     LEFT JOIN utilisateurs.bib_organismes o
         ON vo.nom_organisme = o.nom_organisme
-    WHERE o.nom_organisme IS NULL 
+    WHERE o.nom_organisme IS NULL
+        AND vo.url_logo LIKE CONCAT('%', :'db_oo_name', '%')
 ;
 
 -- utilisateurs.t_roles
@@ -38,7 +40,6 @@ INSERT INTO utilisateurs.bib_organismes (
 
 
 INSERT INTO utilisateurs.t_roles(
-        id_personne,
         remarques,
         prenom_role,
         nom_role,
@@ -50,7 +51,6 @@ INSERT INTO utilisateurs.t_roles(
         groupe
     )
     SELECT
-        vr.id_personne,
         vr.remarques,
         vr.prenom_role,
         vr.nom_role,
@@ -63,11 +63,13 @@ INSERT INTO utilisateurs.t_roles(
 
     FROM export_oo.v_utilisateurs_t_roles vr
     JOIN utilisateurs.bib_organismes o 
-        ON vr.id_structure = o.id_structure
+        ON (vr.champs_addi->>'id_structure')::int = o.id_structure
+            AND o.url_logo LIKE CONCAT('%', :'db_oo_name', '%')
     LEFT JOIN utilisateurs.t_roles r
         ON r.nom_role = vr.nom_role 
             AND r.prenom_role = vr.prenom_role
     WHERE r.nom_role IS NULL
+        AND vr.champs_addi->>'base_origine' LIKE CONCAT('%', :'db_oo_name', '%')
 ;
 
 

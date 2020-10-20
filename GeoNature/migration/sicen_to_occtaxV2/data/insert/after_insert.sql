@@ -1,10 +1,10 @@
 -- remove id_obs
 
---ALTER TABLE pr_occtax.t_releves_occtax DROP ids_obs_releve;
+ALTER TABLE pr_occtax.t_releves_occtax DROP ids_obs_releve;
 --ALTER TABLE pr_occtax.t_releves_occtax DROP observateur;
 
---ALTER TABLE pr_occtax.t_occurrences_occtax DROP COLUMN ids_obs_occurrence;
---ALTER TABLE pr_occtax.cor_counting_occtax DROP id_obs;
+ALTER TABLE pr_occtax.t_occurrences_occtax DROP COLUMN ids_obs_occurrence;
+ALTER TABLE pr_occtax.cor_counting_occtax DROP id_obs;
 
 --ALTER TABLE utilisateurs.bib_organismes DROP id_structure;
 --ALTER TABLE utilisateurs.t_roles DROP id_personne;
@@ -28,20 +28,55 @@ DELETE FROM gn_synthese.cor_area_synthese cos
 ;
 
 -- insert cor_area_synthese
-INSERT INTO gn_synthese.cor_area_synthese(
-    id_area,
-    id_synthese
-    )
+
+
+-- INSERT INTO gn_synthese.cor_area_synthese(
+--     id_area,
+--     id_synthese
+--     )
+--     SELECT
+--         id_area,
+--         id_synthese
+--         FROM ref_geo.l_areas a
+--         JOIN gn_synthese.synthese s
+--         	ON public.ST_INTERSECTS(s.the_geom_local, a.geom) 
+--          --       AND public.ST_GEOMETRYTYPE(s.the_geom_local) = 'ST_POINT' OR NOT public.ST_TOUCHES(s.the_geom_local,a.geom)
+--         JOIN export_oo.saisie_observation so
+--             ON s.unique_id_sinp = so.unique_id_sinp_occtax
+-- ;
+
+WITH point AS (
     SELECT
         id_area,
         id_synthese
         FROM ref_geo.l_areas a
         JOIN gn_synthese.synthese s
-        	ON public.ST_INTERSECTS(s.the_geom_local, a.geom) 
-                AND NOT public.ST_TOUCHES(s.the_geom_local,a.geom)
+        	ON public.ST_INTERSECTS(s.the_geom_local, a.geom)
         JOIN export_oo.saisie_observation so
-            ON s.unique_id_sinp = so.unique_id_sinp_occtax
+			ON so.unique_id_sinp_occtax = s.unique_id_sinp
+	WHERE public.ST_GEOMETRYTYPE(s.the_geom_local) = 'ST_Point'     
+), not_point AS (
+    SELECT
+        id_area,
+        id_synthese
+        FROM ref_geo.l_areas a
+        JOIN gn_synthese.synthese s
+        	ON public.ST_INTERSECTS(s.the_geom_local, a.geom)
+        	  AND public.ST_TOUCHES(s.the_geom_local, a.geom)
+        JOIN export_oo.saisie_observation so
+			ON so.unique_id_sinp_occtax = s.unique_id_sinp
+	WHERE public.ST_GEOMETRYTYPE(s.the_geom_local) != 'ST_Point'
+	)
+INSERT INTO gn_synthese.cor_area_synthese(
+    id_area,
+    id_synthese
+)
+SELECT id_area, id_synthese FROM point p
+UNION
+SELECT id_area, id_synthese FROM not_point np
 ;
+
+-- 
 
 -- delete gn_synthese.cor_area_taxon
 DELETE FROM gn_synthese.cor_area_taxon cat 
