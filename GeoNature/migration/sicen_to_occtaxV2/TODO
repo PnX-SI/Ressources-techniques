@@ -1,6 +1,12 @@
 TODO
 
 id_structure NULL org -> Aucun ??
+
+suppression des données longue
+pn_cal cor_releve_observateur
+
+vue pour les releve (db_oo_name) etlien par dataset
+
 afficher nbre synthese counting obs
 
 JDD patch plusieurs CHOIX + assigner organisme

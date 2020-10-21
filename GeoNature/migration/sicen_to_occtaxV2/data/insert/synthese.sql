@@ -1,3 +1,4 @@
+-- replay triggers
 WITH myobservers AS ( SELECT
 	array_to_string(array_agg(rol.nom_role || ' ' || rol.prenom_role), ', ') AS observers_name,
 	array_agg(rol.id_role) AS observers_id,
@@ -106,7 +107,7 @@ SELECT
   r.geom_local,
   date_trunc('day',r.date_min)+COALESCE(r.hour_min,'00:00:00'::time),
   date_trunc('day',r.date_max)+COALESCE(r.hour_max,'00:00:00'::time),
-  COALESCE (myobservers.observers_name, r.observers_txt),
+  COALESCE (mo.observers_name, r.observers_txt),
   o.determiner,
   r.id_digitiser,
   o.id_nomenclature_determination_method,
@@ -115,12 +116,27 @@ SELECT
   'I'
 
     FROM export_oo.v_counting_occtax c
+    
     JOIN export_oo.v_occurrences_occtax o
         ON o.id_occurrence_occtax = c.id_occurrence_occtax
     JOIN export_oo.v_releves_occtax r
         ON r.id_releve_occtax = o.id_releve_occtax
     JOIN gn_synthese.t_sources source 
-	    ON name_source ILIKE 'occtax'
-    JOIN myobservers
-	    ON myobservers.id_releve_occtax = r.id_releve_occtax
+	ON name_source ILIKE 'occtax'
+    JOIN myobservers mo
+	    ON mo.id_releve_occtax = r.id_releve_occtax
+;
+
+
+-- replay triggers
+
+INSERT INTO gn_synthese.cor_observer_synthese (id_synthese, id_role)
+    SELECT 
+        s.id_synthese,
+        c.id_role AS id_role
+    FROM export_oo.v_synthese s
+    JOIN pr_occtax.t_releves_occtax r
+        ON s.unique_id_sinp_grp = r.unique_id_sinp_grp
+    JOIN export_oo.v_role_releves_occtax c
+        ON c.id_releve_occtax = r.id_releve_occtax
 ;

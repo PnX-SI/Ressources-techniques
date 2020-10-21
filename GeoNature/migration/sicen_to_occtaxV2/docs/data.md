@@ -23,7 +23,7 @@ Les script sql sont placés dans le dossier `data`
     - creation d'un groupe `Grp_observateurs` pour les utilisateurs sans droit
   - `media.sql`: insère les médias en base (le repertoire des médias à copier dans GéoNature et crée par un script bash)
   - `releve.sql`  
-  - `occurence.sql`  
+  - `occurrence.sql`  
   - `counting.sql`  
   - `after_insert.sql`: réactive et rejoue les triggers de la synthèse
 

@@ -73,6 +73,8 @@ function clean_data() {
         # create data users, organisms
         exec_sql_file ${db_gn_name} ${root_dir}/data/clean.sql "Suppression des données précédentes"\
             "-v db_oo_name=${db_oo_name}"
+    # resume
+
     fi
 }
 
@@ -110,8 +112,10 @@ function create_export_oo() {
     # create schema OO export_oo
     exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/oo_data.sql "Ajout des tables dans le schema export_oo (patienter)" "-v limit=${limit}"
 
-    # create cor_etude_protocol_dataset
+
+    # create cor_etude_protocol_dataset (need view cd nom valid)
     exec_sql_file ${db_oo_name} ${root_dir}/data/export_oo/jdd.sql "Correspondance JDD études protocoles"
+
 
     return 0
 
@@ -141,6 +145,12 @@ function create_fdw_obsocc() {
     checkError ${sql_log_file} "Problème à la creation du fwd"
 
     log SQL "FDW établi"
+
+    # Synonymes
+    exec_sql_file ${db_gn_name} ${root_dir}/data/export_oo/synonyme.sql "synonymes"
+
+    # vue cd nom valid
+    exec_sql_file ${db_gn_name} ${root_dir}/data/export_oo/views.sql "Vue observation cd nom valid" "-v db_oo_name=${db_oo_name}"
 
 }
 
@@ -206,12 +216,36 @@ function insert_data() {
 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/before_insert.sql "Pre - insert"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/user.sql "Utilisateurs, organismes" "-v db_oo_name=${db_oo_name}"
+    return 
     insert_media
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/releve.sql "Relevés (patienter)" "-v db_oo_name=${db_oo_name}"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/occurrence.sql "Occurrences (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/counting.sql "Dénombrement (patienter)"
-    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert (patienter)" 
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/synthese.sql "Synthese (patienter)" 
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/cor_synthese.sql "Cor - Synthese (patienter)" 
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert" 
 
+}
+
+
+function initial_data {
+    if ! table_exists ${db_gn_name} export_oo saisie_observation; then
+        return 
+    fi
+
+    psql  -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
+        -f ${root_dir}/data/initial_data.sql
+
+}
+
+function resume() {
+
+    if ! table_exists ${db_gn_name} export_oo saisie_observation; then
+        return 
+    fi
+
+    psql  -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
+        -f ${root_dir}/data/resume.sql
 
 }
 

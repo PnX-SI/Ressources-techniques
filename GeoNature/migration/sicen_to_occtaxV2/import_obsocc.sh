@@ -26,6 +26,7 @@ Usage: ./$(basename $BASH_SOURCE)[options]
      -z | --clean : clean previous attemps
      -m | --media_dir : path to media dir
      -l | --limit set limit to test
+     -r | --resume resume only
 
      -p | --apply-patch
 
@@ -89,12 +90,13 @@ function parseScriptOptions() {
             "--media-dir") set -- "${@}" "-m" ;;
             "--clean") set -- "${@}" "-z" ;;
             "--limit") set -- "${@}" "-l" ;;
+            "--resume") set -- "${@}" "-r" ;;
             "--"*) exitScript "ERROR : parameter '${arg}' invalid ! Use -h option to know more." 1 ;;
             *) set -- "${@}" "${arg}"
         esac
     done
 
-    while getopts "cdef:g:hl:m:n:o:p:tvxz" option; do
+    while getopts "cdef:g:hl:m:n:o:p:rtvxz" option; do
         case "${option}" in
             "c") correct_oo=true ;;
             "d") drop_export_oo=true ;;
@@ -110,6 +112,7 @@ function parseScriptOptions() {
             "m") media_dir=${OPTARG} ;;
             "z") clean=true ;;
             "l") limit=${OPTARG} ;;
+            "r") display_resume=true ;;
             *) exitScript "ERROR : parameter invalid ! Use -h option to know more." 1 ;;
         esac
     done
@@ -141,7 +144,6 @@ function main() {
 
     initScript "${@}"
 
-
     # init files
 
     rm -f ${sql_log_file}
@@ -150,20 +152,33 @@ function main() {
     cp -R ${root_dir}/data/csv /tmp/.
 
     # init config
-    printTitle "Initialisation de la configuration"
+
     init_config;
+
+    if [ -n "${display_resume}" ]; then
+        printPretty "\nResume pour la migration des données de la base Obsocc ${db_oo_name} vers la base GeoNature ${db_gn_name}\n"
+        resume
+        return
+    fi
+
+    printPretty "\nMigration des données de la base Obsocc ${db_oo_name} vers la base GeoNature ${db_gn_name}\n"
+
+
+    printTitle "Initialisation"
     
-    clean_data
+
+    # resume
+    # return 
+
 
     # import bd obsocc from dump file (if needed)
     printTitle "Restauration de la base ObsOcc depuis le fichier ${oo_dump_file}"
 
     import_bd_obsocc ${oo_dump_file}
 
-
     # correction geometrie, doublons
     if [ -n "${correct_oo}" ] ; then
-        exec_sql_file ${db_oo_name} ${root_dir}/data/correct_oo.sql "Correction dans la base ${db_oo_name} doublons et geometries"
+        exec_sql_file ${db_oo_name} ${root_dir}/data/correct_oo.sql "Correction dans la base ${db_oo_name} doublons et geometries" "-v db_oo_name=${db_oo_name}"
     fi
 
 
@@ -183,12 +198,12 @@ Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     printTitle "FDW"
     create_fdw_obsocc
 
-    # Synonymes
-    printTitle "Synonymes (nomenclatures et taxons)"
-    exec_sql_file ${db_gn_name} ${root_dir}/data/export_oo/synonyme.sql "synonymes"
+    # views clean data
+    clean_data
 
     # Tests
     printTitle "Vérification des données"
+    test_user
     test_geometry
     test_patch 'TAX' || test_taxonomy
     
@@ -200,12 +215,15 @@ Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     test_patch 'JDD' && patch_jdd 
     test_jdd
 
-
+    # Insertion
     printTitle "Insertion des données"
 
     insert_data
 
-    log SQL "FIN"
+    # Résumé
+    printTitle "Résumé pour ${db_oo_name}"
+    resume
+
 
 }
 

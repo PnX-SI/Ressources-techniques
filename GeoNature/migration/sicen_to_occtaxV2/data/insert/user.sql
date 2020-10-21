@@ -31,8 +31,8 @@ INSERT INTO utilisateurs.bib_organismes (
     FROM export_oo.v_utilisateurs_bib_organismes vo
     LEFT JOIN utilisateurs.bib_organismes o
         ON vo.nom_organisme = o.nom_organisme
+            AND o.url_logo LIKE CONCAT('%', :'db_oo_name', '%')
     WHERE o.nom_organisme IS NULL
-        AND vo.url_logo LIKE CONCAT('%', :'db_oo_name', '%')
 ;
 
 -- utilisateurs.t_roles
@@ -68,8 +68,8 @@ INSERT INTO utilisateurs.t_roles(
     LEFT JOIN utilisateurs.t_roles r
         ON r.nom_role = vr.nom_role 
             AND r.prenom_role = vr.prenom_role
+            AND vr.champs_addi->>'base_origine' LIKE CONCAT('%', :'db_oo_name', '%') 
     WHERE r.nom_role IS NULL
-        AND vr.champs_addi->>'base_origine' LIKE CONCAT('%', :'db_oo_name', '%')
 ;
 
 

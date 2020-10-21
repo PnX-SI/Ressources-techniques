@@ -8,7 +8,7 @@ WITH tax AS ( SELECT
 ), personnes AS ( SELECT 
 	id_obs,
 	UNNEST(STRING_TO_ARRAY(observateur, '&'))::int AS id_personne
-	FROM export_oo.saisie_observation so
+	FROM export_oo.v_saisie_observation_cd_nom_valid so
 ),
 author AS  (SELECT
 
@@ -20,7 +20,7 @@ JOIN utilisateurs.t_roles r
 GROUP BY id_obs
 ), url_photo AS (
 	SELECT id_obs, TRANSLATE(url_photo, ' ()''', '____') AS url_photo
-	FROM export_oo.saisie_observation
+	FROM export_oo.v_saisie_observation_cd_nom_valid
 )
 
 INSERT INTO gn_commons.t_medias (
@@ -47,7 +47,7 @@ SELECT
 	ref_nomenclatures.get_id_nomenclature('TYPE_MEDIA', '2'),
 	u.url_photo
 	
-FROM export_oo.saisie_observation so
+FROM export_oo.v_saisie_observation_cd_nom_valid so
 JOIN tax t
 	ON t.cd_nom = so.cd_nom
 JOIN gn_commons.bib_tables_location l

@@ -21,7 +21,7 @@ INSERT INTO pr_occtax.cor_counting_occtax (
 
     s.id_obs,
     s.unique_id_sinp_occtax,
-    o.id_occurrence_occtax,
+    vo.id_occurrence_occtax,
     
     COALESCE(
 		export_oo.get_synonyme_id_nomenclature('STADE_VIE', type_effectif),
@@ -45,8 +45,8 @@ INSERT INTO pr_occtax.cor_counting_occtax (
     COALESCE(effectif_min, effectif_max, 1) AS count_min,
     COALESCE(effectif_max, effectif_min, 1) AS count_max
 
-    FROM pr_occtax.t_occurrences_occtax o
+    FROM export_oo.v_occurrences_occtax vo
     JOIN ids_obs io 
-        ON io.id_occurrence_occtax = o.id_occurrence_occtax
-    JOIN export_oo.saisie_observation s
+        ON io.id_occurrence_occtax = vo.id_occurrence_occtax
+    JOIN export_oo.v_saisie_observation_cd_nom_valid s
         ON s.id_obs = io.id_obs;

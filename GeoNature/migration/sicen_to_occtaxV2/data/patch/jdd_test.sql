@@ -18,8 +18,8 @@ INSERT INTO gn_meta.t_acquisition_frameworks(
         acquisition_framework_start_date
 )
 VALUES (
-    :'db_oo_name',
-    :'db_oo_name',
+    CONCAT('test ', :'db_oo_name'),
+    CONCAT('importé depuis ', :'db_oo_name'),
     '2020-01-01'
 );
 
@@ -34,9 +34,9 @@ INSERT INTO gn_meta.t_datasets(
     ) 
     SELECT
         af.id_acquisition_framework,
-        :'db_oo_name',
-        :'db_oo_name',
-        :'db_oo_name',
+        CONCAT('test ', :'db_oo_name'),
+        CONCAT('test ', :'db_oo_name'),
+        CONCAT('importé depuis ', :'db_oo_name'),
         FALSE,
         FALSE
         
@@ -48,6 +48,6 @@ INSERT INTO gn_meta.t_datasets(
 UPDATE export_oo.cor_dataset SET (id_dataset) = ( 
     SELECT id_dataset 
     FROM gn_meta.t_datasets
-    WHERE  dataset_name = :'db_oo_name'
+    WHERE  dataset_desc = CONCAT('importé depuis ', :'db_oo_name')
 ) 
 ;

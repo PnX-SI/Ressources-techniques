@@ -1,3 +1,5 @@
+-- pr_occtax.t_releves_occtax
+
 WITH dataset AS (
     SELECT DISTINCT id_protocole, id_dataset, id_etude FROM export_oo.cor_dataset
 )
@@ -43,7 +45,7 @@ INSERT INTO pr_occtax.t_releves_occtax(
     ARRAY_AGG(id_obs) AS ids_obs_releve,
     s.observateur
 
-    FROM export_oo.saisie_observation s
+    FROM export_oo.v_saisie_observation_cd_nom_valid s
         JOIN dataset d
             ON d.id_etude = s.id_etude AND d.id_protocole = s.id_protocole
 
@@ -61,18 +63,18 @@ INSERT INTO pr_occtax.t_releves_occtax(
 ;
 
 
+-- pr_occtax.cor_role_releves_occtax
 
 WITH observers AS (
     SELECT UNNEST(STRING_TO_ARRAY(observateur, '&'))::int AS id_personne,
     id_releve_occtax
-    FROM pr_occtax.t_releves_occtax ro
+    FROM export_oo.v_releves_occtax
 )
 INSERT INTO pr_occtax.cor_role_releves_occtax (id_role, id_releve_occtax)
-    SELECT DISTINCT r.id_role, ro.id_releve_occtax  
-    FROM pr_occtax.t_releves_occtax ro
+    SELECT DISTINCT r.id_role, vr.id_releve_occtax  
+    FROM export_oo.v_releves_occtax vr
     JOIN observers o 
-        ON o.id_releve_occtax = ro.id_releve_occtax
-    JOIN utilisateurs.t_roles r 
+        ON o.id_releve_occtax = vr.id_releve_occtax
+    JOIN export_oo.v_roles r 
         ON (r.champs_addi->>'id_personne')::int = o.id_personne
-            AND r.champs_addi->>'base_origine' = :'db_oo_name'
 ;

@@ -89,10 +89,30 @@ UPDATE saisie.saisie_observation s1
 ;
 
 -- correction effectif_min, effectif_max
+ALTER TABLE md.personne DISABLE TRIGGER md_creation_observateur;
+
 UPDATE saisie.saisie_observation
   SET 
     effectif_min = effectif_max,
     effectif_max = effectif_min
   
   WHERE effectif_min > effectif_max
+;
+
+-- correction personne sans structure
+
+UPDATE md.structure SET nom_structure = CONCAT('Autre ', :'db_oo_name')
+WHERE nom_structure = 'Autre'
+;
+
+INSERT INTO md.structure (nom_structure) 
+  VALUES (CONCAT('Autre ', :'db_oo_name'))
+  ON CONFLICT DO NOTHING
+;
+
+UPDATE md.personne p
+	SET id_structure=s.id_structure 
+	FROM md.structure s
+	WHERE s.nom_structure = CONCAT('Autre ', :'db_oo_name')
+    AND p.id_structure IS NULL
 ;

@@ -1,0 +1,2 @@
+for base in $(echo 'pc cev cal pyr'); do psql -tA -R";" -h localhost  -p  -U dbadmin -d postgres -p 5432 -c "DROP DATABASE pn_${base}"; done
+for base in $(echo 'pc cal cev pyr'); do ./import_obsocc.sh -f dumps/pn_${base}.dump -o pn_${base} -z -d -l 1 -c -p 'JDD_PETAX' ; done

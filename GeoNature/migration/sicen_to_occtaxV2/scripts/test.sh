@@ -77,6 +77,22 @@ function test_jdd() {
     return 0
 }
 
+test_user() {
+
+    log SQL "Test User"
+
+    export PGPASSWORD=${user_pg_pass};\
+    res=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
+     -c "SELECT COUNT(*) FROM md.personne WHERE id_structure IS NULL;" 
+    )
+
+    if [ ! "$res" = "0" ] ; then
+        exitScript "Il y a ${res} personnes sans structures associées dans ObsOcc.\n
+Veuillez corriger ces lignes (ou bien relancer le script avec l'option -c" 1
+    fi
+}
+
+
 test_geometry() {
 
     log SQL "Test geometrie"

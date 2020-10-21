@@ -30,7 +30,7 @@ INSERT INTO pr_occtax.t_occurrences_occtax(
         ARRAY_AGG(s.id_obs) AS ids_obs_occurrence,
         uuid_generate_v4() AS unique_id_occurence_occtax,
 
-        r.id_releve_occtax,
+        vr.id_releve_occtax,
         COALESCE(
             export_oo.get_synonyme_id_nomenclature('METH_OBS', determination::text),
             ref_nomenclatures.get_id_nomenclature('METH_OBS', '24') -- (Inconnu)
@@ -53,40 +53,39 @@ INSERT INTO pr_occtax.t_occurrences_occtax(
 
         ref_nomenclatures.get_id_nomenclature('STATUT_OBS', 'Pr') AS id_nomenclature_observation_status, -- (Présent)
         ref_nomenclatures.get_id_nomenclature('DEE_FLOU', 'NON') AS id_nomenclature_blurring,
-        d.id_nomenclature_source_status,
+        vd.id_nomenclature_source_status,
         export_oo.get_synonyme_id_nomenclature('OCC_COMPORTEMENT', SUBSTRING(comportement::text, 1, 2)) AS id_nomenclature_behaviour, -- OCC_COMPORTEMENT
 
         NULL::text AS determiner,
         
         ref_nomenclatures.get_id_nomenclature('METH_DETERMIN', '1') AS id_nomenclature_determination_method, 
         
-        COALESCE(t.cd_nom, st.cd_nom_valid) AS cd_nom,
+        s.cd_nom_valid AS cd_nom,
         s.nom_complet AS nom_cite,
         (SELECT gn_commons.get_default_parameter('taxref_version')) AS meta_v_taxref,
         STRING_AGG(DISTINCT s.remarque_obs, ', ') AS comment
 
-        FROM pr_occtax.t_releves_occtax r
+        FROM export_oo.v_releves_occtax vr
         JOIN ids_obs io
-            ON io.id_releve_occtax = r.id_releve_occtax
-        JOIN export_oo.saisie_observation s
+            ON io.id_releve_occtax = vr.id_releve_occtax
+        JOIN export_oo.v_saisie_observation_cd_nom_valid s
             ON s.id_obs = io.id_obs
-        JOIN gn_meta.t_datasets d
-            ON d.id_dataset = r.id_dataset
-        LEFT JOIN export_oo.t_taxonomie_synonymes st
-            ON st.cd_nom_invalid = s.cd_nom
-        LEFT JOIN taxonomie.taxref t
-            ON t.cd_nom = s.cd_nom OR t.cd_nom = st.cd_nom_valid
+        JOIN export_oo.v_datasets vd
+            ON vd.id_dataset = vr.id_dataset
+        -- LEFT JOIN export_oo.t_taxonomie_synonymes st
+        --     ON st.cd_nom_invalid = s.cd_nom
+        -- LEFT JOIN taxonomie.taxref t
+        --     ON t.cd_nom = s.cd_nom OR t.cd_nom = st.cd_nom_valid
         
-        WHERE COALESCE(t.cd_nom, st.cd_nom_valid) IS NOT NULL
+        -- WHERE COALESCE(t.cd_nom, st.cd_nom_valid) IS NOT NULL
 
         GROUP BY 
-            r.id_releve_occtax,
+            vr.id_releve_occtax,
             s.determination,
             s.phenologie,
-            d.id_nomenclature_source_status,
+            vd.id_nomenclature_source_status,
             s.comportement,
-            t.cd_nom,
-            st.cd_nom_valid,
+            s.cd_nom_valid,
             s.nom_complet
 
 

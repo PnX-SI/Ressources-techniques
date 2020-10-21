@@ -39,7 +39,7 @@ cette table peut contenir une information sur plusieurs types de nomenclature.
   - defaut : `NSP` (`NSP`)
 
 
-#### Occurence `GN:pr_occta.t_occurrences_occtax`
+#### Occurrence `GN:pr_occta.t_occurrences_occtax`
 
   - `id_nomenclature_obs_technique`
     - type : `METH_OBS`

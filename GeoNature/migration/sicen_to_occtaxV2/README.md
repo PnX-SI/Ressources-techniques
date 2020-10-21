@@ -188,7 +188,7 @@ Cette commande va effectuer les actions suivantes :
   - Utilisateurs et organismes.
   - Medias
   - Releves
-  - Occurences
+  - Occureences
   - Dénombrements
   - Rejoue et reactive les triggers synthèse
 

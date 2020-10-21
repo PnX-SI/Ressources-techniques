@@ -61,7 +61,7 @@ function init_config {
 
     export exec_sql="export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg}"
 
-    log SQL "La configuration est valide"
+    # log SQL "La configuration est valide"
 
     return 0
 }
