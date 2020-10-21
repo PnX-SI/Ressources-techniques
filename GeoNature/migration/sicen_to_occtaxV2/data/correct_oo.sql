@@ -3,7 +3,7 @@
 UPDATE saisie.saisie_observation so 
 	SET geometrie = correct.geometrie
 	FROM ( SELECT 
-		id_obs, ST_MAKEVALID(geometrie) AS geometrie
+		id_obs, ST_BUFFER(geometrie, 0) AS geometrie
 		FROM saisie.saisie_observation
 		WHERE NOT ST_ISVALID(geometrie)
 	)correct
