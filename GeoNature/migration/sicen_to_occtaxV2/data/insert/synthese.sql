@@ -137,6 +137,6 @@ INSERT INTO gn_synthese.cor_observer_synthese (id_synthese, id_role)
     FROM export_oo.v_synthese s
     JOIN pr_occtax.t_releves_occtax r
         ON s.unique_id_sinp_grp = r.unique_id_sinp_grp
-    JOIN export_oo.v_role_releves_occtax c
+    JOIN export_oo.v_role_releves_occtax c  
         ON c.id_releve_occtax = r.id_releve_occtax
 ;

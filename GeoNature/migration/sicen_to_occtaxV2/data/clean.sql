@@ -1,8 +1,5 @@
 -- synthese
-
 ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
-
-
 
 DELETE FROM gn_synthese.synthese s
     USING export_oo.v_synthese vs
@@ -34,7 +31,7 @@ DELETE FROM gn_meta.t_acquisition_frameworks a
 ;
 
 -- user (patch constraint sinon 20s pour 700 roles...)
-ALTER TABLE gn_commons.t_validations DROP CONSTRAINT fk_t_validations_t_roles;
+ALTER TABLE gn_commons.t_validations DROP CONSTRAINT IF EXISTS fk_t_validations_t_roles;
 
 DELETE FROM utilisateurs.t_roles r
     USING export_oo.v_roles vr
@@ -42,6 +39,7 @@ DELETE FROM utilisateurs.t_roles r
 ;
 
 ALTER TABLE ONLY gn_commons.t_validations ADD CONSTRAINT fk_t_validations_t_roles FOREIGN KEY (id_validator) REFERENCES utilisateurs.t_roles(id_role) ON UPDATE CASCADE;
+
 
 --organismes
 DELETE FROM utilisateurs.bib_organismes o
