@@ -99,7 +99,7 @@ function parseScriptOptions() {
     while getopts "cdef:g:hl:m:n:o:p:rtvxz" option; do
         case "${option}" in
             "c") correct_oo=true ;;
-            "d") drop_export_oo=true ;;
+            "d") drop_export_oo=true;;
             "e") cadre_aquisition=${etude};;
             "f") oo_dump_file="${OPTARG}" ;;
             "g") db_gn_name_opt="${OPTARG}" ;;

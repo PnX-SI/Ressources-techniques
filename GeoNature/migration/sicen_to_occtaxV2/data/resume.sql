@@ -9,9 +9,6 @@ UNION SELECT 3 AS ind, 'CA', COUNT(*)
 
 UNION SELECT 4 AS ind, 'JDD', COUNT(*)
     FROM export_oo.v_datasets
-
-UNION SELECT 5 AS ind, 'ObsOcc observation', COUNT(*)
-    FROM export_oo.saisie_observation
     
 UNION SELECT 6 AS ind, 'ObsOcc observation (Valid Tax)', COUNT(*)
     FROM export_oo.v_saisie_observation_cd_nom_valid s

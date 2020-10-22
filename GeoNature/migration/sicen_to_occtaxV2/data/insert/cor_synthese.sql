@@ -1,8 +1,7 @@
 -- delete cor_area_synthese
-DELETE FROM gn_synthese.cor_area_synthese cos
-    USING gn_synthese.synthese s
-    JOIN export_oo.v_saisie_observation_cd_nom_valid so
-        ON s.unique_id_sinp = so.unique_id_sinp_occtax
+EXPLAIN ANALYSE DELETE FROM gn_synthese.cor_area_synthese c
+    USING export_oo.v_synthese vs
+    WHERE vs.id_synthese = c.id_synthese
 ;
 
 -- insert cor_area_synthese
@@ -49,21 +48,17 @@ SELECT id_area, id_synthese FROM not_point2
 
 -- delete gn_synthese.cor_area_taxon
 DELETE FROM gn_synthese.cor_area_taxon cat 
-    USING gn_synthese.synthese s
+    USING export_oo.v_synthese vs
     JOIN gn_synthese.cor_area_synthese cas
-        ON cas.id_synthese = s.id_synthese
-    JOIN export_oo.v_saisie_observation_cd_nom_valid so
-        ON s.unique_id_sinp = so.unique_id_sinp_occtax
-    WHERE cat.cd_nom = s.cd_nom AND cas.id_area = cat.id_area
+        ON cas.id_synthese = vs.id_synthese
+    WHERE cat.cd_nom = vs.cd_nom AND cas.id_area = cat.id_area
 ;
 
 -- inster gn_synthese.cor_area_taxon
  INSERT INTO gn_synthese.cor_area_taxon (cd_nom, nb_obs, id_area, last_date)
-    SELECT s.cd_nom, count(s.id_synthese), cas.id_area,  max(s.date_min)
+    SELECT vs.cd_nom, count(vs.id_synthese), cas.id_area,  max(vs.date_min)
     FROM gn_synthese.cor_area_synthese cas
-    JOIN gn_synthese.synthese s 
-        ON s.id_synthese = cas.id_synthese
-    JOIN export_oo.v_saisie_observation_cd_nom_valid so
-        ON s.unique_id_sinp = so.unique_id_sinp_occtax
-    GROUP BY cas.id_area, s.cd_nom
+    JOIN export_oo.v_synthese vs 
+        ON vs.id_synthese = cas.id_synthese
+    GROUP BY cas.id_area, vs.cd_nom
 ;

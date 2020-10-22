@@ -13,9 +13,11 @@ ALTER TABLE utilisateurs.t_roles ADD COLUMN IF NOT EXISTS id_personne INTEGER;
 
 -- disabled triggers
 
+SET session_replication_role = replica;
 
 ALTER TABLE pr_occtax.cor_counting_occtax DISABLE TRIGGER tri_insert_synthese_cor_counting_occtax;
 
+ALTER TABLE gn_synthese.cor_observer_synthese DISABLE TRIGGER trg_maj_synthese_observers_txt;
 
 ALTER TABLE gn_synthese.cor_area_synthese DISABLE TRIGGER tri_maj_cor_area_taxon;
 ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_del_area_synt_maj_corarea_tax;

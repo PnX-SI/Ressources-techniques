@@ -1,7 +1,7 @@
 -- pr_occtax.t_releves_occtax
 
 WITH dataset AS (
-    SELECT DISTINCT id_protocole, id_dataset, id_etude FROM export_oo.cor_dataset
+    SELECT DISTINCT id_protocole, id_dataset::int, id_etude FROM export_oo.cor_dataset
 )
 
 INSERT INTO pr_occtax.t_releves_occtax(
@@ -27,7 +27,7 @@ INSERT INTO pr_occtax.t_releves_occtax(
 ) SELECT 
 
 	uuid_generate_v4() AS unique_id_sinp_grp,
-    d.id_dataset::int,
+    d.id_dataset,
     ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS', '133') AS id_nomenclature_tech_collect_campanule,
     ref_nomenclatures.get_id_nomenclature('TYP_GRP', 'NSP') AS id_nomenclature_grp_typ,
     s.date_min,
@@ -46,8 +46,9 @@ INSERT INTO pr_occtax.t_releves_occtax(
     s.observateur
 
     FROM export_oo.v_saisie_observation_cd_nom_valid s
-        JOIN dataset d
-            ON d.id_etude = s.id_etude AND d.id_protocole = s.id_protocole
+    JOIN dataset d
+        ON d.id_etude = s.id_etude
+        AND d.id_protocole = s.id_protocole
 
     GROUP BY 
         id_dataset,

@@ -29,10 +29,9 @@ INSERT INTO utilisateurs.bib_organismes (
         vo.url_logo
 
     FROM export_oo.v_utilisateurs_bib_organismes vo
-    LEFT JOIN utilisateurs.bib_organismes o
-        ON vo.nom_organisme = o.nom_organisme
-            AND o.url_logo LIKE CONCAT('%', :'db_oo_name', '%')
-    WHERE o.nom_organisme IS NULL
+    LEFT JOIN export_oo.v_organismes vo2
+        ON vo2.nom_organisme = vo.nom_organisme
+    WHERE vo2.nom_organisme IS NULL
 ;
 
 -- utilisateurs.t_roles
@@ -58,18 +57,16 @@ INSERT INTO utilisateurs.t_roles(
         vr.email,
         vr.date_insert,
         vr.champs_addi,
-        o.id_organisme,
+        vo.id_organisme,
         FALSE
 
     FROM export_oo.v_utilisateurs_t_roles vr
-    JOIN utilisateurs.bib_organismes o 
-        ON (vr.champs_addi->>'id_structure')::int = o.id_structure
-            AND o.url_logo LIKE CONCAT('%', :'db_oo_name', '%')
-    LEFT JOIN utilisateurs.t_roles r
-        ON r.nom_role = vr.nom_role 
-            AND r.prenom_role = vr.prenom_role
-            AND vr.champs_addi->>'base_origine' LIKE CONCAT('%', :'db_oo_name', '%') 
-    WHERE r.nom_role IS NULL
+    JOIN export_oo.v_organismes vo 
+        ON (vr.champs_addi->>'id_structure')::int = vo.id_structure
+    LEFT JOIN export_oo.v_roles vr2
+        ON vr2.nom_role = vr.nom_role 
+            AND vr2.prenom_role = vr.prenom_role
+    WHERE vr2.nom_role IS NULL
 ;
 
 

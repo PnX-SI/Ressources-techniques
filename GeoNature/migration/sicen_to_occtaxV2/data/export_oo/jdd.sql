@@ -77,12 +77,12 @@ SELECT
     ce.nb_etude,
     cpe.nb_protocole_etude,
     cpes.nb_protocole_etude_structure,
-    NULL AS id_dataset
+    NULL::int AS id_dataset
 
     FROM
         saisie.saisie_observation so
     JOIN export_oo.saisie_observation so2
-        ON so2.id_obs = so.id_obs
+        ON so2.id_obs = so.id_obs   
     JOIN saisie_structure st ON
         st.id_obs = so.id_obs
     JOIN md.protocole p ON

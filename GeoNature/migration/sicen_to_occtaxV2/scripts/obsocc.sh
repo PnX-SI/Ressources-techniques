@@ -216,7 +216,6 @@ function insert_data() {
 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/before_insert.sql "Pre - insert"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/user.sql "Utilisateurs, organismes" "-v db_oo_name=${db_oo_name}"
-    return 
     insert_media
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/releve.sql "Relevés (patienter)" "-v db_oo_name=${db_oo_name}"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/occurrence.sql "Occurrences (patienter)"
@@ -239,6 +238,10 @@ function initial_data {
 }
 
 function resume() {
+
+    psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_oo_name} \
+        -f ${root_dir}/data/initial_data.sql
+
 
     if ! table_exists ${db_gn_name} export_oo saisie_observation; then
         return 
