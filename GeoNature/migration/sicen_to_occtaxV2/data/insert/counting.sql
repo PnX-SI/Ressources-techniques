@@ -2,7 +2,7 @@
 WITH ids_obs AS (
 
     SELECT id_occurrence_occtax, UNNEST(ids_obs_occurrence) AS id_obs
-    FROM pr_occtax.t_occurrences_occtax
+    FROM export_oo.v_occurrences_occtax
 )
 
 INSERT INTO pr_occtax.cor_counting_occtax (

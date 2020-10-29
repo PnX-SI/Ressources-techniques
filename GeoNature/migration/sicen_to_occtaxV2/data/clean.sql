@@ -1,6 +1,8 @@
 -- synthese
 ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
 
+DELETE FROM gn_monitoring.t_base_sites;
+
 DELETE FROM gn_synthese.synthese s
     USING export_oo.v_synthese vs
     WHERE vs.id_synthese = s.id_synthese;

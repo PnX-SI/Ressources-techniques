@@ -115,8 +115,9 @@ SELECT
   o.comment,
   'I'
 
-    FROM export_oo.v_counting_occtax c
-    
+    FROM export_oo.v_saisie_observation_cd_nom_valid s
+    JOIN export_oo.v_counting_occtax c
+        ON s.unique_id_sinp_occtax = c.unique_id_sinp_occtax 
     JOIN export_oo.v_occurrences_occtax o
         ON o.id_occurrence_occtax = c.id_occurrence_occtax
     JOIN export_oo.v_releves_occtax r
@@ -134,7 +135,10 @@ INSERT INTO gn_synthese.cor_observer_synthese (id_synthese, id_role)
     SELECT 
         s.id_synthese,
         c.id_role AS id_role
-    FROM export_oo.v_synthese s
+
+    FROM export_oo.v_saisie_observation_cd_nom_valid sv
+    JOIN export_oo.v_synthese s
+        ON s.unique_id_sinp = sv.unique_id_sinp_occtax
     JOIN pr_occtax.t_releves_occtax r
         ON s.unique_id_sinp_grp = r.unique_id_sinp_grp
     JOIN export_oo.v_role_releves_occtax c  
