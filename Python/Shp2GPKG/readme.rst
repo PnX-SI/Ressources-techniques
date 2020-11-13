@@ -39,3 +39,13 @@ Fonctionnement
 - Une fois cette fonction terminée, la seconde fonction ``shpKiller`` permet de parcourir un dossier de la même manière que la première fonction mais cette fois, dès qu'un fichier composant du Shapefile est trouvé (.shp, .dbf, .shx, .prj, .qpj, .cpg), on le supprime.
 
 En complément, voir aussi le script Python de création de SHP ou GPKG à partir d'une BDD PostGIS (https://github.com/PnX-SI/Ressources-techniques/tree/master/Python/create_GIS_files)
+
+
+Utilisation de ogr2ogr
+=======================
+Dans le dossier `ogr2ogr_shp2gpkg` se trouve une méthode alternative reposant sur ogr2ogr pour convertir les fichiers
+
+Un exemple d'utilisation du script se trouve dans le fichier main.py.sample
+
+Prérequis : avoir ogr2ogr et python
+
