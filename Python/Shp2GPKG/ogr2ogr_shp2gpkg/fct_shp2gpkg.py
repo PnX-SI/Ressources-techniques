@@ -13,6 +13,15 @@ FILE_EXT_GPKG = 'gpkg'
 
 
 def convert_file(ori_root_dir, final_root_dir, ori_file, final_file, format="GPKG"):
+    """
+        Fonction qui lance la converti un fichier en gpkg
+
+        :params:ori_root_dir : répertoire racine d'où est lancée l'analyse
+        :params:final_root_dir : répertoire racine de stockage des gpkg
+        :params:ori_file : fichier à convertir
+        :params:final_file : fichier final gpkg
+        
+    """
     # Test file
     orig = Path(ori_root_dir, ori_file) 
     if not orig.is_file():
@@ -42,6 +51,14 @@ def convert_file(ori_root_dir, final_root_dir, ori_file, final_file, format="GPK
 
 
 def process_file(file_path, root_dir, destination_dir):
+    """
+        Fonction qui lance la conversion d'un fichier en gpkg
+
+        :params:file_path : Fichier à convertir
+        :params:root_dir : répertoire racine à analyser
+        :params:destination_dir : répertoire où seront créer les gpkg
+        
+    """
     logger.info("Process file {}".format(str(file_path)))
     
     ext = file_path.suffix
@@ -64,6 +81,15 @@ def process_file(file_path, root_dir, destination_dir):
 
 
 def browse_and_convert_dir(root_dir, destination_dir, exclude_dir):
+    """
+        Fonction qui parcours récursivement un dossier
+            pour convertir l'ensemble des shp en gpkg
+
+        :params:root_dir : répertoire racine à analyser
+        :params:destination_dir : répertoire où seront créer les gpkg
+        :params: exclude_dir : liste des répertoires à exclure de la conversion
+
+    """
     root_path = Path(root_dir)
     if not root_path.is_dir():
         raise OSError("{} is not a dir".format(root_dir))

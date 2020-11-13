@@ -1,10 +1,15 @@
 import logging
 from fct_shp2gpkg import browse_and_convert_dir, logger
 
+# Dossier contenant les données shp
 ROOT_DIR = "/media/donnees_carto/donnees"
+# Dossier recevant les fichiers gpkg
+# REM : ROOT_DIR et DEST_DIR peuvent être équivalent
 DEST_DIR = "/media/donnees_carto/donnees_gpkg"
 
-# Print full log
+# Si vous voulez toutes les taçes sinon seul 
+# les erreurs de conversion sont affichées
 # logger.setLevel(logging.INFO)
 
-browse_and_convert_dir(ROOT_DIR, DEST_DIR,  ("archives", "fonds_carto"))
+# Lance la fonction de conversion en excluant les dossiers  archives et fonds_carto
+browse_and_convert_dir(ROOT_DIR, DEST_DIR, ("archives", "fonds_carto"))
