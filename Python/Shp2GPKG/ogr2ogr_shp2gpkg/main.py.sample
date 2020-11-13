@@ -1,0 +1,10 @@
+import logging
+from fct_shp2gpkg import browse_and_convert_dir, logger
+
+ROOT_DIR = "/media/donnees_carto/donnees"
+DEST_DIR = "/media/donnees_carto/donnees_gpkg"
+
+# Print full log
+# logger.setLevel(logging.INFO)
+
+browse_and_convert_dir(ROOT_DIR, DEST_DIR,  ("archives", "fonds_carto"))
