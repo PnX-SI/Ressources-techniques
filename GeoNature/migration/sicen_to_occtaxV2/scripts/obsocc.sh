@@ -1,3 +1,73 @@
+# DESC : Restore bdd gn
+# ARGS: base_path: path to gn dump file
+# OUTS: None
+function import_bd_gn() {
+    rm -f ${restore_gn_log_file}
+
+    gn_dump_file=$1
+
+    # test if db exist return
+    if database_exists "${db_gn_name}"; then
+        log RESTORE "La base de données GN ${db_gn_name} existe déjà." 
+        return 0
+    fi
+
+    if [[ $# -lt 1 ]]; then
+        exitScript '<dump file> is required for import_bd_obsocc()' 2
+    fi
+
+
+    if [ ! -f ${gn_dump_file} ] ; then 
+
+        exitScript "Le fichier d'import pour la base OO ${gn_dump_file} n'existe pas" 2
+    fi
+
+    log RESTORE "Restauration de la base de données GN:  ${db_gn_name}." 
+
+
+    # Create DB
+    log RESTORE "Creation de la base ${d_gn_name}"
+    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d postgres \
+        -c "CREATE DATABASE ${db_gn_name}" \
+        &>> ${restore_gn_log_file}
+    
+
+    # extensions
+    log RESTORE "Creation des extensions"
+    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
+        -c "CREATE EXTENSION IF NOT EXISTS postgis" \
+        &>> ${restore_gn_log_file}
+    
+    # ??? postgis-raster test si postgis 3 ou le faire dans tous les cas ?
+#    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
+#        -c "CREATE EXTENSION IF NOT EXISTS postgis_raster" \
+#       &>> ${restore_gn_log_file}
+
+    export PGPASSWORD=${user_pg_pass};psql -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
+        -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"' \
+        &>> ${restore_gn_log_file}
+
+
+    # retore dump into ${db_gn_name}
+    log RESTORE "Restauration depuis le fichier ${gn_dump_file} (patienter)"
+    export PGPASSWORD=${user_pg_pass}; \
+        pg_restore  -h ${db_host} -p ${db_port} --role=${user_pg} --no-owner --no-acl -U ${user_pg} \
+        -d ${db_gn_name} ${gn_dump_file} \
+        &>> ${restore_gn_log_file}
+
+    # Affichage des erreurs (ou test sur l'extence des schemas???
+    err=$(grep ERR ${restore_gn_log_file})
+
+    if [ -n "${err}" ] ; then 
+        log RESTORE "Il y a eu des erreurs durant la restauratio de la bdd GN ${db_gn_name}"
+        log RESTORE "Il peut s'agir d'erreurs mineures qui ne vont pas perturber la suite des opérations"
+        log RESTORE "Voir le fichier ${restore_gn_log_file} pour plus d'informations"
+    fi
+
+    return 0
+
+}
+
 # DESC: Restore bdd obsocc
 # ARGS: base_path: path to obsocc dump file
 # OUTS: None
@@ -19,7 +89,6 @@ function import_bd_obsocc() {
 
 
     if [ ! -f ${oo_dump_file} ] ; then 
-
         exitScript "Le fichier d'import pour la base OO ${oo_dump_file} n'existe pas" 2
     fi
 
@@ -215,6 +284,8 @@ function patch_media() {
 function insert_data() {
 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/before_insert.sql "Pre - insert"
+    # pour prendre en compte les champs ajoutés dans before_insert on refait les vues
+    exec_sql_file ${db_gn_name} ${root_dir}/data/export_oo/views.sql "Vue observation cd nom valid" "-v db_oo_name=${db_oo_name}"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/user.sql "Utilisateurs, organismes" "-v db_oo_name=${db_oo_name}"
     insert_media
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/releve.sql "Relevés (patienter)" "-v db_oo_name=${db_oo_name}"
@@ -223,6 +294,7 @@ function insert_data() {
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/synthese.sql "Synthese (patienter)" 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/cor_synthese.sql "Cor - Synthese (patienter)" 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert" 
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/taxlist.sql "Update list Occtax" 
 
 }
 

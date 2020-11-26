@@ -34,6 +34,7 @@ function init_config {
     
     export sql_log_file="${log_dir}/sql_${db_oo_name}.log"
     export restore_oo_log_file="${log_dir}/restore_oo_${db_oo_name}.log"
+    export restore_gn_log_file="${log_dir}/restore_gn_${db_oo_name}.log"
 
 
     # pour les medias
@@ -46,10 +47,10 @@ function init_config {
 
     rm -f ${sql_log_file} ${restore_oo_log_file}
 
-    # check if GN database exists
+    # check if GN database exists or if option -n (--gn-dump-file) is set
 
-    if ! database_exists ${db_gn_name} ;  then 
-        exitScript "La base GN ${db_gn_name} n existe pas, ou les paramêtres de connexion sont erronés." 2
+    if ! database_exists ${db_gn_name}  && [ -z "${gn_dump_file}" ] ;  then 
+        exitScript "La base GN ${db_gn_name} n existe pas, ou les paramêtres de connexion sont erronés. veuillez préciser le fichier d une sauvegarde de cette base. avec l'option -n=<file_path>" 2
     fi
 
 

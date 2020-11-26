@@ -12,21 +12,21 @@ set -o pipefail
 function printScriptUsage() {
     cat << EOF
 Usage: ./$(basename $BASH_SOURCE)[options]
+     -c | --correct-oo: correct OO:saisie.saisie_observation geometry and doublons 
+     -d | --drop-export-gn: re-create export_oo schema
+     -e | --etude-ca: etude=cadre aquisition (par defaut protcole=cadre aquisition) 
+     -f | --oo-dump-file <path to obsocc dump file>
+     -g | --db-gn-name: GN database name
      -h | --help: display this help
+     -l | --limit set limit to test
+     -m | --media_dir : path to media dir
+     -n | --gn-dump-file <path to geonature dump file>
+     -o | --db-oo-name: OO database name
+     -p | --patch: <"PATCH1|PATCH2|...">  (details below)
+     -r | --resume resume only
      -v | --verbose: display more infos
      -x | --debug: display debug script infos
-     -f | --oo-dump-file <path to obsocc dump file>
-     -n | --gn-dump-file <path to geonature dump file>
-     -d | --drop-export-gn: re-create export_oo schema
-     -p | --patch: <"PATCH1|PATCH2|...">  (details below)
-     -g | --db-gn-name: GN database name
-     -o | --db-oo-name: OO database name
-     -c | --correct-oo: correct OO:saisie.saisie_observation geometry and doublons 
-     -e | --etude-ca: etude=cadre aquisition (par defaut protcole=cadre aquisition) 
      -z | --clean : clean previous attemps
-     -m | --media_dir : path to media dir
-     -l | --limit set limit to test
-     -r | --resume resume only
 
      -p | --apply-patch
 
@@ -171,9 +171,13 @@ function main() {
     # return 
 
 
+    # import bd gn from dump file (if needed)
+    printTitle "Restauration de la base GN depuis le fichier ${gn_dump_file}"
+    import_bd_gn ${gn_dump_file}
+
+
     # import bd obsocc from dump file (if needed)
     printTitle "Restauration de la base ObsOcc depuis le fichier ${oo_dump_file}"
-
     import_bd_obsocc ${oo_dump_file}
 
     # correction geometrie, doublons

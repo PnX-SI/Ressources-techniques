@@ -34,6 +34,12 @@ INSERT INTO utilisateurs.bib_organismes (
     WHERE vo2.nom_organisme IS NULL
 ;
 
+-- refaire la vue pour avoir id_structure
+CREATE OR REPLACE VIEW export_oo.v_organismes AS
+SELECT o.*
+    FROM utilisateurs.bib_organismes o
+    WHERE o.url_logo LIKE CONCAT('%', :'db_oo_name', '%')
+;
 -- utilisateurs.t_roles
 -- pas 2 utilisateurs qui s'appellent pareil. ??
 

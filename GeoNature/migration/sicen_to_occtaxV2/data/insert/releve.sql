@@ -63,7 +63,6 @@ INSERT INTO pr_occtax.t_releves_occtax(
         observateur
 ;
 
-
 -- pr_occtax.cor_role_releves_occtax
 
 WITH observers AS (

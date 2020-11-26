@@ -35,7 +35,7 @@ function test_jdd() {
 
     if [ -n "$res" ] ; then
 
-        print_format="%-100s %10s     %-70s %10s     %-30s %10s" 
+        print_format="%-50s %10s     %-50s %10s     %-50s %10s" 
         echo "Dans la table export_oo.cor_dataset, il n y a pas de JDD associé pour les lignes suivantes"
         echo        
         echo $res | sed -e "s/;/\n/g" -e "s/|/\t/g" \
