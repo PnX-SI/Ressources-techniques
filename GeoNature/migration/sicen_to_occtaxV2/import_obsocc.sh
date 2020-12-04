@@ -209,7 +209,8 @@ Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     printTitle "Vérification des données"
     test_user
     test_geometry
-    test_patch 'TAX' || test_taxonomy
+    test_patch 'TAX' && patch_tax
+    test_taxonomy
     
     test_patch 'MEDIA' && patch_media
     test_media

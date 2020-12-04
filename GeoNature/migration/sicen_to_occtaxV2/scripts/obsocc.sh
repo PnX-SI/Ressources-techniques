@@ -247,6 +247,15 @@ function patch_jdd() {
 
 }
 
+function patch_tax() {
+
+    # ici on copie dans le tax ref les taxon qui ne sont pas dans la nouvelle version et dont on ne donne pas de synonyme
+    log SQL "Patch tax"
+        exec_sql_file ${db_gn_name} ${root_dir}/data/patch/taxonomie.sql\
+        "Patch taxonomie ajout des cd_nom manquants"
+
+}
+
 
 function patch_media() {
 
@@ -254,7 +263,7 @@ function patch_media() {
 
 
     res_media_oo=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-            -c "SELECT TRANSLATE(url_photo, ' ()''', '____') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
+            -c "SELECT ${transform_url_photo} FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
             &>> ${sql_log_file})
 
 
@@ -269,7 +278,7 @@ function patch_media() {
         touch ${media_patch_dir}/${file_name}
     done
 
-    clean_media_file_name
+    # clean_media_file_name
 
     export media_dir=${media_patch_dir}
 
@@ -337,7 +346,7 @@ mkdir -p ${media_in_dir}
 rm -rf ${media_in_dir}
 cp -rf ${media_dir} ${media_in_dir}
 
-clean_media_file_name
+# clean_media_file_name
 
 rm -rf ${media_out_dir}
 mkdir -p ${media_out_dir}
@@ -345,13 +354,13 @@ mkdir -p ${media_out_dir}
 
 # insertion des medias en base
 
-exec_sql_file ${db_gn_name} ${root_dir}/data/insert/media.sql "Medias"
+exec_sql_file ${db_gn_name} ${root_dir}/data/insert/media.sql "Medias" "-v transform_url_photo=${transform_url_photo}"
 
 
 # SQL + AWK + BASH (TODO SQL + BASH ??)
 
 res_media_copy=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-        -c "SELECT url_photo, media_path FROM gn_commons.t_medias WHERE url_photo IS NOT NULL"
+        -c "SELECT ${transform_url_photo}, media_path FROM gn_commons.t_medias WHERE url_photo IS NOT NULL"
         &>> ${sql_log_file})
 echo ${res_media_copy} | sed -e "s/;/\n/g" -e "s/|/ /g" \
     | awk '{

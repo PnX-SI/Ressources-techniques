@@ -19,7 +19,7 @@ JOIN utilisateurs.t_roles r
 	ON r.id_personne = p.id_personne
 GROUP BY id_obs
 ), url_photo AS (
-	SELECT id_obs, TRANSLATE(url_photo, ' ()''', '____') AS url_photo
+	SELECT id_obs, :transform_url_photo AS url_photo
 	FROM export_oo.v_saisie_observation_cd_nom_valid
 )
 

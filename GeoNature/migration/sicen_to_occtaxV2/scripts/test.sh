@@ -13,14 +13,14 @@ function test_jdd() {
 
     export PGPASSWORD=${user_pg_pass};\
         res_pe=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "\
-            SELECT libelle_protocole, nom_etude, nom_structure,\
+            SELECT SUBSTRING(libelle_protocole, 1, 50), SUBSTRING(nom_etude, 1, 50), SUBSTRING(nom_structure, 1, 20),\
                 nb_protocole, nb_protocole_etude, nb_protocole_etude_structure \
                 FROM export_oo.cor_dataset WHERE id_dataset IS NULL \
                 ORDER BY nb_protocole DESC, nb_protocole_etude DESC, nb_protocole_etude_structure DESC \
                 ")
 
         res_ep=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "\
-            SELECT nom_etude, libelle_protocole, nom_structure,\
+            SELECT SUBSTRING(nom_etude, 1, 50), SUBSTRING(libelle_protocole, 1, 50),  SUBSTRING(nom_structure, 1, 20),\
                 nb_etude, nb_protocole_etude, nb_protocole_etude_structure \
                 FROM export_oo.cor_dataset WHERE id_dataset IS NULL \
                 ORDER BY nb_etude DESC, nb_protocole_etude DESC, nb_protocole_etude_structure DESC \
@@ -35,7 +35,7 @@ function test_jdd() {
 
     if [ -n "$res" ] ; then
 
-        print_format="%-50s %10s     %-50s %10s     %-50s %10s" 
+        print_format="%-50s %5s     %-50s %5s     %-20s %5s" 
         echo "Dans la table export_oo.cor_dataset, il n y a pas de JDD associé pour les lignes suivantes"
         echo        
         echo $res | sed -e "s/;/\n/g" -e "s/|/\t/g" \
@@ -144,7 +144,7 @@ test_media() {
     [ ! -d "${media_dir}" ] && exitScript "Le repertoire pour les medias ${media_dir} n'existe pas"
 
     res_media_oo=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-        -c "SELECT TRANSLATE(url_photo, ' ()''', '____') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
+        -c "SELECT ${transform_url_photo} FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
         &>> ${sql_log_file})
 
     mkdir -p ${media_test_dir}
@@ -163,7 +163,7 @@ test_media() {
 
 if [ -n "${res_file_missing}" ]; then 
     echo $res_file_missing
-    pretty_res=$(echo ${res_file_missing} | sed -e 's/ /\n/')
+    pretty_res=$(echo ${res_file_missing} | sed -e 's/ /\n/g')
     exitScript "Il y a des fichiers médias inexistants dans le dossier ${media_dir}: \n\n ${pretty_res}\n" 2
 fi
 
