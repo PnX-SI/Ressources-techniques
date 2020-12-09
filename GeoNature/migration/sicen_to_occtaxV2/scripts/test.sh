@@ -144,7 +144,7 @@ test_media() {
     [ ! -d "${media_dir}" ] && exitScript "Le repertoire pour les medias ${media_dir} n'existe pas"
 
     res_media_oo=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-        -c "SELECT ${transform_url_photo} FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
+        -c "SELECT TRANSLATE(url_photo,  'çéè -(),''', 'cee______') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
         &>> ${sql_log_file})
 
     mkdir -p ${media_test_dir}

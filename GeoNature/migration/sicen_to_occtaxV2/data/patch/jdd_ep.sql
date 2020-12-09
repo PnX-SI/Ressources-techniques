@@ -43,17 +43,17 @@ INSERT INTO gn_meta.t_datasets(
 ;
 
 
-WITH dataset_data AS (
-    SELECT DISTINCT id_dataset, d.id_acquisition_framework, d.dataset_name, ca.acquisition_framework_name 
-    FROM gn_meta.t_datasets d
-    JOIN gn_meta.t_acquisition_frameworks ca 
-        ON ca.id_acquisition_framework = d.id_acquisition_framework
-    WHERE id_dataset > 100
-    ORDER BY id_acquisition_framework, id_dataset
-)
-SELECT * FROM dataset_data;
+-- WITH dataset_data AS (
+--     SELECT DISTINCT id_dataset, d.id_acquisition_framework, d.dataset_name, ca.acquisition_framework_name 
+--     FROM gn_meta.t_datasets d
+--     JOIN gn_meta.t_acquisition_frameworks ca 
+--         ON ca.id_acquisition_framework = d.id_acquisition_framework
+--     WHERE id_dataset > 100
+--     ORDER BY id_acquisition_framework, id_dataset
+-- )
+-- SELECT * FROM dataset_data;
 
-SELECT * from export_oo.cor_dataset;
+--SELECT * from export_oo.cor_dataset;
 
 -- fill up export_oo.cor_dataset
 
@@ -83,3 +83,5 @@ UPDATE export_oo.cor_dataset cd SET (id_dataset) = (
         AND dd.dataset_desc LIKE CONCAT('%', cd.:jdd_field_name, '%')
 )
 ;
+
+-- cor_dataset actor production

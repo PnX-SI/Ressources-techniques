@@ -135,7 +135,10 @@ SELECT
 	type_effectif,
 	effectif_min,
 	effectif_max,
-	observateur
+	observateur,
+	validateur,
+	statut_validation::text,
+	decision_validation
 
 FROM saisie.saisie_observation s
 JOIN date_comp d

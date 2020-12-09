@@ -263,7 +263,7 @@ function patch_media() {
 
 
     res_media_oo=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-            -c "SELECT ${transform_url_photo} FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
+            -c "SELECT TRANSLATE(url_photo,  'çéè -(),''', 'cee______') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
             &>> ${sql_log_file})
 
 
@@ -301,9 +301,10 @@ function insert_data() {
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/occurrence.sql "Occurrences (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/counting.sql "Dénombrement (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/synthese.sql "Synthese (patienter)" 
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/validation.sql "Validation (patienter)" 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/cor_synthese.sql "Cor - Synthese (patienter)" 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert" 
-    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/taxlist.sql "Update list Occtax" 
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/taxlist.sql "Update VM taxons Occtax" 
 
 }
 
@@ -354,13 +355,12 @@ mkdir -p ${media_out_dir}
 
 # insertion des medias en base
 
-exec_sql_file ${db_gn_name} ${root_dir}/data/insert/media.sql "Medias" "-v transform_url_photo=${transform_url_photo}"
-
+exec_sql_file ${db_gn_name} ${root_dir}/data/insert/media.sql "Ajout des Medias en base"
 
 # SQL + AWK + BASH (TODO SQL + BASH ??)
 
 res_media_copy=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-        -c "SELECT ${transform_url_photo}, media_path FROM gn_commons.t_medias WHERE url_photo IS NOT NULL"
+        -c "SELECT TRANSLATE(url_photo,  'çéè -(),''', 'cee______'), media_path FROM gn_commons.t_medias WHERE url_photo IS NOT NULL"
         &>> ${sql_log_file})
 echo ${res_media_copy} | sed -e "s/;/\n/g" -e "s/|/ /g" \
     | awk '{

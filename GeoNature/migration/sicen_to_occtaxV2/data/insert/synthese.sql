@@ -1,5 +1,23 @@
 -- replay triggers
-WITH myobservers AS ( SELECT
+WITH data_validation AS (
+	SELECT
+		r.id_role AS id_validator,
+        TRIM(CONCAT(r.nom_role, ' ', r.prenom_role)) AS validator,
+		co.id_obs,
+		COALESCE(statut_validation::text, 'auto = default value') AS validation_comment,
+		COALESCE(
+			export_oo.get_synonyme_id_nomenclature('STATUT_VALID', statut_validation),
+			ref_nomenclatures.get_id_nomenclature('STATUT_VALID', '0')
+		) AS id_nomenclature_valid_status,
+		statut_validation IS NULL as validation_auto,
+		co.unique_id_sinp_occtax AS uuid_attached_row
+
+	FROM export_oo.v_counting_occtax co
+	JOIN export_oo.v_saisie_observation_cd_nom_valid s
+		ON s.id_obs = co.id_obs
+        LEFT JOIN utilisateurs.t_roles r
+		ON (r.champs_addi->>'id_personne')::int = s.validateur 
+), myobservers AS ( SELECT
 	array_to_string(array_agg(rol.nom_role || ' ' || rol.prenom_role), ', ') AS observers_name,
 	array_agg(rol.id_role) AS observers_id,
 	cor.id_releve_occtax
@@ -58,7 +76,11 @@ id_digitiser,
 id_nomenclature_determination_method,
 comment_context,
 comment_description,
-last_action
+last_action,
+validator,
+validation_comment,
+id_nomenclature_valid_status,
+meta_validation_date
 )
 SELECT
   c.unique_id_sinp_occtax,
@@ -113,7 +135,12 @@ SELECT
   o.id_nomenclature_determination_method,
   r.comment,
   o.comment,
-  'I'
+  'I',
+  validator,
+  validation_comment,
+  id_nomenclature_valid_status,
+  date_trunc('day',r.date_min)+COALESCE(r.hour_min,'00:00:00'::time)
+
 
     FROM export_oo.v_saisie_observation_cd_nom_valid s
     JOIN export_oo.v_counting_occtax c
@@ -123,9 +150,11 @@ SELECT
     JOIN export_oo.v_releves_occtax r
         ON r.id_releve_occtax = o.id_releve_occtax
     JOIN gn_synthese.t_sources source 
-	ON name_source ILIKE 'occtax'
+	    ON name_source ILIKE 'occtax'
     JOIN myobservers mo
 	    ON mo.id_releve_occtax = r.id_releve_occtax
+    JOIN data_validation d
+        ON d.uuid_attached_row = s.unique_id_sinp_occtax
 ;
 
 

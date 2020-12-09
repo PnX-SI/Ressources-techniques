@@ -212,8 +212,7 @@ Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     test_patch 'TAX' && patch_tax
     test_taxonomy
     
-    test_patch 'MEDIA' && patch_media
-    test_media
+    test_patch 'MEDIA' || test_media
     
     test_date
     test_effectif

@@ -9,6 +9,12 @@ DELETE FROM gn_synthese.synthese s
 
 ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
 
+--validation
+DELETE FROM gn_commons.t_validations v
+    USING export_oo.v_counting_occtax co
+        WHERE co.unique_id_sinp_occtax = v.uuid_attached_row
+;
+
 -- cor role releves
 DELETE FROM pr_occtax.cor_role_releves_occtax c 
     USING export_oo.v_role_releves_occtax vc
@@ -22,9 +28,15 @@ DELETE FROM pr_occtax.t_releves_occtax r
 ;
 
 -- jdd
+DELETE FROM gn_meta.cor_dataset_actor c 
+    USING export_oo.v_datasets vd WHERE vd.id_dataset = c.id_dataset;
+
+
 DELETE FROM gn_meta.t_datasets d 
     USING export_oo.v_datasets vd WHERE vd.id_dataset = d.id_dataset;
 ;
+
+
 
 -- ca
 DELETE FROM gn_meta.t_acquisition_frameworks a 

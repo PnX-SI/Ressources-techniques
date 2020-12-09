@@ -44,7 +44,7 @@ function init_config {
     export media_test_dir=${root_dir}/media/test/${db_oo_name}
     export media_out_dir=${root_dir}/media/out/medias_${db_oo_name}
 
-    export transform_url_photo="TRANSLATE(url_photo,  'çéè -(),''', 'cee______')"
+    # export transform_url_photo="TRANSLATE(url_photo,  'çéè -(),''', 'cee______')"
 
     rm -f ${sql_log_file} ${restore_oo_log_file}
 

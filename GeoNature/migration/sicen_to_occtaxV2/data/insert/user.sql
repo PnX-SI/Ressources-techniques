@@ -125,6 +125,18 @@ ON CONFLICT DO NOTHING;
 ;
 
 
+
+-- cor_actor_dataset
+-- on met en production les organismes rencontrés dans exp
+
+INSERT INTO gn_meta.cor_dataset_actor (id_dataset, id_organism, id_nomenclature_actor_role) 
+SELECT id_dataset, o.id_organisme, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '6')
+FROM export_oo.cor_dataset c
+JOIN  utilisateurs.bib_organismes o
+ON o.id_structure = c.id_structure
+;
+
+
 -- create list occtax ??
 
 -- drop additional column
