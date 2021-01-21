@@ -1,3 +1,8 @@
+-- media
+--delete from gn_commons.t_medias
+;
+delete from gn_commons.t_medias m using export_oo.v_synthese s where m.uuid_attached_row = s.unique_id_sinp
+;           
 -- synthese
 ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
 
@@ -32,6 +37,8 @@ DELETE FROM gn_meta.cor_dataset_actor c
     USING export_oo.v_datasets vd WHERE vd.id_dataset = c.id_dataset;
 
 
+SELECT 'DELETE JDD!!!';
+SELECT * FROM export_oo.v_datasets vd;
 DELETE FROM gn_meta.t_datasets d 
     USING export_oo.v_datasets vd WHERE vd.id_dataset = d.id_dataset;
 ;
@@ -39,6 +46,7 @@ DELETE FROM gn_meta.t_datasets d
 
 
 -- ca
+SELECT 'DELETE CA!!!';
 DELETE FROM gn_meta.t_acquisition_frameworks a 
     USING export_oo.v_acquisition_frameworks va
     WHERE va.id_acquisition_framework = a.id_acquisition_framework;

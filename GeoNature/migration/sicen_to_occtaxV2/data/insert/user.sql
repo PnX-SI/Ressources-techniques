@@ -115,7 +115,7 @@ INSERT INTO utilisateurs.cor_roles
 SELECT 
 	r.id_role,
 	CASE 
-		WHEN champs_addi->>'role' IN ('expert', 'amateur') THEN (SELECT id_role FROM utilisateurs.t_roles r WHERE r.nom_role = 'Grp_en_poste') 
+		WHEN champs_addi->>'role' IN ('expert', 'amateur', 'consult') THEN (SELECT id_role FROM utilisateurs.t_roles r WHERE r.nom_role = 'Grp_en_poste') 
 		WHEN champs_addi->>'role' = 'admin' THEN (SELECT id_role FROM utilisateurs.t_roles r WHERE r.nom_role = 'Grp_admin') 
 		WHEN champs_addi->>'role' = 'observ' THEN (SELECT id_role FROM utilisateurs.t_roles r WHERE r.nom_role = 'Grp_observateurs') 
 	END
@@ -133,7 +133,7 @@ INSERT INTO gn_meta.cor_dataset_actor (id_dataset, id_organism, id_nomenclature_
 SELECT id_dataset, o.id_organisme, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '6')
 FROM export_oo.cor_dataset c
 JOIN  utilisateurs.bib_organismes o
-ON o.id_structure = c.id_structure
+ON o.id_structure::text =  ANY(STRING_TO_ARRAY(c.ids_structure, '&'))
 ;
 
 

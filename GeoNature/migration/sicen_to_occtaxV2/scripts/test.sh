@@ -13,14 +13,14 @@ function test_jdd() {
 
     export PGPASSWORD=${user_pg_pass};\
         res_pe=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "\
-            SELECT SUBSTRING(libelle_protocole, 1, 50), SUBSTRING(nom_etude, 1, 50), SUBSTRING(nom_structure, 1, 20),\
+            SELECT SUBSTRING(libelle_protocole, 1, 50), SUBSTRING(nom_etude, 1, 50), SUBSTRING(noms_structure, 1, 20),\
                 nb_protocole, nb_protocole_etude, nb_protocole_etude_structure \
                 FROM export_oo.cor_dataset WHERE id_dataset IS NULL \
                 ORDER BY nb_protocole DESC, nb_protocole_etude DESC, nb_protocole_etude_structure DESC \
                 ")
 
         res_ep=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} -c "\
-            SELECT SUBSTRING(nom_etude, 1, 50), SUBSTRING(libelle_protocole, 1, 50),  SUBSTRING(nom_structure, 1, 20),\
+            SELECT SUBSTRING(nom_etude, 1, 50), SUBSTRING(libelle_protocole, 1, 50),  SUBSTRING(noms_structure, 1, 20),\
                 nb_etude, nb_protocole_etude, nb_protocole_etude_structure \
                 FROM export_oo.cor_dataset WHERE id_dataset IS NULL \
                 ORDER BY nb_etude DESC, nb_protocole_etude DESC, nb_protocole_etude_structure DESC \
@@ -144,7 +144,7 @@ test_media() {
     [ ! -d "${media_dir}" ] && exitScript "Le repertoire pour les medias ${media_dir} n'existe pas"
 
     res_media_oo=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-        -c "SELECT TRANSLATE(url_photo,  'çéè -(),''', 'cee______') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
+        -c "SELECT TRANSLATE(url_photo,  'çéèî -(),''', 'ceei______') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
         &>> ${sql_log_file})
 
     mkdir -p ${media_test_dir}

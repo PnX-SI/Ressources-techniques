@@ -1,10 +1,12 @@
 -- BASE GN
 
 -- PATCH pour CA JDD
--- :ca_field_name libelle_protocole|nom_etude
--- :jdd_field_name libelle_protocole|nom_etude
+-- libelle_protocole libelle_protocole|nom_etude
+-- nom_etude libelle_protocole|nom_etude
 
 -- CA
+
+SELECT * FROM gn_meta.t_acquisition_frameworks;
 
 INSERT INTO gn_meta.t_acquisition_frameworks(
         acquisition_framework_name, 
@@ -12,11 +14,14 @@ INSERT INTO gn_meta.t_acquisition_frameworks(
         acquisition_framework_start_date
 )
 SELECT DISTINCT
-    :ca_field_name,
-    :ca_field_name || ' ' || :'db_oo_name',
+    libelle_protocole,
+    libelle_protocole || ' ' || 'pn_gua',
     NOW()::date
     FROM export_oo.cor_dataset
 ;
+
+
+SELECT * FROM gn_meta.t_acquisition_frameworks;
 
 
 -- JDD
@@ -31,15 +36,15 @@ INSERT INTO gn_meta.t_datasets(
     ) 
     SELECT DISTINCT
         af.id_acquisition_framework,
-        :jdd_field_name,
-        :jdd_field_name,
-        :jdd_field_name || ' ' || :'db_oo_name',
+        nom_etude || ' ' || noms_structure,
+        nom_etude || ' ' || noms_structure,
+        nom_etude || ' ' || 'pn_gua',
         FALSE,
         FALSE
 
         FROM export_oo.cor_dataset cd
         JOIN gn_meta.t_acquisition_frameworks af
-            ON af.acquisition_framework_desc LIKE :ca_field_name || ' ' || :'db_oo_name'
+            ON af.acquisition_framework_desc LIKE libelle_protocole || ' ' || 'pn_gua'
 ;
 
 WITH dataset_data AS (
@@ -50,7 +55,10 @@ WITH dataset_data AS (
 )
 UPDATE export_oo.cor_dataset cd SET (id_dataset) = (
     SELECT id_dataset FROM dataset_data dd
-    WHERE dd.acquisition_framework_name LIKE CONCAT('%', cd.:ca_field_name, '%')
-        AND dd.dataset_desc LIKE CONCAT('%', cd.:jdd_field_name, '%')
+    WHERE dd.acquisition_framework_name LIKE CONCAT('%', cd.libelle_protocole, '%')
+
+        AND dd.dataset_desc LIKE CONCAT('%', cd.nom_etude, '%')
 )
 ;
+
+-- cor_dataset actor production

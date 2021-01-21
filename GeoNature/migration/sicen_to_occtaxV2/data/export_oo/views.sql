@@ -17,7 +17,7 @@ CREATE OR REPLACE VIEW export_oo.v_saisie_observation_cd_nom_valid AS
 CREATE OR REPLACE VIEW export_oo.v_acquisition_frameworks AS
     SELECT a.* 
     FROM gn_meta.t_acquisition_frameworks a
-    WHERE a.acquisition_framework_desc LIKE CONCAT('%', :'db_oo_name', '%')
+    WHERE a.keywords LIKE CONCAT('%', :'db_oo_name', '%')
 ;
 
 -- dataset

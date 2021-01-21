@@ -1,7 +1,7 @@
 -- pr_occtax.t_releves_occtax
 
 WITH dataset AS (
-    SELECT DISTINCT id_protocole, id_dataset::int, id_etude FROM export_oo.cor_dataset
+    SELECT DISTINCT id_protocole, id_dataset::int, id_etude, ids_structure FROM export_oo.cor_dataset
 )
 
 INSERT INTO pr_occtax.t_releves_occtax(
@@ -40,7 +40,7 @@ INSERT INTO pr_occtax.t_releves_occtax(
     depth AS depth_max,
     STRING_AGG(DISTINCT remarque_obs, ', ') as comment,
     export_oo.get_synonyme_id_nomenclature('PRECISION', precision::text) AS precision,
-    ST_TRANSFORM(geometrie, 2154) AS geom_local,
+    ST_TRANSFORM(geometrie, :srid) AS geom_local,
     ST_TRANSFORM(geometrie, 4326) AS geom_4326,
     ARRAY_AGG(id_obs) AS ids_obs_releve,
     s.observateur
@@ -49,6 +49,7 @@ INSERT INTO pr_occtax.t_releves_occtax(
     JOIN dataset d
         ON d.id_etude = s.id_etude
         AND d.id_protocole = s.id_protocole
+        AND d.ids_structure = s.ids_structure
 
     GROUP BY 
         id_dataset,

@@ -24,6 +24,7 @@ Usage: ./$(basename $BASH_SOURCE)[options]
      -o | --db-oo-name: OO database name
      -p | --patch: <"PATCH1|PATCH2|...">  (details below)
      -r | --resume resume only
+     -s | --srid choose srid (default=2154)
      -v | --verbose: display more infos
      -x | --debug: display debug script infos
      -z | --clean : clean previous attemps
@@ -76,27 +77,28 @@ function parseScriptOptions() {
     for arg in "${@}"; do
         shift
         case "${arg}" in
+            "--clean") set -- "${@}" "-z" ;;
             "--correct-oo") set -- "${@}" "-c";;
-            "--drop-export-gn") set -- "${@}" "-d";; 
-            "--oo-dump-file") set -- "${@}" "-f" ;;
             "--db-gn-name")  set -- "${@}" "-g";;
-            "--etude-ca") set -- "${@}" "-e";;
-            "--help") set -- "${@}" "-h" ;;
-            "--gn-dump-file") set -- "${@}" "-n" ;;
             "--db-oo-name")  set -- "${@}" "-o";;
+            "--debug") set -- "${@}" "-x" ;;
+            "--drop-export-gn") set -- "${@}" "-d";; 
+            "--etude-ca") set -- "${@}" "-e";;
+            "--gn-dump-file") set -- "${@}" "-n" ;;
+            "--help") set -- "${@}" "-h" ;;
+            "--limit") set -- "${@}" "-l" ;;
+            "--media-dir") set -- "${@}" "-m" ;;
+            "--oo-dump-file") set -- "${@}" "-f" ;;
             "--patch") set -- "${@}" "-p";; 
             "--verbose") set -- "${@}" "-v" ;;
-            "--debug") set -- "${@}" "-x" ;;
-            "--media-dir") set -- "${@}" "-m" ;;
-            "--clean") set -- "${@}" "-z" ;;
-            "--limit") set -- "${@}" "-l" ;;
             "--resume") set -- "${@}" "-r" ;;
+            "--srid") set -- "${@}" "-s" ;;
             "--"*) exitScript "ERROR : parameter '${arg}' invalid ! Use -h option to know more." 1 ;;
             *) set -- "${@}" "${arg}"
         esac
     done
 
-    while getopts "cdef:g:hl:m:n:o:p:rtvxz" option; do
+    while getopts "cdef:g:hl:m:n:o:p:rs:tvxz" option; do
         case "${option}" in
             "c") correct_oo=true ;;
             "d") drop_export_oo=true;;
@@ -104,15 +106,16 @@ function parseScriptOptions() {
             "f") oo_dump_file="${OPTARG}" ;;
             "g") db_gn_name_opt="${OPTARG}" ;;
             "h") printScriptUsage ;;
+            "l") limit=${OPTARG} ;;
             "n") gn_dump_file="${OPTARG}" ;;
+            "m") media_dir=${OPTARG} ;;
             "o") db_oo_name_opt="${OPTARG}" ;;
             "p") patch="${OPTARG}" ;;
+            "r") display_resume=true ;;
+            "s") srid=${OPTARG};;
             "v") verbose=true ;;
             "x") debug=true; set -x ;;
-            "m") media_dir=${OPTARG} ;;
             "z") clean=true ;;
-            "l") limit=${OPTARG} ;;
-            "r") display_resume=true ;;
             *) exitScript "ERROR : parameter invalid ! Use -h option to know more." 1 ;;
         esac
     done
@@ -129,6 +132,7 @@ function main() {
     verbose=true 
     
     limit=10000000000000000
+    srid=2154
 
     file_names="
         utils.sh
@@ -218,6 +222,7 @@ Voir le fichier ${restore_oo_log_file} pour plus d'informations" 2
     test_effectif
     test_patch 'JDD' && patch_jdd 
     test_jdd
+
 
     # Insertion
     printTitle "Insertion des données"

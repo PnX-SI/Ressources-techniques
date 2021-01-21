@@ -109,6 +109,17 @@ SELECT
 
 	FROM date_precomp
 
+), structure as (
+select distinct STRING_TO_ARRAY(observateur, '&'), id_obs, s.id_structure, s.nom_structure from saisie.saisie_observation so
+join md.personne p on p.id_personne::text = any(STRING_TO_ARRAY(observateur, '&'))
+join md.structure s on p.id_structure = s.id_structure
+group by so.id_obs, s.id_structure, s.nom_structure
+order by s.id_structure
+),
+structure_agg AS (
+	select id_obs, STRING_AGG(id_structure::text, '&') as ids_structure, STRING_AGG(nom_structure, ' & ') as noms_structure
+	from structure
+	Group by id_obs
 )
 SELECT 
 
@@ -136,6 +147,8 @@ SELECT
 	effectif_min,
 	effectif_max,
 	observateur,
+	st.ids_structure,
+	st.noms_structure,
 	validateur,
 	statut_validation::text,
 	decision_validation
@@ -143,8 +156,9 @@ SELECT
 FROM saisie.saisie_observation s
 JOIN date_comp d
     ON d.id_obs = s.id_obs
+JOIN structure_agg st 
+	ON st.id_obs = s.id_obs 
 WHERE regne != 'Habitat'
 --LIMIT 1
 LIMIT :limit
-
 ;

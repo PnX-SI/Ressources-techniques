@@ -232,17 +232,34 @@ function patch_jdd() {
     test_patch "JDD_TEST" && \
         exec_sql_file ${db_gn_name} ${root_dir}/data/patch/jdd_test.sql \
         "Patch jdd test" \
-        "-v db_oo_name=${db_oo_name}"
+        "-v db_oo_name=${db_oo_name}" && \
+        return 0
+
+    test_patch "JDD_EPO" && \
+        exec_sql_file ${db_gn_name} ${root_dir}/data/patch/jdd_epo.sql\
+        "Patch jdd ca=etude jdd=protocole"\
+        "-v db_oo_name=${db_oo_name} -v ca_field_name=nom_etude -v jdd_field_name=libelle_protocole" && \
+        return 0
+
+    test_patch "JDD_PEO" && \
+        exec_sql_file ${db_gn_name} ${root_dir}/data/patch/jdd_epo.sql\
+        "Patch jdd ca=etude jdd=protocole"\
+        "-v db_oo_name=${db_oo_name} -v jdd_field_name=nom_etude -v ca_field_name=libelle_protocole" && \
+        return 0
 
     test_patch "JDD_EP" && \
         exec_sql_file ${db_gn_name} ${root_dir}/data/patch/jdd_ep.sql\
         "Patch jdd ca=etude jdd=protocole"\
-        "-v db_oo_name=${db_oo_name} -v ca_field_name=nom_etude -v jdd_field_name=libelle_protocole"
+        "-v db_oo_name=${db_oo_name} -v ca_field_name=nom_etude -v jdd_field_name=libelle_protocole" && \
+        return 0
 
     test_patch "JDD_PE" && \
         exec_sql_file ${db_gn_name} ${root_dir}/data/patch/jdd_ep.sql\
         "Patch jdd ca=etude jdd=protocole"\
-        "-v db_oo_name=${db_oo_name} -v jdd_field_name=nom_etude -v ca_field_name=libelle_protocole"
+        "-v db_oo_name=${db_oo_name} -v jdd_field_name=nom_etude -v ca_field_name=libelle_protocole" && \
+        return 0
+
+
 
 
 }
@@ -263,7 +280,7 @@ function patch_media() {
 
 
     res_media_oo=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-            -c "SELECT TRANSLATE(url_photo,  'çéè -(),''', 'cee______') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
+            -c "SELECT TRANSLATE(url_photo,  'çéèî -(),''', 'ceei______') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
             &>> ${sql_log_file})
 
 
@@ -297,7 +314,7 @@ function insert_data() {
     exec_sql_file ${db_gn_name} ${root_dir}/data/export_oo/views.sql "Vue observation cd nom valid" "-v db_oo_name=${db_oo_name}"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/user.sql "Utilisateurs, organismes" "-v db_oo_name=${db_oo_name}"
     insert_media
-    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/releve.sql "Relevés (patienter)" "-v db_oo_name=${db_oo_name}"
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/releve.sql "Relevés (patienter)" "-v db_oo_name=${db_oo_name} -v srid=${srid}"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/occurrence.sql "Occurrences (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/counting.sql "Dénombrement (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/synthese.sql "Synthese (patienter)" 
@@ -360,7 +377,7 @@ exec_sql_file ${db_gn_name} ${root_dir}/data/insert/media.sql "Ajout des Medias 
 # SQL + AWK + BASH (TODO SQL + BASH ??)
 
 res_media_copy=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-        -c "SELECT TRANSLATE(url_photo,  'çéè -(),''', 'cee______'), media_path FROM gn_commons.t_medias WHERE url_photo IS NOT NULL"
+        -c "SELECT TRANSLATE(url_photo,  'çéèî -(),''', 'ceei______'), media_path FROM gn_commons.t_medias WHERE url_photo IS NOT NULL"
         &>> ${sql_log_file})
 echo ${res_media_copy} | sed -e "s/;/\n/g" -e "s/|/ /g" \
     | awk '{
