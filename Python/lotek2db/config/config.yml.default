@@ -1,0 +1,16 @@
+database:
+    dbHost: 
+    dbName: 
+    dbPort: 
+    dbUser: 
+    dbPassword: 
+api:
+    apiUser: 
+    apiPassword: 
+mail:
+    mailHost: 
+    mailPort: 
+    mailId: 
+    mailPass: 
+log:
+    logFile: log/lotek2db.log
