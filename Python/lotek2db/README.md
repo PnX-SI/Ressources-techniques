@@ -56,7 +56,7 @@ mail:
     mailId: 
     mailPass: 
 log:
-    logFile: log/lotek2db.logl
+    logFile: log/lotek2db.log
 ```
 
 # Automatisation
