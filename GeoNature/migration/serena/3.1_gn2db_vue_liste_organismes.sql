@@ -12,6 +12,24 @@ SELECT DISTINCT
   ORDER BY t1.srce_orga_id, t2.srce_compnom_c 
   ;
 
+/* Selon l'organisation de SERENA, il peut être nécessaire de privilégier cette vue */
+-- CREATE OR REPLACE VIEW _import_serena.v_rnf_srce_organismes AS
+-- SELECT DISTINCT 
+--     srce1.srce_id
+--   , srce1.srce_orga_id
+--   , srce1.srce_compnom_c          as orga_nom
+--   , count(rnf_obse.*)             as nb_observation
+--   , count(distinct srce2.srce_id) as nb_observateur
+--     from
+--         _import_serena.rnf_relv
+--             LEFT join _import_serena.rnf_obse on relv_id = obse_relv_id
+--             LEFT JOIN _import_serena.rnf_srce srce1 on relv_prop_id = srce1.srce_id
+--             LEFT join _import_serena.rnf_srce srce2 on srce2.srce_id = obse_obsv_id
+--     group by
+--         srce1.srce_id
+--       , srce1.srce_orga_id
+--       , srce1.srce_compnom_c;
+
 -- #### ATTENTION ####
 -- Vérifier manuellement cette liste pour identifier d'éventuels doublons, erreurs etc.
 
