@@ -1,14 +1,15 @@
 # Configuration pour les applications mobiles
 
-La documentation pour les application mobile est disponible ici
+La documentation d'installation pour les applications mobiles est disponible ici : 
 
-[sync]()
-[occtax mobile](https://github.com/PnX-SI/gn_mobile_occtax/blob/master/docs/installation-fr.md)
+- [Sync]()
+- [Occtax-mobile](https://github.com/PnX-SI/gn_mobile_occtax/blob/master/docs/installation-fr.md)
 
+Documentation d'utilisation : https://github.com/PnX-SI/gn_mobile_occtax/blob/master/docs/utilisation-fr.md
 
-La route `/geonature/api/gn_commons/t_mobile_apps` permet d'obtenir la configuration pour les appli mobile d'un instance
+La route `/geonature/api/gn_commons/t_mobile_apps` permet d'obtenir la configuration pour les appli mobiles d'une instance.
 
-Elle se base sur 
+Elle se base sur :
 
 - la table `gn_commons.t_mobile_app`
 
@@ -17,7 +18,7 @@ Elle se base sur
 | OCCTAX | static/mobile/occtax/occtax-1.1.4-generic-release.apk | fr.geonature.occtax | 2035|
 | SYNC | static/mobile/sync/sync-1.1.2-generic-release.apk | fr.geonature.sync | 2485|
 
-Les fichiers settings.json de l'arborescence suivante
+Les fichiers `settings.json` de l'arborescence suivante :
 
 ```
 - geonature
@@ -32,7 +33,7 @@ Les fichiers settings.json de l'arborescence suivante
           - sync-1.1.2-generic-release.apk
 ```
 
-Le fichier occtax.json 
+Le fichier `occtax.json` :
 
 ```
 {
@@ -64,7 +65,7 @@ Le fichier occtax.json
 Ajuster `center`, `max_bound`, `start_zoom`.
 Pour les mailles le fichier maille1x1 doit être de la forme
 
-Pour les layers:
+Pour les layers :
 
 - le fichier renseigné sera recherché dans l'arborescence du mobile
 
@@ -94,11 +95,11 @@ Pour les layers:
 - Télécharger l'application `sync`
   - Depuis le navigateur du mobile cliquer sur le lien `/geonature/static/mobile/sync/sync-1.1.2-generic-release.apk`
 
-- Renseigner les url de Geonature et Taxhub
+- Renseigner les URL de GeoNature et TaxHub
 
 - Se connecter
 
-- L'application propose d'installer Occtax mobile
+- L'application propose d'installer Occtax-mobile
 
 - ...
 
