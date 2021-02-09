@@ -3,10 +3,14 @@
 ;
 delete from gn_commons.t_medias m using export_oo.v_synthese s where m.uuid_attached_row = s.unique_id_sinp
 ;           
+
+--
+delete from gn_synthese.cor_area_taxon;
+
 -- synthese
 ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
 
-DELETE FROM gn_monitoring.t_base_sites;
+--DELETE FROM gn_monitoring.t_base_sites;
 
 DELETE FROM gn_synthese.synthese s
     USING export_oo.v_synthese vs

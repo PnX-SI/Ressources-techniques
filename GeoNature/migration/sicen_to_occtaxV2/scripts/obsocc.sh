@@ -318,6 +318,7 @@ function insert_data() {
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/occurrence.sql "Occurrences (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/counting.sql "Dénombrement (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/synthese.sql "Synthese (patienter)" 
+    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/sensitivity.sql "Sensibilité" 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/validation.sql "Validation (patienter)" 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/cor_synthese.sql "Cor - Synthese (patienter)" 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert" 

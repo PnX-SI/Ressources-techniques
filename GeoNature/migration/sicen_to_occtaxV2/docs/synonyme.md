@@ -74,7 +74,7 @@ cette table peut contenir une information sur plusieurs types de nomenclature.
 
   - ??? id_nomenclature_diffusion_level
     - type : `NIV_PRECIS`
-    - defaut : `0` : (`Standart`)
+    - default : `0` : (`Standart`)
     - à changer selon les source et les sensibilités
     - à faire après l'import des données
 

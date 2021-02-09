@@ -9,12 +9,15 @@
 INSERT INTO gn_meta.t_acquisition_frameworks(
         acquisition_framework_name, 
         acquisition_framework_desc,
-        acquisition_framework_start_date
+        acquisition_framework_start_date,
+        keywords
 )
 SELECT DISTINCT
     :ca_field_name,
-    :ca_field_name || ' ' || :'db_oo_name',
-    NOW()::date
+    :ca_field_name,
+    NOW()::date,
+    :'db_oo_name'
+
     FROM export_oo.cor_dataset
 ;
 
@@ -33,13 +36,13 @@ INSERT INTO gn_meta.t_datasets(
         af.id_acquisition_framework,
         :jdd_field_name,
         :jdd_field_name,
-        :jdd_field_name || ' ' || :'db_oo_name',
+        :jdd_field_name,
         FALSE,
         FALSE
 
         FROM export_oo.cor_dataset cd
         JOIN gn_meta.t_acquisition_frameworks af
-            ON af.acquisition_framework_desc LIKE :ca_field_name || ' ' || :'db_oo_name'
+            ON af.acquisition_framework_desc LIKE :ca_field_name
 ;
 
 WITH dataset_data AS (

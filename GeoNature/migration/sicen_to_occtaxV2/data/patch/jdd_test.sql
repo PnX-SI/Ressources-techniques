@@ -15,12 +15,15 @@
 INSERT INTO gn_meta.t_acquisition_frameworks(
         acquisition_framework_name, 
         acquisition_framework_desc,
-        acquisition_framework_start_date
+        acquisition_framework_start_date,
+        keywords
+
 )
 VALUES (
     CONCAT('test ', :'db_oo_name'),
     CONCAT('importé depuis ', :'db_oo_name'),
-    '2020-01-01'
+    NOW()::date,
+    :'db_oo_name'
 );
 
 -- INSERT JDD
@@ -41,7 +44,7 @@ INSERT INTO gn_meta.t_datasets(
         FALSE
         
         FROM gn_meta.t_acquisition_frameworks af
-        WHERE af.acquisition_framework_name = :'db_oo_name'
+        WHERE af.keywords = :'db_oo_name'
 ;
 
 -- ASSIGN id_dataset

@@ -51,23 +51,7 @@ count_protocole AS (
 count_etude AS (
     SELECT
         COUNT(*) AS nb_etude, id_etude
-    FROM
-  set-title geonature code
-  cd /home/joel/info/app_gn/GeoNature
-  source backend/venv/bin/activate
-  set-title geonature backend
-  cd /home/joel/info/app_gn/GeoNature
-  source backend/venv/bin/activate
-  geonature dev_back
-  set-title geonature frontend
-  cd /home/joel/info/app_gn/GeoNature
-  source backend/venv/bin/activate
-  geonature dev_front
-  set-title monitoring
-  cd /home/joel/info/app_gn/gn_module_monitoring
-  set-title protocols
-  cd /home/joel/info/app_gn/protocoles_suivi
-        saisie.saisie_observation
+    FROM saisie.saisie_observation
     GROUP BY
         id_etude
 ),
