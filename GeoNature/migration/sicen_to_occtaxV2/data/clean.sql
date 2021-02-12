@@ -37,6 +37,13 @@ DELETE FROM pr_occtax.t_releves_occtax r
 ;
 
 -- jdd
+
+DELETE FROM gn_commons.cor_module_dataset c
+USING export_oo.v_datasets d
+JOIN gn_commons.t_modules m ON m.module_code = 'OCCTAX'
+WHERE m.id_module= c.id_module
+;
+
 DELETE FROM gn_meta.cor_dataset_actor c 
     USING export_oo.v_datasets vd WHERE vd.id_dataset = c.id_dataset;
 

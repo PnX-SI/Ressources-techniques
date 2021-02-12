@@ -79,3 +79,11 @@ INSERT INTO pr_occtax.cor_role_releves_occtax (id_role, id_releve_occtax)
     JOIN export_oo.v_roles r 
         ON (r.champs_addi->>'id_personne')::int = o.id_personne
 ;
+
+
+-- gn_commons.cor_module_dataset
+INSERT INTO gn_commons.cor_module_dataset (id_module, id_dataset)
+SELECT m.id_module, d.id_dataset
+FROM export_oo.v_datasets d
+JOIN gn_commons.t_modules m ON m.module_code = 'OCCTAX'
+;
