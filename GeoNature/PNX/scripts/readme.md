@@ -17,7 +17,7 @@ il faut créer et renseigner le fichier `ftp.ini`.
 ```
 parcs='xx yy'
 
-ftp_xx='ftp://xx:x!x@xx.fr'
-ftp_yy='ftp://yy:y!y@yy.fr'
+ftp_xx='ftp://lgin_xx:password_xx@url_xx.xx'
+ftp_xx='ftp://lgin_yy:password_yy@url_yy.yy'
 
 ```
