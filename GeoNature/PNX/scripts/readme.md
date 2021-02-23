@@ -15,6 +15,9 @@ ces dernière seront placées dans le dossier `./remote_config/xx/` pour le parc
 
 il faut créer et renseigner le fichier `ftp.ini`.
 ```
-parcs='xx'
-ftp_xx='ftp://xx:xx@xx'
+parcs='xx yy'
+
+ftp_xx='ftp://lgin_xx:password_xx@url_xx.xx'
+ftp_xx='ftp://lgin_yy:password_yy@url_yy.yy'
+
 ```
