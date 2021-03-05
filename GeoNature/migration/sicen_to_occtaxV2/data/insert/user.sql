@@ -53,6 +53,7 @@ INSERT INTO utilisateurs.t_roles(
         date_insert,
         champs_addi,
         id_organisme,
+        pass,
         groupe
     )
     SELECT
@@ -64,6 +65,7 @@ INSERT INTO utilisateurs.t_roles(
         vr.date_insert,
         vr.champs_addi,
         vo.id_organisme,
+        vo.mot_de_passe
         FALSE
 
     FROM export_oo.v_utilisateurs_t_roles vr
