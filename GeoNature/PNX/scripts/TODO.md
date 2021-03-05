@@ -1,3 +1,3 @@
-changer  `ftp.ini` en `config.ini`
+changer  `settings.ini` en `config.ini`
 
 recuperer config ssh + zip + scp ??

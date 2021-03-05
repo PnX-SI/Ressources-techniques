@@ -5,7 +5,7 @@ apis="
 geonature/api/gn_commons/t_mobile_apps
 usershub/login
 atlas/
-taxhub/ 
+taxhub/api/taxref/?classe=&famille=&is_inbibtaxons=false&is_ref=false&limit=25&order=asc&orderby=nom_complet&ordre=&page=1&phylum=&regne=
 "
 
 for api in $apis

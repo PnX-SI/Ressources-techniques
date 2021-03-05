@@ -1,5 +1,5 @@
 parc=$1
-. ftp.ini
+. settings.ini
 set -x
 
 ftp_parc=ftp_${parc}
