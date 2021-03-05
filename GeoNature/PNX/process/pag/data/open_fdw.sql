@@ -12,3 +12,7 @@ CREATE USER MAPPING
 
 DROP SCHEMA IF EXISTS v1_compat CASCADE;
 CREATE SCHEMA v1_compat;
+
+IMPORT FOREIGN SCHEMA utilisateurs FROM SERVER geonature1server INTO v1_compat;
+IMPORT FOREIGN SCHEMA taxonomie FROM SERVER geonature1server INTO v1_compat;
+IMPORT FOREIGN SCHEMA synthese FROM SERVER geonature1server INTO v1_compat;

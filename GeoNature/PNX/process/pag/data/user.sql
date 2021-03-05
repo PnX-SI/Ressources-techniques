@@ -1,6 +1,3 @@
-IMPORT FOREIGN SCHEMA utilisateurs FROM SERVER geonature1server INTO v1_compat;
-
-
 -- organismes
 
 INSERT INTO utilisateurs.bib_organismes(

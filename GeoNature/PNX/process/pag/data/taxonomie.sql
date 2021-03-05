@@ -1,0 +1,15 @@
+-- ajout des taxon exotiques  >= 99000000
+
+-- que faire des taxons4
+-- 41839;"Évêque bleu-noir ";"Cyanocompsa cyanoides"
+-- 765714;"";"Combretum laxum"
+--
+-- donnés par la commande
+--
+-- select DISTINCT t1.cd_nom FROM v1_compat.syntheseff s
+-- join v1_compat.taxref t1
+-- ON t1.cd_nom = s.cd_nom
+-- LEFT JOIN taxonomie.taxref t
+-- ON t.cd_nom =t1.cd_nom
+-- WHERE t.cd_nom IS NULL
+-- ORDER BY cd_nom

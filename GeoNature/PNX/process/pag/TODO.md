@@ -8,6 +8,7 @@
 # Migration 
 
 - [x] user
+- [ ] Taxonomie exotique (voir à passer en 14 avant prod)
 - [ ] metadonnées
 - [ ] données faune flore -> occtax
 - [ ] synthese 

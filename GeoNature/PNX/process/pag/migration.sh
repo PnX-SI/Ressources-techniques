@@ -27,5 +27,9 @@ $psqla -f data/open_fdw.sql \
 # user, orgs, perrmission, ...
 $psqla -f data/user.sql
 
+# taxonomie
+$psqla -f data/taxonomie.sql
+
+
 # close fdw
 #$psqla -f data/close_fdw.sql
