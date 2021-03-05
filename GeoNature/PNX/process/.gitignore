@@ -1,0 +1,10 @@
+*.ini
+*/ref_geo/*
+*/dumps/*
+reunion.md
+*.backup
+migrationV1V2/*
+*.py
+*.json
+!.gitkeep
+*.toml
