@@ -8,12 +8,34 @@
 # Migration 
 
 - [x] user
-- [ ] Taxonomie exotique (voir à passer en 14 avant prod)
+
+- [ ] Taxonomie 
+  - [ ] bib_nom : clarifier le check_cdref et find_cd_ref(cd_nom) utilisé en find_cd_ref(cd_ref) 
+  - [ ] voir à passer en 14 avant prod
+  - [x] taxons exotique
+  - [ ] taxons changés trouver le cd_nom qui va bien
+    - [ ] 41839;"Évêque bleu-noir ";"Cyanocompsa cyanoides"
+    - [ ] 765714;"";"Combretum laxum"
 - [ ] metadonnées
-- [ ] données faune flore -> occtax
+
+- [ ] gestion synonymes (à vérifier!!!)
+  - [ ] fonction pour verifier la cohérence (pas de plante larve)???
+  - [ ] champ par defaut ?? (mieux dans l'INSERT ??) ?? ETAT_BIO VIVANT ou indefini par defaut??
+  - [ ] types
+    - [ ] TYP_GRP 'OBS' pour tous les lot ?? (à affiner par lot)
+    - [ ] METH_OBS
+
+- [ ] occtax 
+  - [ ] données faune
+    - [ ] releve
+    - [ ] occurences
+    - [ ] 
+  - [ ] données flore
+
 - [ ] synthese 
 
 # Atlas
 
 - [ ] schema
+- [ ] virer medias GN
 - [ ] test update
