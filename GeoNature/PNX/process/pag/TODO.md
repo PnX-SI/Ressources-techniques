@@ -7,6 +7,8 @@
 
 # Migration 
 
+!!! gros problème avec bib_nom incomplet ?? -> occurences (sans cd_nom ????)
+
 - [x] user
 
 - [ ] Taxonomie 

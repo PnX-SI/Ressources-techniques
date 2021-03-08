@@ -18,10 +18,6 @@ cd ..
 . set_config.sh $parc
 cd $parc
 
-
-# !!!!! MODIF de la V1
-$psqlv1 -c 'ALTER VIEW IF EXISTS taxonomie.v_nomade_classes RENAME TO v_nomade_classes_modif;'
-
 # clean (pour les nombreux essais à venir)
 $psqla -f data/clean.sql
 
@@ -47,10 +43,15 @@ $psqla -f data/taxonomie.sql
 # metadonnées
 $psqla -f data/metadonnee.sql
 
-# occtax
+# occtax faune
 $psqla -f data/occtax_faune.sql -v srid_local=$srid_local
 
+# occtax flore
+$psqla -f data/occtax_flore.sql -v srid_local=$srid_local
+
+
 #synthese
+$psqla -f data/synthese.sql -v srid_local=$srid_local
 
 
 # close fdw

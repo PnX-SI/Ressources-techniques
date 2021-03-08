@@ -35,9 +35,8 @@ FROM v1_compat.t_fiches_cf cf
 
 -- occurence
 
-
     INSERT INTO pr_occtax.t_occurrences_occtax(
-                    id_occurrence_occtax,
+            id_occurrence_occtax,
             unique_id_occurence_occtax, 
             id_releve_occtax, 
             id_nomenclature_obs_technique, 
@@ -90,10 +89,132 @@ FROM v1_compat.t_fiches_cf cf
      ref_nomenclatures.get_id_nomenclature('METH_DETERMIN','1') AS id_nomenclature_source_status,
      bib_noms.cd_nom AS cd_nom,
      nom_taxon_saisi AS nom_cite,
-     'Taxref V13.0' AS meta_v_taxref,
+     'Taxref V11.0' AS meta_v_taxref,
      NULL AS sample_number_proof,
      NULL AS digital_proof, 
      NULL AS non_digital_proof,
      cf.commentaire AS comment
     FROM v1_compat.t_releves_cf cf
-    JOIN taxonomie.bib_noms bib_noms ON bib_noms.id_nom = cf.id_nom;
+    LEFT JOIN taxonomie.bib_noms bib_noms ON bib_noms.id_nom = cf.id_nom;
+;
+
+
+-- denombrement
+
+INSERT INTO pr_occtax.cor_counting_occtax(
+            unique_id_sinp_occtax, 
+            id_occurrence_occtax, 
+            id_nomenclature_life_stage, 
+            id_nomenclature_sex, 
+            id_nomenclature_obj_count, 
+            id_nomenclature_type_count, 
+            count_min, 
+            count_max
+        )
+
+-- adulte male
+SELECT 
+uuid_generate_v4() AS unique_id_sinp_occtax,
+id_releve_cf AS id_occurrence_occtax,
+ref_nomenclatures.get_id_nomenclature('STADE_VIE', '2'),
+ref_nomenclatures.get_id_nomenclature('SEXE', '3'),
+ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND'),
+ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'NSP'),
+am AS count_min,
+am AS count_max
+FROM v1_compat.t_releves_cf cf
+WHERE am > 0
+
+UNION
+-- adulte femelle
+SELECT 
+uuid_generate_v4() AS unique_id_sinp_occtax,
+id_releve_cf AS id_occurrence_occtax,
+ref_nomenclatures.get_id_nomenclature('STADE_VIE', '2'),
+ref_nomenclatures.get_id_nomenclature('SEXE', '2'),
+ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND'),
+ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'NSP'),
+af AS count_min,
+af AS count_max
+FROM v1_compat.t_releves_cf cf
+WHERE af > 0
+
+UNION
+-- adulte indetermine
+SELECT 
+uuid_generate_v4() AS unique_id_sinp_occtax,
+id_releve_cf AS id_occurrence_occtax,
+ref_nomenclatures.get_id_nomenclature('STADE_VIE', '2'),
+ref_nomenclatures.get_id_nomenclature('SEXE', '0'),
+ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND'),
+ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'NSP'),
+ai AS count_min,
+ai AS count_max
+FROM v1_compat.t_releves_cf cf
+WHERE ai > 0
+
+UNION
+-- sexe et age indeterminé
+SELECT 
+uuid_generate_v4() AS unique_id_sinp_occtax,
+id_releve_cf AS id_occurrence_occtax,
+ref_nomenclatures.get_id_nomenclature('STADE_VIE', '0'),
+ref_nomenclatures.get_id_nomenclature('SEXE', '0'),
+ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND'),
+ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'NSP'),
+sai AS count_min,
+sai AS count_max
+FROM v1_compat.t_releves_cf cf
+WHERE sai > 0
+
+UNION
+-- non adulte
+SELECT 
+uuid_generate_v4() AS unique_id_sinp_occtax,
+id_releve_cf AS id_occurrence_occtax,
+ref_nomenclatures.get_id_nomenclature('STADE_VIE', '3'),
+ref_nomenclatures.get_id_nomenclature('SEXE', '0'),
+ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND'),
+ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'NSP'),
+na AS count_min,
+na AS count_max
+FROM v1_compat.t_releves_cf cf
+WHERE na > 0
+
+UNION
+-- jeune
+SELECT 
+uuid_generate_v4() AS unique_id_sinp_occtax,
+id_releve_cf AS id_occurrence_occtax,
+ref_nomenclatures.get_id_nomenclature('STADE_VIE', '3'),
+ref_nomenclatures.get_id_nomenclature('SEXE', '0'),
+ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND'),
+ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'NSP'),
+jeune AS count_min,
+jeune AS count_max
+FROM v1_compat.t_releves_cf cf
+WHERE jeune > 0
+
+UNION
+-- yearling
+SELECT 
+uuid_generate_v4() AS unique_id_sinp_occtax,
+id_releve_cf AS id_occurrence_occtax,
+ref_nomenclatures.get_id_nomenclature('STADE_VIE', '4'),
+ref_nomenclatures.get_id_nomenclature('SEXE', '0'),
+ref_nomenclatures.get_id_nomenclature('OBJ_DENBR', 'IND'),
+ref_nomenclatures.get_id_nomenclature('TYP_DENBR', 'NSP'),
+yearling AS count_min,
+yearling AS count_max
+FROM v1_compat.t_releves_cf cf
+WHERE yearling > 0
+;
+
+
+-- obserateurs
+INSERT INTO pr_occtax.cor_role_releves_occtax
+SELECT 
+uuid_generate_v4() AS unique_id_cor_role_releve,
+id_cf AS id_releve_occtax,
+id_role AS id_role
+FROM v1_compat.cor_role_fiche_cf;

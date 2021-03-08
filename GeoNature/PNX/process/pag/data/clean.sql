@@ -2,7 +2,12 @@
 
 
 -- occtax
+
+ DELETE FROM pr_occtax.cor_role_releves_occtax;
+ DELETE FROM pr_occtax.cor_counting_occtax;
+ DELETE FROM pr_occtax.t_occurrences_occtax;
  DELETE FROM pr_occtax.t_releves_occtax;
+
 
 -- meta 
 
@@ -27,5 +32,5 @@ DELETE FROM taxonomie.taxref
 
 DELETE FROM utilisateurs.t_roles WHERE id_role > 100;
 DELETE FROM gn_meta.cor_dataset_actor WHERE id_organism > 0;
--- on garde autre (-1) et all (0)
+-- on garde autre (-1) et all (0) ???
 DELETE FROM utilisateurs.bib_organismes WHERE id_organisme > 0;
