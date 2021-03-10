@@ -31,8 +31,13 @@
   - [ ] données faune
     - [ ] releve
     - [ ] occurences
-    - [ ] 
+    - [ ] counting
+    - [ ] user
   - [ ] données flore
+    - [ ] releve
+    - [ ] occurences
+    - [ ] counting
+    - [ ] user
 
 - [ ] synthese 
 
