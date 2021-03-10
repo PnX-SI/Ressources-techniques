@@ -28,6 +28,7 @@ $psqla -f data/open_fdw.sql \
     -v db_port_v1=$db_port_v1 \
     -v user_pg_pass_v1=$user_pg_pass_v1 \
     -v user_pg_v1=$user_pg_v1
+    -v user_pg=$user_pg
 
 
 cp csv/synonyme_v1.csv /tmp/.

@@ -6,7 +6,7 @@ CREATE SERVER geonature1server
       OPTIONS (host :'db_host_v1', dbname :'db_name_v1', port :'db_port_v1');
 
 CREATE USER MAPPING  
-        FOR :user_pg_v1
+        FOR :user_pg
         SERVER geonature1server
         OPTIONS (password :'user_pg_pass_v1',user :'user_pg_v1');
 
