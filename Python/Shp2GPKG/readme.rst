@@ -43,9 +43,9 @@ En complément, voir aussi le script Python de création de SHP ou GPKG à parti
 
 Utilisation de ogr2ogr
 =======================
-Dans le dossier `ogr2ogr_shp2gpkg` se trouve une méthode alternative reposant sur ogr2ogr pour convertir les fichiers
 
-Un exemple d'utilisation du script se trouve dans le fichier main.py.sample
+Dans le dossier ``ogr2ogr_shp2gpkg`` se trouve une méthode alternative reposant sur ogr2ogr pour convertir les fichiers SHP en GPKG.
 
-Prérequis : avoir ogr2ogr et python
+Un exemple d'utilisation du script se trouve dans le fichier ``main.py.sample``
 
+Prérequis : avoir ogr2ogr et python installé sur sa machine.
