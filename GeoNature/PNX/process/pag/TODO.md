@@ -20,12 +20,13 @@
     - [ ] 765714;"";"Combretum laxum" ==> nom_complet = "Combretum laxum Aubl." ==> cd_nom : 632627, cd_ref = 629395
 - [ ] metadonnées
 
-- [ ] gestion synonymes (à vérifier!!!)
-  - [ ] fonction pour verifier la cohérence (pas de plante larve)???
-  - [ ] champ par defaut ?? (mieux dans l'INSERT ??) ?? ETAT_BIO VIVANT ou indefini par defaut??
+- [ ] gestion synonymes 
+  - [x] Ai regénéré la totalité de cor_synthese_v1_to_v2 ==> l'ensemble des autres questions soivent y être soldées, non?
+  - [ ] fonction pour verifier la cohérence (pas de plante larve)??? 
+  - [ ] champ par defaut ==> ETAT_BIO = VIVANT
   - [ ] types
-    - [ ] TYP_GRP 'OBS' pour tous les lot ?? (à affiner par lot)
-    - [ ] METH_OBS
+    - [ ] TYP_GRP 'OBS' pour tous les lot ??==> historique selon cor_synthesev1_to_v2. Par défaut en saisie: OBS
+    - [ ] METH_OBS ==> historique selon cor_synthesev1_to_v2. Par défaut en saisie: VU (0)
 
 - [ ] occtax 
   - [ ] données faune

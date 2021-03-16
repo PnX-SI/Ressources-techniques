@@ -1,3 +1,4 @@
+IMPORT FOREIGN SCHEMA taxonomie FROM SERVER geonature1server INTO v1_compat;
 -- que faire des taxons
 -- 41839;"Évêque bleu-noir ";"Cyanocompsa cyanoides"
 -- 765714;"";"Combretum laxum"

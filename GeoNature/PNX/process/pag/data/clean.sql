@@ -9,7 +9,7 @@
  DELETE FROM pr_occtax.t_releves_occtax;
 
 
--- meta 
+-- meta
 
 DELETE FROM gn_commons.cor_module_dataset;
 DELETE FROM gn_meta.cor_dataset_actor;
