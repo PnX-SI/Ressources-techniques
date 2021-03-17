@@ -41,3 +41,25 @@ QgsProject.instance().addMapLayer(vlayer2)
 
 end_time = datetime.now()
 print('Duration: {}'.format(end_time - start_time))
+
+                     
+                     
+#Version améliorée du code précédent
+
+from datetime import datetime
+start_time = datetime.now()
+
+path_to_gpkg="/Users/cendr/Desktop/Stage/QGIS/test gpkg/synthese_faune_flore.gpkg"
+geometry_type=["Point","LineString","Polygon"]
+layername=["synthese"]
+                     
+def choix_geometry(layername,geometry_type):
+    for f in layername :
+        for i in geometry_type :
+            chemin_complet=path_to_gpkg + "|layername="+ f +"|geometrytype=" + i
+            vlayer=QgsVectorLayer(chemin_complet,"synthese","ogr")
+            QgsProject.instance().addMapLayer(vlayer)
+choix_geometry(layername,geometry_type)
+
+end_time = datetime.now()
+print('Duration: {}'.format(end_time - start_time))
