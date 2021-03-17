@@ -52,13 +52,18 @@ start_time = datetime.now()
 path_to_gpkg="/Users/cendr/Desktop/Stage/QGIS/test gpkg/synthese_faune_flore.gpkg"
 geometry_type=["Point","LineString","Polygon"]
 layername=["synthese"]
-                     
+ 
+#fonction qui va ajouter touts mes couches définies dans la liste layername, ainsi que toutes les géométries liées, au projet.                   
 def choix_geometry(layername,geometry_type):
+    #pour chaque élément de la liste layername                 
     for f in layername :
+        #pour chaque élément de la liste geometry_type         
         for i in geometry_type :
-            chemin_complet=path_to_gpkg + "|layername="+ f +"|geometrytype=" + i
+            #récupère le chemin complet de ma couche, qui comprend son type de géométrie         
+            chemin_complet=path_to_gpkg + "|layername="+ f +"|geometrytype=" + i         
             vlayer=QgsVectorLayer(chemin_complet,"synthese","ogr")
             QgsProject.instance().addMapLayer(vlayer)
+#execute ma fonction                    
 choix_geometry(layername,geometry_type)
 
 end_time = datetime.now()
