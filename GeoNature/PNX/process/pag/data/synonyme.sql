@@ -679,22 +679,21 @@ WHERE ns.code_type = n.mnemonique
 			ON t.id_type = n.id_type			
 	Order by t.mnemonique, n.mnemonique;
 
-DROP FUNCTION IF EXISTS v1_compat.get_synonyme_id_nomenclature;
-CREATE OR REPLACE FUNCTION v1_compat.get_synonyme_id_nomenclature(code_type_in text, gnv1_pk_value integer) RETURNS INTEGER
-IMMUTABLE
-LANGUAGE plpgsql AS
-$$
-DECLARE id_nomenclature_out text;
-  BEGIN
-  
-  SELECT INTO id_nomenclature_out id_nomenclature 
-	FROM v1_compat.t_synonymes_v1
-    	WHERE gnv1_pk_value::text = ANY(STRING_TO_ARRAY(gnv1_pk_values, ','))
-		AND code_type = code_type_in
-;
-return id_nomenclature_out;
-  END;
-$$;
+--DROP FUNCTION IF EXISTS v1_compat.get_synonyme_id_nomenclature;
+--CREATE OR REPLACE FUNCTION v1_compat.get_synonyme_id_nomenclature(code_type_in text, gnv1_pk_value integer) RETURNS INTEGER
+--IMMUTABLE
+--LANGUAGE plpgsql AS
+--$$
+--DECLARE id_nomenclature_out text;
+--  BEGIN 
+--  SELECT INTO id_nomenclature_out id_nomenclature 
+--	FROM v1_compat.t_synonymes_v1
+--    	WHERE gnv1_pk_value::text = ANY(STRING_TO_ARRAY(gnv1_pk_values, ','))
+--		AND code_type = code_type_in
+--;
+--return id_nomenclature_out;
+--  END;
+--$$;
 
 
 -- select id_lot, v1_compat.get_synonyme_id_nomenclature('TYP_GRP', id_lot)
