@@ -29,6 +29,7 @@
     - [ ] METH_OBS ==> historique selon cor_synthesev1_to_v2. Par défaut en saisie: VU (0)
 
 - [ ] occtax 
+  - [ ] cf. Synthese car données manquantes dans occTax... (vérifier auteur pour vérifier si saisie PAG)
   - [ ] données faune
     - [ ] releve
     - [ ] occurences
@@ -40,7 +41,9 @@
     - [ ] counting
     - [ ] user
 
-- [ ] synthese 
+- [ ] synthese
+  - [ ] ATTENTION! seule une partie des données contactfaune/contactflore sont uniquement dans la synthese qui en compte 1627 faune + 272 flore alors que les jeux de données contactFaune = 121 et contactFlore = 205.
+Peut-on les basculer vers occTax?
   
 # Atlas
 
