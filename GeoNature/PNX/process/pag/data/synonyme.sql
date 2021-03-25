@@ -22,23 +22,23 @@ INSERT INTO v1_compat.cor_boolean VALUES('non',false);
 --------     TRANSFERER LES SOURCES     -------
 -----------------------------------------------
 -- ------------On déplace l'id de la source occtax
--- UPDATE gn_synthese.t_sources 
--- SET id_source = (SELECT max(id_source)+1 FROM v1_compat.bib_sources) 
--- WHERE name_source = 'Occtax';
--- --on insert ensuite les sources de la V1
--- INSERT INTO gn_synthese.t_sources (
--- 	id_source,
---   name_source,
---   desc_source,
---   entity_source_pk_field
--- )
--- SELECT 
---   id_source, 
---   nom_source, 
---   desc_source, 
---   'historique.' || db_schema || '_' || db_table || '.' || db_field AS entity_source_pk_field
--- FROM v1_compat.bib_sources
--- ;
+UPDATE gn_synthese.t_sources 
+SET id_source = (SELECT max(id_source)+1 FROM v1_compat.bib_sources) 
+WHERE name_source = 'Occtax';
+--on insert ensuite les sources de la V1
+INSERT INTO gn_synthese.t_sources (
+	id_source,
+  name_source,
+  desc_source,
+  entity_source_pk_field
+)
+SELECT 
+  id_source,
+  nom_source || ' (' || groupe || ') ', 
+  desc_source || ' (' || groupe || ') ', 
+  'historique.' || db_schema || '_' || db_table || '.' || db_field AS entity_source_pk_field
+FROM v1_compat.bib_sources
+;
 
 SELECT setval('gn_synthese.t_sources_id_source_seq', (SELECT max(id_source)+1 FROM gn_synthese.t_sources), true);
 

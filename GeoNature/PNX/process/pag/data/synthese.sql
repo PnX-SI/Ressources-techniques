@@ -1,5 +1,8 @@
 -- en cours !!!!!!!!!!!!!!! 
 
+    ALTER TABLE gn_synthese.synthese
+      DROP CONSTRAINT IF EXISTS check_synthese_info_geo_type_id_area_attachment;
+ 
 -- synthese
 INSERT INTO gn_synthese.synthese (
   unique_id_sinp, -- uuid,
@@ -172,3 +175,6 @@ FROM s
 -- LEFT JOIN n19 ON s.id_source = n19.pk_source
 -- LEFT JOIN n23 ON s.id_precision = n23.pk_source
 -- LEFT JOIN taxonomie.taxref t ON t.cd_nom = s.cd_nom;
+
+
+-- TODO user
