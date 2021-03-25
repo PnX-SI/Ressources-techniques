@@ -21,7 +21,7 @@ SELECT
     uuid_generate_v4() AS unique_id_sinp_grp,
     id_lot AS id_dataset,
     ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS','133') AS id_nomenclature_tech_collect_campanule,
-    COALESCE(v1_compat.get_synonyme_id_nomenclature('TYP_GRP', id_lot), ref_nomenclatures.get_id_nomenclature('TYP_GRP','NSP')) AS id_nomenclature_grp_typ,
+    COALESCE(v1_compat.get_synonyme_id_nomenclature('TYP_GRP', 'id_lot', id_lot), ref_nomenclatures.get_id_nomenclature('TYP_GRP','NSP')) AS id_nomenclature_grp_typ,
     dateobs AS date_min,
     dateobs AS date_max,
     altitude_retenue AS altitude_min,
@@ -63,15 +63,15 @@ FROM v1_compat.t_fiches_cf cf
     uuid_generate_v4() AS unique_id_occurence_occtax,
     id_cf AS id_releve_occtax,
     COALESCE(
-	v1_compat.get_synonyme_id_nomenclature('METH_OBS', id_critere_cf),
+	v1_compat.get_synonyme_id_nomenclature('METH_OBS', 'id_critere_synthese', id_critere_cf),
 	ref_nomenclatures.get_id_nomenclature('METH_OBS','21')
 	) AS id_nomenclature_obs_meth,
     COALESCE(
-	v1_compat.get_synonyme_id_nomenclature('ETA_BIO', id_critere_cf),
+	v1_compat.get_synonyme_id_nomenclature('ETA_BIO', 'id_critere_synthese', id_critere_cf),
 	ref_nomenclatures.get_id_nomenclature('ETA_BIO','0')
 	) AS id_nomenclature_bio_condition,
     COALESCE(
-	v1_compat.get_synonyme_id_nomenclature('STATUT_BIO', id_critere_cf),
+	v1_compat.get_synonyme_id_nomenclature('STATUT_BIO', 'id_critere_synthese', id_critere_cf),
 	ref_nomenclatures.get_id_nomenclature('STATUT_BIO','1')
 	) AS id_nomenclature_bio_status,
      ref_nomenclatures.get_id_nomenclature('NATURALITE','1') AS id_nomenclature_naturalness,

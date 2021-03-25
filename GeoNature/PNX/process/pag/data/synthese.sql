@@ -66,9 +66,9 @@ SELECT
 --   ,s.id_fiche_source
 --   ,s.id_lot
    ,COALESCE(
-       v1_compat.get_synonyme_id_nomenclature('NAT_GEO', s.id_precision),
+       v1_compat.get_synonyme_id_nomenclature('NAT_GEO',  'id_precision', s.id_precision),
        ref_nomenclatures.get_id_nomenclature('NAT_OBJ_GEO','NSP')
-    ) AS id_nomenclature_geo_object_nature,
+    ) AS id_nomenclature_geo_object_nature
     
 --   ,COALESCE(n24.id_nomenclature_cible, ref_nomenclatures.get_id_nomenclature('TYP_GRP','NSP')) AS id_nomenclature_grp_typ
 --   ,COALESCE(n14.id_nomenclature_cible, ref_nomenclatures.get_id_nomenclature('METH_OBS','21')) AS id_nomenclature_obs_meth

@@ -21,23 +21,25 @@ INSERT INTO v1_compat.cor_boolean VALUES('non',false);
 -----------------------------------------------
 --------     TRANSFERER LES SOURCES     -------
 -----------------------------------------------
-------------On déplace l'id de la source occtax
-UPDATE gn_synthese.t_sources 
-SET id_source = (SELECT max(id_source)+1 FROM v1_compat.bib_sources) 
-WHERE name_source = 'Occtax';
---on insert ensuite les sources de la V1
-INSERT INTO gn_synthese.t_sources (
-	id_source,
-  name_source,
-  desc_source,
-  entity_source_pk_field
-)
-SELECT 
-  id_source, 
-  nom_source, 
-  desc_source, 
-  'historique.' || db_schema || '_' || db_table || '.' || db_field AS entity_source_pk_field
-FROM v1_compat.bib_sources;
+-- ------------On déplace l'id de la source occtax
+-- UPDATE gn_synthese.t_sources 
+-- SET id_source = (SELECT max(id_source)+1 FROM v1_compat.bib_sources) 
+-- WHERE name_source = 'Occtax';
+-- --on insert ensuite les sources de la V1
+-- INSERT INTO gn_synthese.t_sources (
+-- 	id_source,
+--   name_source,
+--   desc_source,
+--   entity_source_pk_field
+-- )
+-- SELECT 
+--   id_source, 
+--   nom_source, 
+--   desc_source, 
+--   'historique.' || db_schema || '_' || db_table || '.' || db_field AS entity_source_pk_field
+-- FROM v1_compat.bib_sources
+-- ;
+
 SELECT setval('gn_synthese.t_sources_id_source_seq', (SELECT max(id_source)+1 FROM gn_synthese.t_sources), true);
 
 
@@ -624,39 +626,39 @@ AND entity_source = 'v1_compat.t_precisions' AND field_source = 'id_precision' A
 
 
 ---------------------------------------- synonyme
-DROP TABLE IF EXISTS v1_compat.t_synonymes_v1;
-CREATE TABLE v1_compat.t_synonymes_v1(
-    code_type CHARACTER VARYING,
-    cd_nomenclature CHARACTER VARYING,
-    id_nomenclature INTEGER,
-    gnv1_pk_values CHARACTER VARYING
-);
+-- DROP TABLE IF EXISTS v1_compat.t_synonymes_v1;
+-- CREATE TABLE v1_compat.t_synonymes_v1(
+--     code_type CHARACTER VARYING,
+--     cd_nomenclature CHARACTER VARYING,
+--     id_nomenclature INTEGER,
+--     gnv1_pk_values CHARACTER VARYING
+-- );
 
 --COPY v1_compat.t_synonymes_v1 (code_type, cd_nomenclature, gnv1_pk_values) FROM '/tmp/synonyme_v1.csv' CSV DELIMITER ';';
-insert into  v1_compat.t_synonymes_v1 (code_type, cd_nomenclature, gnv1_pk_values) values
-	('TYP_GRP','OBS','1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28'),
-	('METH_OBS','0','2,5,6,8,9,10,11,12,14,16,18,21,22,23,26,27,29,30,31,33,34,35,37,38,101,102,103,201,204,208,209,214,215,217,221,222,224,226'),
-	('METH_OBS','1','4,7,207'),
-	('METH_OBS','4','3,219'),
-	('METH_OBS','6','205'),
-	('METH_OBS','8','13,15,17,19,20,216'),
-	('METH_OBS','12','211'),
-	('METH_OBS','20','105,203,220'),
-	('METH_OBS','23','24,25'),
-	('STATUT_BIO','3','10,11,12,13,14,15,16,17,18,19,20,21,22,23,27,28,29,31,32,33,35,36,37,101,102,204,209,215,216,221,224,226'),
-	('STATUT_BIO','4','26'),
-	('ETAT_BIO','3','2'),
-	('NAT_OBJ_GEO','St','1,2,3,4,10'),
-	('NAT_OBJ_GEO','In','5,6,7,8,9,11,13,14');
+-- insert into  v1_compat.t_synonymes_v1 (code_type, cd_nomenclature, gnv1_pk_values) values
+-- 	('TYP_GRP','OBS','1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28'),
+-- 	('METH_OBS','0','2,5,6,8,9,10,11,12,14,16,18,21,22,23,26,27,29,30,31,33,34,35,37,38,101,102,103,201,204,208,209,214,215,217,221,222,224,226'),
+-- 	('METH_OBS','1','4,7,207'),
+-- 	('METH_OBS','4','3,219'),
+-- 	('METH_OBS','6','205'),
+-- 	('METH_OBS','8','13,15,17,19,20,216'),
+-- 	('METH_OBS','12','211'),
+-- 	('METH_OBS','20','105,203,220'),
+-- 	('METH_OBS','23','24,25'),
+-- 	('STATUT_BIO','3','10,11,12,13,14,15,16,17,18,19,20,21,22,23,27,28,29,31,32,33,35,36,37,101,102,204,209,215,216,221,224,226'),
+-- 	('STATUT_BIO','4','26'),
+-- 	('ETAT_BIO','3','2'),
+-- 	('NAT_OBJ_GEO','St','1,2,3,4,10'),
+-- 	('NAT_OBJ_GEO','In','5,6,7,8,9,11,13,14');
 
-UPDATE v1_compat.t_synonymes_v1 ns SET id_nomenclature=n.id_nomenclature FROM (
-	SELECT n.cd_nomenclature, n.id_nomenclature, t.mnemonique
-		FROM ref_nomenclatures.t_nomenclatures n
-		JOIN ref_nomenclatures.bib_nomenclatures_types t
-			ON t.id_type = n.id_type
-)n 
-WHERE ns.code_type = n.mnemonique 
-	AND ns.cd_nomenclature = n.cd_nomenclature;
+-- UPDATE v1_compat.t_synonymes_v1 ns SET id_nomenclature=n.id_nomenclature FROM (
+-- 	SELECT n.cd_nomenclature, n.id_nomenclature, t.mnemonique
+-- 		FROM ref_nomenclatures.t_nomenclatures n
+-- 		JOIN ref_nomenclatures.bib_nomenclatures_types t
+-- 			ON t.id_type = n.id_type
+-- )n 
+-- WHERE ns.code_type = n.mnemonique 
+-- 	AND ns.cd_nomenclature = n.cd_nomenclature;
 
 -- test correspondance synonymie
 --	SELECT n.id_type, n.cd_nomenclature, n.id_nomenclature, t.mnemonique, n.mnemonique, t.label_default, t.definition_default
@@ -666,16 +668,20 @@ WHERE ns.code_type = n.mnemonique
 --	Order by t.mnemonique, n.mnemonique;
 
 DROP FUNCTION IF EXISTS v1_compat.get_synonyme_id_nomenclature;
-CREATE OR REPLACE FUNCTION v1_compat.get_synonyme_id_nomenclature(code_type_in text, gnv1_pk_value integer) RETURNS INTEGER
+CREATE OR REPLACE FUNCTION v1_compat.get_synonyme_id_nomenclature(
+	lib_type_cible_in text,
+	field_source_in text,
+	pk_source_in integer) RETURNS INTEGER
 IMMUTABLE
 LANGUAGE plpgsql AS
 $$
 DECLARE id_nomenclature_out text;
   BEGIN 
-  SELECT INTO id_nomenclature_out id_nomenclature 
-	FROM v1_compat.t_synonymes_v1
-    	WHERE gnv1_pk_value::text = ANY(STRING_TO_ARRAY(gnv1_pk_values, ','))
-		AND code_type = code_type_in
+  SELECT INTO id_nomenclature_out id_nomenclature_cible 
+	FROM v1_compat.cor_synthese_v1_to_v2 cv1v2
+    	WHERE cv1v2.pk_source = pk_source_in
+		AND cv1v2.lib_type_cible = lib_type_cible_in
+		AND cv1v2.field_source = field_source_in
 ;
 return id_nomenclature_out;
   END;

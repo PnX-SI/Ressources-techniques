@@ -1,3 +1,7 @@
+synonyme
+v1_compat.bib_criteres_synthese id_critere_synthese
+v1_compat.bib_sources id_source
+v1_compat.bib_lots id_lot
 # Données de base
 
 - [x] base avec le bon srid (pag/config/settings.ini)
