@@ -38,3 +38,4 @@ DELETE FROM utilisateurs.bib_organismes WHERE id_organisme > 0;
 
 -- Synthese
 DELETE FROM gn_synthese.t_sources;
+DELETE FROM gn_synthese.synthese;
