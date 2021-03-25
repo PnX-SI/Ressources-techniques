@@ -2,7 +2,14 @@
 
     ALTER TABLE gn_synthese.synthese
       DROP CONSTRAINT IF EXISTS check_synthese_info_geo_type_id_area_attachment;
- 
+
+DROP TABLE IF EXISTS v1_compat.cor_ref;
+CREATE TABLE v1_compat.cor_ref(cd_nom_old INTEGER, cd_nom_new INTEGER, libelle TEXT);
+
+INSERT INTO v1_compat.cor_ref(cd_nom_old, cd_nom_new, libelle)
+VALUES (441839, 828942, 'Cyanocompsa cyanoides ==> Cyanocompsa cyanoides')
+,(765714, 632627, 'Combretum laxum" ==> nom_complet = "Combretum laxum Aubl.');
+
 -- synthese
 INSERT INTO gn_synthese.synthese (
   unique_id_sinp, -- uuid,
@@ -133,7 +140,7 @@ SELECT
     ) AS id_nomenclature_info_geo_type
     , COALESCE(s.effectif_total, -1) AS count_min
     , COALESCE(s.effectif_total, -1) AS count_max
-    , s.cd_nom
+    , COALESCE(cor_ref.cd_nom_new, cd_nom) as cd_nom
     , 'aucun' AS nom_cite -- voir avec la source
     , 'Taxref V11' AS meta_v_taxref
     , NULL AS sample_number_proof
@@ -158,6 +165,7 @@ SELECT
     , date_update AS meta_update_date
     , derniere_action AS last_action
 FROM s
+LEFT JOIN v1_compat.cor_ref on cor_ref.cd_nom_old = s.cd_nom
 -- LEFT JOIN n3 ON s.id_precision = n3.pk_source
 -- LEFT JOIN n24 ON s.id_lot = n24.pk_source
 -- LEFT JOIN n14 ON s.id_critere_synthese = n14.pk_source
