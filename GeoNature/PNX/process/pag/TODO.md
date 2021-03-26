@@ -17,7 +17,7 @@
   - [x] taxons exotique
   - [ ] taxons changés trouver le cd_nom qui va bien
     - [ ] 441839;"Évêque bleu-noir ";"Cyanocompsa cyanoides" ==> Cyanocompsa cyanoides = cd_nom:828942, cd_ref: 828943 (alors que le cd_nom 41839 pointe vers une espèce européenne)
-    - [ ] 765714;"";"Combretum laxum" ==> nom_complet = "Combretum laxum Aubl." ==> cd_nom : 4, cd_ref = 629395
+    - [ ] 765714;"";"Combretum laxum" ==> nom_complet = "Combretum laxum Aubl." ==> cd_nom : 632627, cd_ref = 629395
 - [ ] metadonnées
 
 - [ ] gestion synonymes 
