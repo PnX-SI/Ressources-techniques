@@ -1,0 +1,1374 @@
+Starting 
+/geonature/taxhub
+[2021-02-02 16:05:25 +0000] [2719] [INFO] Starting gunicorn 20.0.4
+[2021-02-02 16:05:25 +0000] [2719] [INFO] Listening at: http://0.0.0.0:5000 (2719)
+[2021-02-02 16:05:25 +0000] [2719] [INFO] Using worker: sync
+[2021-02-02 16:05:25 +0000] [2763] [INFO] Booting worker with pid: 2763
+[2021-02-02 16:05:25 +0000] [2771] [INFO] Booting worker with pid: 2771
+[2021-02-02 16:05:25 +0000] [2775] [INFO] Booting worker with pid: 2775
+[2021-02-02 16:05:26 +0000] [2778] [INFO] Booting worker with pid: 2778
+[2021-02-02 16:13:03 +0000] [2719] [INFO] Handling signal: term
+[2021-02-02 16:13:03 +0000] [2778] [INFO] Worker exiting (pid: 2778)
+[2021-02-02 16:13:03 +0000] [2763] [INFO] Worker exiting (pid: 2763)
+[2021-02-02 16:13:03 +0000] [2771] [INFO] Worker exiting (pid: 2771)
+[2021-02-02 16:13:03 +0000] [2775] [INFO] Worker exiting (pid: 2775)
+[2021-02-02 16:13:05 +0000] [2719] [INFO] Shutting down: Master
+Starting 
+/geonature/taxhub
+[2021-02-02 16:13:12 +0000] [5839] [INFO] Starting gunicorn 20.0.4
+[2021-02-02 16:13:12 +0000] [5839] [INFO] Listening at: http://0.0.0.0:5000 (5839)
+[2021-02-02 16:13:12 +0000] [5839] [INFO] Using worker: sync
+[2021-02-02 16:13:12 +0000] [5868] [INFO] Booting worker with pid: 5868
+[2021-02-02 16:13:12 +0000] [5870] [INFO] Booting worker with pid: 5870
+[2021-02-02 16:13:12 +0000] [5874] [INFO] Booting worker with pid: 5874
+[2021-02-02 16:13:12 +0000] [5877] [INFO] Booting worker with pid: 5877
+Starting 
+/geonature/taxhub
+[2021-02-02 16:13:51 +0000] [49] [INFO] Starting gunicorn 20.0.4
+[2021-02-02 16:13:51 +0000] [49] [INFO] Listening at: http://0.0.0.0:5000 (49)
+[2021-02-02 16:13:51 +0000] [49] [INFO] Using worker: sync
+[2021-02-02 16:13:51 +0000] [80] [INFO] Booting worker with pid: 80
+[2021-02-02 16:13:51 +0000] [81] [INFO] Booting worker with pid: 81
+[2021-02-02 16:13:51 +0000] [82] [INFO] Booting worker with pid: 82
+[2021-02-02 16:13:52 +0000] [85] [INFO] Booting worker with pid: 85
+Starting 
+/geonature/taxhub
+[2021-02-02 16:18:31 +0000] [167] [INFO] Starting gunicorn 20.0.4
+[2021-02-02 16:18:31 +0000] [167] [INFO] Listening at: http://0.0.0.0:5000 (167)
+[2021-02-02 16:18:31 +0000] [167] [INFO] Using worker: sync
+[2021-02-02 16:18:31 +0000] [193] [INFO] Booting worker with pid: 193
+[2021-02-02 16:18:31 +0000] [196] [INFO] Booting worker with pid: 196
+[2021-02-02 16:18:32 +0000] [203] [INFO] Booting worker with pid: 203
+[2021-02-02 16:18:32 +0000] [207] [INFO] Booting worker with pid: 207
+Starting 
+/geonature/taxhub
+[2021-02-03 09:37:31 +0000] [49] [INFO] Starting gunicorn 20.0.4
+[2021-02-03 09:37:31 +0000] [49] [INFO] Listening at: http://0.0.0.0:5000 (49)
+[2021-02-03 09:37:31 +0000] [49] [INFO] Using worker: sync
+[2021-02-03 09:37:31 +0000] [79] [INFO] Booting worker with pid: 79
+[2021-02-03 09:37:31 +0000] [84] [INFO] Booting worker with pid: 84
+[2021-02-03 09:37:31 +0000] [88] [INFO] Booting worker with pid: 88
+[2021-02-03 09:37:31 +0000] [89] [INFO] Booting worker with pid: 89
+[2021-02-03 09:53:11 +0000] [88] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=tetr&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'tetr', 'id_liste_1': 100, 'search_name_1': '%tetr%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 09:53:13 +0000] [88] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=tetr%20&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'tetr ', 'id_liste_1': 100, 'search_name_1': '%tetr%%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 09:53:14 +0000] [89] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=tetr%20uro&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'tetr uro', 'id_liste_1': 100, 'search_name_1': '%tetr%uro%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 09:53:16 +0000] [88] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=tetr%20ur&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'tetr ur', 'id_liste_1': 100, 'search_name_1': '%tetr%ur%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 09:53:17 +0000] [79] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=tetr%20u&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'tetr u', 'id_liste_1': 100, 'search_name_1': '%tetr%u%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 09:53:39 +0000] [88] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=ter&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'ter', 'id_liste_1': 100, 'search_name_1': '%ter%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 09:53:43 +0000] [89] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=tetra&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'tetra', 'id_liste_1': 100, 'search_name_1': '%tetra%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 09:55:16 +0000] [88] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=tetra&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'tetra', 'id_liste_1': 100, 'search_name_1': '%tetra%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 10:26:59 +0000] [84] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=bel&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'bel', 'id_liste_1': 100, 'search_name_1': '%bel%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 10:27:01 +0000] [88] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=bel%20par&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'bel par', 'id_liste_1': 100, 'search_name_1': '%bel%par%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 10:47:22 +0000] [89] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=bel%20&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'bel ', 'id_liste_1': 100, 'search_name_1': '%bel%%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 10:47:23 +0000] [88] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=bel%20per&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'bel per', 'id_liste_1': 100, 'search_name_1': '%bel%per%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 10:47:25 +0000] [79] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=tetra&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'tetra', 'id_liste_1': 100, 'search_name_1': '%tetra%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 10:59:44 +0000] [79] [ERROR] Error handling request /api/taxref/allnamebylist/100?search_name=alb&limit=20
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn, similarity(taxonomie.vm_taxref_list_forautocomplete.search_name, %(similarity_1)s) AS idx_trgm 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s 
+WHERE taxonomie.vm_taxref_list_forautocomplete.search_name ILIKE %(search_name_1)s ORDER BY idx_trgm DESC, taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'similarity_1': 'alb', 'id_liste_1': 100, 'search_name_1': '%alb%', 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 11:00:03 +0000] [79] [ERROR] Error handling request /api/taxref/allnamebylist/100
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s ORDER BY taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'id_liste_1': 100, 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 11:00:56 +0000] [79] [ERROR] Error handling request /api/taxref/allnamebylist/100
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s ORDER BY taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'id_liste_1': 100, 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+[2021-02-03 11:01:26 +0000] [89] [ERROR] Error handling request /api/taxref/allnamebylist/100
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 134, in handle
+    self.handle_request(listener, req, client, addr)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/gunicorn/workers/sync.py", line 175, in handle_request
+    respiter = self.wsgi(environ, resp.start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2449, in wsgi_app
+    response = self.handle_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1866, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask_cors/extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/geonature/taxhub/apptax/utils/utilssqlalchemy.py", line 82, in _json_resp
+    res = fn(*args, **kwargs)
+  File "/geonature/taxhub/apptax/taxonomie/routestaxref.py", line 366, in get_AllTaxrefNameByListe
+    data = q.limit(limit).offset(offset).all()
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/geonature/taxhub/venv/lib/python3.7/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column vm_taxref_list_forautocomplete.nom_vern does not exist
+LINE 1: ... taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie....
+                                                             ^
+
+[SQL: SELECT taxonomie.vm_taxref_list_forautocomplete.cd_nom AS taxonomie_vm_taxref_list_forautocomplete_cd_nom, taxonomie.vm_taxref_list_forautocomplete.search_name AS taxonomie_vm_taxref_list_forautocomplete_search_name, taxonomie.vm_taxref_list_forautocomplete.cd_ref AS taxonomie_vm_taxref_list_forautocomplete_cd_ref, taxonomie.vm_taxref_list_forautocomplete.nom_valide AS taxonomie_vm_taxref_list_forautocomplete_nom_valide, taxonomie.vm_taxref_list_forautocomplete.lb_nom AS taxonomie_vm_taxref_list_forautocomplete_lb_nom, taxonomie.vm_taxref_list_forautocomplete.nom_vern AS taxonomie_vm_taxref_list_forautocomplete_nom_vern, taxonomie.vm_taxref_list_forautocomplete.regne AS taxonomie_vm_taxref_list_forautocomplete_regne, taxonomie.vm_taxref_list_forautocomplete.group2_inpn AS taxonomie_vm_taxref_list_forautocomplete_group2_inpn 
+FROM taxonomie.vm_taxref_list_forautocomplete JOIN taxonomie.bib_noms ON taxonomie.bib_noms.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_nom JOIN taxonomie.cor_nom_liste ON taxonomie.cor_nom_liste.id_nom = taxonomie.bib_noms.id_nom AND taxonomie.cor_nom_liste.id_liste = %(id_liste_1)s ORDER BY taxonomie.vm_taxref_list_forautocomplete.cd_nom = taxonomie.vm_taxref_list_forautocomplete.cd_ref DESC 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'id_liste_1': 100, 'param_1': 20, 'param_2': 0}]
+(Background on this error at: http://sqlalche.me/e/13/f405)

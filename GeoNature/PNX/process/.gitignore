@@ -4,6 +4,7 @@
 */dumps/*
 reunion.md
 *.backup
+*.dump
 migrationV1V2/*
 access
 *.py
