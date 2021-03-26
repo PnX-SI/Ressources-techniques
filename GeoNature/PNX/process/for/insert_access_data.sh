@@ -46,7 +46,7 @@ do
         -e 's/ /_/g' \
         -e 's/_VARCHAR/ VARCHAR/g' \
         -e 's/,_/,/g' \
-        -e 's/CREATE_TABLE_/CREATE_TABLE /g' \
+        -e 's/CREATE_TABLE_/CREATE TABLE /g' \
         -e 's/_(/(/g' \
         -e 's/+/_plus/g' >> ${sql_access_file};
 
