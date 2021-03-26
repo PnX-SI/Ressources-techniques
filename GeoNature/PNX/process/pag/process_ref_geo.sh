@@ -13,11 +13,12 @@ init_config $parc
 # nettoyage
 $psqla -c "
     DROP TABLE IF EXISTS ref_geo.tmp_coeur;
+    DROP TABLE IF EXISTS ref_geo.tmp_communes;
 "
 
 # Communes
-# shp2pgsql -s ${srid_local} -D -I $BASE_DIR/$parc/ref_geo/Communes_AOA_geotrek.shp ref_geo.tmp_communes | ${psqla}
-# $psqla -f $BASE_DIR/$parc/data/insert_communes.sql
+shp2pgsql -s ${srid_local} -D -I $BASE_DIR/$parc/ref_geo/COMMUNE.shp ref_geo.tmp_communes | ${psqla}
+$psqla -f $BASE_DIR/$parc/data/insert_communes.sql
 
 # Limites
 shp2pgsql -s ${srid_local} -D -I $BASE_DIR/$parc/ref_geo/PAG_ZA_Zcoeur.shp ref_geo.tmp_coeur | ${psqla}
