@@ -166,7 +166,10 @@ SELECT
     , derniere_action AS last_action
 FROM s
 LEFT JOIN v1_compat.cor_ref on cor_ref.cd_nom_old = s.cd_nom
-WHERE s.cd_nom != 99901669 OR s.cd_nom != NULL
+WHERE 
+    s.cd_nom != 99901669 
+    OR s.cd_nom != NULL
+    AND s.id_source NOT IN (1, 7) -- contact faune et flore deja présents par occtax ???
 -- LEFT JOIN n3 ON s.id_precision = n3.pk_source
 -- LEFT JOIN n24 ON s.id_lot = n24.pk_source
 -- LEFT JOIN n14 ON s.id_critere_synthese = n14.pk_source
