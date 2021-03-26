@@ -1,3 +1,7 @@
+Vérifier que les données contact faune et flore (source 1 et 7)
+sont présentes en synthese (de part occtax)
+et qu'il faut bien les supprimer de l'insert de v1_compat.syntheseff vers gn_synthese.synthese  
+
 # Données de base
 
 - [x] base avec le bon srid (pag/config/settings.ini)
