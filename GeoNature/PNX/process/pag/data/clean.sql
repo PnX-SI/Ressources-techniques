@@ -8,6 +8,10 @@
  DELETE FROM pr_occtax.t_occurrences_occtax;
  DELETE FROM pr_occtax.t_releves_occtax;
 
+-- Synthese
+DELETE FROM gn_synthese.synthese;
+DELETE FROM gn_synthese.t_sources;
+
 
 -- meta
 
@@ -36,6 +40,3 @@ DELETE FROM gn_meta.cor_dataset_actor WHERE id_organism > 0;
 DELETE FROM utilisateurs.bib_organismes WHERE id_organisme > 0;
 
 
--- Synthese
-DELETE FROM gn_synthese.t_sources;
-DELETE FROM gn_synthese.synthese;
