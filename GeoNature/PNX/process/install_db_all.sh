@@ -11,9 +11,7 @@ cd $cur
 $psqla -f data/patch_sensitivity.sql
 
 # mobile
-$psqla  -v OCCTAX_MOBILE_VERSION=${OCCTAX_MOBILE_VERSION} \
--v SYNC_MOBILE_VERSION=${SYNC_MOBILE_VERSION} \
--f data/mobile_test.sql
+$psqla -f data/mobile_test.sql
 
 source $GN_dir/backend/venv/bin/activate
 geonature install_gn_module $GN_dir/contrib/occtax /occtax --build=false
