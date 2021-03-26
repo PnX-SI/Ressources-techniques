@@ -1,9 +1,11 @@
+
 *.ini
 */ref_geo/*
 */dumps/*
 reunion.md
 *.backup
 migrationV1V2/*
+access
 *.py
 *.json
 !.gitkeep
