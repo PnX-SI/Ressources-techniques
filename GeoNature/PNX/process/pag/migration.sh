@@ -9,15 +9,22 @@ parc=pag
 
 echo "----------------------------------------------------------------------------" 
 echo "------------------------------- load config -------------------------------- "
-. config/settings.ini
-. config/settings_v1.ini
 
-export psqlv1="psql -d ${db_name_v1} -h ${db_host_v1} -U ${user_pg_v1} -p ${db_port_v1} -v ON_ERROR_STOP=1"
+parc=pag
+export BASE_DIR=$(readlink -e "${0%/*}")/..
+. $BASE_DIR/utils.sh
+init_config $parc
+
+
+
 
 echo "-------------------------------- init_config -------------------------------"
-cd ..
-. set_config.sh $parc
-cd $parc
+
+. $BASE_DIR/$parc/config/settings.ini
+. $BASE_DIR/$parc/config/settings_v1.ini
+export psqlv1="psql -d ${db_name_v1} -h ${db_host_v1} -U ${user_pg_v1} -p ${db_port_v1} -v ON_ERROR_STOP=1"
+
+
 
 echo "---------------------------------- clean -----------------------------------"
 $psqla -f data/clean.sql
