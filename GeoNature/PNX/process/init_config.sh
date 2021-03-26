@@ -1,5 +1,7 @@
 parc=$1
 remote=$2
+/home/joel/info/app/app_oeasc
+code .
 
 # emplacement des applis
 . config.ini

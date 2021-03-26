@@ -27,10 +27,10 @@ export psqlv1="psql -d ${db_name_v1} -h ${db_host_v1} -U ${user_pg_v1} -p ${db_p
 
 
 echo "---------------------------------- clean -----------------------------------"
-$psqla -f data/clean.sql
+$psqla -f $BASE_DIR/$parc/data/clean.sql
 
 echo "--------------------------------  open fdw   -------------------------------"
-$psqla -f data/open_fdw.sql \
+$psqla -f $BASE_DIR/$parc/data/open_fdw.sql \
     -v db_name_v1=$db_name_v1 \
     -v db_host_v1=$db_host_v1 \
     -v db_port_v1=$db_port_v1 \
@@ -41,34 +41,34 @@ $psqla -f data/open_fdw.sql \
 cp csv/synonyme_v1.csv /tmp/.
 echo "----------------------------------------------------------------------------" 
 echo "--------------------------- Creation de la synonymie -----------------------"
-$psqla -f data/synonyme.sql
+$psqla -f $BASE_DIR/$parc/data/synonyme.sql
 
 echo "----------------------------------------------------------------------------"  
 echo "--------------------- Transfert des users, permissions...-------------------"
-$psqla -f data/user.sql
+$psqla -f $BASE_DIR/$parc/data/user.sql
 
 echo "----------------------------------------------------------------------------"  
 echo "-------------------------- Transfert taxonomie -----------------------------"
-$psqla -f data/taxonomie.sql
+$psqla -f $BASE_DIR/$parc/data/taxonomie.sql
 
 echo "----------------------------------------------------------------------------"  
 echo "------------------------- Transfert metadonnées ----------------------------"
-$psqla -f data/metadonnee.sql
+$psqla -f $BASE_DIR/$parc/data/metadonnee.sql
 
 echo "----------------------------------------------------------------------------"  
 echo "------------------------- Transfert occtax faune ---------------------------"
-$psqla -f data/occtax_faune.sql -v srid_local=$srid_local
+$psqla -f $BASE_DIR/$parc/data/occtax_faune.sql -v srid_local=$srid_local
 
 echo "----------------------------------------------------------------------------"  
 echo "------------------------- Transfert occtax flore ---------------------------"
-$psqla -f data/occtax_flore.sql -v srid_local=$srid_local
+$psqla -f $BASE_DIR/$parc/data/occtax_flore.sql -v srid_local=$srid_local
 
 
 echo "----------------------------------------------------------------------------"  
 echo "---------------------------- Transfert synthese ----------------------------"
-$psqla -f data/synthese.sql -v srid_local=$srid_local
+$psqla -f $BASE_DIR/$parc/data/synthese.sql -v srid_local=$srid_local
 
 
 echo "----------------------------------------------------------------------------"  
 echo "--------------------------------- close fdw -------------------------------- "
-#$psqla -f data/close_fdw.sql
+#$psqla -f $BASE_DIR/$parc/data/close_fdw.sql

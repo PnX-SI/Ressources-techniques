@@ -73,7 +73,7 @@ function install_db_all
 
     # si besoin installation app
     if [ ! -d $GN_dir/backend/venv ]; then
-        .install_app.sh
+        ./install_app.sh
     fi
 
     # installation modules
