@@ -4,13 +4,26 @@ if [ -z "$BASE_DIR" ]; then
     export BASE_DIR=$(readlink -e "${0%/*}")
 fi
 
-function init_config
+function set_config
 {
     parc=$1
     . $BASE_DIR/config.ini
-
     . $BASE_DIR/${parc}/config/settings.ini
+    # . ${parc}/config/settings_atlas.ini
+    . $BASE_DIR/${parc}/config/settings.ini
+    export cur=$(pwd)
+    export PGPASSWORD=${user_pg_pass}
+    export psqla="psql -d ${db_name} -h ${db_host} -U ${user_pg} -p ${db_port} -v ON_ERROR_STOP=1"
+    export psqlg="psql -d postgres -h ${db_host} -U ${user_pg} -p ${db_port}"
+    export pgdumpa="pg_dump -d ${db_name} -h ${db_host} -U ${user_pg} -p ${db_port} --no-acl --no-owner -Fc "
+    export pgrestorea="pg_restore -d ${db_name} -h ${db_host} -U ${user_pg} -p ${db_port} --no-acl --no-owner -Fc "
 
+}
+
+function init_config
+{
+    parc=$1
+    set_config $parc
     # geonature config.toml
     geonature_config_toml=$BASE_DIR/$parc/config/geonature_config.toml
     my_url="${my_url//\//\\/}"
@@ -77,7 +90,4 @@ function install_db_all
     
     # ref_geo
     [[ -f $BASE_DIR/$parc/process_ref_geo.sh ]] && $BASE_DIR/$parc/process_ref_geo.sh
-
-
-
 }
