@@ -25,9 +25,6 @@ UPDATE gn_synthese.t_sources
 SET id_source = (SELECT max(id_source)+1 FROM v1_compat.bib_sources) 
 WHERE name_source = 'Occtax';
 
-SELECT * FROM gn_synthese.t_sources;
-
-
 
 
 --on insert ensuite les sources de la V1
@@ -45,7 +42,6 @@ SELECT
 FROM v1_compat.bib_sources
 ;
 
-SELECT * FROM gn_synthese.t_sources;
 
 SELECT setval('gn_synthese.t_sources_id_source_seq', (SELECT max(id_source)+1 FROM gn_synthese.t_sources), true);
 
