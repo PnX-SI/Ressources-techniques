@@ -39,6 +39,7 @@ do
         -e 's/"//g' \
         -e 's/BOOLEAN/VARCHAR/g' \
         -e 's/DECIMAL/VARCHAR/g' \
+        -e 's/DATETIME/VARCHAR/g' \
         -e 's/-/_/g' \
         -e 's/+/_plus/g' >> ${sql_access_file};
 
