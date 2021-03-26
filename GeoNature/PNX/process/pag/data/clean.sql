@@ -10,7 +10,7 @@
 
 -- Synthese
 DELETE FROM gn_synthese.synthese;
-DELETE FROM gn_synthese.t_sources;
+DELETE FROM gn_synthese.t_sources WHERE nom_source != 'Occtax';
 
 
 -- meta

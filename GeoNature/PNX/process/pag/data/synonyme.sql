@@ -17,7 +17,6 @@ INSERT INTO v1_compat.cor_boolean VALUES('non',false);
 
 
 
-
 -----------------------------------------------
 --------     TRANSFERER LES SOURCES     -------
 -----------------------------------------------
@@ -25,6 +24,12 @@ INSERT INTO v1_compat.cor_boolean VALUES('non',false);
 UPDATE gn_synthese.t_sources 
 SET id_source = (SELECT max(id_source)+1 FROM v1_compat.bib_sources) 
 WHERE name_source = 'Occtax';
+
+SELECT * FROM gn_synthese.t_sources;
+
+
+
+
 --on insert ensuite les sources de la V1
 INSERT INTO gn_synthese.t_sources (
 	id_source,
@@ -39,6 +44,8 @@ SELECT
   'historique.' || db_schema || '_' || db_table || '.' || db_field AS entity_source_pk_field
 FROM v1_compat.bib_sources
 ;
+
+SELECT * FROM gn_synthese.t_sources;
 
 SELECT setval('gn_synthese.t_sources_id_source_seq', (SELECT max(id_source)+1 FROM gn_synthese.t_sources), true);
 

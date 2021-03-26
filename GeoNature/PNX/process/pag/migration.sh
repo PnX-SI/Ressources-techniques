@@ -38,7 +38,6 @@ $psqla -f $BASE_DIR/$parc/data/open_fdw.sql \
     -v user_pg_v1=$user_pg_v1 \
     -v user_pg=$user_pg
 
-cp csv/synonyme_v1.csv /tmp/.
 echo "----------------------------------------------------------------------------" 
 echo "--------------------------- Creation de la synonymie -----------------------"
 $psqla -f $BASE_DIR/$parc/data/synonyme.sql
