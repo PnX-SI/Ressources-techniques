@@ -5,7 +5,7 @@ export BASE_DIR=$(readlink -e "${0%/*}")/..
 . $BASE_DIR/utils.sh
 init_config $parc
 
-sql_access_file=access/schema_access.sql
+sql_access_file=$BASE_DIR/$parc/access/schema_access.sql
 schema=access
 
 echo "DROP SCHEMA IF EXISTS ${schema} CASCADE;
@@ -40,7 +40,14 @@ do
         -e 's/BOOLEAN/VARCHAR/g' \
         -e 's/DECIMAL/VARCHAR/g' \
         -e 's/DATETIME/VARCHAR/g' \
+        -e 's/[éêè]/e/g' \
+        -e 's/°/o/g' \
         -e 's/-/_/g' \
+        -e 's/ /_/g' \
+        -e 's/_VARCHAR/ VARCHAR/g' \
+        -e 's/,_/,/g' \
+        -e 's/CREATE_TABLE_/CREATE_TABLE /g' \
+        -e 's/_(/(/g' \
         -e 's/+/_plus/g' >> ${sql_access_file};
 
     # on met toutes les commandes COPY dans sql_access_file
