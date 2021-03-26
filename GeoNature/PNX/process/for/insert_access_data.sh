@@ -35,7 +35,12 @@ do
     csvsql --no-constraints --tables ${schema}.${table} | \
 
     # correction BOOLEAN -> VARCHAR et DECIMAL -> VARCHAR pour les champs mal matchés
-    sed -e 's/"//g' -e 's/BOOLEAN/VARCHAR/g' -e 's/DECIMAL/VARCHAR/g' -e 's/-/_/g' >> ${sql_access_file};
+    sed \
+        -e 's/"//g' \
+        -e 's/BOOLEAN/VARCHAR/g' \
+        -e 's/DECIMAL/VARCHAR/g' \
+        -e 's/-/_/g' \
+        -e 's/+/_plus/g' >> ${sql_access_file};
 
     # on met toutes les commandes COPY dans sql_access_file
     echo "COPY ${schema}.${table} FROM '/tmp/${table}.csv' CSV HEADER;" >> ${sql_access_file};
