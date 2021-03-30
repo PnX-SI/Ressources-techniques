@@ -15,6 +15,13 @@ https://wiki.openoffice.org/wiki/Documentation/DevGuide/Spreadsheets/Filter_Opti
 
   libreoffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":44,34,76,1,1 --outdir /tmp/csv_out *.xlsx
 
+Convertion de csv vers ods
+
+.. code-block::
+
+  soffice --convert-to ods --infilter=CSV:44,34,76,1 ice_mc_chevreuils.csv
+
+
 CSVKIT
 ======
 https://csvkit.readthedocs.io
