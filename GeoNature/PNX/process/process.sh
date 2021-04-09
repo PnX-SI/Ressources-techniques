@@ -8,3 +8,7 @@ init_config $parc
 
 # install_db
 install_db_all $parc
+
+# migration
+
+# etc ...

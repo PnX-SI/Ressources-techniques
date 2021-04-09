@@ -59,7 +59,6 @@ function manage_git
 # installer la base de données (+ modules)
 function install_db_all
 {
-    set -x
     parc=$1
 
     # initialisation de la config pour le parc
@@ -83,10 +82,10 @@ function install_db_all
     geonature install_gn_module $GN_dir/contrib/gn_module_validation /validation --build=false
 
     # module qui ne sont pas dans le coeur
-    geonature install_gn_module $DEPOTS_DIR/gn_module_import /import --build=false
-    geonature install_gn_module $DEPOTS_DIR/gn_module_export /export --build=false
-    geonature install_gn_module $DEPOTS_DIR/gn_module_dashboard /dashboard --build=false
-    geonature install_gn_module $DEPOTS_DIR/gn_module_monitoring /monitoring --build=false
+    # geonature install_gn_module $DEPOTS_DIR/gn_module_import /import --build=false
+    # geonature install_gn_module $DEPOTS_DIR/gn_module_export /export --build=false
+    # geonature install_gn_module $DEPOTS_DIR/gn_module_dashboard /dashboard --build=false
+    # geonature install_gn_module $DEPOTS_DIR/gn_module_monitoring /monitoring --build=false
     
     # ref_geo
     [[ -f $BASE_DIR/$parc/process_ref_geo.sh ]] && $BASE_DIR/$parc/process_ref_geo.sh
