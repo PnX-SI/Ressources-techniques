@@ -8,8 +8,12 @@
  DELETE FROM pr_occtax.t_occurrences_occtax;
  DELETE FROM pr_occtax.t_releves_occtax;
 
+-- Synthese
+DELETE FROM gn_synthese.synthese;
+DELETE FROM gn_synthese.t_sources WHERE name_source != 'Occtax';
 
--- meta 
+
+-- meta
 
 DELETE FROM gn_commons.cor_module_dataset;
 DELETE FROM gn_meta.cor_dataset_actor;
@@ -29,8 +33,10 @@ DELETE FROM taxonomie.taxref
 
 
 -- user
-
+DELETE FROM utilisateurs.cor_role_liste WHERE id_role >100;
 DELETE FROM utilisateurs.t_roles WHERE id_role > 100;
 DELETE FROM gn_meta.cor_dataset_actor WHERE id_organism > 0;
 -- on garde autre (-1) et all (0) ???
 DELETE FROM utilisateurs.bib_organismes WHERE id_organisme > 0;
+
+

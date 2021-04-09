@@ -72,20 +72,21 @@ function install_db_all
 
     # si besoin installation app
     if [ ! -d $GN_dir/backend/venv ]; then
-        .install_app.sh
+        ./install_app.sh
+    else
+        source $GN_dir/backend/venv/bin/activate
+        geonature install_gn_module $GN_dir/contrib/occtax /occtax --build=false
+        geonature install_gn_module $GN_dir/contrib/gn_module_occhab /occhab --build=false
+        geonature install_gn_module $GN_dir/contrib/gn_module_validation /validation --build=false
     fi
-
     # installation modules
-    source $GN_dir/backend/venv/bin/activate
-    geonature install_gn_module $GN_dir/contrib/occtax /occtax --build=false
-    geonature install_gn_module $GN_dir/contrib/gn_module_occhab /occhab --build=false
-    geonature install_gn_module $GN_dir/contrib/gn_module_validation /validation --build=false
 
     # module qui ne sont pas dans le coeur
-    # geonature install_gn_module $DEPOTS_DIR/gn_module_import /import --build=false
-    # geonature install_gn_module $DEPOTS_DIR/gn_module_export /export --build=false
-    # geonature install_gn_module $DEPOTS_DIR/gn_module_dashboard /dashboard --build=false
-    # geonature install_gn_module $DEPOTS_DIR/gn_module_monitoring /monitoring --build=false
+
+    echo $DEPOTS | grep 'import' && geonature install_gn_module $DEPOTS_DIR/gn_module_import /import --build=false
+    echo $DEPOTS | grep 'export' && geonature install_gn_module $DEPOTS_DIR/gn_module_export /export --build=false
+    echo $DEPOTS | grep 'dashboard' && geonature install_gn_module $DEPOTS_DIR/gn_module_dashboard /dashboard --build=false
+    echo $DEPOTS | grep 'monitoring' && geonature install_gn_module $DEPOTS_DIR/gn_module_monitoring /monitoring --build=false
     
     # ref_geo
     [[ -f $BASE_DIR/$parc/process_ref_geo.sh ]] && $BASE_DIR/$parc/process_ref_geo.sh

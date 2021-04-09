@@ -1,8 +1,9 @@
+--IMPORT FOREIGN SCHEMA taxonomie FROM SERVER geonature1server INTO v1_compat;
 -- que faire des taxons
--- 41839;"Évêque bleu-noir ";"Cyanocompsa cyanoides"
+-- 441839;"Évêque bleu-noir ";"Cyanocompsa cyanoides"
 -- 765714;"";"Combretum laxum"
---
--- donnés par la commande
+
+-- donnés par la commande:
 --
 -- select DISTINCT t1.cd_nom FROM v1_compat.syntheseff s
 -- join v1_compat.taxref t1
@@ -10,7 +11,8 @@
 -- LEFT JOIN taxonomie.taxref t
 -- ON t.cd_nom =t1.cd_nom
 -- WHERE t.cd_nom IS NULL
--- ORDER BY cd_nom
+-- ORDER BY cd_nom;
+
 
 
 -- ajout des taxon exotiques  >= 99000000
@@ -38,7 +40,7 @@ INSERT INTO taxonomie.bib_noms(
 SELECT vn.id_nom, vn.cd_nom, vn.cd_ref, nom_francais, comments
         FROM v1_compat.bib_noms vn
 JOIN taxonomie.taxref t on t.cd_ref = vn.cd_ref and t.cd_nom = vn.cd_nom and t.cd_nom = t.cd_ref
-WHERE vn.cd_nom NOT in (41849, 765714)
+WHERE vn.cd_nom NOT in (441849, 765714)
 ;
 
 
