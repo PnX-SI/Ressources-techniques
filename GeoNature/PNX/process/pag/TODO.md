@@ -6,7 +6,7 @@ et qu'il faut bien les supprimer de l'insert de v1_compat.syntheseff vers gn_syn
 
 - [x] base avec le bon srid (pag/config/settings.ini)
 - [ ] données ref_geo
-  - [ ] commune, limites de parc
+  - [x] commune, limites de parc
   - [ ] mnt
 
 # Migration 
@@ -14,56 +14,62 @@ et qu'il faut bien les supprimer de l'insert de v1_compat.syntheseff vers gn_syn
 !!! gros problème avec bib_nom incomplet ?? -> occurences (sans cd_nom ????)
 
 - [x] user
+  - [x] Ajout de users nécessaire à l'intégration des données contactFaune
 
 - [ ] Taxonomie 
-  - [ ] bib_nom : clarifier le check_cdref et find_cd_ref(cd_nom) utilisé en find_cd_ref(cd_ref) 
-  - [ ] voir à passer en 14 avant prod
+  - [x] voir à passer en 14 avant prod ==> à l'installation
+  - [?] bib_nom : clarifier le check_cdref et find_cd_ref(cd_nom) utilisé en find_cd_ref(cd_ref)
+  - [?] bib_listes: nécessite "code_liste" unique ==> référence à quoi ? ==> solution temporaire: code_liste = id_liste
   - [x] taxons exotique
-  - [ ] taxons changés trouver le cd_nom qui va bien
-    - [ ] 441839;"Évêque bleu-noir ";"Cyanocompsa cyanoides" ==> Cyanocompsa cyanoides = cd_nom:828942, cd_ref: 828943 (alors que le cd_nom 41839 pointe vers une espèce européenne)
-    - [ ] 765714;"";"Combretum laxum" ==> nom_complet = "Combretum laxum Aubl." ==> cd_nom : 632627, cd_ref = 629395
-- [ ] metadonnées
+  - [x] taxons changés trouver le cd_nom qui va bien
+    - [x] 441839;"Évêque bleu-noir ";"Cyanocompsa cyanoides" ==> Cyanocompsa cyanoides = cd_nom:828942, cd_ref: 828943 (alors que le cd_nom 41839 pointe vers une espèce européenne)
+    - [x] 765714;"";"Combretum laxum" ==> nom_complet = "Combretum laxum Aubl." ==> cd_nom : 632627, cd_ref = 629395
 
-- [ ] gestion synonymes 
+- [x] metadonnées
+  - [x] Corriger/rassembler JDD dans cadres d'acquisition
+  - [x] Duplication des datasets pour les années de suivi IKA et STOC
+  - [x] Répercuter modifs dans t_sources
+  - [ ] Lien avec structures productrices!??
+
+- [ ] gestion synonymes -- ai pas réussi à 
   - [x] Ai regénéré la totalité de cor_synthese_v1_to_v2 ==> l'ensemble des autres questions soivent y être soldées, non?
   - [ ] fonction pour verifier la cohérence (pas de plante larve)??? 
-  - [ ] champ par defaut ==> ETAT_BIO = VIVANT
+  - [ ] champ par defaut ==> ETAT_BIO
+    - [x] sauf data synthèse sur pêche et chasse (rqt de MAJ)
   - [ ] types
     - [ ] TYP_GRP 'OBS' pour tous les lot ??==> historique selon cor_synthesev1_to_v2. Par défaut en saisie: OBS
     - [ ] METH_OBS ==> historique selon cor_synthesev1_to_v2. Par défaut en saisie: VU (0)
 
 - [ ] occtax 
-  - [ ] cf. Synthese car données manquantes dans occTax... (vérifier auteur pour vérifier si saisie PAG)
-  - [ ] données faune
-    - [ ] releve
-    - [ ] occurences
-    - [ ] counting
-    - [ ] user
-  - [ ] données flore
-    - [ ] releve
-    - [ ] occurences
-    - [ ] counting
-    - [ ] user
+  - [x] données faune
+    - [x] releve
+    - [x] occurences
+    - [x] counting
+    - [x] user
+  - [x] données flore
+    - [x] releve
+    - [x] occurences
+    - [x] counting
+    - [x] user
+  - [x] cf. Synthese car données manquantes dans occTax (données ex-ContactFaune)... 
+    - [x] releve
+    - [x] occurences
+    - [ ] counting ==> prise en charge de l'id_critere_synthese ? (vraiment du mal avec ce COALESCE(id_critere_synthese)...)
+    - [x] user
 
-- [ ] synthese
-  - [ ] ATTENTION! seule une partie des données contactfaune/contactflore sont uniquement dans la synthese qui en compte 1627 faune + 272 flore alors que les jeux de données contactFaune = 121 et contactFlore = 205.
-Peut-on les basculer vers occTax?
 
--------------Checkup données 26/03/2021
+- [x] synthese
+    - [ ] prise en charge de l'id_critere_synthese ==> il applique les mêmes id_nomenclatures à tous les enregistrements? (vraiment du mal avec ce COALESCE(id_critere_synthese)...)
+    - [x] MAJ des id_source et id_dataset des données annualisées IKA et STOC
+
+
+-------------Checkup données
 -[ ] Synthese
-    - [ ] Importer données Contact Vertébré puis Contact Flore puis ce qui n'est ni dans l'un ni dans l'autre... (==> identification de ces données dans la synthese????)
-	- [ ] SELECT * FROM gn_synthese.synthese WHERE id_source is null; ==> 507 données, en dataset 1 et 7. ==> problème à l'import ou à l'injection des données dans occTax ? car pas de données sans id_source dans GN19 
-    	- [ ] SELECT id_module, id_dataset, count(*) FROM gn_synthese.synthese GROUP BY id_module, id_dataset ORDER BY id_module, id_dataset; ==> 1874 données avec des cd_nom mais pas de nom_cité. ==> 
-    - [ ] SELECT * FROM gn_synthese.synthese WHERE cd_nom is null; ==> 105 données pr 57 taxons, toutes dans les jeux 1 et 7. Valeurs:
- 	- [ ] SELECT nom_cite, synthese.cd_nom synth_cd_nom, taxref.cd_nom taxref_cd_nom
- 		FROM gn_synthese.synthese LEFT JOIN taxonomie.taxref
- 		ON synthese.nom_cite = taxref.lb_nom
-		Where synthese.cd_nom is null
- 		ORDER BY taxref_cd_nom,nom_cite ;
- 	- [ ] Reste 3 taxons (avec faute de frappe car espace en fin de nom_cite): 
- 		'Dacnis bleu '=> cd_nom = 441849
- 		'Tangara des palmiers '=> cd_nom = 828962
-		'Tangara évêque ' => cd_nom = 886020
+    - [ ] SELECT * FROM gn_synthese.synthese WHERE id_source is null; ==> résolu 
+    - [ ] SELECT id_module, id_dataset, count(*) FROM gn_synthese.synthese GROUP BY id_module, id_dataset ORDER BY id_module, id_dataset; ==> résolu 
+    - [x] SELECT * FROM gn_synthese.synthese WHERE cd_nom is null; ==> ok
+    - [ ] --- USER ====> ???--- test des id_critere_synthese
+
 
 -[ ] Validation
 
@@ -73,3 +79,28 @@ Peut-on les basculer vers occTax?
 - [ ] schema
 - [ ] virer medias GN
 - [ ] test update
+
+
+---Check-up id_critere_synthese
+SELECT synthese.id_source, name_source, id_module, id_dataset, id_nomenclature_geo_object_nature, id_nomenclature_grp_typ, 
+	grp_method, id_nomenclature_obs_technique, id_nomenclature_bio_status, id_nomenclature_bio_condition, 
+	id_nomenclature_naturalness, id_nomenclature_exist_proof, id_nomenclature_valid_status, 
+	id_nomenclature_diffusion_level, id_nomenclature_life_stage, id_nomenclature_sex, id_nomenclature_obj_count, 
+	id_nomenclature_type_count, id_nomenclature_sensitivity, id_nomenclature_observation_status, 
+	id_nomenclature_blurring, id_nomenclature_source_status, id_nomenclature_info_geo_type, 
+	id_nomenclature_behaviour, id_nomenclature_biogeo_status 
+	FROM gn_synthese.synthese inner join gn_synthese.t_sources on synthese.id_source = t_sources.id_source
+	group by synthese.id_source, name_source, id_module, id_dataset, id_nomenclature_geo_object_nature, id_nomenclature_grp_typ, 
+	grp_method, id_nomenclature_obs_technique, id_nomenclature_bio_status, id_nomenclature_bio_condition, 
+	id_nomenclature_naturalness, id_nomenclature_exist_proof, id_nomenclature_valid_status, 
+	id_nomenclature_diffusion_level, id_nomenclature_life_stage, id_nomenclature_sex, id_nomenclature_obj_count, 
+	id_nomenclature_type_count, id_nomenclature_sensitivity, id_nomenclature_observation_status, 
+	id_nomenclature_blurring, id_nomenclature_source_status, id_nomenclature_info_geo_type, 
+	id_nomenclature_behaviour, id_nomenclature_biogeo_status
+	Order by id_source, id_dataset, id_nomenclature_geo_object_nature, id_nomenclature_grp_typ, 
+	grp_method, id_nomenclature_obs_technique, id_nomenclature_bio_status, id_nomenclature_bio_condition, 
+	id_nomenclature_naturalness, id_nomenclature_exist_proof, id_nomenclature_valid_status, 
+	id_nomenclature_diffusion_level, id_nomenclature_life_stage, id_nomenclature_sex, id_nomenclature_obj_count, 
+	id_nomenclature_type_count, id_nomenclature_sensitivity, id_nomenclature_observation_status, 
+	id_nomenclature_blurring, id_nomenclature_source_status, id_nomenclature_info_geo_type, 
+	id_nomenclature_behaviour, id_nomenclature_biogeo_status ;

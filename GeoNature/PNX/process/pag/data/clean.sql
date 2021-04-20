@@ -16,6 +16,9 @@ DELETE FROM gn_synthese.t_sources WHERE name_source != 'Occtax';
 -- meta
 
 DELETE FROM gn_commons.cor_module_dataset;
+DELETE FROM gn_meta.cor_acquisition_framework_voletsinp;
+DELETE FROM gn_meta.cor_acquisition_framework_objectif;
+DELETE FROM gn_meta. cor_acquisition_framework_actor;
 DELETE FROM gn_meta.cor_dataset_actor;
 DELETE FROM gn_meta.t_datasets;
 DELETE FROM gn_meta.t_acquisition_frameworks;
@@ -24,12 +27,10 @@ DELETE FROM gn_meta.sinp_datatype_protocols WHERE id_protocol > 0;
 
 -- taxonomie
 
-DELETE FROM taxonomie.cor_nom_liste;
-DELETE FROM taxonomie.bib_listes;
-DELETE FROM taxonomie.bib_noms;
-DELETE FROM taxonomie.taxref 
-	where cd_nom >= 99900000
-;
+DELETE FROM taxonomie.cor_nom_liste  ;
+DELETE FROM taxonomie.bib_listes ;
+DELETE FROM taxonomie.bib_noms ;
+DELETE FROM taxonomie.taxref WHERE cd_nom >= 99900000 ;
 
 
 -- user

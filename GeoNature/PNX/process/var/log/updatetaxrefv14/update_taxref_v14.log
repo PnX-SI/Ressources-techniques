@@ -1,0 +1,72 @@
+Import des données de taxref v14
+Archive:  /tmp/taxhub/TAXREF_v14_2020.zip
+  inflating: /tmp/taxhub/TAXREF_v14_2020/CDNOM_DISPARUS.xls  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/TAXREFv14.txt  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/TAXREF_CHANGES.txt  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/TAXREF_LIENS.txt  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/TAXVERNv14.txt  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/statuts_note.csv  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/habitats_note.csv  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/CDNOM_DISPARUS.csv  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/rangs_note.csv  
+Archive:  /tmp/taxhub/BDC-Statuts-v14.zip
+  inflating: /tmp/taxhub/BDC-Statuts-v14/BDC_STATUTS_14.csv  
+  inflating: /tmp/taxhub/BDC-Statuts-v14/BDC_STATUTS_TYPES_14.xlsx  
+  inflating: /tmp/taxhub/BDC-Statuts-v14/BDC_STATUTS_TYPES_14.csv  
+NOTICE:  l'extension « intarray » existe déjà, poursuite du traitement
+CREATE EXTENSION
+DROP TABLE
+SELECT 597094
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+BEGIN
+COPY 630298
+COPY 9088
+psql:scripts/0.1.2_import_taxrefv14.sql:14: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « pk_taxref_changes »
+DÉTAIL : La clé « (cd_nom, champ)=(941066, CD_NOM) » existe déjà.
+CONTEXTE : COPY taxref_changes, ligne 2
+psql:scripts/0.1.2_import_taxrefv14.sql:19: ERREUR:  la transaction est annulée, les commandes sont ignorées jusqu'à la fin du bloc
+de la transaction
+ROLLBACK
+COPY 6028
+psql:scripts/0.2.1_correction_cd_nom_disparus.sql:9: ERREUR:  la colonne « commentaire_disparition » de la relation « bib_noms » existe déjà
+psql:scripts/0.2.1_correction_cd_nom_disparus.sql:10: ERREUR:  la colonne « deleted » de la relation « bib_noms » existe déjà
+UPDATE 9730
+psql:scripts/0.2.1_correction_cd_nom_disparus.sql:15: ERREUR:  la contrainte « fk_bib_nom_taxref » de la relation « bib_noms » n'existe pas
+UPDATE 0
+INSERT 0 0
+UPDATE 0
+COPY 0
+psql:scripts/1.1_taxref_changes_detections.sql:8: NOTICE:  la schéma « tmp_taxref_changes » existe déjà, poursuite du traitement
+CREATE SCHEMA
+DROP TABLE
+SELECT 9730
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+UPDATE 9730
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 9730
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+COPY 1
+COPY 0

@@ -36,11 +36,18 @@ INSERT INTO gn_synthese.t_sources (
 )
 SELECT 
   id_source,
-  nom_source || ' (' || groupe || ') ', 
-  desc_source || ' (' || groupe || ') ', 
+  nom_source, 
+  desc_source, 
   'historique.' || db_schema || '_' || db_table || '.' || db_field AS entity_source_pk_field
 FROM v1_compat.bib_sources
 ;
+--SELECT 
+--  id_source,
+--  nom_source || ' (' || groupe || ') ', 
+--  desc_source || ' (' || groupe || ') ', 
+--  'historique.' || db_schema || '_' || db_table || '.' || db_field AS entity_source_pk_field
+--FROM v1_compat.bib_sources;
+
 
 
 SELECT setval('gn_synthese.t_sources_id_source_seq', (SELECT max(id_source)+1 FROM gn_synthese.t_sources), true);

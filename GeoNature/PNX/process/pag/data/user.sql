@@ -90,3 +90,14 @@ SELECT
     FROM utilisateurs.t_roles r
     WHERE id_role > 100    
 ;
+
+---- Ajout de qq utilisateurs utiles pour l'insertion des données
+INSERT INTO utilisateurs.t_roles values 
+	(false, 1000055, uuid_generate_v4(), 'omorillas', 'Morillas', 'Olivier', null, null, null, null, 3, 'Ajout pour historique Contact Faune', false, null,now(), now()),
+	(false, 1000056, uuid_generate_v4(), 'seda', 'Eda', 'Steven', null, null, null, null, 3, 'Ajout pour historique Contact Faune', false, null,now(), now()),
+	(false, 1000057, uuid_generate_v4(), 'ajenge', 'Jenge', 'August', null, null, null, null, 3, 'Ajout pour historique Contact Faune', false, null,now(), now()),
+	(false, 1000058, uuid_generate_v4(), 'fponsmoreau', 'Pons-Moreau', 'Fabien', null, null, null, null, 3, 'Ajout pour historique Contact Faune', false, null,now(), now()),
+	(false, 1000059, uuid_generate_v4(), 'dbagadi', 'Bagadi', 'Daniel', null, null, null, null, 3, 'Ajout pour historique Contact Faune', true, null,now(), now())
+;
+UPDATE utilisateurs.t_roles SET nom_role = 'Scellier' where nom_role = 'Mathoulin-Scellier';
+

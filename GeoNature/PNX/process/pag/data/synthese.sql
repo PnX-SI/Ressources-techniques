@@ -10,7 +10,8 @@ INSERT INTO v1_compat.cor_ref(cd_nom_old, cd_nom_new, libelle)
 VALUES (441839, 828942, 'Cyanocompsa cyanoides ==> Cyanocompsa cyanoides')
 ,(765714, 632627, 'Combretum laxum" ==> nom_complet = "Combretum laxum Aubl.');
 
--- synthese
+
+--------synthese
 INSERT INTO gn_synthese.synthese (
   unique_id_sinp, -- uuid,
   unique_id_sinp_grp, -- uuid,
@@ -64,7 +65,7 @@ INSERT INTO gn_synthese.synthese (
   last_action -- character(1)
  )
 WITH
-s AS (SELECT * FROM v1_compat.syntheseff WHERE supprime = false)
+s AS (SELECT * FROM v1_compat.syntheseff WHERE supprime = false AND id_source NOT IN (1, 7))      -- contact faune et flore deja présents par occtax ???
 SELECT
       uuid_generate_v4() as unique_id_sinp
     , uuid_generate_v4() as unique_id_sinp_grp
@@ -130,10 +131,7 @@ SELECT
     , NULL AS id_nomenclature_sensitivity
     , ref_nomenclatures.get_id_nomenclature('STATUT_OBS','Pr') AS id_nomenclature_observation_status
     , ref_nomenclatures.get_id_nomenclature('DEE_FLOU','NON') AS id_nomenclature_blurring
-    , COALESCE(
-        v1_compat.get_synonyme_id_nomenclature('STATUT_SOURCE', 'id_source', id_source), --n19,
-        ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE','NSP')
-    ) AS id_nomenclature_source_status
+    , 73 AS id_nomenclature_source_status -- Tout vient du terrain (sauf herbier, cf. correction plus bas)
     , COALESCE(
         v1_compat.get_synonyme_id_nomenclature('TYP_INF_GEO', 'id_precision', id_precision), --n23,
         ref_nomenclatures.get_id_nomenclature('TYP_INF_GEO','1')
@@ -165,11 +163,11 @@ SELECT
     , date_update AS meta_update_date
     , derniere_action AS last_action
 FROM s
-LEFT JOIN v1_compat.cor_ref on cor_ref.cd_nom_old = s.cd_nom
+	LEFT JOIN v1_compat.cor_ref on cor_ref.cd_nom_old = s.cd_nom
 WHERE 
     s.cd_nom != 99901669 
-    OR s.cd_nom != NULL
-    -- AND s.id_source NOT IN (1, 7) -- contact faune et flore deja présents par occtax ???
+    OR s.cd_nom != NULL;
+
 -- LEFT JOIN n3 ON s.id_precision = n3.pk_source
 -- LEFT JOIN n24 ON s.id_lot = n24.pk_source
 -- LEFT JOIN n14 ON s.id_critere_synthese = n14.pk_source
@@ -189,4 +187,12 @@ WHERE
 -- LEFT JOIN taxonomie.taxref t ON t.cd_nom = s.cd_nom;
 
 
+UPDATE gn_synthese.synthese
+	SET nom_cite = lb_nom
+	FROM taxonomie.taxref
+	WHERE nom_cite = 'aucun' and synthese.cd_nom = taxref.cd_nom;
+
 -- TODO user
+
+
+

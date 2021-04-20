@@ -66,27 +66,15 @@ DELETE from gn_meta.t_acquisition_frameworks WHERE id_acquisition_framework = 20
 
 -- Données ponctuelles ==> On réaffecte tous les datasets au cadre d'acquisition 1 : 
 UPDATE gn_meta.t_acquisition_frameworks
-	SET acquisition_framework_name = 'Agents PAG-Données ponctuelles', 
+	SET acquisition_framework_name = 'Agents PAG-Obs. opportunistes', 
 	    acquisition_framework_desc = 'Observations opportunistes réalisées hors cadre d''étude.'
 	WHERE id_acquisition_framework = 1;
 UPDATE gn_meta.t_datasets
-	SET dataset_name = '(GN1.9) Contact Vertébrés', 
-	    dataset_shortname = '(GN1.9) Contact Vertébrés', 
-	    dataset_desc = 'Observations de faune saisies sur l''outil GéoNature 1.9, entre 2017 et 2020 (pour archive)',
+	SET dataset_name = 'Données opportunistes historiques', 
+	    dataset_shortname = 'Données opportunistes historiques', 
+	    dataset_desc = 'Observations de faune et flore saisies sur les outils Contact Faune et GéoNature 1.9, entre 2014 et 2020 (pour archive)',
 	    id_acquisition_framework = 1
 	WHERE id_dataset = 1;
-UPDATE gn_meta.t_datasets
-	SET dataset_name = '(C.Faune) Faune', 
-	    dataset_shortname = '(C.Faune) Faune', 
-	    dataset_desc = 'Observations de faune saisies sur l''outil Contact Faune, entre 2014 et 2018 (pour archive)',
-	    id_acquisition_framework = 1
-	WHERE id_dataset = 6;
-UPDATE gn_meta.t_datasets
-	SET dataset_name = '(GN1.9) Contact Flore ', 
-	    dataset_shortname = '(GN1.9) Contact Flore', 
-	    dataset_desc = 'Observations de flore saisies sur l''outil GéoNature 1.9, entre 2017 et 2020 (pour archive)',
-	    id_acquisition_framework = 1
-	WHERE id_dataset = 7;
 
 -- Données partenariales ==> On réaffecte les datasets Faune-Guyane et Herbier au cadre d'acquisition 16 : 
 UPDATE gn_meta.t_acquisition_frameworks
@@ -213,14 +201,14 @@ UPDATE gn_meta.t_datasets
 	WHERE id_dataset in (25);
 
 -- tri des datasets non utilisés (ça sert à rien!)
-delete from gn_meta.cor_dataset_actor where id_dataset in (2,3,4,5);
-delete from gn_meta.t_datasets where id_dataset in (2,3,4,5);
+delete from gn_meta.cor_dataset_actor where id_dataset in (2,3,4,5,6,7);
+delete from gn_meta.t_datasets where id_dataset in (2,3,4,5,6,7);
 delete from gn_meta.t_acquisition_frameworks where id_acquisition_framework in (2,3,4,5,6,7,18);
-delete from gn_synthese.t_sources where id_source in (2,3,4,5);
+delete from gn_synthese.t_sources where id_source in (2,3,4,5,6,7);
 
 -- ajout des gn_commons.cor_module_dataset (saisie occtax)
 INSERT INTO gn_commons.cor_module_dataset (id_module, id_dataset) 
-	VALUES (4,1),(4,6),(4,7),(4,27);
+	VALUES (4,1),(4,27);
 
 
 ----------------------------------- Mise à jour des élements de synthese
@@ -238,17 +226,9 @@ UPDATE gn_synthese.t_sources
 	    desc_source = 'Banque de données de l''Herbier de Cayenne, avec échantillonnage.'  
 	WHERE t_sources.id_source = 35;-- Herbier
 UPDATE gn_synthese.t_sources
-	SET name_source = '(GN1.9) Contact Vertébrés', 
-	    desc_source = 'Observations de faune saisies sur l''outil GéoNature 1.9, entre 2017 et 2020 (pour archive)'
+	SET name_source = 'Données opportunistes historiques', 
+	    desc_source = 'Observations de faune et flore saisies sur les outils Contact Faune et GéoNature 1.9, entre 2014 et 2020 (pour archive)'
 	WHERE id_source = 1;-- Contact vertébrés GN1.9
-UPDATE gn_synthese.t_sources
-	SET name_source = '(GN1.9) Contact Flore ', 
-            desc_source = 'Observations de flore saisies sur l''outil GéoNature 1.9, entre 2017 et 2020 (pour archive)'
-	WHERE id_source = 7;--Contact Flore GN1.9
-UPDATE gn_synthese.t_sources
-	SET name_source = '(C.Faune) Faune', 
-            desc_source = 'Observations de faune saisies sur l''outil Contact Faune, entre 2014 et 2018 (pour archive)'
-	WHERE id_source = 6;--Contact Faune GN1.9
 UPDATE gn_synthese.t_sources
 	SET name_source = 'IKA 2008', 
             desc_source = 'Comptages IKA 2008'
@@ -270,6 +250,11 @@ UPDATE gn_synthese.t_sources
 	WHERE id_source in (1,6,7);
 
 ------- Corrections dans la synthese
+-- Mise à jour des id_sources quand les données sont des données historiques de Contact faune ou GN1.9
+UPDATE gn_synthese.synthese
+	SET id_source = id_dataset
+	WHERE id_dataset in (1,6,7);
+
 -- MAJ des bio_status des données des enquêtes chasse et pêche
 UPDATE gn_synthese.synthese
 	SET id_nomenclature_bio_condition = 154
@@ -296,4 +281,5 @@ UPDATE gn_synthese.synthese
 	    FROM gn_meta.t_datasets INNER JOIN gn_synthese.t_sources ON t_datasets.dataset_name = t_sources.name_source
 	    WHERE id_acquisition_framework = 12) as refs
 	WHERE synthese.id_source = 20 and 'STOC-EPS '||to_char(date_min, 'YYYY')= dataset_name;
+
 
