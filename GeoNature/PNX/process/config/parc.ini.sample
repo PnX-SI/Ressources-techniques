@@ -1,0 +1,29 @@
+# settings generaux
+##########################""
+
+# BDD
+db_name=xxx
+admin_pass=xxx
+srid_local=2154
+
+# LAYER DATA
+install_sig_layers=false
+install_default_dem=false
+vectorise_dem=false
+add_sample_data=false
+
+
+
+# ATLAS altitudes
+##########################
+altitudes=(0 250 500 750 1000 1250 1500)
+atlas_marin=1
+
+# pass method
+pass_method=md5
+
+# MAP
+map_center="[16.1977009479195,-61.5394194522855]"
+map_zoom_level=1
+
+# MOBILE

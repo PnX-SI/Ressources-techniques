@@ -44,6 +44,7 @@ CREATE VIEW export_oo.v_utilisateurs_t_roles AS
         email AS identifiant,
         email AS email,
         date_maj::timestamp AS date_insert,
+        mot_de_passe,
         (CAST(to_json(ca) AS JSONB)) AS champs_addi
     FROM md.personne p
     JOIN champs_addi ca ON ca.id_personne = p.id_personne

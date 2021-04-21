@@ -23,7 +23,7 @@ SELECT l.id_liste, n.id_nom
 
 -- MAJ de la vm
 
-DROP MATERIALIZED VIEW taxonomie.vm_taxref_list_forautocomplete;
+DROP MATERIALIZED VIEW IF EXISTS taxonomie.vm_taxref_list_forautocomplete;
 
 CREATE MATERIALIZED VIEW taxonomie.vm_taxref_list_forautocomplete AS 
  SELECT row_number() OVER () AS gid,

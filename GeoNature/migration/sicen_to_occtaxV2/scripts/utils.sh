@@ -277,8 +277,7 @@ function database_exists () {
     else
         # Grep DB name in the list of databases
         export PGPASSWORD=${user_pg_pass};\
-        psql -tAl -h ${db_host}  -p ${db_port} -U ${user_pg} -d postgres -tAl | grep  "${db_name}" \
-        &>> ${sql_log_file}
+        psql -tAl -h ${db_host}  -p ${db_port} -U ${user_pg} -d postgres -tAl | grep  "${db_name}|" \
         
         return $?
     fi

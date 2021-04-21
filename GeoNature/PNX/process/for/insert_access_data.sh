@@ -1,4 +1,3 @@
-set -x
 parc=$1
 
 export BASE_DIR=$(readlink -e "${0%/*}")/..
@@ -13,7 +12,7 @@ CREATE SCHEMA ${schema};" > ${sql_access_file}
 
 # Insertion des données access (nécessite csv kit)
 
-for file in access/*.xlsx
+for file in $BASE_DIR/$parc/access/*.xlsx
 do
     # on change les xlsx en csv
     echo $file
@@ -33,8 +32,6 @@ do
     # cat ${csv_out} | \
     head -n 20 ${csv_out} | \
     csvsql --no-constraints --tables ${schema}.${table} | \
-
-    # correction BOOLEAN -> VARCHAR et DECIMAL -> VARCHAR pour les champs mal matchés
     sed \
         -e 's/"//g' \
         -e 's/BOOLEAN/VARCHAR/g' \
@@ -45,10 +42,12 @@ do
         -e 's/-/_/g' \
         -e 's/ /_/g' \
         -e 's/_VARCHAR/ VARCHAR/g' \
-        -e 's/_DATE/ DATE/g' \
+        -e 's/_DATE,/ DATE,/g' \
         -e 's/,_/,/g' \
         -e 's/CREATE_TABLE_/CREATE TABLE /g' \
-        -e 's/_(/git(/g' \
+        -e 's/_(/ (/g' \
+        -e 's#/#_#g' \
+        -e 's/ANALYSE/ANALYSE_/g' \
         -e 's/+/_plus/g' >> ${sql_access_file};
 
     # on met toutes les commandes COPY dans sql_access_file
@@ -56,7 +55,7 @@ do
 done
 
 # copie des csv dans /tmp
-cp access/*.csv /tmp/.
+cp $BASE_DIR/$parc/access/*.csv /tmp/.
 
 # insertion des données acces en base 
 $psqla -f $sql_access_file

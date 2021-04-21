@@ -5,18 +5,24 @@ delete from gn_commons.t_medias m using export_oo.v_synthese s where m.uuid_atta
 ;           
 
 --
-delete from gn_synthese.cor_area_taxon;
+-- delete from gn_synthese.cor_area_taxon;
 
 -- synthese
-ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
+-- ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
 
 --DELETE FROM gn_monitoring.t_base_sites;
 
 DELETE FROM gn_synthese.synthese s
-    USING export_oo.v_synthese vs
-    WHERE vs.id_synthese = s.id_synthese;
+--    USING export_oo.v_synthese vs
+--    WHERE vs.id_synthese = s.id_synthese
+;
 
-ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
+DELETE FROM gn_synthese.cor_observer_synthese;
+
+DELETE FROM gn_synthese.cor_area_synthese;
+
+
+-- ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
 
 --validation
 DELETE FROM gn_commons.t_validations v

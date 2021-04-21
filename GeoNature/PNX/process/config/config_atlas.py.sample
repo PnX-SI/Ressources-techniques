@@ -1,0 +1,51 @@
+# -*- coding:utf-8 -*-
+
+# Connexion de l'application à la BDD
+# Remplacer user, monpassachanger, IPADRESSE (localhost si la BDD est sur le même serveur que l'application), 
+# eventuellement le port de la BDD et le nom de la BDD avec l'utilisateur qui a des droits de lecture sur les vues de l'atlas (user_pg dans settings.ini)
+database_connection = "postgresql://xxx:xxxx@xxx:xxx/xxx"
+
+#################################
+#################################
+### Customisation application ###
+#################################
+#################################
+
+# Nom de la structure
+STRUCTURE = "Parc national de la Guadeloupe"
+
+# Nom de l'application
+NOM_APPLICATION = "Atlas du parc national de la Guadeloupe"
+
+# URL de l'application depuis la racine du domaine
+# ex "/atlas" pour une URL: http://mon-domaine/atlas OU "" si l'application est accessible à la racine du domaine
+URL_APPLICATION = "/atlas"
+
+TEMPLATES_AUTO_RELOAD = True
+ATTR_MAIN_PHOTO = 458
+###########################
+###### Cartographie #######
+###########################
+
+
+
+# Configuration des cartes (centre du territoire, couches CARTE et ORTHO, échelle par défaut...)
+MAP = {
+    'LAT_LONG': [16.1977009479195,-61.5394194522855 ],
+    'ZOOM' : 10,
+    'FIRST_MAP': {
+            'url' : '//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+            'attribution' : '&copy OpenStreetMap',
+            'tileName' : 'OSM'
+    },
+    'SECOND_MAP' : {'url' :'//a.tile.opentopomap.org/{z}/{x}/{y}.png',
+            'attribution' : '&copy OpenStreetMap-contributors, SRTM | Style: &copy OpenTopoMap (CC-BY-SA)',
+            'tileName' : 'OTM'
+    },
+    # Pas du slider sur les annees d'observations: 1 = pas de 1 an sur le slider
+    'STEP': 1,
+    # Couleur et épaisseur des limites du territoire
+    'BORDERS_COLOR': '#000000',
+    'BORDERS_WEIGHT': 3,
+    'ENABLE_SLIDER': True
+}

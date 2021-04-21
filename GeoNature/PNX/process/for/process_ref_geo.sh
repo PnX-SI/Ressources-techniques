@@ -33,7 +33,16 @@ $psqla -c '
     DELETE FROM ref_geo.dem;
     DELETE FROM ref_geo.dem_vector;
 '
-raster2pgsql -s $srid_local -c -C -I -M -d -t 25x25 ref_geo/MNT_GIP.tif ref_geo.dem|$psqla > out
+
+dem_sql=$BASE_DIR/$parc/ref_geo/dem.sql
+if [ ! -f $dem_sql ]; then
+    echo process raster file
+    raster2pgsql -s $srid_local -c -C -I -M -d -t 25x25 $BASE_DIR/$parc/ref_geo/MNT_GIP.tif ref_geo.dem > $dem_sql
+fi
+
+$psqla -f $dem_sql > $BASE_DIR/$parc/var/log/mnt.log
+
+# raster2pgsql -s $srid_local -c -C -I -M -d -t 25x25 ref_geo/MNT_GIP.tifref_geo.dem |$psqla > out
 $psqla -c "INSERT INTO ref_geo.dem_vector (geom, val) SELECT (ST_DumpAsPolygons(rast)).* FROM ref_geo.dem;"
 $psqla -c "REINDEX INDEX ref_geo.index_dem_vector_geom;"
 

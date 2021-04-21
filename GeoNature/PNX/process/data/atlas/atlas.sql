@@ -362,40 +362,9 @@ CREATE MATERIALIZED VIEW atlas.vm_medias AS
     t_medias.licence,
     t_medias.source
    FROM taxonomie.t_medias
-   UNION select
-   m.id_media,
-   t.cd_ref,
-   m.title_fr as titre,
-   m.media_url as url,
-   m.media_path as chemin,
-   m.author as auteur,
-   m.description_fr as desc_media,
-   m.meta_create_date as date_media,
-   m.id_nomenclature_media_type as id_type,
-   '' as licence,
-   'synthese' as source
-   FROM gn_commons.t_medias m
-   JOIN atlas.syntheseff s ON m.uuid_attached_row = s.unique_id_sinp
-   JOIN taxonomie.taxref t ON t.cd_nom = s.cd_nom
-   WHERE TRUE
 ;
 
--- CREATE MATERIALIZED VIEW atlas.vm_medias AS
---  SELECT t_medias.id_media,
---     t_medias.cd_ref,
---     t_medias.titre,
---     t_medias.url,
---     t_medias.chemin,
---     t_medias.auteur,
---     t_medias.desc_media,
---     t_medias.date_media,
---     t_medias.id_type,
---     t_medias.licence,
---     t_medias.source
---    FROM taxonomie.t_medias;
-
-
--- CREATE UNIQUE INDEX ON atlas.vm_medias (id_media);
+CREATE UNIQUE INDEX ON atlas.vm_medias (id_media);
 
 
 -- Attributs de chaque taxon (description, commentaire, milieu et chorologie)
@@ -411,22 +380,28 @@ CREATE UNIQUE INDEX ON atlas.vm_cor_taxon_attribut (cd_ref,id_attribut);
 -- 12 taxons les plus observés sur la période en cours (par défaut -15 jours +15 jours toutes années confondues)
 
 CREATE MATERIALIZED VIEW atlas.vm_taxons_plus_observes AS
-SELECT count(*) AS nb_obs,
-  obs.cd_ref,
-  tax.lb_nom,
-  tax.group2_inpn,
-  tax.nom_vern,
-  m.id_media,
-  m.url,
-  m.chemin,
-  m.id_type
- FROM atlas.vm_observations obs
-   JOIN atlas.vm_taxons tax ON tax.cd_ref = obs.cd_ref
-   LEFT JOIN atlas.vm_medias m ON m.cd_ref = obs.cd_ref AND m.id_type = 1
-WHERE date_part('day'::text, obs.dateobs) >= date_part('day'::text, 'now'::text::date - 15) AND date_part('month'::text, obs.dateobs) = date_part('month'::text, 'now'::text::date - 15) OR date_part('day'::text, obs.dateobs) <= date_part('day'::text, 'now'::text::date + 15) AND date_part('month'::text, obs.dateobs) = date_part('day'::text, 'now'::text::date + 15)
-GROUP BY obs.cd_ref, tax.lb_nom, tax.nom_vern, m.url, m.chemin, tax.group2_inpn, m.id_type, m.id_media
-ORDER BY (count(*)) DESC
-LIMIT 12;
+WITH medias AS (
+	SELECT DISTINCT ON (cd_ref) cd_ref, id_media, url, chemin,id_type
+	FROM taxonomie.t_medias
+)
+  SELECT count(*) AS nb_obs,
+    obs.cd_ref,
+    tax.lb_nom,
+    tax.group2_inpn,
+    tax.nom_vern,
+    m.id_media,
+    m.url,
+    m.chemin,
+    m.id_type
+  FROM atlas.vm_observations obs
+    JOIN atlas.vm_taxons tax ON tax.cd_ref = obs.cd_ref
+    LEFT JOIN medias m ON m.cd_ref = obs.cd_ref
+  WHERE date_part('day'::text, obs.dateobs) >= date_part('day'::text, 'now'::text::date - 15) AND date_part('month'::text, obs.dateobs) = date_part('month'::text, 'now'::text::date - 15) OR date_part('day'::text, obs.dateobs) <= date_part('day'::text, 'now'::text::date + 15) AND date_part('month'::text, obs.dateobs) = date_part('day'::text, 'now'::text::date + 15)
+  GROUP BY obs.cd_ref, tax.lb_nom, tax.nom_vern, m.url, m.chemin, tax.group2_inpn, m.id_type, m.id_media
+  ORDER BY (count(*)) DESC
+  LIMIT 12;
+
+
 -- DROP INDEX atlas.vm_taxons_plus_observes_cd_ref_idx;
 
 CREATE UNIQUE INDEX vm_taxons_plus_observes_cd_ref_idx
@@ -507,3 +482,5 @@ BEGIN
 
 END
 $$ LANGUAGE plpgsql;
+
+

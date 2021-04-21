@@ -5,4 +5,5 @@ init_config $parc
 
 $BASE_DIR/$parc/insert_access_data.sh $parc
 
-# USERS
+# USERS 
+$psqla -f "$BASE_DIR/$parc/data/01_insert_utilisateurs.sql"

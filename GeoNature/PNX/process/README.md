@@ -9,7 +9,7 @@ Créer le fichier
 - config.ini
 
 ```
-GN_dir=~/info/app_gn/GeoNature/
+geonature_DIR=~/info/app_gn/GeoNature/
 ATLAS_dir=~/info/app_gn/GeoNature-atlas/ 
 ```
 

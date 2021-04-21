@@ -43,9 +43,9 @@ sed -i "s/database_connection = .*$/database_connection = \"postgresql:\/\/$user
 
 
 if [ -z ${remote} ]; then
-cp ${parc}/config/settings.ini $GN_dir/config/settings.ini
-cp ${parc}/config/geonature_config.toml $GN_dir/config/geonature_config.toml
-cp ${parc}/config/settings.ini $GN_dir/config/settings.ini
+cp ${parc}/config/settings.ini $geonature_DIR/config/settings.ini
+cp ${parc}/config/geonature_config.toml $geonature_DIR/config/geonature_config.toml
+cp ${parc}/config/settings.ini $geonature_DIR/config/settings.ini
 cp ${parc}/config/settings_atlas.ini ${ATLAS_dir}/atlas/configuration/settings.ini
 cp ${parc}/config/config_atlas.py ${ATLAS_dir}/atlas/configuration/config.py
 else

@@ -15,8 +15,16 @@ get geonature/config/geonature_config.toml -o remote_config/${parc}/geonature_co
 get atlas/atlas/configuration/settings.ini -o remote_config/${parc}/settings_atlas.ini;
 get atlas/atlas/configuration/config.py -o remote_config/${parc}/config_atlas.py;
 
+get usershub/config/settings.ini -o remote_config/${parc}/settings_usershub.ini;
+get usershub/config/config.py -o remote_config/${parc}/config_usershub.py;
+
+get taxhub/settings.ini -o remote_config/${parc}/settings_taxhub.ini;
+get taxhub/config.py -o remote_config/${parc}/config_taxhub.py;
+
+
 get /geonature/backend/static/mobile/occtax/settings.json -o remote_config/${parc}/settings_occtax.json;
 get /geonature/backend/static/mobile/sync/settings.json -o remote_config/${parc}/settings_sync.json;
+
 
 bye
 "

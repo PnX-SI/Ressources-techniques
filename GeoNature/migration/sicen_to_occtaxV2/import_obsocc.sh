@@ -5,7 +5,6 @@
 #
 # Documentation : https://github.com/joelclems/install_gn
 set -o pipefail
-
 # DESC: Usage help
 # ARGS: None
 # OUTS: None

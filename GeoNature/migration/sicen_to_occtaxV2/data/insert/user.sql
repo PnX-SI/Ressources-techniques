@@ -65,7 +65,7 @@ INSERT INTO utilisateurs.t_roles(
         vr.date_insert,
         vr.champs_addi,
         vo.id_organisme,
-        vo.mot_de_passe
+        vr.mot_de_passe,
         FALSE
 
     FROM export_oo.v_utilisateurs_t_roles vr

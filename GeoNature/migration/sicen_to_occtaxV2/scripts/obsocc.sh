@@ -71,8 +71,7 @@ function import_bd_gn() {
 # DESC: Restore bdd obsocc
 # ARGS: base_path: path to obsocc dump file
 # OUTS: None
-function import_bd_obsocc() {
-
+function import_bd_obsocc() {   
     rm -f ${restore_oo_log_file}
 
     oo_dump_file=$1
@@ -120,9 +119,10 @@ function import_bd_obsocc() {
 
     # retore dump into ${db_oo_name}
     log RESTORE "Restauration depuis le fichier ${oo_dump_file} (patienter)"
+    # pg_restore  -h ${db_host} -p ${db_port} --role=${user_pg} --no-owner --no-acl -U ${user_pg} \
     export PGPASSWORD=${user_pg_pass}; \
-        pg_restore  -h ${db_host} -p ${db_port} --role=${user_pg} --no-owner --no-acl -U ${user_pg} \
-        -d ${db_oo_name} ${oo_dump_file} \
+        cat ${oo_dump_file} | psql -h ${db_host} -U ${user_pg} -p ${db_port} \
+        -d ${db_oo_name}  \
         &>> ${restore_oo_log_file}
 
     # Affichage des erreurs (ou test sur l'extence des schemas???
@@ -280,7 +280,7 @@ function patch_media() {
 
 
     res_media_oo=$(psql -tA -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-            -c "SELECT TRANSLATE(url_photo,  'çéèî -(),''', 'ceei______') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
+            -c "SELECT TRANSLATE(url_photo,  'çéèîâ -(),''', 'ceeia______') FROM export_oo.saisie_observation WHERE url_photo IS NOT NULL"
             &>> ${sql_log_file})
 
 
@@ -318,9 +318,9 @@ function insert_data() {
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/occurrence.sql "Occurrences (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/counting.sql "Dénombrement (patienter)"
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/synthese.sql "Synthese (patienter)" 
-    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/sensitivity.sql "Sensibilité" 
-    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/validation.sql "Validation (patienter)" 
-    exec_sql_file ${db_gn_name} ${root_dir}/data/insert/cor_synthese.sql "Cor - Synthese (patienter)" 
+    ## exec_sql_file ${db_gn_name} ${root_dir}/data/insert/sensitivity.sql "Sensibilité" 
+    # exec_sql_file ${db_gn_name} ${root_dir}/data/insert/validation.sql "Validation (patienter)" 
+    ## exec_sql_file ${db_gn_name} ${root_dir}/data/insert/cor_synthese.sql "Cor - Synthese (patienter)" 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/after_insert.sql "After - insert" 
     exec_sql_file ${db_gn_name} ${root_dir}/data/insert/taxlist.sql "Update VM taxons Occtax" 
 
@@ -359,12 +359,6 @@ if [ ! -n "${media_dir}" ]; then
 fi
 
 
-# patch create media
-
-mkdir -p ${media_in_dir}
-rm -rf ${media_in_dir}
-cp -rf ${media_dir} ${media_in_dir}
-
 # clean_media_file_name
 
 rm -rf ${media_out_dir}
@@ -378,11 +372,11 @@ exec_sql_file ${db_gn_name} ${root_dir}/data/insert/media.sql "Ajout des Medias 
 # SQL + AWK + BASH (TODO SQL + BASH ??)
 
 res_media_copy=$(psql -tA -R";" -h ${db_host}  -p ${db_port} -U ${user_pg} -d ${db_gn_name} \
-        -c "SELECT TRANSLATE(url_photo,  'çéèî -(),''', 'ceei______'), media_path FROM gn_commons.t_medias WHERE url_photo IS NOT NULL"
+        -c "SELECT TRANSLATE(url_photo,  'çéèîâ -(),''', 'ceeia______'), media_path FROM gn_commons.t_medias WHERE url_photo IS NOT NULL"
         &>> ${sql_log_file})
 echo ${res_media_copy} | sed -e "s/;/\n/g" -e "s/|/ /g" \
     | awk '{
-        printf("mkdir -p $(dirname %s/%s)\n cp %s/%s %s/%s\n", "'${media_out_dir}'", $2, "'${media_in_dir}'", $1, "'${media_out_dir}'", $2)}' \
+        printf("mkdir -p $(dirname %s/%s)\n cp %s/%s %s/%s\n", "'${media_out_dir}'", $2, "'${media_dir}'", $1, "'${media_out_dir}'", $2)}' \
  | bash
 
 }

@@ -12,7 +12,8 @@ WITH data_validation AS (
 		statut_validation IS NULL as validation_auto,
 		co.unique_id_sinp_occtax AS uuid_attached_row
 
-	FROM export_oo.v_counting_occtax co
+	-- FROM export_oo.v_counting_occtax co
+    FROM export_oo.v_counting_occtax co
 	JOIN export_oo.v_saisie_observation_cd_nom_valid s
 		ON s.id_obs = co.id_obs
         LEFT JOIN utilisateurs.t_roles r
@@ -143,11 +144,14 @@ SELECT
 
 
     FROM export_oo.v_saisie_observation_cd_nom_valid s
-    JOIN export_oo.v_counting_occtax c
+    -- JOIN export_oo.v_counting_occtax c
+    JOIN pr_occtax.cor_counting_occtax c
         ON s.unique_id_sinp_occtax = c.unique_id_sinp_occtax 
-    JOIN export_oo.v_occurrences_occtax o
+    -- JOIN export_oo.v_occurrences_occtax o
+    JOIN pr_occtax.t_occurrences_occtax o
         ON o.id_occurrence_occtax = c.id_occurrence_occtax
-    JOIN export_oo.v_releves_occtax r
+    -- JOIN export_oo.v_releves_occtax r
+    JOIN pr_occtax.t_releves_occtax r
         ON r.id_releve_occtax = o.id_releve_occtax
     JOIN gn_synthese.t_sources source 
 	    ON name_source ILIKE 'occtax'

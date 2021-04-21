@@ -8,15 +8,20 @@ BASE_DIR=$(readlink -e "${0%/*}")
 # init_config
 init_config $parc
 
+mkdir -p $BASE_DIR/$parc/var/log
+
 # install_db
 install_db_all $parc
 
 [[ -f $BASE_DIR/$parc/migration.sh ]] && $BASE_DIR/$parc/migration.sh $parc
 
-# Atlas
 
-# dump
+# ATLAS
+# medias_taxref gua
 
+up_schema_atlas gua
+
+set_admin_pass gua
 
 # $pgdumpa > ${parc}.dump
 
