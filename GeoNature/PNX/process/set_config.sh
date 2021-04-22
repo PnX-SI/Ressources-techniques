@@ -1,6 +1,6 @@
 parc=$1
 . config.ini
-. ${parc}/config/settings_atlas.ini
+#. ${parc}/config/settings_atlas.ini
 . ${parc}/config/settings.ini
 export cur=$(pwd)
 export PGPASSWORD=${user_pg_pass}

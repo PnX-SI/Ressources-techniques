@@ -94,3 +94,4 @@ SELECT id_dataset, o.id_organisme, ref_nomenclatures.get_id_nomenclature('ROLE_A
   JOIN utilisateurs.bib_organismes o 
     ON o.nom_organisme = 'Parc amazonien de Guyane'
 ;
+
