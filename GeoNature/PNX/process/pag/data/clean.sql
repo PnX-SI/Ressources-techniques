@@ -27,10 +27,17 @@ DELETE FROM gn_meta.sinp_datatype_protocols WHERE id_protocol > 0;
 
 -- taxonomie
 
+<<<<<<< HEAD
 DELETE FROM taxonomie.cor_nom_liste;
 --DELETE FROM taxonomie.bib_listes;
 DELETE FROM taxonomie.bib_noms where cd_nom >= 99900000;
 DELETE FROM taxonomie.taxref where cd_nom >= 99900000 ;
+=======
+DELETE FROM taxonomie.cor_nom_liste  ;
+DELETE FROM taxonomie.bib_listes ;
+DELETE FROM taxonomie.bib_noms ;
+DELETE FROM taxonomie.taxref WHERE cd_nom >= 99900000 ;
+>>>>>>> 83aeb523c0e9217697130a0682110cdd34bda999
 
 
 -- user

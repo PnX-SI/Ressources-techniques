@@ -47,9 +47,9 @@ WHERE vn.cd_nom NOT in (441849, 765714)
 -- liste nom
 
 INSERT INTO taxonomie.bib_listes(
-            id_liste, nom_liste, desc_liste, picto, regne, group2_inpn)
+            id_liste, nom_liste, code_liste, desc_liste, picto, regne, group2_inpn)
 SELECT 
-            id_liste, nom_liste, desc_liste, picto, regne, group2_inpn
+            id_liste, nom_liste, id_liste, desc_liste, picto, regne, group2_inpn
         FROM v1_compat.bib_listes
 ;
 

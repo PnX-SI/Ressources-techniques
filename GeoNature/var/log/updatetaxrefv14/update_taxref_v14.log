@@ -1,0 +1,24 @@
+Import des données de taxref v14
+Archive:  /tmp/taxhub/TAXREF_v14_2020.zip
+  inflating: /tmp/taxhub/TAXREF_v14_2020/CDNOM_DISPARUS.xls  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/TAXREFv14.txt  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/TAXREF_CHANGES.txt  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/TAXREF_LIENS.txt  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/TAXVERNv14.txt  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/statuts_note.csv  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/habitats_note.csv  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/CDNOM_DISPARUS.csv  
+  inflating: /tmp/taxhub/TAXREF_v14_2020/rangs_note.csv  
+Archive:  /tmp/taxhub/BDC-Statuts-v14.zip
+  inflating: /tmp/taxhub/BDC-Statuts-v14/BDC_STATUTS_14.csv  
+  inflating: /tmp/taxhub/BDC-Statuts-v14/BDC_STATUTS_TYPES_14.xlsx  
+  inflating: /tmp/taxhub/BDC-Statuts-v14/BDC_STATUTS_TYPES_14.csv  
+psql: erreur : FATAL:  authentification peer échouée pour l'utilisateur « CREATE EXTENSION IF NOT EXISTS intarray; »
+psql: erreur : n'a pas pu traduire le nom d'hôte « -U » en adresse : Nom ou service inconnu
+psql: erreur : FATAL:  authentification peer échouée pour l'utilisateur « scripts/0.1.2_import_taxrefv14.sql »
+psql: erreur : FATAL:  authentification peer échouée pour l'utilisateur « scripts/0.1.3_cd_nom_disparu_synthese_export.sql »
+psql: erreur : n'a pas pu traduire le nom d'hôte « -U » en adresse : Nom ou service inconnu
+psql: erreur : FATAL:  authentification peer échouée pour l'utilisateur « scripts/0.2.2_correction_cd_nom_disparus.sql »
+psql: erreur : n'a pas pu traduire le nom d'hôte « -U » en adresse : Nom ou service inconnu
+psql: erreur : n'a pas pu traduire le nom d'hôte « -U » en adresse : Nom ou service inconnu
+psql: erreur : FATAL:  authentification peer échouée pour l'utilisateur « scripts/1.3_taxref_changes_detections_export.sql »

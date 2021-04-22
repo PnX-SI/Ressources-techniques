@@ -1,0 +1,31 @@
+psql: erreur : ../../generic_drop_and_restore_deps_views.sql : Aucun fichier ou dossier de ce type
+UPDATE 9730
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 9730
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+UPDATE 0
+psql:scripts/2.0_detect_data_with_missing_cd_nom.sql:7: NOTICE:  la fonction public.deps_test_fk_dependencies_cd_nom() n'existe pas, poursuite du traitement
+DROP FUNCTION
+CREATE FUNCTION
+psql:scripts/2.0_detect_data_with_missing_cd_nom.sql:50: NOTICE:  la table « dps_fk_cd_nom » n'existe pas, poursuite du traitement
+ deps_test_fk_dependencies_cd_nom 
+----------------------------------
+ 
+(1 ligne)
+
+sudo: il est nécessaire de saisir un mot de passe

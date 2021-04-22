@@ -6,7 +6,7 @@ et qu'il faut bien les supprimer de l'insert de v1_compat.syntheseff vers gn_syn
 
 - [x] base avec le bon srid (pag/config/settings.ini)
 - [ ] données ref_geo
-  - [ ] commune, limites de parc
+  - [x] commune, limites de parc
   - [ ] mnt
 
 # Migration 
@@ -17,8 +17,9 @@ et qu'il faut bien les supprimer de l'insert de v1_compat.syntheseff vers gn_syn
   - [x] Ajout de users nécessaire à l'intégration des données contactFaune
 
 - [ ] Taxonomie 
-  - [ ] bib_nom : clarifier le check_cdref et find_cd_ref(cd_nom) utilisé en find_cd_ref(cd_ref) 
-  - [ ] voir à passer en 14 avant prod
+  - [x] voir à passer en 14 avant prod ==> à l'installation
+  - [?] bib_nom : clarifier le check_cdref et find_cd_ref(cd_nom) utilisé en find_cd_ref(cd_ref)
+  - [?] bib_listes: nécessite "code_liste" unique ==> référence à quoi ? ==> solution temporaire: code_liste = id_liste
   - [x] taxons exotique
   - [x] taxons changés trouver le cd_nom qui va bien
     - [x] 441839;"Évêque bleu-noir ";"Cyanocompsa cyanoides" ==> Cyanocompsa cyanoides = cd_nom:828942, cd_ref: 828943 (alors que le cd_nom 41839 pointe vers une espèce européenne)

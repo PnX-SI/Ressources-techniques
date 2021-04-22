@@ -80,12 +80,13 @@ INSERT INTO pr_occtax.t_releves_occtax(
             meta_device_entry, 
             geom_local, 
             geom_4326, 
-            "precision"
+            "precision",
+	    comment
         )
 SELECT 
     id_cflore AS id_releve_occtax,
     uuid_generate_v4() AS unique_id_sinp_grp,
-    id_lot AS id_dataset,
+    1 AS id_dataset,
     ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS','133') AS id_nomenclature_tech_collect_campanule,
     ref_nomenclatures.get_id_nomenclature('TYP_GRP','NSP') ,
     dateobs AS date_min,
@@ -95,7 +96,8 @@ SELECT
     saisie_initiale AS meta_device_entry, 
     ST_TRANSFORM(the_geom_local, 2972) AS geom_local,
     ST_TRANSFORM(the_geom_local, 4326) AS geom_4326,
-    50 AS precision
+    50 AS precision,
+    'Données saisies dans Contact Flore de GeoNature 1.9'
 FROM v1_compat.vm_t_fiches_cflore cf
 WHERE id_cflore not in (select id_cflore from v1_compat.vm_cor_role_fiche_flore where id_role = 1)
 ;
@@ -236,6 +238,25 @@ WHERE id_releve_cflore in (select id_occurrence_occtax from pr_occtax.t_occurren
 ;
 
 
+<<<<<<< HEAD
+=======
+INSERT INTO pr_occtax.cor_role_releves_occtax
+SELECT 
+uuid_generate_v4() AS unique_id_cor_role_releve,
+id_cflore AS id_releve_occtax,
+id_role AS id_role
+FROM v1_compat.vm_cor_role_fiche_flore
+WHERE id_role <> 1;
+
+-- MAJ des observateurs dans le champ observers_txt
+UPDATE pr_occtax.t_releves_occtax
+SET observers_txt = observateurs
+FROM (SELECT id_releve_occtax, String_AGG(prenom_role ||' ' || nom_role, ', ') as observateurs
+	FROM pr_occtax.cor_role_releves_occtax inner join utilisateurs.t_roles 
+		ON cor_role_releves_occtax.id_role = t_roles.id_role
+	GROUP BY id_releve_occtax) As ssrqt
+WHERE t_releves_occtax.id_releve_occtax = ssrqt.id_releve_occtax;
+>>>>>>> 83aeb523c0e9217697130a0682110cdd34bda999
 
 --- remplissage des cd_noms vides si nom latin
 UPDATE pr_occtax.t_occurrences_occtax
