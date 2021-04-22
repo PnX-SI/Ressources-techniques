@@ -11,7 +11,7 @@ et qu'il faut bien les supprimer de l'insert de v1_compat.syntheseff vers gn_syn
 
 # Migration 
 
-!!! gros problème avec bib_nom incomplet ?? -> occurences (sans cd_nom ????)
+- [x] !!! gros problème avec bib_nom incomplet ?? -> occurences sans cd_nom ==> résolu dans les scripts d'import
 
 - [x] user
   - [x] Ajout de users nécessaire à l'intégration des données contactFaune
