@@ -13,13 +13,10 @@ CREATE TABLE gn_imports.gn_imports_log (
 -- Function: gn_imports.import_static_source(character varying, integer, integer)
 
 -- DROP FUNCTION gn_imports.import_static_source(character varying, integer, integer);
-
-CREATE OR REPLACE FUNCTION gn_imports.import_static_source(
-    tablename character varying,
-    idsource integer,
-    iddataset integer)
-  RETURNS boolean AS
-$BODY$
+CREATE OR REPLACE FUNCTION gn_imports.import_static_source(tablename character varying, idsource integer, iddataset integer)
+ RETURNS boolean
+ LANGUAGE plpgsql
+AS $function$
   DECLARE
     insert_cmd text;
     insert_columns text;
@@ -81,9 +78,6 @@ $BODY$
     ON i.column_name = s.column_name;
     
 
-    ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
-    ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_insert_cor_area_synthese;
-    ALTER TABLE gn_synthese.synthese DISABLE TRIGGER tri_update_cor_area_taxon_update_cd_nom;
     
     RAISE NOTICE 'Import data : %', clock_timestamp();
     DROP TABLE IF EXISTS tmp_process_import;
@@ -123,24 +117,6 @@ $BODY$
         FROM updated_rows'
     ;
     
-    RAISE NOTICE 'Update cor_area_synthese : %', clock_timestamp();
-    
-    DELETE FROM gn_synthese.cor_area_synthese
-    WHERE id_synthese IN (SELECT id_synthese FROM tmp_process_import);
-    
-    WITH not_in_corarea AS (
-        SELECT s.id_synthese, s.the_geom_local 
-        FROM gn_synthese.synthese  s
-        JOIN tmp_process_import c
-        ON c.id_synthese = s.id_synthese
-        WHERE c.action IN ('I', 'U')
-    )
-    INSERT INTO gn_synthese.cor_area_synthese
-    SELECT DISTINCT id_synthese, id_area
-    FROM  not_in_corarea s
-    JOIN ref_geo.l_areas l
-    ON st_intersects(s.the_geom_local, l.geom);
-
     --Test si ids_observateur est spécifié
     IF (
         SELECT true
@@ -154,9 +130,10 @@ $BODY$
         ALTER TABLE gn_synthese.cor_observer_synthese DISABLE TRIGGER trg_maj_synthese_observers_txt;
         
         RAISE NOTICE '	Clean observateurs : %', clock_timestamp();
+       
         DELETE FROM gn_synthese.cor_observer_synthese
         USING tmp_process_import 
-	WHERE cor_observer_synthese.id_synthese = tmp_process_import.id_synthese ;
+		WHERE cor_observer_synthese.id_synthese = tmp_process_import.id_synthese ;
         
         RAISE NOTICE '	INSERT observateurs : %', clock_timestamp();
         EXECUTE FORMAT (
@@ -177,11 +154,8 @@ $BODY$
           );
           
         ALTER TABLE gn_synthese.cor_observer_synthese ENABLE TRIGGER trg_maj_synthese_observers_txt;
+        
     END IF;
-
-    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
-    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_insert_cor_area_synthese;
-    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_update_cor_area_taxon_update_cd_nom;
 
     INSERT INTO gn_imports.gn_imports_log (
     table_name, success, error_msg, start_time, end_time, nb_insert, nb_update, nb_delete
@@ -195,16 +169,12 @@ $BODY$
     
     RAISE NOTICE 'END : %', clock_timestamp();
     RETURN true;
-    
 EXCEPTION
    WHEN OTHERS THEN
     RAISE NOTICE 'Error during import process .... ';
     GET STACKED DIAGNOSTICS v_error_stack = PG_EXCEPTION_CONTEXT;
     RAISE WARNING 'The stack trace of the error is: "%"', v_error_stack;
     
-    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_del_area_synt_maj_corarea_tax;
-    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_insert_cor_area_synthese;
-    ALTER TABLE gn_synthese.synthese ENABLE TRIGGER tri_update_cor_area_taxon_update_cd_nom;
     
     ALTER TABLE gn_synthese.cor_observer_synthese ENABLE TRIGGER trg_maj_synthese_observers_txt;
     
@@ -213,9 +183,8 @@ EXCEPTION
     
     RETURN false;
   END;
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
+$function$
+;
 
 
 CREATE OR REPLACE FUNCTION gn_imports.delete_static_source(
