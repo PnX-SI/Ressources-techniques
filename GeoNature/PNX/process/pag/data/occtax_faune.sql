@@ -624,9 +624,22 @@ SELECT
 	WHERE id_source = 1 and id_fiche_source is null and cd_nom = 441839 
 	ORDER BY id_synthese;
 
+---- 3: les observateurs:
 
-----3 :  les denombrements
->>>>>>> 83aeb523c0e9217697130a0682110cdd34bda999
+INSERT INTO pr_occtax.cor_role_releves_occtax
+SELECT 
+	uuid_generate_v4() AS unique_id_cor_role_releve,
+	(id_synthese-70770) AS id_releve_occtax,
+	id_role AS id_role
+FROM  v1_compat.syntheseff left join utilisateurs.t_roles
+	ON replace(syntheseff.observateurs, 'é', 'e') ilike replace (t_roles.nom_role, 'Lenganey', 'Langaney') || ' '|| t_roles.prenom_role||'%'
+	or replace(syntheseff.observateurs, 'é', 'e') ilike '%'|| replace (t_roles.nom_role, 'Lenganey', 'Langaney')  || ' '|| t_roles.prenom_role
+	or replace(syntheseff.observateurs, 'é', 'e') ilike '%'|| replace (t_roles.nom_role, 'Lenganey', 'Langaney')  || ' '|| t_roles.prenom_role||'%'
+WHERE id_source = 1 and id_fiche_source is null and id_role is not null
+ORDER BY id_synthese, id_role;
+
+----4 :  les denombrements
+
 INSERT INTO pr_occtax.cor_counting_occtax(
             unique_id_sinp_occtax, 
             id_occurrence_occtax, 
@@ -648,22 +661,7 @@ SELECT uuid_generate_v4() AS unique_id_sinp_occtax,
 	WHERE id_source = 1 and id_fiche_source is null 
 	ORDER BY id_synthese;
 
-<<<<<<< HEAD
-=======
----- 4: les observateurs:
 
-INSERT INTO pr_occtax.cor_role_releves_occtax
-SELECT 
-	uuid_generate_v4() AS unique_id_cor_role_releve,
-	(id_synthese-70770) AS id_releve_occtax,
-	id_role AS id_role
-FROM  v1_compat.syntheseff left join utilisateurs.t_roles
-	ON replace(syntheseff.observateurs, 'é', 'e') ilike replace (t_roles.nom_role, 'Lenganey', 'Langaney') || ' '|| t_roles.prenom_role||'%'
-	or replace(syntheseff.observateurs, 'é', 'e') ilike '%'|| replace (t_roles.nom_role, 'Lenganey', 'Langaney')  || ' '|| t_roles.prenom_role
-	or replace(syntheseff.observateurs, 'é', 'e') ilike '%'|| replace (t_roles.nom_role, 'Lenganey', 'Langaney')  || ' '|| t_roles.prenom_role||'%'
-WHERE id_source = 1 and id_fiche_source is null and id_role is not null
-ORDER BY id_synthese, id_role;
->>>>>>> 83aeb523c0e9217697130a0682110cdd34bda999
 
 
 --- on remet les compteurs id au max+1
