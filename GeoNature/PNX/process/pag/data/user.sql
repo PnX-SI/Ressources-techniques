@@ -83,3 +83,8 @@ INSERT INTO utilisateurs.cor_roles (id_role_groupe,id_role_utilisateur)
 	UNION SELECT 9, id_role FROM utilisateurs.t_roles WHERE id_role in (1,1000052) -- les admin: administrateur + audrey
 	UNION SELECT 10, id_role FROM utilisateurs.t_roles WHERE id_role in (1,1000052,1000016) -- les admin taxo: administrateur + audrey + seb
 	UNION SELECT 11, id_role FROM utilisateurs.t_roles WHERE id_role in (1,1000052,5); -- les valdateurs: administrateur + audrey + validateur
+
+-- listes d'utilisateurs
+INSERT INTO utilisateurs.cor_role_liste(
+	id_role, id_liste)
+	select id_role, 1 from utilisateurs.t_roles where groupe = false and id_role >=1000000 and active = true;

@@ -238,8 +238,7 @@ WHERE id_releve_cflore in (select id_occurrence_occtax from pr_occtax.t_occurren
 ;
 
 
-<<<<<<< HEAD
-=======
+
 INSERT INTO pr_occtax.cor_role_releves_occtax
 SELECT 
 uuid_generate_v4() AS unique_id_cor_role_releve,
@@ -264,7 +263,8 @@ UPDATE pr_occtax.t_occurrences_occtax
 	FROM taxonomie.taxref
 	WHERE t_occurrences_occtax.nom_cite = taxref.lb_nom AND t_occurrences_occtax.cd_nom is null;
 
-
+SELECT setval('pr_occtax.t_releves_occtax_id_releve_occtax_seq', (SELECT MAX(id_releve_occtax) FROM pr_occtax.t_releves_occtax)+1);
+SELECT setval('pr_occtax.t_occurrences_occtax_id_occurrence_occtax_seq', (SELECT MAX(id_occurrence_occtax) FROM pr_occtax.t_occurrences_occtax)+1);
 -- Check-up des cd_nom vides
 SELECT nom_cite, t_occurrences_occtax.cd_nom occtax_cd_nom, bib_noms.cd_nom taxref_cd_nom
  		FROM pr_occtax.t_occurrences_occtax LEFT JOIN taxonomie.bib_noms
