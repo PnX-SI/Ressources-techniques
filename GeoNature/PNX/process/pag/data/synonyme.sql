@@ -35,22 +35,17 @@ INSERT INTO gn_synthese.t_sources (
   entity_source_pk_field
 )
 SELECT 
-  id_source,
-  nom_source, 
-  desc_source, 
-  'historique.' || db_schema || '_' || db_table || '.' || db_field AS entity_source_pk_field
-FROM v1_compat.bib_sources
-;
---SELECT 
---  id_source,
---  nom_source || ' (' || groupe || ') ', 
---  desc_source || ' (' || groupe || ') ', 
---  'historique.' || db_schema || '_' || db_table || '.' || db_field AS entity_source_pk_field
---FROM v1_compat.bib_sources;
-
-
-
+	id_source,
+	CASE WHEN nom_source like 'ZNIEFF%' THEN nom_source || ' (' || groupe || ') '
+		ELSE nom_source
+		END, 
+	desc_source , 
+	'historique.' || db_schema || '_' || db_table || '.' || db_field AS entity_source_pk_field
+FROM v1_compat.bib_sources;
 SELECT setval('gn_synthese.t_sources_id_source_seq', (SELECT max(id_source)+1 FROM gn_synthese.t_sources), true);
+--INSERT INTO gn_synthese.t_sources(
+--	name_source, desc_source, entity_source_pk_field, url_source)
+--	VALUES ('Occtax','Données issues du module Occtax','pr_occtax.cor_counting_occtax.id_counting_occtax','#/occtax/info/id_counting');
 
 
 

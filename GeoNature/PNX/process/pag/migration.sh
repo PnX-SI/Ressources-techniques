@@ -16,7 +16,7 @@ export BASE_DIR=$(readlink -e "${0%/*}")/..
 . $BASE_DIR/utils.sh
 init_config $parc
 
-echo "************************ init_config "
+echo "************************ init config "
 . $BASE_DIR/$parc/config/settings.ini
 . $BASE_DIR/$parc/config/settings_v1.ini
 export psqlv1="psql -d ${db_name_v1} -h ${db_host_v1} -U ${user_pg_v1} -p ${db_port_v1} -v ON_ERROR_STOP=1"
@@ -43,34 +43,38 @@ echo "-------------------------------- Transfert refs --------------------------
 echo "----------------------------------------------------------------------------"
 echo "************************ Creation de la synonymie"
 $psqla -f $BASE_DIR/$parc/data/synonyme.sql
-
-echo "************************ Transfert des users, permissions..."
+echo ""
+echo "************************ Transfert des users & organismes"
 $psqla -f $BASE_DIR/$parc/data/user.sql
-
-echo "************************ Transfert taxonomie"
+echo ""
+echo "************************ Transfert taxonomie + complements taxref v14"
+wget http://geonature.fr/data/inpn/taxonomie/TAXREF_v14_2020.zip -P /tmp/taxhub
+unzip -o /tmp/taxhub/TAXREF_v14_2020.zip -d /tmp/taxhub
 $psqla -f $BASE_DIR/$parc/data/taxonomie.sql
-
-echo "************************ Transfert metadonnées.... "
+echo ""
+echo "************************ Transfert metadonnées "
 $psqla -f $BASE_DIR/$parc/data/metadonnee.sql
-
+echo ""
 echo "----------------------------------------------------------------------------"
-echo "-------------------------------- Transfert data ----------------------------" 
+echo "-------------------------------- Transfert données ----------------------------" 
 echo "----------------------------------------------------------------------------"
-echo "************************ occtax faune "
+echo "************************ OccTax faune "
 $psqla -f $BASE_DIR/$parc/data/occtax_faune.sql -v srid_local=$srid_local
-
-echo "************************ occtax flore "
+echo ""
+echo "************************ OccTax flore "
 $psqla -f $BASE_DIR/$parc/data/occtax_flore.sql -v srid_local=$srid_local
-
-echo "************************ Transfert synthese ==> vérifier les transferts de id_critere_synthese"
+echo ""
+echo "************************ Transfert synthese"
 $psqla -f $BASE_DIR/$parc/data/synthese.sql -v srid_local=$srid_local
-
+echo ""
 echo "----------------------------------------------------------------------------"
 echo "--------------------------------- Finalisation -----------------------------" 
 echo "----------------------------------------------------------------------------"
-
-echo "************************ Application de corrections "
-$psqla -f $BASE_DIR/$parc/data/corrections_data.sql
+echo ""
+echo "************************ Corrections sur les métadonnées/synthese "
+$psqla -f $BASE_DIR/$parc/data/correction_metadata.sql
+echo "************************ Permissions "
+$psqla -f $BASE_DIR/$parc/data/permissions_pag.sql
 
 echo "************************ close fdw "
 #$psqla -f $BASE_DIR/$parc/data/close_fdw.sql

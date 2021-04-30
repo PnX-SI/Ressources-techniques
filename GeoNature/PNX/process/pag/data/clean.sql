@@ -14,7 +14,6 @@ DELETE FROM gn_synthese.t_sources WHERE name_source != 'Occtax';
 
 
 -- meta
-
 DELETE FROM gn_commons.cor_module_dataset;
 DELETE FROM gn_meta.cor_acquisition_framework_voletsinp;
 DELETE FROM gn_meta.cor_acquisition_framework_objectif;
@@ -26,18 +25,19 @@ DELETE FROM gn_meta.sinp_datatype_protocols WHERE id_protocol > 0;
 
 
 -- taxonomie
-
-DELETE FROM taxonomie.cor_nom_liste  ;
+DELETE from taxonomie.import_taxref;
+DELETE FROM taxonomie.cor_nom_liste;
 DELETE FROM taxonomie.bib_listes ;
 DELETE FROM taxonomie.bib_noms ;
 DELETE FROM taxonomie.taxref WHERE cd_nom >= 99900000 ;
 
 
 -- user
-DELETE FROM utilisateurs.cor_role_liste WHERE id_role >100;
-DELETE FROM utilisateurs.t_roles WHERE id_role > 100;
+DELETE FROM utilisateurs.cor_roles;
+DELETE FROM utilisateurs.cor_role_liste;
+DELETE FROM utilisateurs.t_roles WHERE id_role >= 10 or id_role = 8;
+UPDATE utilisateurs.t_roles SET id_organisme = -1;
 DELETE FROM gn_meta.cor_dataset_actor WHERE id_organism > 0;
--- on garde autre (-1) et all (0) ???
 DELETE FROM utilisateurs.bib_organismes WHERE id_organisme > 0;
 
 
