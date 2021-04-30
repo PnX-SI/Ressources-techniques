@@ -25,6 +25,7 @@ DELETE FROM gn_meta.sinp_datatype_protocols WHERE id_protocol > 0;
 
 
 -- taxonomie
+
 DELETE from taxonomie.import_taxref;
 DELETE FROM taxonomie.cor_nom_liste;
 DELETE FROM taxonomie.bib_listes ;

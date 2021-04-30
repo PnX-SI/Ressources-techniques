@@ -20,7 +20,11 @@ $psqla -c "
 shp2pgsql -s ${srid_local} -D -I $BASE_DIR/$parc/ref_geo/COMMUNE.shp ref_geo.tmp_communes | ${psqla}
 $psqla -f $BASE_DIR/$parc/data/insert_communes.sql
 
+<<<<<<< HEAD
+# Limites
+=======
 # Limites PAG
+>>>>>>> 83aeb523c0e9217697130a0682110cdd34bda999
 shp2pgsql -s ${srid_local} -D -I $BASE_DIR/$parc/ref_geo/PAG_ZA_Zcoeur.shp ref_geo.tmp_coeur | ${psqla}
 $psqla -f $BASE_DIR/$parc/data/insert_limites.sql
 

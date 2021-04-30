@@ -10,8 +10,6 @@ et qu'il faut bien les supprimer de l'insert de v1_compat.syntheseff vers gn_syn
 	- [ ] mnt
 
 #---------------------------------------- Migration 
-
-
 - [x] User
 	- [x] Ajout de users nécessaire à l'intégration des données contactFaune
 	- [x] Tri des users + des groupes
@@ -30,7 +28,9 @@ et qu'il faut bien les supprimer de l'insert de v1_compat.syntheseff vers gn_syn
 		- [x] 441839;"Évêque bleu-noir ";"Cyanocompsa cyanoides" ==> Cyanocompsa cyanoides = cd_nom:828942, cd_ref: 828943 (alors que le cd_nom 41839 pointe vers une espèce européenne)
 		- [x] 765714;"";"Combretum laxum" ==> nom_complet = "Combretum laxum Aubl." ==> cd_nom : 632627, cd_ref = 629395
 	- [x] cor_nom_liste entièrement refait.
+	
 - [.] Habitats ==> on verra plus tard.....
+
 
 - [x] metadonnées
 	- [x] Corriger/rassembler JDD dans cadres d'acquisition

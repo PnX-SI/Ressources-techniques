@@ -1,7 +1,7 @@
 -- occtax_flore.sql
 
 
--- VM
+--- 0: prérequis: VM
 CREATE MATERIALIZED VIEW v1_compat.vm_t_fiches_cflore AS
 WITH temp AS (
 SELECT  max(id_releve_occtax) AS max_id
@@ -65,7 +65,7 @@ diffusable
 FROM v1_compat.t_releves_cflore, temp, temp2;
 
 
--- releve
+--- 1: releve
 INSERT INTO pr_occtax.t_releves_occtax(
             id_releve_occtax,
             unique_id_sinp_grp,
@@ -102,7 +102,7 @@ FROM v1_compat.vm_t_fiches_cflore cf
 WHERE id_cflore not in (select id_cflore from v1_compat.vm_cor_role_fiche_flore where id_role = 1)
 ;
 
--- occurrences
+--- 2: occurrences
 
 INSERT INTO pr_occtax.t_occurrences_occtax(
             id_occurrence_occtax,
@@ -169,8 +169,25 @@ INSERT INTO pr_occtax.t_occurrences_occtax(
 WHERE id_cflore not in (select id_cflore from v1_compat.vm_cor_role_fiche_flore where id_role = 1)
 ;
 
+---3 : observateurs
 
--- counting
+INSERT INTO pr_occtax.cor_role_releves_occtax
+SELECT 
+uuid_generate_v4() AS unique_id_cor_role_releve,
+id_cflore AS id_releve_occtax,
+id_role AS id_role
+FROM v1_compat.vm_cor_role_fiche_flore
+WHERE id_role <> 1;
+-- MAJ des observateurs dans le champ observers_txt
+UPDATE pr_occtax.t_releves_occtax
+SET observers_txt = observateurs
+FROM (SELECT id_releve_occtax, String_AGG(prenom_role ||' ' || nom_role, ', ') as observateurs
+	FROM pr_occtax.cor_role_releves_occtax inner join utilisateurs.t_roles 
+		ON cor_role_releves_occtax.id_role = t_roles.id_role
+	GROUP BY id_releve_occtax) As ssrqt
+WHERE t_releves_occtax.id_releve_occtax = ssrqt.id_releve_occtax;
+
+--- 4: counting
 
 INSERT INTO pr_occtax.cor_counting_occtax(
             unique_id_sinp_occtax, 
@@ -220,8 +237,9 @@ JOIN v1_compat.bib_abondances_cflore bib_ab ON bib_ab.id_abondance_cflore = cflo
 WHERE id_releve_cflore in (select id_occurrence_occtax from pr_occtax.t_occurrences_occtax)
 ;
 
--- observateurs
 
+<<<<<<< HEAD
+=======
 INSERT INTO pr_occtax.cor_role_releves_occtax
 SELECT 
 uuid_generate_v4() AS unique_id_cor_role_releve,
@@ -238,6 +256,7 @@ FROM (SELECT id_releve_occtax, String_AGG(prenom_role ||' ' || nom_role, ', ') a
 		ON cor_role_releves_occtax.id_role = t_roles.id_role
 	GROUP BY id_releve_occtax) As ssrqt
 WHERE t_releves_occtax.id_releve_occtax = ssrqt.id_releve_occtax;
+>>>>>>> 83aeb523c0e9217697130a0682110cdd34bda999
 
 --- remplissage des cd_noms vides si nom latin
 UPDATE pr_occtax.t_occurrences_occtax

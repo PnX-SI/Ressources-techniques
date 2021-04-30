@@ -11,6 +11,10 @@ echo "--------------------------------------------------------------------------
 echo "-------------------------------- Initialisation ----------------------------" 
 echo "----------------------------------------------------------------------------"
 echo "************************ load config "
+<<<<<<< HEAD
+echo $BASE_DIR
+=======
+>>>>>>> 83aeb523c0e9217697130a0682110cdd34bda999
 parc=pag
 export BASE_DIR=$(readlink -e "${0%/*}")/..
 . $BASE_DIR/utils.sh
@@ -37,6 +41,40 @@ echo "--------------------------------------------------------------------------
 echo "-------------------------------- Refs Geo ----------------------------" 
 echo "----------------------------------------------------------------------------"
 #./process_ref_geo.sh
+<<<<<<< HEAD
+
+echo "----------------------------------------------------------------------------"
+echo "-------------------------------- Transfert refs ----------------------------" 
+echo "----------------------------------------------------------------------------"
+echo "************************ Creation de la synonymie"
+$psqla -f $BASE_DIR/$parc/data/synonyme.sql
+
+echo "************************ Transfert des users, permissions..."
+$psqla -f $BASE_DIR/$parc/data/user.sql
+
+echo "************************ Transfert taxonomie"
+$psqla -f $BASE_DIR/$parc/data/taxonomie.sql
+
+echo "************************ Transfert metadonnées.... "
+$psqla -f $BASE_DIR/$parc/data/metadonnee.sql
+
+
+echo "----------------------------------------------------------------------------"
+echo "-------------------------------- Transfert data ----------------------------" 
+echo "----------------------------------------------------------------------------"
+echo "************************ occtax faune "
+$psqla -f $BASE_DIR/$parc/data/occtax_faune.sql -v srid_local=$srid_local
+
+echo "************************ occtax flore "
+$psqla -f $BASE_DIR/$parc/data/occtax_flore.sql -v srid_local=$srid_local
+
+echo "************************ Transfert synthese "
+$psqla -f $BASE_DIR/$parc/data/synthese.sql -v srid_local=$srid_local
+
+echo "----------------------------------------------------------------------------"
+echo "--------------------------------- Finalisation -----------------------------" 
+echo "----------------------------------------------------------------------------"
+=======
 
 echo "----------------------------------------------------------------------------"
 echo "-------------------------------- Transfert refs ----------------------------" 
@@ -78,8 +116,16 @@ $psqla -f $BASE_DIR/$parc/data/permissions_pag.sql
 
 echo "************************ close fdw "
 #$psqla -f $BASE_DIR/$parc/data/close_fdw.sql
+>>>>>>> 83aeb523c0e9217697130a0682110cdd34bda999
 
+echo "************************ Application de corrections "
+$psqla -f $BASE_DIR/$parc/data/corrections_data.sql
 
+<<<<<<< HEAD
+echo "************************ close fdw "
+#$psqla -f $BASE_DIR/$parc/data/close_fdw.sql
+=======
 echo "----------------------------------------------------------------------------"
 echo "-------------------------------- Gna tout fini? ----------------------------" 
 echo "----------------------------------------------------------------------------"
+>>>>>>> 83aeb523c0e9217697130a0682110cdd34bda999
