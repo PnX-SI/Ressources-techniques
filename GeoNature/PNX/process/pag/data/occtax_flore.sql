@@ -168,24 +168,29 @@ INSERT INTO pr_occtax.t_occurrences_occtax(
     LEFT JOIN taxonomie.bib_noms bib_noms ON bib_noms.id_nom = cflore.id_nom
 WHERE id_cflore not in (select id_cflore from v1_compat.vm_cor_role_fiche_flore where id_role = 1)
 ;
-
+--- remplissage des cd_noms vides si nom latin
+UPDATE pr_occtax.t_occurrences_occtax
+	SET cd_nom = taxref.cd_nom
+	FROM taxonomie.taxref
+	WHERE t_occurrences_occtax.nom_cite = taxref.lb_nom AND t_occurrences_occtax.cd_nom is null;
+	
+	
 ---3 : observateurs
 
 INSERT INTO pr_occtax.cor_role_releves_occtax
-SELECT 
-uuid_generate_v4() AS unique_id_cor_role_releve,
-id_cflore AS id_releve_occtax,
-id_role AS id_role
-FROM v1_compat.vm_cor_role_fiche_flore
-WHERE id_role <> 1;
+	SELECT  uuid_generate_v4() AS unique_id_cor_role_releve,
+	id_cflore AS id_releve_occtax,
+	id_role AS id_role
+	FROM v1_compat.vm_cor_role_fiche_flore
+	WHERE id_role <> 1;
 -- MAJ des observateurs dans le champ observers_txt
 UPDATE pr_occtax.t_releves_occtax
-SET observers_txt = observateurs
-FROM (SELECT id_releve_occtax, String_AGG(prenom_role ||' ' || nom_role, ', ') as observateurs
-	FROM pr_occtax.cor_role_releves_occtax inner join utilisateurs.t_roles 
-		ON cor_role_releves_occtax.id_role = t_roles.id_role
-	GROUP BY id_releve_occtax) As ssrqt
-WHERE t_releves_occtax.id_releve_occtax = ssrqt.id_releve_occtax;
+	SET observers_txt = observateurs
+	FROM (SELECT id_releve_occtax, String_AGG(prenom_role ||' ' || nom_role, ', ') as observateurs
+		FROM pr_occtax.cor_role_releves_occtax inner join utilisateurs.t_roles 
+			ON cor_role_releves_occtax.id_role = t_roles.id_role
+		GROUP BY id_releve_occtax) As ssrqt
+	WHERE t_releves_occtax.id_releve_occtax = ssrqt.id_releve_occtax;
 
 --- 4: counting
 
@@ -239,32 +244,9 @@ WHERE id_releve_cflore in (select id_occurrence_occtax from pr_occtax.t_occurren
 
 
 
-INSERT INTO pr_occtax.cor_role_releves_occtax
-SELECT 
-uuid_generate_v4() AS unique_id_cor_role_releve,
-id_cflore AS id_releve_occtax,
-id_role AS id_role
-FROM v1_compat.vm_cor_role_fiche_flore
-WHERE id_role <> 1;
-
--- MAJ des observateurs dans le champ observers_txt
-UPDATE pr_occtax.t_releves_occtax
-SET observers_txt = observateurs
-FROM (SELECT id_releve_occtax, String_AGG(prenom_role ||' ' || nom_role, ', ') as observateurs
-	FROM pr_occtax.cor_role_releves_occtax inner join utilisateurs.t_roles 
-		ON cor_role_releves_occtax.id_role = t_roles.id_role
-	GROUP BY id_releve_occtax) As ssrqt
-WHERE t_releves_occtax.id_releve_occtax = ssrqt.id_releve_occtax;
->>>>>>> 83aeb523c0e9217697130a0682110cdd34bda999
-
---- remplissage des cd_noms vides si nom latin
-UPDATE pr_occtax.t_occurrences_occtax
-	SET cd_nom = taxref.cd_nom
-	FROM taxonomie.taxref
-	WHERE t_occurrences_occtax.nom_cite = taxref.lb_nom AND t_occurrences_occtax.cd_nom is null;
-
 SELECT setval('pr_occtax.t_releves_occtax_id_releve_occtax_seq', (SELECT MAX(id_releve_occtax) FROM pr_occtax.t_releves_occtax)+1);
 SELECT setval('pr_occtax.t_occurrences_occtax_id_occurrence_occtax_seq', (SELECT MAX(id_occurrence_occtax) FROM pr_occtax.t_occurrences_occtax)+1);
+
 -- Check-up des cd_nom vides
 SELECT nom_cite, t_occurrences_occtax.cd_nom occtax_cd_nom, bib_noms.cd_nom taxref_cd_nom
  		FROM pr_occtax.t_occurrences_occtax LEFT JOIN taxonomie.bib_noms
