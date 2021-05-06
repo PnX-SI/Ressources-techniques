@@ -1,6 +1,7 @@
 -- Création d'une vue permettant d'exporter les randonnées mises en forme et conforme à la V0 du schéma de randonnées, à partir de la vue public.v_treks existante dans la BDD Geotrek.
 -- Filtre pour ne prendre que les randos publiées, de source PNE et sans les étapes des itinérances
 -- Les champs selectionnés sont à adapter en fonction de ce que vous voulez publier
+-- Cette vue peut être exportée sous format GeoJSON afin d'être publiée sur une plateforme opendata
 
 CREATE VIEW public.v_rando_opendata AS
 WITH theme AS (
@@ -77,7 +78,7 @@ SELECT
 	t.advised_parking AS parking,
 	t.parking_location AS geometrie_parking,
 	e.date_insert AS date_creation,
-	e.date_update AS date_modification,
+	e.date_update AS date_modification
 	--m.medias
 
 
