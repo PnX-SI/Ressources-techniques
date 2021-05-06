@@ -1,60 +1,101 @@
--- Création d'une vue permettant d'exporter les randonnées mises en forme, à partir de la vue rando.o_v_itineraire existante
--- Filtre pour ne prendre que les randos publiées, de source PNE et sans les itinérances et leurs étapes
--- Les champs selectionnés sont à adapter en fonction de que vous voulez publier
+-- Création d'une vue permettant d'exporter les randonnées mises en forme et conforme à la V0 du schéma de randonnées, à partir de la vue public.v_treks existante dans la BDD Geotrek.
+-- Filtre pour ne prendre que les randos publiées, de source PNE et sans les étapes des itinérances
+-- Les champs selectionnés sont à adapter en fonction de ce que vous voulez publier
 
-CREATE OR REPLACE VIEW rando.o_v_randos_pne_opendata AS 
- SELECT 
-    i.evenement AS id_rando,
-    i.geom,
-    i.nom_fr,
-    i.nom_en,
-    i.nom_it,
-    i.duree AS duree_heure,
-    i.depart_fr,
-    i.arrivee_fr,
-    i.chapeau_fr,
-    i.chapeau_en,
-    i.chapeau_it,
-    pr.nom_fr AS pratique_fr,
-    pr.nom_en AS pratique_en,
-    pr.nom_it AS pratique_it,
-    pa.parcours_fr,
-    pa.parcours_en,
-    pa.parcours_it,
-    di.difficulte_fr,
-    di.difficulte_en,
-    di.difficulte_it,
-    i.parking_fr,
-    i.parking_en,
-    i.parking_it,
-    st_astext(i.geom_parking) AS wkt_parking,
-    i.recommandation_fr,
-    i.recommandation_en,
-    i.recommandation_it,
-    i.transport_fr,
-    i.transport_en,
-    i.transport_it,
-    i.acces_fr,
-    i.acces_en,
-    i.acces_it,
-    i.date_publication,
-    date(e.date_insert) AS date_creation,
-    date(e.date_update) AS date_modification,
-    i.public_fr AS publie_fr,
-    i.public_en AS publie_en,
-    i.public_it AS publie_it,
-    s.name AS source
-   FROM o_v_itineraire i
-     LEFT JOIN o_r_itineraire_source rs ON rs.trek_id = i.evenement
-     LEFT JOIN o_b_source_fiche s ON s.id = rs.recordsource_id
-     LEFT JOIN o_b_pratique pr ON pr.id = i.pratique
-     LEFT JOIN o_b_parcours pa ON pa.id = i.parcours
-     LEFT JOIN o_b_difficulte di ON di.id = i.difficulte
-     LEFT JOIN e_t_evenement e ON e.id = i.evenement
-  WHERE i.public = true AND rs.recordsource_id = 1 AND i.parcours <> 5 AND i.parcours <> 6;
+CREATE VIEW public.v_rando_opendata AS
+WITH theme AS (
+    SELECT string_agg("label", ', ') AS themes, t.trek_id 
+    FROM common_theme c
+    JOIN trekking_trek_themes t
+    ON t.theme_id = c.id
+    GROUP BY t.trek_id
+), communes AS (
+	SELECT t.topo_object_id AS tid, string_agg(z.name, ', ') AS communes 
+	FROM public.zoning_city z, v_treks t
+	WHERE ST_intersects(t.geom, z.geom)
+	GROUP BY t.topo_object_id
+), itinerance AS (
+	SELECT 
+	child_id, ARRAY_AGG (parent_id) AS itinerance
+	FROM trekking_orderedtrekchild
+	GROUP BY child_id
+), media AS (
+	SELECT 
+        ca.object_id , 
+        array_agg( 
+            json_build_object(
+                'url' , COALESCE('https://geotrek-admin.ecrins-parcnational.fr/media/' || NULLIF(attachment_file,''),attachment_link),
+                'auteur', auteur ,
+                'titre', titre,
+                'legende', legende
+            )
+        ) AS medias
+    FROM common_attachment ca 
+    JOIN django_content_type dct ON dct.id = ca.content_type_id AND model = 'trek'
+    JOIN common_filetype cf ON cf.id = ca.filetype_id AND TYPE='Photographie'
+    GROUP BY object_id
+	), accessibilite AS (
+SELECT 
+	tacc.trek_id, string_agg (acc.name, ', ') AS accessibilite
+	FROM trekking_accessibility acc
+	JOIN trekking_trek_accessibilities tacc on tacc.accessibility_id = acc.id
+	GROUP BY tacc.trek_id
+), balisage AS (
+SELECT 
+	tnet.trek_id, string_agg(net.network, ', ') AS balisage
+	FROM trekking_treknetwork net
+	JOIN trekking_trek_networks tnet on tnet.treknetwork_id = net.id
+	GROUP BY tnet.trek_id
+)
 
-COMMENT ON VIEW rando.o_v_randos_pne_opendata
-  IS 'Vue des randos à la journée publiées du PNE';
+	
+SELECT
+	t.topo_object_id AS id_source,
+	ats.name AS source,
+	t.name AS nom,
+	tp.name AS pratique,
+	tr.route AS type,
+	c.communes,
+	t.departure AS depart,
+	t.arrival AS arrivee,
+	t.duration AS duree,
+	bal.balisage,
+	e.length AS longueur,
+	td.difficulty AS difficulte,
+	e.min_elevation AS altitude_max,
+	e.max_elevation AS altitude_min,
+	e.ascent AS denivele_positif,
+	e.descent AS denivele_negatif,
+	t.description_teaser AS description_courte,
+	t.description AS description,
+	th.themes, 
+	t.advice AS recommandation,
+	acs.accessibilite,
+	t.access AS acces_routier,
+	t.public_transport AS transport,
+	e.geom AS geometrie,
+	t.advised_parking AS parking,
+	t.parking_location AS geometrie_parking,
+	e.date_insert AS date_creation,
+	e.date_update AS date_modification,
+	--m.medias
+
+
+	FROM v_treks t
+
+		LEFT JOIN authent_structure ats ON ats.id = t.structure_id
+		LEFT JOIN trekking_practice tp ON tp.id = t.practice_id
+		LEFT JOIN trekking_route tr ON tr.id = t.route_id
+		LEFT JOIN core_topology e ON e.id = t.id
+		LEFT JOIN trekking_difficultylevel td ON  td.id = t.difficulty_id
+		LEFT JOIN theme th ON th.trek_id = t.topo_object_id 
+		--LEFT JOIN media m ON m.object_id = t.topo_object_id
+		LEFT JOIN communes c ON c.tid = t.topo_object_id
+		LEFT JOIN accessibilite acs ON acs.trek_id = t.topo_object_id
+		LEFT JOIN balisage bal ON bal.trek_id = t.topo_object_id
+
+	WHERE t.published = true AND t.structure_id = 1 AND t.route_id <> 5 AND e.deleted = false;
+
   
 -- Création d'une vue permettant d'exporter les POI 
 -- Filtre pour ne prendre que les POI publiés et rattachées aux randonnées ci-dessus
