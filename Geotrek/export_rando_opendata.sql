@@ -239,77 +239,59 @@ CREATE OR REPLACE VIEW rando.o_v_randos_pde AS
   WHERE i.public = true AND rp.targetportal_id = 4 AND i.evenement <> 937571 AND i.evenement <> 939205; 
 -- Ne prendre que les publiés, du portail PDE et sans les 2 itinéraires du Tour des Ecrins
 
--- POI attachés aux itinéraires du PDE
+-- POI attachés aux à la vue des randos du PNE : public.v_rando_opendata
 
-CREATE VIEW rando.o_v_poi_pde AS 
-WITH etrek AS (
-    SELECT *
-    FROM geotrek.e_r_evenement_troncon
-    WHERE evenement IN (
-        SELECT id 
-        FROM geotrek.e_t_evenement et
-        JOIN rando.o_t_itineraire i ON i.evenement = et.id
-        WHERE kind = 'TREK' AND supprime = false AND i.public = true
+CREATE VIEW public.v_poi_opendata AS 
+WITH trek AS (
+SELECT *
+    FROM core_pathaggregation
+    WHERE topo_object_id IN (
+        SELECT t.id 
+        FROM core_topology t
+        JOIN v_rando_opendata i ON i.id_source = t.id
+        --WHERE kind = 'TREK' AND deleted = false AND i.published = true
     )
-), epoi AS (
-    SELECT *
-    FROM geotrek.e_r_evenement_troncon
-    WHERE evenement IN (
-        SELECT id 
-        FROM geotrek.e_t_evenement et
-        JOIN rando.o_t_poi p ON p.evenement = et.id
-        WHERE kind = 'POI' AND supprime = false AND p.public = true
+), poi AS (
+SELECT *
+    FROM core_pathaggregation
+    WHERE topo_object_id IN (
+        SELECT t.id 
+        FROM core_topology t
+        JOIN v_pois i ON i.id = t.id
+        WHERE kind = 'POI' AND deleted = false AND i.published = true
     )
 )
-SELECT DISTINCT 
-      p.evenement as id_poi, 
-      ev.geom, 
-      p.nom_fr,
-      p.nom_en,
-      p.nom_it, 
-      p.description_fr,
-      p.description_en, 
-      p.description_it,
-      bp.nom_fr AS type_fr,
-      bp.nom_en AS type_en,
-      bp.nom_it AS type_it,
-      p.public_fr AS publie_fr,
-      p.public_en AS publie_en, 
-      p.public_it AS publie_it, 
-      array_agg(et.evenement) AS randonnees,
-      date_publication,
-      date(ev.date_insert) AS date_creation,
-      date(ev.date_update) AS date_modification,
-      st.name AS source  
-FROM etrek et
-JOIN epoi ep ON et.troncon = ep.troncon 
+
+SELECT DISTINCT
+p.geom,
+p.id AS id_poi,
+p.name AS nom,
+p.description,
+pt.label AS type,
+array_agg(t.topo_object_id) AS randonnees,
+p.publication_date AS date_publication,
+ct.date_insert AS date_creation,
+ct.date_update AS date_modification,
+ats.name AS source
+
+FROM trek t
+JOIN poi ON poi.path_id = t.path_id
     AND (
-     (et.pk_debut <= et.pk_fin AND ep.pk_debut between et.pk_debut AND et.pk_fin) 
+     (t.start_position <= t.end_position AND poi.start_position between t.start_position AND t.end_position) 
      OR 
-     (et.pk_debut > et.pk_fin AND ep.pk_debut between et.pk_fin  AND et.pk_debut) 
+     (t.start_position > t.end_position AND poi.start_position between t.end_position  AND t.start_position) 
     )
-JOIN rando.o_t_poi p ON p.evenement = ep.evenement
-JOIN geotrek.e_t_evenement ev ON ev.id = p.evenement
-JOIN rando.o_b_poi bp ON bp.id = p.type
-JOIN geotrek.authent_structure st ON st.id = p.structure
-WHERE et.evenement IN (SELECT id_rando FROM rando.o_v_randos_pde) AND p.public = true
-GROUP BY 
-      p.evenement, 
-      ev.geom, 
-      p.nom_fr,
-      p.nom_en,
-      p.nom_it, 
-      p.description_fr,
-      p.description_en, 
-      p.description_it,
-      bp.nom_fr,
-      bp.nom_en,
-      bp.nom_it,
-      p.public_fr,
-      p.public_en, 
-      p.public_it, 
-      date_publication,
-      ev.date_insert,
-      ev.date_update,
-      st.name
-ORDER BY p.nom_fr;
+JOIN v_pois p ON p.id = poi.topo_object_id
+JOIN trekking_poitype pt ON pt.id = p.type_id
+JOIN core_topology ct ON ct.id = p.id
+JOIN authent_structure ats ON ats.id = p.structure_id
+GROUP BY
+p.geom,
+p.id,
+p.name,
+p.description,
+pt.label,
+p.publication_date,
+ct.date_insert,
+ct.date_update,
+ats.name;
