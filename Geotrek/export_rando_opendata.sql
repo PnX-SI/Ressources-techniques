@@ -102,6 +102,63 @@ SELECT
 -- Filtre pour ne prendre que les POI publiés et rattachées aux randonnées ci-dessus
 -- Les champs selectionnés sont à adapter en fonction de que vous voulez publier
 
+
+CREATE VIEW public.v_poi_opendata AS 
+WITH trek AS (
+SELECT *
+    FROM core_pathaggregation
+    WHERE topo_object_id IN (
+        SELECT t.id 
+        FROM core_topology t
+        JOIN v_rando_opendata i ON i.id_source = t.id
+        --WHERE kind = 'TREK' AND deleted = false AND i.published = true
+    )
+), poi AS (
+SELECT *
+    FROM core_pathaggregation
+    WHERE topo_object_id IN (
+        SELECT t.id 
+        FROM core_topology t
+        JOIN v_pois i ON i.id = t.id
+        WHERE kind = 'POI' AND deleted = false AND i.published = true
+    )
+)
+
+SELECT DISTINCT
+p.geom,
+p.id AS id_poi,
+p.name AS nom,
+p.description,
+pt.label AS type,
+array_agg(t.topo_object_id) AS randonnees,
+p.publication_date AS date_publication,
+ct.date_insert AS date_creation,
+ct.date_update AS date_modification,
+ats.name AS source
+
+FROM trek t
+JOIN poi ON poi.path_id = t.path_id
+    AND (
+     (t.start_position <= t.end_position AND poi.start_position between t.start_position AND t.end_position) 
+     OR 
+     (t.start_position > t.end_position AND poi.start_position between t.end_position  AND t.start_position) 
+    )
+JOIN v_pois p ON p.id = poi.topo_object_id
+JOIN trekking_poitype pt ON pt.id = p.type_id
+JOIN core_topology ct ON ct.id = p.id
+JOIN authent_structure ats ON ats.id = p.structure_id
+GROUP BY
+p.geom,
+p.id,
+p.name,
+p.description,
+pt.label,
+p.publication_date,
+ct.date_insert,
+ct.date_update,
+ats.name;
+
+
 CREATE VIEW rando.o_v_poi_pne_opendata AS 
 WITH etrek AS (
     SELECT *
@@ -239,59 +296,3 @@ CREATE OR REPLACE VIEW rando.o_v_randos_pde AS
   WHERE i.public = true AND rp.targetportal_id = 4 AND i.evenement <> 937571 AND i.evenement <> 939205; 
 -- Ne prendre que les publiés, du portail PDE et sans les 2 itinéraires du Tour des Ecrins
 
--- POI attachés aux à la vue des randos du PNE : public.v_rando_opendata
-
-CREATE VIEW public.v_poi_opendata AS 
-WITH trek AS (
-SELECT *
-    FROM core_pathaggregation
-    WHERE topo_object_id IN (
-        SELECT t.id 
-        FROM core_topology t
-        JOIN v_rando_opendata i ON i.id_source = t.id
-        --WHERE kind = 'TREK' AND deleted = false AND i.published = true
-    )
-), poi AS (
-SELECT *
-    FROM core_pathaggregation
-    WHERE topo_object_id IN (
-        SELECT t.id 
-        FROM core_topology t
-        JOIN v_pois i ON i.id = t.id
-        WHERE kind = 'POI' AND deleted = false AND i.published = true
-    )
-)
-
-SELECT DISTINCT
-p.geom,
-p.id AS id_poi,
-p.name AS nom,
-p.description,
-pt.label AS type,
-array_agg(t.topo_object_id) AS randonnees,
-p.publication_date AS date_publication,
-ct.date_insert AS date_creation,
-ct.date_update AS date_modification,
-ats.name AS source
-
-FROM trek t
-JOIN poi ON poi.path_id = t.path_id
-    AND (
-     (t.start_position <= t.end_position AND poi.start_position between t.start_position AND t.end_position) 
-     OR 
-     (t.start_position > t.end_position AND poi.start_position between t.end_position  AND t.start_position) 
-    )
-JOIN v_pois p ON p.id = poi.topo_object_id
-JOIN trekking_poitype pt ON pt.id = p.type_id
-JOIN core_topology ct ON ct.id = p.id
-JOIN authent_structure ats ON ats.id = p.structure_id
-GROUP BY
-p.geom,
-p.id,
-p.name,
-p.description,
-pt.label,
-p.publication_date,
-ct.date_insert,
-ct.date_update,
-ats.name;
