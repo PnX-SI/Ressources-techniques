@@ -103,17 +103,16 @@ SELECT
 -- Les champs selectionnés sont à adapter en fonction de que vous voulez publier
 
 
-CREATE VIEW public.v_poi_opendata AS 
-WITH trek AS (
+CREATE VIEW public.v_poi_opendata AS
+WITH topo_trek AS (
 SELECT *
     FROM core_pathaggregation
     WHERE topo_object_id IN (
         SELECT t.id 
         FROM core_topology t
         JOIN v_rando_opendata i ON i.id_source = t.id
-        --WHERE kind = 'TREK' AND deleted = false AND i.published = true
     )
-), poi AS (
+), topo_poi AS (
 SELECT *
     FROM core_pathaggregation
     WHERE topo_object_id IN (
@@ -130,20 +129,20 @@ p.id AS id_poi,
 p.name AS nom,
 p.description,
 pt.label AS type,
-array_agg(t.topo_object_id) AS randonnees,
+CAST(array_agg(t.topo_object_id) AS VARCHAR) AS randonnees,
 p.publication_date AS date_publication,
 ct.date_insert AS date_creation,
 ct.date_update AS date_modification,
 ats.name AS source
 
-FROM trek t
-JOIN poi ON poi.path_id = t.path_id
+FROM topo_trek t
+JOIN topo_poi ON topo_poi.path_id = t.path_id
     AND (
-     (t.start_position <= t.end_position AND poi.start_position between t.start_position AND t.end_position) 
+     (t.start_position <= t.end_position AND topo_poi.start_position between t.start_position AND t.end_position) 
      OR 
-     (t.start_position > t.end_position AND poi.start_position between t.end_position  AND t.start_position) 
+     (t.start_position > t.end_position AND topo_poi.start_position between t.end_position  AND t.start_position) 
     )
-JOIN v_pois p ON p.id = poi.topo_object_id
+JOIN v_pois p ON p.id = topo_poi.topo_object_id
 JOIN trekking_poitype pt ON pt.id = p.type_id
 JOIN core_topology ct ON ct.id = p.id
 JOIN authent_structure ats ON ats.id = p.structure_id
@@ -158,6 +157,7 @@ ct.date_insert,
 ct.date_update,
 ats.name;
 
+--Ancienne vue des pois des randos du PNE
 
 CREATE VIEW rando.o_v_poi_pne_opendata AS 
 WITH etrek AS (
