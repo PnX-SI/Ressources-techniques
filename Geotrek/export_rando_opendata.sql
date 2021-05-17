@@ -3,13 +3,13 @@
 -- Les champs selectionnés sont à adapter en fonction de ce que vous voulez publier
 -- Cette vue peut être exportée sous format GeoJSON afin d'être publiée sur une plateforme opendata
 
-CREATE VIEW public.v_rando_opendata AS
+CREATE VIEW public.v_opendata_treks AS
 WITH theme AS (
-    SELECT string_agg("label", ', ') AS themes, t.trek_id 
-    FROM common_theme c
-    JOIN trekking_trek_themes t
-    ON t.theme_id = c.id
-    GROUP BY t.trek_id
+        SELECT string_agg("label", ', ') AS themes, t.trek_id 
+        FROM common_theme c
+        JOIN trekking_trek_themes t
+        ON t.theme_id = c.id
+        GROUP BY t.trek_id
 ), communes AS (
 	SELECT t.topo_object_id AS tid, string_agg(z.name, ', ') AS communes 
 	FROM public.zoning_city z, v_treks t
@@ -31,24 +31,23 @@ WITH theme AS (
                 'legende', legende
             )
         ) AS medias
-    FROM common_attachment ca 
-    JOIN django_content_type dct ON dct.id = ca.content_type_id AND model = 'trek'
-    JOIN common_filetype cf ON cf.id = ca.filetype_id AND TYPE='Photographie'
-    GROUP BY object_id
-	), accessibilite AS (
-SELECT 
+        FROM common_attachment ca 
+        JOIN django_content_type dct ON dct.id = ca.content_type_id AND model = 'trek'
+        JOIN common_filetype cf ON cf.id = ca.filetype_id AND TYPE='Photographie'
+        GROUP BY object_id
+), accessibilite AS (
+        SELECT 
 	tacc.trek_id, string_agg (acc.name, ', ') AS accessibilite
 	FROM trekking_accessibility acc
 	JOIN trekking_trek_accessibilities tacc on tacc.accessibility_id = acc.id
 	GROUP BY tacc.trek_id
 ), balisage AS (
-SELECT 
+        SELECT 
 	tnet.trek_id, string_agg(net.network, ', ') AS balisage
 	FROM trekking_treknetwork net
 	JOIN trekking_trek_networks tnet on tnet.treknetwork_id = net.id
 	GROUP BY tnet.trek_id
 )
-
 	
 SELECT
 	t.topo_object_id AS id_source,
@@ -81,7 +80,6 @@ SELECT
 	e.date_update AS date_modification
 	--m.medias
 
-
 	FROM v_treks t
 
 		LEFT JOIN authent_structure ats ON ats.id = t.structure_id
@@ -103,14 +101,14 @@ SELECT
 -- Les champs selectionnés sont à adapter en fonction de que vous voulez publier
 
 
-CREATE VIEW public.v_poi_opendata AS
+CREATE VIEW public.v_opendata_poi AS
 WITH topo_trek AS (
 SELECT *
     FROM core_pathaggregation
     WHERE topo_object_id IN (
         SELECT t.id 
         FROM core_topology t
-        JOIN v_rando_opendata i ON i.id_source = t.id
+        JOIN v_opendata_treks i ON i.id_source = t.id
     )
 ), topo_poi AS (
 SELECT *
@@ -157,7 +155,9 @@ ct.date_insert,
 ct.date_update,
 ats.name;
 
---Ancienne vue des pois des randos du PNE
+--------------------------------------------------------------------------------
+-- Ancienne vue des pois des randos du PNE, avant évolution de la BDD de Geotrek
+--------------------------------------------------------------------------------
 
 CREATE VIEW rando.o_v_poi_pne_opendata AS 
 WITH etrek AS (
@@ -236,9 +236,9 @@ ORDER BY p.nom_fr;
 COMMENT ON VIEW rando.o_v_poi_pne_opendata
   IS 'Vues des POI publiés et associés aux randonnées du PNE';
 
------------------------------------------------------------------
--- AUTRE EXEMPLE POUR LES RANDOS et LEURS POIs du Pays des Ecrins
------------------------------------------------------------------
+----------------------------------------------------------
+-- AUTRE EXEMPLE ANCIEN POUR LES RANDOS du Pays des Ecrins
+----------------------------------------------------------
 
 -- Itineraires du portail PDE, publiés et sans le GTE, ni les étapes des itinérances du PDE
 
@@ -294,5 +294,4 @@ CREATE OR REPLACE VIEW rando.o_v_randos_pde AS
      LEFT JOIN o_b_difficulte di ON di.id = i.difficulte
      LEFT JOIN e_t_evenement e ON e.id = i.evenement
   WHERE i.public = true AND rp.targetportal_id = 4 AND i.evenement <> 937571 AND i.evenement <> 939205; 
--- Ne prendre que les publiés, du portail PDE et sans les 2 itinéraires du Tour des Ecrins
-
+-- Ne prendre que les randos publiées, du portail PDE et sans les 2 itinéraires du Tour des Ecrins
