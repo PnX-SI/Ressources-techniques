@@ -2,6 +2,8 @@
 -- Filtre pour ne prendre que les randos publiées, de source PNE et sans les étapes des itinérances
 -- Les champs selectionnés sont à adapter en fonction de ce que vous voulez publier
 -- Cette vue peut être exportée sous format GeoJSON afin d'être publiée sur une plateforme opendata
+-- Les médias sont commentés pour ne pas être inclus par défaut, mais c'est fonctionnel en décommentant les lignes concernées
+-- et en adaptant la base de leur URL
 
 CREATE VIEW public.v_opendata_treks AS
 WITH theme AS (
@@ -99,7 +101,7 @@ SELECT
 -- Création d'une vue permettant d'exporter les POI 
 -- Filtre pour ne prendre que les POI publiés et rattachées aux randonnées ci-dessus
 -- Les champs selectionnés sont à adapter en fonction de que vous voulez publier
-
+-- TODO : Exclure de la liste des randonnées celles dont des POI sont exlus de la randonnées (trekking_trek_pois_excluded)
 
 CREATE VIEW public.v_opendata_pois AS
 WITH topo_trek AS (
