@@ -101,7 +101,7 @@ SELECT
 -- Les champs selectionnés sont à adapter en fonction de que vous voulez publier
 
 
-CREATE VIEW public.v_opendata_poi AS
+CREATE VIEW public.v_opendata_pois AS
 WITH topo_trek AS (
 SELECT *
     FROM core_pathaggregation
