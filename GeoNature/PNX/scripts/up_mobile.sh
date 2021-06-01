@@ -1,7 +1,11 @@
 # Script permettant de mettre à jour la configuration mobile sur les serveurs
 #
-# Récupérations des fichiers de version de code et des apk pour 
+# - Récupére des fichiers de version de code et des apk pour 
 # le dépot gn_mobile_core (sync) et gn_mobile_occtax
+#
+# - Pousse les fichiers apk sur le serveur avec la commande lftp 
+#
+# - Créer la commande sql à éxécuter dans pgadmin4 (idéalement à automatiser avec psql)
 #
 # Entrées
 # $1 : tag_sync (ex 1.1.9)
@@ -69,16 +73,27 @@ if [ ! -f "$sync_apk_file" ]; then
         -O "$sync_apk_file"
 fi
 
-if [ ! -f "$sync_apk_file" ]; then
+if [ ! -f "$occtax_apk_file" ]; then
     wget https://github.com/PnX-SI/gn_mobile_occtax/releases/download/${tag_occtax}/occtax-${tag_occtax}-generic-debug.apk \
-        -O "$sync_apk_file"
+        -O "$occtax_apk_file"
 fi
 
 
 # lftp put des fichiers apk sur le serveur
 
-echo lftp "$ftp_acces" -e "
-    put $sync_apk_file -o geonature/backend/${remote_synk_apk_file};
+echo lftp "$ftp_access" -e "\"
+    mkdir -p geonature/backend/static/mobile/sync;
+    mkdir -p geonature/backend/static/mobile/occtax;
+    put $sync_apk_file -o geonature/backend/${remote_sync_apk_file};
+    put $occtax_apk_file -o geonature/backend/${remote_occtax_apk_file};
+    bye;
+\""
+
+
+lftp "$ftp_access" -e "
+    mkdir -p geonature/backend/static/mobile/sync;
+    mkdir -p geonature/backend/static/mobile/occtax;
+    put $sync_apk_file -o geonature/backend/${remote_sync_apk_file};
     put $occtax_apk_file -o geonature/backend/${remote_occtax_apk_file};
     bye;
 "
@@ -86,7 +101,8 @@ echo lftp "$ftp_acces" -e "
 
 # Création de la commande sql pour la jouer dans adminpg4
 
-echo "-- version sync : ${tag_sync}
+echo "-- script sql pour la mise à jour des applications mobiles
+-- version sync : ${tag_sync}
 -- version occtax : ${tag_occtax}
 
 DELETE FROM gn_commons.t_mobile_apps;
@@ -99,7 +115,3 @@ VALUES
 ;"  > $sql_file
 
 cat $sql_file
-
-
-
-# psql .?..???.....????????.............?????????????????????
