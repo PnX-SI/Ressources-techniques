@@ -78,7 +78,7 @@ SELECT
 	t.public_transport AS transport,
 	e.geom AS geometrie,
 	t.advised_parking AS parking,
-	t.parking_location AS geometrie_parking,
+	St_AsText(t.parking_location) AS geometrie_parking,
 	e.date_insert AS date_creation,
 	e.date_update AS date_modification
 	--m.medias
@@ -122,7 +122,11 @@ SELECT *
         JOIN v_pois i ON i.id = t.id
         WHERE kind = 'POI' AND deleted = false AND i.published = true
     )
-)
+), commune AS (
+	SELECT p.topo_object_id AS pid, z.name AS commune 
+	FROM public.zoning_city z, v_pois p
+	WHERE ST_intersects(p.geom, z.geom)
+	)
 
 SELECT DISTINCT
 p.geom,
@@ -131,6 +135,8 @@ p.name AS nom,
 p.description,
 pt.label AS type,
 CAST(array_agg(t.topo_object_id) AS VARCHAR) AS randonnees,
+c.commune,
+ct.min_elevation AS altitude,
 p.publication_date AS date_publication,
 ct.date_insert AS date_creation,
 ct.date_update AS date_modification,
@@ -146,13 +152,16 @@ JOIN topo_poi ON topo_poi.path_id = t.path_id
 JOIN v_pois p ON p.id = topo_poi.topo_object_id
 JOIN trekking_poitype pt ON pt.id = p.type_id
 JOIN core_topology ct ON ct.id = p.id
-JOIN authent_structure ats ON ats.id = p.structure_id
+JOIN commune c ON c.pid = p.id
+JOIN authent_structure ats ON ats.id = p.structure_id WHERE ats.id = 1
 GROUP BY
 p.geom,
 p.id,
 p.name,
 p.description,
 pt.label,
+c.commune,
+ct.min_elevation,
 p.publication_date,
 ct.date_insert,
 ct.date_update,
