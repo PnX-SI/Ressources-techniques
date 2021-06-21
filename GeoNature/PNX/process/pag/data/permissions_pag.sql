@@ -146,15 +146,15 @@ INSERT INTO gn_permissions.cor_filter_type_module (id_filter_type, id_module)
 	ORDER BY cor_role_action_filter_module_object.id_module,t_filters.id_filter_type;
 	
 -- checkup_permissions
-SELECT cor_role_action_filter_module_object.id_role, nom_role, 
-		cor_role_action_filter_module_object.id_action, description_action, 
-		cor_role_action_filter_module_object.id_filter, label_filter,
-		cor_role_action_filter_module_object.id_module, module_code,
-		cor_role_action_filter_module_object.id_object, code_object
-	FROM gn_permissions.cor_role_action_filter_module_object
-		INNER JOIN utilisateurs.t_roles on cor_role_action_filter_module_object.id_role = t_roles.id_role
-		INNER JOIN gn_permissions.t_actions on cor_role_action_filter_module_object.id_action = t_actions.id_action
-		INNER JOIN gn_permissions.t_filters on cor_role_action_filter_module_object.id_filter = t_filters.id_filter
-		INNER JOIN gn_commons.t_modules on cor_role_action_filter_module_object.id_module = t_modules.id_module
-		INNER JOIN gn_permissions.t_objects ON cor_role_action_filter_module_object.id_object = t_objects.id_object
-	ORDER BY cor_role_action_filter_module_object.id_role, cor_role_action_filter_module_object.id_module,cor_role_action_filter_module_object.id_action;
+--SELECT cor_role_action_filter_module_object.id_role, nom_role, 
+--		cor_role_action_filter_module_object.id_action, description_action, 
+--		cor_role_action_filter_module_object.id_filter, label_filter,
+--		cor_role_action_filter_module_object.id_module, module_code,
+--		cor_role_action_filter_module_object.id_object, code_object
+--	FROM gn_permissions.cor_role_action_filter_module_object
+--		INNER JOIN utilisateurs.t_roles on cor_role_action_filter_module_object.id_role = t_roles.id_role
+--		INNER JOIN gn_permissions.t_actions on cor_role_action_filter_module_object.id_action = t_actions.id_action
+--		INNER JOIN gn_permissions.t_filters on cor_role_action_filter_module_object.id_filter = t_filters.id_filter
+--		INNER JOIN gn_commons.t_modules on cor_role_action_filter_module_object.id_module = t_modules.id_module
+--		INNER JOIN gn_permissions.t_objects ON cor_role_action_filter_module_object.id_object = t_objects.id_object
+--	ORDER BY cor_role_action_filter_module_object.id_role, cor_role_action_filter_module_object.id_module,cor_role_action_filter_module_object.id_action;

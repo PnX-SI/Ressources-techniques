@@ -65,7 +65,7 @@ INSERT INTO gn_synthese.synthese (
   last_action -- character(1)
  )
 WITH
-s AS (SELECT * FROM v1_compat.syntheseff WHERE supprime = false AND id_source NOT IN (1, 7))      -- contact faune et flore deja présents par occtax ???
+s AS (SELECT * FROM v1_compat.syntheseff WHERE supprime = false AND id_source NOT IN (1, 7, 24, 35))      -- contact faune et flore deja présents par occtax ??? ET ON EXCLUE FAUNE-GUYANE
 SELECT
       uuid_generate_v4() as unique_id_sinp
     , uuid_generate_v4() as unique_id_sinp_grp

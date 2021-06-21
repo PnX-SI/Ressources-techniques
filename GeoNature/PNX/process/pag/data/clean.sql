@@ -3,10 +3,10 @@
 
 -- occtax
 
- DELETE FROM pr_occtax.cor_role_releves_occtax;
- DELETE FROM pr_occtax.cor_counting_occtax;
- DELETE FROM pr_occtax.t_occurrences_occtax;
- DELETE FROM pr_occtax.t_releves_occtax;
+DELETE FROM pr_occtax.cor_role_releves_occtax;
+DELETE FROM pr_occtax.cor_counting_occtax;
+DELETE FROM pr_occtax.t_occurrences_occtax;
+DELETE FROM pr_occtax.t_releves_occtax;
 
 -- Synthese
 DELETE FROM gn_synthese.synthese;
@@ -17,7 +17,7 @@ DELETE FROM gn_synthese.t_sources WHERE name_source != 'Occtax';
 DELETE FROM gn_commons.cor_module_dataset;
 DELETE FROM gn_meta.cor_acquisition_framework_voletsinp;
 DELETE FROM gn_meta.cor_acquisition_framework_objectif;
-DELETE FROM gn_meta. cor_acquisition_framework_actor;
+DELETE FROM gn_meta.cor_acquisition_framework_actor;
 DELETE FROM gn_meta.cor_dataset_actor;
 DELETE FROM gn_meta.t_datasets;
 DELETE FROM gn_meta.t_acquisition_frameworks;
@@ -30,7 +30,7 @@ DELETE from taxonomie.import_taxref;
 DELETE FROM taxonomie.cor_nom_liste;
 DELETE FROM taxonomie.bib_listes ;
 DELETE FROM taxonomie.bib_noms ;
-DELETE FROM taxonomie.taxref WHERE cd_nom >= 99900000 ;
+DELETE FROM taxonomie.taxref WHERE cd_nom >= 9990000 ;
 
 
 -- user

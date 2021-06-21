@@ -1,5 +1,5 @@
 --- 1/ releves; 2/ occurrences; 3/observateurs; 4/dénombrement
-
+SELECT setval('pr_occtax.cor_counting_occtax_id_counting_occtax_seq', 1);
 
 -- 1: releve
 
