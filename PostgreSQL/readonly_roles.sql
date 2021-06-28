@@ -1,11 +1,16 @@
 /*  Création d'un role/groupe readonly */
+
+-- Script pour créer un role readonly générique ayant accès en lecture à toute la base de donnée.
+-- Il suffit alors de créer un rôle héritant de ce dernier :
+-- create role nouveaurole login encrypted password 'mdp' in role readonly;
+
 BEGIN;
 
 CREATE ROLE readonly;
 
 DROP EVENT TRIGGER IF EXISTS grant_readonly_access;
 
-/* Fonction attriuant automatiquement les droits d'usage sur les nouveaux schémas et de select sur les nouvelles tables */
+/* Fonction attribuant automatiquement les droits d'usage sur les nouveaux schémas et de select sur les nouvelles tables */
 CREATE OR REPLACE FUNCTION grant_readonly_on_new_relations()
     RETURNS EVENT_TRIGGER
     LANGUAGE plpgsql AS
@@ -30,7 +35,7 @@ BEGIN
 END
 $$;
 
-/* Application du trigger sur toutes les création de schémas ou de tables */
+/* Application du trigger sur toutes les créations de schémas ou de tables */
 CREATE EVENT TRIGGER grant_readonly_access
     ON ddl_command_end WHEN TAG IN ('CREATE TABLE','CREATE SCHEMA')
 EXECUTE FUNCTION grant_readonly_on_new_relations();
