@@ -8,6 +8,22 @@ set -e
 parc=pag
 
 echo "----------------------------------------------------------------------------"
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Bascule GN1.9 >> GN2.6"
+echo "- Intégration des données et référentiels historiques: depuis GN1.9"
+echo "- Mise à jour des référentiels taxo (TaxRef v14 + ajout refs faune-flore)"
+echo "- Création des droits et permissions utilisateurs"
+echo "- Correction des métadonnées"
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  MAJ Data partenariales"
+echo "- Remplacement des données avec JDD de juin 2021 : "
+echo "    - Faune-Guyane (63586 données PAG) "
+echo "    - Herbier de Cayenne (120820 données Guyane)"
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Intégration data"
+echo "- Intégration des données bota de Sébastien: base photo et CardObs"
+echo "- Redistribution des données Faune-Guyane pour les études PAG"
+echo "- Intégration de divers JDD liés aux ABC, protocoles habitats, etc..."
+echo ""
+echo ""
+echo "----------------------------------------------------------------------------"
 echo "-------------------------------- Initialisation ----------------------------" 
 echo "----------------------------------------------------------------------------"
 echo "************************ load config "
@@ -84,7 +100,7 @@ echo "************************ Herbier de Cayenne 01/06/2021 >>>>> Synthese"
 $psqla -f $BASE_DIR/$parc/integration_data/5_import_Herbierjuin2021.sql
 echo ""
 echo "----------------------------------------------------------------------------"
-echo "--------------------- Bota Seb >> OccTax & ABCSaül -------------------------" 
+echo "--------------------------------- Ajout data -------------------------------" 
 echo "----------------------------------------------------------------------------"
 echo "************************** BD photo & CardObs: Import données"
 $psqla -f $BASE_DIR/$parc/integration_data/1_import_data_seb.sql
@@ -92,13 +108,18 @@ echo "************************** BD photo: Import données géo"
 shp2pgsql -s ${srid_local} -D -I -W "latin1" $BASE_DIR/$parc/integration_data/20201013_cartoLocalites_polygones.shp gn_imports.tmp_localitespoly_seb | ${psqla}
 shp2pgsql -s ${srid_local} -D -I -W "latin1" $BASE_DIR/$parc/integration_data/20201013_cartoLocalites_lignes.shp gn_imports.tmp_localiteslignes_seb | ${psqla}
 shp2pgsql -s ${srid_local} -D -I -W "latin1" $BASE_DIR/$parc/integration_data/20201013_cartoLocalites_points.shp gn_imports.tmp_localitespoints_seb | ${psqla}
-echo ""
 echo "************************** BD photo Seb: Intégraton données"
 $psqla -f $BASE_DIR/$parc/integration_data/2_ajout_data_BDPhotoseb.sql
-echo ""
 echo "************************** CardObs Seb: Intégraton données"
 $psqla -f $BASE_DIR/$parc/integration_data/3_ajout_data_CardObsSeb.sql
 echo ""
+echo "************************** ECOBIOS-Limonade"
+shp2pgsql -s ${srid_local} -D -I -W "latin1" $BASE_DIR/$parc/integration_data/20210628_Localisation_Data_Ecobios.shp gn_imports.tmp_localitespoly_ecobios | ${psqla}
+$psqla -f $BASE_DIR/$parc/integration_data/6_Ecobios_Limonade.sql
+echo ""
+echo "************************** Itoupé, répartition données FG, intégration données ABC..."
+$psqla -f $BASE_DIR/$parc/integration_data/7_Data_Limonade_et_ABC.sql
+
 echo "----------------------------------------------------------------------------"
 echo "--------------------------------- Finalisation -----------------------------" 
 echo "----------------------------------------------------------------------------"
@@ -106,17 +127,9 @@ $psqla -f $BASE_DIR/$parc/data/close_fdw.sql
 $psqla -f $BASE_DIR/$parc/integration_data/10_Drop_tables.sql
 echo ""
 echo ""
-echo "------------------------------- JOB DONE !-------------------------------"
-echo "Intégration des données et référentiels historiques: depuis GN1.9"
-echo "Mise à jour des référentiels taxo (TaxRef v14 + ajout refs faune-flore)"
-echo "Création des droits et permissions utilisateurs"
-echo "Correction des métadonnées"
-echo "Remplacement des données avec JDD de juin 2021 : "
-echo "    - Faune-Guyane (63586 données PAG) "
-echo "    - Herbier de Cayenne (120820 données Guyane)"
-echo "Intégration des données de Sébastien: base photo et CardObs"
 echo "----------------------------------------------------------------------------"
-echo "To do >>>>>>>>>> envoyer photos seb dans static..."
+echo "------------------------------- JOB DONE !----------------------------------"
+echo ">>>>>>>>>> Ne pas oublier >>>>>>>>>> envoyer photos seb dans static/..."
 echo "----------------------------------------------------------------------------"
 echo ""
 echo ""

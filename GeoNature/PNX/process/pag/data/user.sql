@@ -70,7 +70,7 @@ UPDATE utilisateurs.bib_organismes SET nom_organisme = 'Divers' where nom_organi
 DELETE FROM utilisateurs.bib_organismes where id_organisme in (1,2,99);
 SELECT setval('utilisateurs.bib_organismes_id_organisme_seq', (SELECT MAX(id_organisme) FROM utilisateurs.bib_organismes)+1);
 INSERT INTO utilisateurs.bib_organismes(nom_organisme)
-	VALUES ('Asso GEPOG'),
+	VALUES ('Asso. GEPOG (Groupe d''Etude et de Protection des Oiseaux de Guyane)'),
 		('DEAL de Guyane'),
 		('LabEx CEBA'),
 		('CNRS-ISEM'),

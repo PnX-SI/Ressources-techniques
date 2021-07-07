@@ -287,11 +287,11 @@ UPDATE gn_meta.t_acquisition_frameworks
 UPDATE gn_meta.t_datasets
 	SET dataset_name = 'Faune-Guyane (01/06/2021)', 
 	    dataset_shortname = 'Faune-Guyane', 
-	    dataset_desc = 'Données de la plateforme collaborative Faune-Guyane. **GEPOG**',
+	    dataset_desc = 'Données de la plateforme collaborative Faune-Guyane. (les données d''inventaires PAG ont été reventillées vers les jeux de données concernés) **GEPOG**',
 	    id_acquisition_framework = 16
 	WHERE id_dataset = 24;-- Faune-Guyane
 UPDATE gn_meta.t_datasets
-	SET dataset_name = 'Herbier de Guyane (xx/xx/2017)', 
+	SET dataset_name = 'Herbier de Guyane (08/06/2021)', 
 	    dataset_shortname = 'Herbier de Guyane', 
 	    dataset_desc = 'Banque de données de l''Herbier de Cayenne, avec échantillonnage. **IRD de Cayenne**',
 	    id_acquisition_framework = 16,
@@ -336,12 +336,12 @@ UPDATE gn_synthese.t_sources
 	    desc_source = 'Données de la plateforme collaborative Faune-Guyane. **GEPOG**'  
 	WHERE t_sources.id_source = 24;-- Faune-Guyane
 UPDATE gn_synthese.t_sources
-	SET name_source = 'Herbier de Guyane (xx/xx/2017)', 
+	SET name_source = 'Herbier de Guyane (08/06/2021)', 
 	    desc_source = 'Banque de données de l''Herbier de Cayenne, avec échantillonnage. **IRD de Cayenne**'  
 	WHERE t_sources.id_source = 35;-- Herbier
 UPDATE gn_synthese.t_sources
 	SET name_source = 'DIADEMA Limonade', 
-	    desc_source = 'DIADEMA Limonade (2013-2014). **Labex CEBA**'
+	    desc_source = 'DIADEMA Limonade (2013-2014). **LabEx CEBA**'
 	WHERE t_sources.id_source = 25;--DIADEMA
 UPDATE gn_synthese.t_sources
 	SET name_source = 'Mammifères et rongeurs', 
@@ -464,6 +464,7 @@ INSERT INTO gn_commons.cor_module_dataset (id_module, id_dataset)
 	
 SELECT setval('gn_meta.t_acquisition_frameworks_id_acquisition_framework_seq', (SELECT MAX(id_acquisition_framework) FROM gn_meta.t_acquisition_frameworks)+1);
 
+
 ----------------------- ------------0/ Métadonnées pour les ABC Saül et Papaïchton
 --Création du cadre ABC Saül (et celui de PPI au passage)
 INSERT INTO gn_meta.t_acquisition_frameworks(unique_acquisition_framework_id, 
@@ -505,42 +506,42 @@ INSERT INTO gn_meta.cor_acquisition_framework_actor(id_acquisition_framework, id
 		WHERE acquisition_framework_name like 'Atlas de la Biodiversité Communale de%';
 		
 -- Création des JDD "Faune", "Flore" et "Fonge" de Saül
-INSERT INTO gn_meta.t_datasets(	unique_dataset_id, id_acquisition_framework, 
+INSERT INTO gn_meta.t_datasets(	id_dataset, unique_dataset_id, id_acquisition_framework, 
 		dataset_name, dataset_shortname, dataset_desc, 
 		id_nomenclature_data_type, marine_domain, terrestrial_domain, 
 		id_nomenclature_dataset_objectif,  id_nomenclature_collecting_method, id_nomenclature_data_origin, id_nomenclature_source_status, id_nomenclature_resource_type, 
-		active, validable)
-	SELECT uuid_generate_v4() as unique_dataset_id, id_acquisition_framework, 
+		active, validable, id_digitizer)
+	SELECT 42, uuid_generate_v4() as unique_dataset_id, id_acquisition_framework, 
 		'ABCSaül - Flore', 'ABCSaül - Flore', 'Acquisition de données floristiques dans le cadre de l''ABC de Saül', 
 		322, false, true, 
 		417, 395, 76, 73, 320,
-		true, true	
+		true, true, 1000052	
 	FROM gn_meta.t_acquisition_frameworks
 		WHERE acquisition_framework_name = 'Atlas de la Biodiversité Communale de Saül';
 		
-INSERT INTO gn_meta.t_datasets(	unique_dataset_id, id_acquisition_framework, 
+INSERT INTO gn_meta.t_datasets(	id_dataset, unique_dataset_id, id_acquisition_framework, 
 		dataset_name, dataset_shortname, dataset_desc, 
 		id_nomenclature_data_type, marine_domain, terrestrial_domain, 
 		id_nomenclature_dataset_objectif,  id_nomenclature_collecting_method, id_nomenclature_data_origin, id_nomenclature_source_status, id_nomenclature_resource_type, 
-		active, validable)
-	SELECT uuid_generate_v4() as unique_dataset_id, id_acquisition_framework, 
+		active, validable, id_digitizer)
+	SELECT 43, uuid_generate_v4() as unique_dataset_id, id_acquisition_framework, 
 		'ABCSaül - Faune', 'ABCSaül - Faune', 'Acquisition de données faunistiques opportunistes dans le cadre de l''ABC de Saül', 
 		322, false, true, 
 		417, 395, 76, 73, 320,
-		true, true	
+		true, true, 1000052	
 	FROM gn_meta.t_acquisition_frameworks
 		WHERE acquisition_framework_name = 'Atlas de la Biodiversité Communale de Saül';
 
-INSERT INTO gn_meta.t_datasets(	unique_dataset_id, id_acquisition_framework, 
+INSERT INTO gn_meta.t_datasets(	id_dataset, unique_dataset_id, id_acquisition_framework, 
 		dataset_name, dataset_shortname, dataset_desc, 
 		id_nomenclature_data_type, marine_domain, terrestrial_domain, 
 		id_nomenclature_dataset_objectif,  id_nomenclature_collecting_method, id_nomenclature_data_origin, id_nomenclature_source_status, id_nomenclature_resource_type, 
-		active, validable)
-	SELECT uuid_generate_v4() as unique_dataset_id, id_acquisition_framework, 
+		active, validable, id_digitizer)
+	SELECT 44, uuid_generate_v4() as unique_dataset_id, id_acquisition_framework, 
 		'ABCSaül - Fonge', 'ABCSaül - Fonge', 'Acquisition de données fonge opportunistes dans le cadre de l''ABC de Saül', 
 		322, false, true, 
 		417, 395, 76, 73, 320,
-		true, true	
+		true, true, 1000052	
 	FROM gn_meta.t_acquisition_frameworks
 		WHERE acquisition_framework_name = 'Atlas de la Biodiversité Communale de Saül';
 		
@@ -570,4 +571,5 @@ INSERT INTO gn_synthese.t_sources(
 	(54, 'ABCSaül - Faune', 'Acquisition de données faunistiques dans le cadre de l''ABC de Saül. **PAG**', 'pr_occtax.cor_counting_occtax.id_counting_occtax', '#/occtax/info/id_counting'),
 	(55, 'ABCSaül - Fonge', 'Acquisition de données fongistiques dans le cadre de l''ABC de Saül. **PAG**', 'pr_occtax.cor_counting_occtax.id_counting_occtax', '#/occtax/info/id_counting')
 	;
+SELECT setval('gn_meta.t_datasets_id_dataset_seq', (SELECT MAX(id_dataset) FROM gn_meta.t_datasets)+1);
 SELECT setval('gn_synthese.t_sources_id_source_seq', (SELECT MAX(id_source) FROM gn_synthese.t_sources)+1);

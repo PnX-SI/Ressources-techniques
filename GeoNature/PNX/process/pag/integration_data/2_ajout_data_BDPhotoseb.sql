@@ -1,6 +1,5 @@
 ------------------- Injection BD photo seb
 
-------------------- Injection BD photo seb
 
 UPDATE gn_imports.tmp_localiteslignes_seb SET  localite = 'Saül, sentier Grand Boeuf Mort' WHERE localite = 'Saül, sentier Grand Buf Mort';
 UPDATE gn_imports.tmp_localiteslignes_seb SET  localite = 'Saül, sentier Grand Boeuf Mort, crique Roche' WHERE localite = 'Saül, sentier Grand Buf Mort, crique Roche';

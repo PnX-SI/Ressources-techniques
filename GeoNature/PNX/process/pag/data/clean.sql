@@ -30,7 +30,7 @@ DELETE from taxonomie.import_taxref;
 DELETE FROM taxonomie.cor_nom_liste;
 DELETE FROM taxonomie.bib_listes ;
 DELETE FROM taxonomie.bib_noms ;
-DELETE FROM taxonomie.taxref WHERE cd_nom >= 9990000 ;
+DELETE FROM taxonomie.taxref WHERE cd_nom >= 99900000 or cd_nom in (965424, 926098);
 
 
 -- user
