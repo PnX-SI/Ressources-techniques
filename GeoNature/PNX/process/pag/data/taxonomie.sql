@@ -53,7 +53,7 @@ INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_rang, regne, phylum, classe,
 -------------------Ajout des taxons pour l'herbier
 INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_habitat, id_rang, regne, phylum, classe, ordre, famille, sous_famille, tribu, cd_taxsup, cd_sup, cd_ref, lb_nom, lb_auteur, nom_complet, nom_complet_html, nom_valide, nom_vern, nom_vern_eng, group1_inpn, group2_inpn)
 	VALUES (99901748,'P', null,'ES','Fungi','Ascomycota','Sordariomycetes','Coronophorales','Nitschkiaceae', null, null, null, null,99901748,'Acanthonischkea macrobarbata', null,'Acanthonischkea macrobarbata Fitzp.', null,'Acanthonischkea macrobarbata Fitzp.', null, null,'Ascomycètes','Autres'), (
-	99901749,'P', null,'GN', null, null, null, null, null, null, null, null, null,99901749,'Acrocardia', null,'Acrocardia A.Massal.', null,'Acrocardia A.Massal.', null, null,'Algues', null), (
+	99901749,'P', null,'GN', null, null, null, null, null, null, null, null, null,99901749,'Acrocardia', null,'Acrocardia A.Massal.', null,'Acrocardia A.Massal.', null, null,'Algues', 'Autres'), (
 	99901750,'P', null,'VAR','Plantae', null,'Equisetopsida','Fabales','Fabaceae','Caesalpinioideae','Mimoseae','630968','630968',99901750,'Albizia niopoides var. niopoides', null,'Albizia niopoides (Spruce ex Benth.) Burkart var. niopoides', null,'Albizia niopoides (Spruce ex Benth.) Burkart var. niopoides', null, null,'Trachéophytes','Angiospermes'), (
 	99901751,'P', null,'ES','Protozoa','Mycetozoa','Myxomycetes','Liceales','Tubiferaceae', null, null, null, null,99901751,'Alwisia bombarda', null,'Alwisia bombarda Berk. & Broome', null,'Alwisia bombarda Berk. & Broome', null, null, null,'Autres'), (
 	99901752,'P', null,'ES','Plantae', null,'Equisetopsida','Bartramiales','Bartramiaceae', null, null,'189113','189113',99901752,'Anacolia intertexta', null,'Anacolia intertexta (Schimp.) Jaeger', null,'Anacolia intertexta (Schimp.) Jaeger', null, null,'Bryophytes','Mousses'), (
@@ -255,7 +255,7 @@ INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_habitat, id_rang, regne, phy
 	99901948,'P', null,'ES','Plantae', null,'Equisetopsida','Fabales','Fabaceae','Caesalpinioideae','Mimoseae','445792','445792',99901948,'Inga spectabilis', null,'Inga spectabilis (Vahl) Willd.', null,'Inga spectabilis (Vahl) Willd.', null, null,'Trachéophytes','Angiospermes'), (
 	99901949,'P', null,'ES','Plantae', null,'Equisetopsida','Hypnales','Pylaisiadelphaceae', null, null,'193649','193649',99901949,'Isopterygium tenellum', null,'Isopterygium tenellum (Schwägr.) Mitt.', null,'Isopterygium tenellum (Schwägr.) Mitt.', null, null,'Bryophytes','Mousses'), (
 	99901950,'P', null,'ES','Plantae', null,'Equisetopsida','Gentianales','Rubiaceae','Ixoroideae','Ixoreae','445933','445933',99901950,'Ixora acuminatissimma', null,'Ixora acuminatissimma Müll.Arg.', null,'Ixora acuminatissimma Müll.Arg.', null, null,'Trachéophytes','Angiospermes'), (
-	99901951,'P', null, null, null, null, null, null, null, null, null, null, null,99901951,'Lachnelia', null,'Lachnelia J.Jacq.', null,'Lachnelia J.Jacq.', null, null, null, null), (
+	99901951,'P', null, 'GN', null, null, null, null, null, null, null, null, null,99901951,'Lachnelia', null,'Lachnelia J.Jacq.', null,'Lachnelia J.Jacq.', null, null, null, null), (
 	99901952,'P', null,'ES','Plantae', null,'Equisetopsida','Malpighiales','Lacistemataceae', null, null,'730656','730656',99901952,'Lacistema polystachium', null,'Lacistema polystachium Schnizl.', null,'Lacistema polystachium Schnizl.', null, null,'Trachéophytes','Angiospermes'), (
 	99901953,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Proteales','Proteaceae', null, null, null, null,99901953,'Lambertia microscopica', null,'Lambertia microscopica (Seaver) Dumont', null,'Lambertia microscopica (Seaver) Dumont', null, null,'Trachéophytes','Angiospermes'), (
 	99901954,'P', null,'ES','Fungi','Ascomycota','Sordariomycetes','Sordariales','Lasiosphaeriaceae', null, null,'804210','804210',99901954,'Lasiosphaeriella noonae-dana', null,'Lasiosphaeriella noonae-dana (Carroll & Munk) Sivan.', null,'Lasiosphaeriella noonae-dana (Carroll & Munk) Sivan.', null, null,'Ascomycètes','Autres'), (
@@ -548,277 +548,298 @@ INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_habitat, id_rang, regne, phy
 	(99902239,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Gomphales','Gomphaceae', null, null,900250,900250,99902239,'Phaeoclavulina cyanocephala','(Berk. & M.A. Curtis) Giachini','Phaeoclavulina cyanocephala (Berk. & M.A. Curtis) Giachini','<i>Phaeoclavulina cyanocephala</i> (Berk. & M.A. Curtis) Giachini','Phaeoclavulina cyanocephala', null, null,'Basidiomycètes','Autres'),
 	(99902240,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Phallales','Phallaceae', null, null,196065,196065,99902240,'Phallus cinnabarinus','(W.S. Lee) Kreisel','Phallus cinnabarinus (W.S. Lee) Kreisel','<i>Phallus cinnabarinus</i> (W.S. Lee) Kreisel','Phallus cinnabarinus', null, null,'Basidiomycètes','Autres'),
 	-------------- Pour Diadema, habitats, etc
-	(99902241,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902241,'Eros sp. 7', null, null, null, null, null, null, null, null),
-	(99902242,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902242,'Eros sp. 8', null, null, null, null, null, null, null, null),
-	(99902243,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437111,437111,99902243,'Eustala sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902244,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437111,437111,99902244,'Eustala sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902245,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437111,437111,99902245,'Eustala sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902246,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437111,437111,99902246,'Eustala sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902247,'P', null,'ES','Fungi','Basidiomycota', null,'Atheliales','Atheliaceae', null, null,192558,192558,99902247,'Fibulomyces aff. mutabilis', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902248,'P', null,'GN','Fungi', null, null, null, null, null, null, null, null,99902248,'Flabelliforma', null, null, null, null, null, null, null, null),
-	(99902249,'P', null,'ES','Fungi','Basidiomycota', null,'Tricholomatales','Physalacriaceae', null, null,192586,192586,99902249,'Flammulina aff. velutipes', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902250,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Mimetidae', null, null,437131,437131,99902250,'Gelanor sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902251,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Mimetidae', null, null,437131,437131,99902251,'Gelanor sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902252,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Mimetidae', null, null,437131,437131,99902252,'Gelanor sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902253,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Mimetidae', null, null,437131,437131,99902253,'Gelanor sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902254,'P', null,'FM','Opiliones', null, null, null,'Agoristenidae', null, null, null, null,99902254,'Agoristenidae', null, null, null, null, null, null, null, null),
-	(99902255,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Agaricales','Tricholomataceae', null, null,192778,192778,99902255,'Gerronema aff. citrinum', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902256,'P', null,'GN','Fungi', null, null, null, null, null, null, null, null,99902256,'Glomus', null, null, null, null, null, null, null, null),
-	(99902257,'P', null,'ES','Animalia','Chordata','Aves','Passeriformes','Thamnophilidae','Thamnophilinae', null,440414,440414,99902257,'Gymnopithys rubricollis', null, null, null, null, null, null,'Chordés','Oiseaux'),
-	(99902258,'P', null,'ES','Fungi','Basidiomycota', null,'Polyporales','Hyphodermataceae', null, null,903811,903811,99902258,'Hyphoderma aff. sphaeropedunculatum', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902259,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902259,'Hypoponera sp. 05(FG/SGt)', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902260,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902260,'Hypoponera sp. 12(FG/SGt)', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902261,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902261,'Hypoponera sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902262,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902262,'Hypoponera sp. B', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902263,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902263,'Hypoponera sp. C', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902264,'P', null,'GN','Fungi', null, null, null, null, null, null, null, null,99902264,'Jacksonomyces', null, null, null, null, null, null, null, null),
-	(99902265,'P', null,'ES','Fungi','Basidiomycota', null,'Hymenochaetales','Schizoporaceae', null, null,460894,460894,99902265,'Kneiffiella subglobosa', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902266,'P', null,'ES','Fungi','Basidiomycota', null,'Tricholomatales','Marasmiaceae', null, null,193785,193785,99902266,'Lactocollybia angiospermarum', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902267,'P', null,'ES','Fungi','Basidiomycota', null,'Polyporales','Polyporaceae', null, null,899700,899700,99902267,'Leiotrametes guyanensis', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902268,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,437183,437183,99902268,'Leucauge sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902269,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Salticidae', null, null,437158,437158,99902269,'Lyssomanes sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902270,'P', null,'ES','Fungi','Basidiomycota', null,'Tricholomatales','Marasmiaceae', null, null,194456,194456,99902270,'Marasmius violacellus', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902271,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746253,746253,99902271,'Megalomyrmex siIvestrii', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902272,'P', null,'GN','Fungi', null, null, null, null, null, null, null, null,99902272,'Melzerodontia', null, null, null, null, null, null, null, null),
-	(99902273,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437116,437116,99902273,'Metepeira sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902274,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,655223,655223,99902274,'Miagrammopes sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902275,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,655223,655223,99902275,'Miagrammopes sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902276,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,655223,655223,99902276,'Miagrammopes sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902277,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,655223,655223,99902277,'Miagrammopes sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902278,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902278,'Micrathena sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902279,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902279,'Micrathena sp. 10', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902280,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902280,'Micrathena sp. 11', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902281,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902281,'Micrathena sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902282,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902282,'Micrathena sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902283,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902283,'Micrathena sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902284,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902284,'Micrathena sp. 5', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902285,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902285,'Micrathena sp. 6', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902286,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902286,'Micrathena sp. 8', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902287,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902287,'Micrathena sp. 9', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902288,'P', null,'ES','Fungi','Basidiomycota', null,'Tricholomatales','Mycenaceae', null, null,194954,194954,99902288,'Mycena guyanensis', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902289,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Corinnidae', null, null,437125,437125,99902289,'Myrmecium sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902290,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Corinnidae', null, null,437125,437125,99902290,'Myrmecium sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902291,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Corinnidae', null, null,437125,437125,99902291,'Myrmecium sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902292,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746171,746171,99902292,'Myrmicocrypta sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902293,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746171,746171,99902293,'Myrmicocrypta sp. D', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902294,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Dorylinae', null,746354,746354,99902294,'Neivamyrmex cf carettei', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902295,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Dorylinae', null,746354,746354,99902295,'Neivamyrmex postcarinatus', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902296,'P', null,'GN','Fungi', null, null, null, null, null, null, null, null,99902296,'Neopaxillus', null, null, null, null, null, null, null, null),
-	(99902297,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,782253,782253,99902297,'Neoponera apicalis morpho sp II', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902298,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,782253,782253,99902298,'Neoponera verenae morpho sp I', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902299,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Formicinae', null,641473,641473,99902299,'Nylanderia sp. SL13 1', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902300,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Formicinae', null,641473,641473,99902300,'Nylanderia sp. SL13 2', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902301,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Formicinae', null,641473,641473,99902301,'Nylanderia sp. SL13 3', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902302,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,721016,721016,99902302,'Octostruma sp. SL13 1', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902303,'P', null,'GN','Fungi', null, null, null, null, null, null, null, null,99902303,'Odontiopsis', null, null, null, null, null, null, null, null),
-	(99902304,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Oxyopidae', null, null,195621,195621,99902304,'Oxyopes sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902305,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Oxyopidae', null, null,195621,195621,99902305,'Oxyopes sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902306,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Oxyopidae', null, null,195621,195621,99902306,'Oxyopes sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902307,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209940,209940,99902307,'Pachycondyla nr harpax', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902308,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209940,209940,99902308,'Pachycondyla sp. SL13 7', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902309,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209940,209940,99902309,'Pachycondyla striata forme I', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902310,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209940,209940,99902310,'Pachycondyla striata forme II', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902311,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Corinnidae', null, null,715755,715755,99902311,'Parachemmis sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902312,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437120,437120,99902312,'Parawixia sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902313,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437120,437120,99902313,'Parawixia sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902314,'P', null,'ES','Fungi','Basidiomycota', null,'Polyporales','Polyporaceae', null, null,195959,195959,99902314,'Perenniporia stipitata', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902315,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902315,'Pheidole coffeicola', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902316,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902316,'Pheidole gp diligens sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902317,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902317,'Pheidole gp diligens sp. B', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902318,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902318,'Pheidole gp diligens sp. C-1', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902319,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902319,'Pheidole gp diligens sp. C-2', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902320,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902320,'Pheidole gp diligens sp. D', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902321,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902321,'Pheidole gp fallax sp. A-1', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902322,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902322,'Pheidole gp fallax sp. A-2', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902323,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902323,'Pheidole gp fallax sp. B', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902324,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902324,'Pheidole gp fallax sp. D', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902325,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902325,'Pheidole gp fallax sp. G', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902326,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902326,'Pheidole gp flavens sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902327,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902327,'Pheidole gp flavens sp. B', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902328,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902328,'Pheidole gp flavens sp. C', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902329,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902329,'Pheidole gp flavens sp. D-1', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902330,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902330,'Pheidole gp flavens sp. D-2', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902331,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902331,'Pheidole gp flavens sp. D-3', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902332,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902332,'Pheidole gp tristis sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902333,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902333,'Pheidole gp tristis sp. B', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902334,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902334,'Pheidole gp tristis sp. C', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902335,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902335,'Pheidole gp tristis sp. D', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902336,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902336,'Pheidole gp tristis sp. E', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902337,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902337,'Pheidole gp tristis sp. F', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902338,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902338,'Pheidole gp tristis sp. H-2', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902339,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902339,'Pheidole nr alexeter sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902340,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902340,'Pheidole nr alexeter sp. B', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902341,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902341,'Pheidole nr araneoides sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902342,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902342,'Pheidole nr araneoides sp. B', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902343,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902343,'Pheidole nr dolon sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902344,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902344,'Pheidole nr dolon sp. B', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902345,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902345,'Pheidole nr fimbriata sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902346,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902346,'Pheidole nr impressa', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902347,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902347,'Pheidole nr minax', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902348,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902348,'Pheidole nr obtupilosa sp. B', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902349,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902349,'Pheidole nr scolioceps', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902350,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902350,'Pheidole valens', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902351,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Nymphalidae','Satyrinae', null,745391,745391,99902351,'Pierella lena lena', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902352,'P', null,'ES','Fungi','Basidiomycota', null,'Tricholomatales','Pleurotaceae', null, null,196447,196447,99902352,'Pleurotus djamor var. roseus', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902353,'P', null,'ES','Fungi','Basidiomycota', null,'Polyporales','Polyporaceae', null, null,196548,196548,99902353,'Polyporus guyanensis', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902354,'P', null,'ES','Animalia','Chordata','Amphibia','Anura','Craugastoridae','Ceuthomantinae', null,782906,782906,99902354,'Pristimantis sp. 1', null, null, null, null, null, null,'Chordés','Amphibiens'),
-	(99902355,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902355,'Pseudosparianthis sp. 1', null, null, null, null, null, null, null, null),
-	(99902356,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Scytodidae', null, null,197554,197554,99902356,'Scytodes sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902357,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Scytodidae', null, null,197554,197554,99902357,'Scytodes sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902358,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Selenopidae', null, null,215020,215020,99902358,'Selenops sp. 7', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902359,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Senoculidae', null, null,437914,437914,99902359,'Senoculus sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902360,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902360,'Sericomyrmex sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902361,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902361,'Sericomyrmex sp. B', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902362,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902362,'Sericomyrmex sp. C', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902363,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902363,'Sericomyrmex sp. D', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902364,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902364,'Sericomyrmex sp. E', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902365,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902365,'Sericomyrmex sp. F', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902366,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902366,'Sericomyrmex sp. G', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902367,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902367,'Sericomyrmex sp. H', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902368,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902368,'Sericomyrmex sp. I', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902369,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902369,'Solenopsis sp. IT14 1', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902370,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902370,'Solenopsis sp. IT14 11', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902371,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902371,'Solenopsis sp. IT14 12', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902372,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902372,'Solenopsis sp. IT14 14', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902373,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902373,'Solenopsis sp. IT14 15', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902374,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902374,'Solenopsis sp. IT14 17', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902375,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902375,'Solenopsis sp. IT14 19', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902376,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902376,'Solenopsis sp. IT14 2', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902377,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902377,'Solenopsis sp. IT14 20', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902378,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902378,'Solenopsis sp. IT14 21', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902379,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902379,'Solenopsis sp. IT14 22', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902380,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902380,'Solenopsis sp. IT14 24', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902381,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902381,'Solenopsis sp. IT14 26', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902382,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902382,'Solenopsis sp. IT14 28', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902383,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902383,'Solenopsis sp. IT14 29', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902384,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902384,'Solenopsis sp. IT14 3', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902385,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902385,'Solenopsis sp. IT14 30', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902386,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902386,'Solenopsis sp. IT14 31', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902387,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902387,'Solenopsis sp. IT14 32', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902388,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902388,'Solenopsis sp. IT14 5', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902389,'P', null,'ES','Plantae', null,'Equisetopsida','Asterales','Campanulaceae', null, null,197742,197742,99902389,'Solenopsis sp. IT14 7', null, null, null, null, null, null,'Trachéophytes','Angiospermes'),
-	(99902390,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Salticidae', null, null,437172,437172,99902390,'Synemosyna sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902391,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902391,'Synotaxa sp. 2', null, null, null, null, null, null, null, null),
-	(99902392,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Trechaleidae', null, null,715778,715778,99902392,'Syntrechalea syntrechaloides', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902393,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,198316,198316,99902393,'Tetragnatha sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902394,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,198316,198316,99902394,'Tetragnatha sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902395,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,198316,198316,99902395,'Tetragnatha sp. 5', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902396,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,198316,198316,99902396,'Tetragnatha sp. 6', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902397,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,198316,198316,99902397,'Tetragnatha sp. 7', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902398,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902398,'Thiodina sp. 1', null, null, null, null, null, null, null, null),
-	(99902399,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902399,'Tmarus sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902400,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902400,'Tmarus sp. 1bis', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902401,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902401,'Tmarus sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902402,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902402,'Tmarus sp. 21', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902403,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902403,'Tmarus sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902404,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902404,'Tmarus sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902405,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902405,'Tmarus sp. 5', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902406,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902406,'Tmarus sp. 6', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902407,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902407,'Tmarus sp. 7', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902408,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902408,'Tmarus sp. 9', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902409,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902409,'Tobias sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902410,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902410,'Tobias sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902411,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902411,'Tobias sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902412,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902412,'Tobias sp. 5', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902413,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902413,'Tobias sp. 6', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902414,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902414,'Tobias sp. 7', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902415,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902415,'Tobias sp. 8', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902416,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902416,'Trachymyrmex sp. A', null, null, null, null, null, null, null, null),
-	(99902417,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902417,'Trachymyrmex sp. B', null, null, null, null, null, null, null, null),
-	(99902418,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902418,'Trachymyrmex sp. C', null, null, null, null, null, null, null, null),
-	(99902419,'P', null,'ES','Fungi','Basidiomycota', null,'Trechisporales','Sistotremataceae', null, null,198562,198562,99902419,'Trechispora aff. hypoleucum', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902420,'P', null,'GN','Fungi', null, null, null, null, null, null, null, null,99902420,'Trechisporale', null, null, null, null, null, null, null, null),
-	(99902421,'P', null,'ES','Fungi','Basidiomycota', null,'Polyporales','Polyporaceae', null, null,198579,198579,99902421,'Trichaptum perroteti', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902422,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,198790,198790,99902422,'Uloborus sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902423,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,198790,198790,99902423,'Uloborus sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902424,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,715790,715790,99902424,'Wagneriana sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902425,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,715790,715790,99902425,'Wagneriana sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902426,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902426,'Whittickius sp. 1', null, null, null, null, null, null, null, null),
-	(99902427,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902427,'Whittickius sp. 2', null, null, null, null, null, null, null, null),
-	(99902428,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437103,437103,99902428,'Acacesia sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902429,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437193,437193,99902429,'Acentroscelus sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902430,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437193,437193,99902430,'Acentroscelus sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902431,'P', null,'SSES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,641265,641265,99902431,'Acromyrmex subterraneus subsp. bruneus', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902432,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Saturniidae','Ceratocampinae', null,744970,744970,99902432,'Adeloneivaia subangulata subangulata', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902433,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Lycosidae', null, null,715701,715701,99902433,'Aglaoctenus sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902434,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902434,'Alpaida sp. 10', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902435,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902435,'Alpaida sp. 11', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902436,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902436,'Alpaida sp. 12', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902437,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902437,'Alpaida sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902438,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902438,'Alpaida sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902439,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902439,'Alpaida sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902440,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902440,'Alpaida sp. 5', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902441,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902441,'Alpaida sp. 6', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902442,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902442,'Alpaida sp. 7', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902443,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902443,'Alpaida sp. 8', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902444,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902444,'Alpaida sp. 9', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902445,'P', null,'ES','Fungi','Basidiomycota', null,'Polyporales','Ganodermataceae', null, null,804418,804418,99902445,'Amauroderma calcigenum', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902446,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746169,746169,99902446,'Apterostigma bruchi', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902447,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746169,746169,99902447,'Apterostigma complexe pilosum sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902448,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746169,746169,99902448,'Apterostigma reburrum', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902449,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902449,'Aramniones sp. 1', null, null, null, null, null, null, null, null),
-	(99902450,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,189390,189390,99902450,'Araniella sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902451,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Nymphalidae','Charaxinae', null,745468,745468,99902451,'Archaeoprepona demophon demophon', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902452,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Nymphalidae','Charaxinae', null,745468,745468,99902452,'Archaeoprepona demophoon demophoon', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902453,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Pisauridae', null, null,715707,715707,99902453,'Architis sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902454,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Saturniidae','Arsenurinae', null,744954,744954,99902454,'Arsenura batesii arcaei', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902455,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902455,'Aspidolasius sp. 1', null, null, null, null, null, null, null, null),
-	(99902456,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902456,'Aspidolasius sp. 2', null, null, null, null, null, null, null, null),
-	(99902457,'P', null,'GN','Opiliones', null, null, null,'Stygnidae', null, null, null, null,99902457,'Auranus', null, null, null, null, null, null, null, null),
-	(99902458,'P', null,'ES','Fungi','Basidiomycota','Basidiomycetes','Auriculariales','Auriculariaceae', null, null,189665,189665,99902458,'Auricularia fuscocinerea', null, null, null, null, null, null,'Basidiomycètes','Autres'),
-	(99902459,'P', null,'ES','Animalia','Arthropoda', null, null,'Saturniidae', null, null, null, null,99902459,'Automeropsis caudatula', null, null, null, null, null, null, null, null),
-	(99902460,'P', null,'GN','Opiliones', null, null, null,'Agoristenidae', null, null, null, null,99902460,'Avima', null, null, null, null, null, null, null, null),
-	(99902461,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Dolichoderinae', null,641269,641269,99902461,'Azteca sp. SL13 1', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902462,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Formicinae', null,209934,209934,99902462,'Brachymyrmex sp. SL13 1', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902463,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,715709,715709,99902463,'Bucranium sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902464,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,642607,642607,99902464,'Carebara sp. SL13 1', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902465,'P', null,'GN','Fungi', null, null, null, null, null, null, null, null,99902465,'Caripia', null, null, null, null, null, null, null, null),
-	(99902466,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Corinnidae', null, null,202255,202255,99902466,'Castianeira sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902467,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437898,437898,99902467,'Centroctenus sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902468,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437898,437898,99902468,'Centroctenus sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902469,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902469,'Cerapachys splendens', null, null, null, null, null, null, null, null),
-	(99902470,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902470,'Chaecitis sp. 1', null, null, null, null, null, null, null, null),
-	(99902471,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902471,'Chaecitis sp. 2', null, null, null, null, null, null, null, null),
-	(99902472,'P', null,'ES','Chromista','Foraminifera','Globothalamea','Textulariida','Valvulinidae','Valvulininae', null,702098,702098,99902472,'Clavulina aff. cristata', null, null, null, null, null, null,'Foraminifères','Autres'),
-	(99902473,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902473,'Clubiona sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902474,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902474,'Clubiona sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902475,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902475,'Clubiona sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902476,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902476,'Clubiona sp. 5', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902477,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902477,'Clubiona sp. 7', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902478,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902478,'Clubiona sp. 8', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902479,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902479,'Clubiona sp. 9', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902480,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,191241,191241,99902480,'Crematogaster nr stollii', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902481,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,191241,191241,99902481,'Crematogaster sp. SL13 1', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902482,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,191241,191241,99902482,'Crematogaster sp. SL13 2', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902483,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902483,'Ctenus aff.amphora', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902484,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902484,'Ctenus aff.sigma', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902485,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902485,'Ctenus aff.sigma2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902486,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902486,'Ctenus manauara', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902487,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902487,'Ctenus sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902488,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902488,'Ctenus sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902489,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902489,'Ctenus sp. 4', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902490,'P', null,'ES','Animalia','Arthropoda','Arachnida','Opiliones','Cosmetidae','Cosmetinae', null,885420,885420,99902490,'Cynorta sulphurata','Roewer, 1912', null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902491,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,641502,641502,99902491,'Cyphomyrmex sp. A', null, null, null, null, null, null,'Arthropodes','Insectes'),
-	(99902492,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Deinopidae', null, null,437902,437902,99902492,'Deinopis sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902493,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Deinopidae', null, null,437902,437902,99902493,'Deinopis sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902494,'P', null,'ES','Fungi', null, null, null, null, null, null, null, null,99902494,'Dextrinocystidium aff. singulare', null, null, null, null, null, null, null, null),
-	(99902495,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902495,'Diae sp. 1', null, null, null, null, null, null, null, null),
-	(99902496,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902496,'Diae sp. 2', null, null, null, null, null, null, null, null),
-	(99902497,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902497,'Diae sp. 3', null, null, null, null, null, null, null, null),
-	(99902498,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,715721,715721,99902498,'Elaver sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902499,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,715721,715721,99902499,'Elaver sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902500,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437109,437109,99902500,'Enacrosoma sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902501,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,715724,715724,99902501,'Epicadus sp. 1', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902502,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,715724,715724,99902502,'Epicadus sp. 2', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902503,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,715724,715724,99902503,'Epicadus sp. 3', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902504,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,715724,715724,99902504,'Epicadus sp. 5', null, null, null, null, null, null,'Arthropodes','Arachnides'),
-	(99902505,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902505,'Eros sp. 1', null, null, null, null, null, null, null, null),
-	(99902506,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902506,'Eros sp. 2', null, null, null, null, null, null, null, null),
-	(99902507,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902507,'Eros sp. 3', null, null, null, null, null, null, null, null),
-	(99902508,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902508,'Eros sp. 4', null, null, null, null, null, null, null, null),
-	(99902509,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902509,'Eros sp. 5', null, null, null, null, null, null, null, null),
-	(99902510,'P', null,'ES','Animalia','Arthropoda', null, null, null, null, null, null, null,99902510,'Eros sp. 6', null, null, null, null, null, null, null, null);
+	(99902241,'P', null,'ES','Animalia','Arthropoda','Insecta','Coleoptera','Lycidae','Erotinae', null,99902511,99902511,99902241,'Eros sp. 7', null,'Eros sp. 7', '<i>Eros sp. 7</i>', null, null, null,'Arthropodes','Insectes'),
+(99902242,'P', null,'ES','Animalia','Arthropoda','Insecta','Coleoptera','Lycidae','Erotinae', null,99902511,99902511,99902242,'Eros sp. 8', null,'Eros sp. 8', '<i>Eros sp. 8</i>', null, null, null,'Arthropodes','Insectes'),
+(99902243,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437111,437111,99902243,'Eustala sp. 1', null,'Eustala sp. 1', '<i>Eustala sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902244,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437111,437111,99902244,'Eustala sp. 2', null,'Eustala sp. 2', '<i>Eustala sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902245,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437111,437111,99902245,'Eustala sp. 3', null,'Eustala sp. 3', '<i>Eustala sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902246,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437111,437111,99902246,'Eustala sp. 4', null,'Eustala sp. 4', '<i>Eustala sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902247,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Atheliales','Atheliaceae', null, null,192558,192558,99902247,'Fibulomyces aff. mutabilis', null,'Fibulomyces aff. mutabilis', '<i>Fibulomyces aff. mutabilis</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902248,'P', null,'GN','Fungi','Microsporidia','Microsporea', null, null, null, null,7997786,7997786,99902248,'Flabelliforma','Canning et al., 1991','Flabelliforma Canning et al., 1991','<i>Flabelliforma</i>  Canning et al., 1991', null, null, null,'Basidiomycètes','Autres'),
+(99902249,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Tricholomatales','Physalacriaceae', null, null,192586,192586,99902249,'Flammulina aff. velutipes', null,'Flammulina aff. velutipes', '<i>Flammulina aff. velutipes</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902250,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Mimetidae', null, null,437131,437131,99902250,'Gelanor sp. 1', null,'Gelanor sp. 1', '<i>Gelanor sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902251,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Mimetidae', null, null,437131,437131,99902251,'Gelanor sp. 2', null,'Gelanor sp. 2', '<i>Gelanor sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902252,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Mimetidae', null, null,437131,437131,99902252,'Gelanor sp. 3', null,'Gelanor sp. 3', '<i>Gelanor sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902253,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Mimetidae', null, null,437131,437131,99902253,'Gelanor sp. 4', null,'Gelanor sp. 4', '<i>Gelanor sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902254,'P', null,'FM','Animalia','Arthropoda','Arachnida','Opiliones','Agoristenidae', null, null,183822,183822,99902254,'Agoristenidae','Šilhavý, 1973','Agoristenidae Šilhavý, 1973','<i>Agoristenidae</i>  Šilhavý, 1973', null, null, null,'Arthropodes','Arachnides'),
+(99902255,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Agaricales','Tricholomataceae', null, null,192778,192778,99902255,'Gerronema aff. citrinum', null,'Gerronema aff. citrinum', '<i>Gerronema aff. citrinum</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902256,'P', null,'GN','Fungi','Glomeromycota','Glomeromycetes','Glomerales','Glomeraceae', null, null,99902525,99902525,99902256,'Glomus','Tul & Tul, 1844','Glomus Tul & Tul, 1844','<i>Glomus</i>  Tul & Tul, 1844', null, null, null,'Glomeromycota','Autres'),
+(99902257,'P', null,'ES','Animalia','Chordata','Aves','Passeriformes','Thamnophilidae','Thamnophilinae', null,440414,440414,99902257,'Gymnopithys rubricollis', null,'Gymnopithys rubricollis', '<i>Gymnopithys rubricollis</i>', null, null, null,'Chordés','Oiseaux'),
+(99902258,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Hyphodermataceae', null, null,903811,903811,99902258,'Hyphoderma aff. sphaeropedunculatum', null,'Hyphoderma aff. sphaeropedunculatum', '<i>Hyphoderma aff. sphaeropedunculatum</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902259,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902259,'Hypoponera sp. 05(FG/SGt)', null,'Hypoponera sp. 05(FG/SGt)', '<i>Hypoponera sp. 05(FG/SGt)</i>', null, null, null,'Arthropodes','Insectes'),
+(99902260,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902260,'Hypoponera sp. 12(FG/SGt)', null,'Hypoponera sp. 12(FG/SGt)', '<i>Hypoponera sp. 12(FG/SGt)</i>', null, null, null,'Arthropodes','Insectes'),
+(99902261,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902261,'Hypoponera sp. A', null,'Hypoponera sp. A', '<i>Hypoponera sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902262,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902262,'Hypoponera sp. B', null,'Hypoponera sp. B', '<i>Hypoponera sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902263,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902263,'Hypoponera sp. C', null,'Hypoponera sp. C', '<i>Hypoponera sp. C</i>', null, null, null,'Arthropodes','Insectes'),
+(99902264,'P', null,'GN','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Meruliaceae', null, null,443159,443159,99902264,'Jacksonomyces','Rea, 1922','Jacksonomyces Rea, 1922','<i>Jacksonomyces</i>  Rea, 1922', null, null, null,'Basidiomycota','Agaricomicetes'),
+(99902265,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Hymenochaetales','Schizoporaceae', null, null,460894,460894,99902265,'Kneiffiella subglobosa', null,'Kneiffiella subglobosa', '<i>Kneiffiella subglobosa</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902266,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Tricholomatales','Marasmiaceae', null, null,193785,193785,99902266,'Lactocollybia angiospermarum', null,'Lactocollybia angiospermarum', '<i>Lactocollybia angiospermarum</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902267,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Polyporaceae', null, null,899700,899700,99902267,'Leiotrametes guyanensis', null,'Leiotrametes guyanensis', '<i>Leiotrametes guyanensis</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902268,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,437183,437183,99902268,'Leucauge sp. 2', null,'Leucauge sp. 2', '<i>Leucauge sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902269,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Salticidae', null, null,437158,437158,99902269,'Lyssomanes sp. 1', null,'Lyssomanes sp. 1', '<i>Lyssomanes sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902270,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Tricholomatales','Marasmiaceae', null, null,194456,194456,99902270,'Marasmius violacellus', null,'Marasmius violacellus', '<i>Marasmius violacellus</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902271,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746253,746253,99902271,'Megalomyrmex siIvestrii','Wheeler, 1909','Megalomyrmex siIvestrii Wheeler, 1909','<i>Megalomyrmex siIvestrii</i>  Wheeler, 1909', null, null, null,'Arthropodes','Insectes'),
+(99902272,'P', null,'GN','Fungi','Basidiomycota','Agaricomycetes','Corticales','Corticiaceae', null, null,460627,460427,99902272,'Melzerodontia','Hjortstam & Ryvarden, 1980','Melzerodontia Hjortstam & Ryvarden, 1980','<i>Melzerodontia</i>  Hjortstam & Ryvarden, 1980', null, null, null,'Basidiomycètes','Autres'),
+(99902273,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437116,437116,99902273,'Metepeira sp. 1', null,'Metepeira sp. 1', '<i>Metepeira sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902274,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,655223,655223,99902274,'Miagrammopes sp. 1', null,'Miagrammopes sp. 1', '<i>Miagrammopes sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902275,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,655223,655223,99902275,'Miagrammopes sp. 2', null,'Miagrammopes sp. 2', '<i>Miagrammopes sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902276,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,655223,655223,99902276,'Miagrammopes sp. 3', null,'Miagrammopes sp. 3', '<i>Miagrammopes sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902277,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,655223,655223,99902277,'Miagrammopes sp. 4', null,'Miagrammopes sp. 4', '<i>Miagrammopes sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902278,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902278,'Micrathena sp. 1', null,'Micrathena sp. 1', '<i>Micrathena sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902279,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902279,'Micrathena sp. 10', null,'Micrathena sp. 10', '<i>Micrathena sp. 10</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902280,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902280,'Micrathena sp. 11', null,'Micrathena sp. 11', '<i>Micrathena sp. 11</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902281,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902281,'Micrathena sp. 2', null,'Micrathena sp. 2', '<i>Micrathena sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902282,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902282,'Micrathena sp. 3', null,'Micrathena sp. 3', '<i>Micrathena sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902283,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902283,'Micrathena sp. 4', null,'Micrathena sp. 4', '<i>Micrathena sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902284,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902284,'Micrathena sp. 5', null,'Micrathena sp. 5', '<i>Micrathena sp. 5</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902285,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902285,'Micrathena sp. 6', null,'Micrathena sp. 6', '<i>Micrathena sp. 6</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902286,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902286,'Micrathena sp. 8', null,'Micrathena sp. 8', '<i>Micrathena sp. 8</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902287,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437117,437117,99902287,'Micrathena sp. 9', null,'Micrathena sp. 9', '<i>Micrathena sp. 9</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902288,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Tricholomatales','Mycenaceae', null, null,194954,194954,99902288,'Mycena guyanensis', null,'Mycena guyanensis', '<i>Mycena guyanensis</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902289,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Corinnidae', null, null,437125,437125,99902289,'Myrmecium sp. 1', null,'Myrmecium sp. 1', '<i>Myrmecium sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902290,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Corinnidae', null, null,437125,437125,99902290,'Myrmecium sp. 2', null,'Myrmecium sp. 2', '<i>Myrmecium sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902291,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Corinnidae', null, null,437125,437125,99902291,'Myrmecium sp. 3', null,'Myrmecium sp. 3', '<i>Myrmecium sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902292,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746171,746171,99902292,'Myrmicocrypta sp. A', null,'Myrmicocrypta sp. A', '<i>Myrmicocrypta sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902293,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746171,746171,99902293,'Myrmicocrypta sp. D', null,'Myrmicocrypta sp. D', '<i>Myrmicocrypta sp. D</i>', null, null, null,'Arthropodes','Insectes'),
+(99902294,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Dorylinae', null,746354,746354,99902294,'Neivamyrmex cf carettei', null,'Neivamyrmex cf carettei', '<i>Neivamyrmex cf carettei</i>', null, null, null,'Arthropodes','Insectes'),
+(99902295,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Dorylinae', null,746354,746354,99902295,'Neivamyrmex postcarinatus','Borgmeier, 1953','Neivamyrmex postcarinatus Borgmeier, 1953','<i>Neivamyrmex postcarinatus</i>  Borgmeier, 1953', null, null, null,'Arthropodes','Insectes'),
+(99902296,'P', null,'GN','Fungi','Basidiomycota','Agaricomycetes','Agaricales','Inocybaceae', null, null,99902524,99902524,99902296,'Neopaxillus','Singer, 1948','Neopaxillus Singer, 1948','<i>Neopaxillus</i>  Singer, 1948', null, null, null,'Basidiomycètes','Autres'),
+(99902297,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,782253,782253,99902297,'Neoponera apicalis morpho sp II', null,'Neoponera apicalis morpho sp II', '<i>Neoponera apicalis morpho sp II</i>', null, null, null,'Arthropodes','Insectes'),
+(99902298,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,782253,782253,99902298,'Neoponera verenae morpho sp I', null,'Neoponera verenae morpho sp I', '<i>Neoponera verenae morpho sp I</i>', null, null, null,'Arthropodes','Insectes'),
+(99902299,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Formicinae', null,641473,641473,99902299,'Nylanderia sp. SL13 1', null,'Nylanderia sp. SL13 1', '<i>Nylanderia sp. SL13 1</i>', null, null, null,'Arthropodes','Insectes'),
+(99902300,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Formicinae', null,641473,641473,99902300,'Nylanderia sp. SL13 2', null,'Nylanderia sp. SL13 2', '<i>Nylanderia sp. SL13 2</i>', null, null, null,'Arthropodes','Insectes'),
+(99902301,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Formicinae', null,641473,641473,99902301,'Nylanderia sp. SL13 3', null,'Nylanderia sp. SL13 3', '<i>Nylanderia sp. SL13 3</i>', null, null, null,'Arthropodes','Insectes'),
+(99902302,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,721016,721016,99902302,'Octostruma sp. SL13 1', null,'Octostruma sp. SL13 1', '<i>Octostruma sp. SL13 1</i>', null, null, null,'Arthropodes','Insectes'),
+(99902303,'P', null,'GN','Fungi','Basidiomycota','Agaricomycetes','Hymenochatetales','Schizoporaceae', null, null,443194,443194,99902303,'Odontiopsis','Hjortstam & Ryvarden','Odontiopsis Hjortstam & Ryvarden','<i>Odontiopsis</i>  Hjortstam & Ryvarden', null, null, null,'Basidiomycètes','Autres'),
+(99902304,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Oxyopidae', null, null,195621,195621,99902304,'Oxyopes sp. 1', null,'Oxyopes sp. 1', '<i>Oxyopes sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902305,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Oxyopidae', null, null,195621,195621,99902305,'Oxyopes sp. 2', null,'Oxyopes sp. 2', '<i>Oxyopes sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902306,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Oxyopidae', null, null,195621,195621,99902306,'Oxyopes sp. 3', null,'Oxyopes sp. 3', '<i>Oxyopes sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902307,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209940,209940,99902307,'Pachycondyla nr harpax', null,'Pachycondyla nr harpax', '<i>Pachycondyla nr harpax</i>', null, null, null,'Arthropodes','Insectes'),
+(99902308,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209940,209940,99902308,'Pachycondyla sp. SL13 7', null,'Pachycondyla sp. SL13 7', '<i>Pachycondyla sp. SL13 7</i>', null, null, null,'Arthropodes','Insectes'),
+(99902309,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209940,209940,99902309,'Pachycondyla striata forme I', null,'Pachycondyla striata forme I', '<i>Pachycondyla striata forme I</i>', null, null, null,'Arthropodes','Insectes'),
+(99902310,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209940,209940,99902310,'Pachycondyla striata forme II', null,'Pachycondyla striata forme II', '<i>Pachycondyla striata forme II</i>', null, null, null,'Arthropodes','Insectes'),
+(99902311,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Corinnidae', null, null,715755,715755,99902311,'Parachemmis sp. 1', null,'Parachemmis sp. 1', '<i>Parachemmis sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902312,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437120,437120,99902312,'Parawixia sp. 1', null,'Parawixia sp. 1', '<i>Parawixia sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902313,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437120,437120,99902313,'Parawixia sp. 2', null,'Parawixia sp. 2', '<i>Parawixia sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902314,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Polyporaceae', null, null,195959,195959,99902314,'Perenniporia stipitata','Ryvarden, 1987','Perenniporia stipitata Ryvarden, 1987','<i>Perenniporia stipitata</i>  Ryvarden, 1987', null, null, null,'Basidiomycètes','Autres'),
+(99902315,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902315,'Pheidole coffeicola', null,'Pheidole coffeicola', '<i>Pheidole coffeicola</i>', null, null, null,'Arthropodes','Insectes'),
+(99902316,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902316,'Pheidole gp diligens sp. A', null,'Pheidole gp diligens sp. A', '<i>Pheidole gp diligens sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902317,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902317,'Pheidole gp diligens sp. B', null,'Pheidole gp diligens sp. B', '<i>Pheidole gp diligens sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902318,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902318,'Pheidole gp diligens sp. C-1', null,'Pheidole gp diligens sp. C-1', '<i>Pheidole gp diligens sp. C-1</i>', null, null, null,'Arthropodes','Insectes'),
+(99902319,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902319,'Pheidole gp diligens sp. C-2', null,'Pheidole gp diligens sp. C-2', '<i>Pheidole gp diligens sp. C-2</i>', null, null, null,'Arthropodes','Insectes'),
+(99902320,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902320,'Pheidole gp diligens sp. D', null,'Pheidole gp diligens sp. D', '<i>Pheidole gp diligens sp. D</i>', null, null, null,'Arthropodes','Insectes'),
+(99902321,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902321,'Pheidole gp fallax sp. A-1', null,'Pheidole gp fallax sp. A-1', '<i>Pheidole gp fallax sp. A-1</i>', null, null, null,'Arthropodes','Insectes'),
+(99902322,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902322,'Pheidole gp fallax sp. A-2', null,'Pheidole gp fallax sp. A-2', '<i>Pheidole gp fallax sp. A-2</i>', null, null, null,'Arthropodes','Insectes'),
+(99902323,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902323,'Pheidole gp fallax sp. B', null,'Pheidole gp fallax sp. B', '<i>Pheidole gp fallax sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902324,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902324,'Pheidole gp fallax sp. D', null,'Pheidole gp fallax sp. D', '<i>Pheidole gp fallax sp. D</i>', null, null, null,'Arthropodes','Insectes'),
+(99902325,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902325,'Pheidole gp fallax sp. G', null,'Pheidole gp fallax sp. G', '<i>Pheidole gp fallax sp. G</i>', null, null, null,'Arthropodes','Insectes'),
+(99902326,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902326,'Pheidole gp flavens sp. A', null,'Pheidole gp flavens sp. A', '<i>Pheidole gp flavens sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902327,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902327,'Pheidole gp flavens sp. B', null,'Pheidole gp flavens sp. B', '<i>Pheidole gp flavens sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902328,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902328,'Pheidole gp flavens sp. C', null,'Pheidole gp flavens sp. C', '<i>Pheidole gp flavens sp. C</i>', null, null, null,'Arthropodes','Insectes'),
+(99902329,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902329,'Pheidole gp flavens sp. D-1', null,'Pheidole gp flavens sp. D-1', '<i>Pheidole gp flavens sp. D-1</i>', null, null, null,'Arthropodes','Insectes'),
+(99902330,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902330,'Pheidole gp flavens sp. D-2', null,'Pheidole gp flavens sp. D-2', '<i>Pheidole gp flavens sp. D-2</i>', null, null, null,'Arthropodes','Insectes'),
+(99902331,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902331,'Pheidole gp flavens sp. D-3', null,'Pheidole gp flavens sp. D-3', '<i>Pheidole gp flavens sp. D-3</i>', null, null, null,'Arthropodes','Insectes'),
+(99902332,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902332,'Pheidole gp tristis sp. A', null,'Pheidole gp tristis sp. A', '<i>Pheidole gp tristis sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902333,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902333,'Pheidole gp tristis sp. B', null,'Pheidole gp tristis sp. B', '<i>Pheidole gp tristis sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902334,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902334,'Pheidole gp tristis sp. C', null,'Pheidole gp tristis sp. C', '<i>Pheidole gp tristis sp. C</i>', null, null, null,'Arthropodes','Insectes'),
+(99902335,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902335,'Pheidole gp tristis sp. D', null,'Pheidole gp tristis sp. D', '<i>Pheidole gp tristis sp. D</i>', null, null, null,'Arthropodes','Insectes'),
+(99902336,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902336,'Pheidole gp tristis sp. E', null,'Pheidole gp tristis sp. E', '<i>Pheidole gp tristis sp. E</i>', null, null, null,'Arthropodes','Insectes'),
+(99902337,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902337,'Pheidole gp tristis sp. F', null,'Pheidole gp tristis sp. F', '<i>Pheidole gp tristis sp. F</i>', null, null, null,'Arthropodes','Insectes'),
+(99902338,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902338,'Pheidole gp tristis sp. H-2', null,'Pheidole gp tristis sp. H-2', '<i>Pheidole gp tristis sp. H-2</i>', null, null, null,'Arthropodes','Insectes'),
+(99902339,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902339,'Pheidole nr alexeter sp. A', null,'Pheidole nr alexeter sp. A', '<i>Pheidole nr alexeter sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902340,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902340,'Pheidole nr alexeter sp. B', null,'Pheidole nr alexeter sp. B', '<i>Pheidole nr alexeter sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902341,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902341,'Pheidole nr araneoides sp. A', null,'Pheidole nr araneoides sp. A', '<i>Pheidole nr araneoides sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902342,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902342,'Pheidole nr araneoides sp. B', null,'Pheidole nr araneoides sp. B', '<i>Pheidole nr araneoides sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902343,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902343,'Pheidole nr dolon sp. A', null,'Pheidole nr dolon sp. A', '<i>Pheidole nr dolon sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902344,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902344,'Pheidole nr dolon sp. B', null,'Pheidole nr dolon sp. B', '<i>Pheidole nr dolon sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902345,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902345,'Pheidole nr fimbriata sp. A', null,'Pheidole nr fimbriata sp. A', '<i>Pheidole nr fimbriata sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902346,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902346,'Pheidole nr impressa', null,'Pheidole nr impressa', '<i>Pheidole nr impressa</i>', null, null, null,'Arthropodes','Insectes'),
+(99902347,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902347,'Pheidole nr minax', null,'Pheidole nr minax', '<i>Pheidole nr minax</i>', null, null, null,'Arthropodes','Insectes'),
+(99902348,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902348,'Pheidole nr obtupilosa sp. B', null,'Pheidole nr obtupilosa sp. B', '<i>Pheidole nr obtupilosa sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902349,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902349,'Pheidole nr scolioceps', null,'Pheidole nr scolioceps', '<i>Pheidole nr scolioceps</i>', null, null, null,'Arthropodes','Insectes'),
+(99902350,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,196083,196083,99902350,'Pheidole valens', null,'Pheidole valens', '<i>Pheidole valens</i>', null, null, null,'Arthropodes','Insectes'),
+(99902351,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Nymphalidae','Satyrinae', null,745391,745391,99902351,'Pierella lena lena', null,'Pierella lena lena', '<i>Pierella lena lena</i>', null, null, null,'Arthropodes','Insectes'),
+(99902352,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Agaricales','Pleurotaceae', null, null,196447,196447,99902352,'Pleurotus djamor var. roseus','Boedijn, 1959','Pleurotus djamor var. roseus Boedijn, 1959','<i>Pleurotus djamor var. roseus</i>  Boedijn, 1959', null, null, null,'Basidiomycètes','Autres'),
+(99902353,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Polyporaceae', null, null,196548,196548,99902353,'Polyporus guyanensis','Mont, 1840','Polyporus guyanensis Mont, 1840','<i>Polyporus guyanensis</i>  Mont, 1840', null, null, null,'Basidiomycètes','Autres'),
+(99902354,'P', null,'ES','Animalia','Chordata','Amphibia','Anura','Craugastoridae','Ceuthomantinae', null,782906,782906,99902354,'Pristimantis sp. 1', null,'Pristimantis sp. 1', '<i>Pristimantis sp. 1</i>', null, null, null,'Chordés','Amphibiens'),
+(99902355,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Sparassidae', null, null,99902512,99902512,99902355,'Pseudosparianthis sp. 1', null,'Pseudosparianthis sp. 1', '<i>Pseudosparianthis sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902356,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Scytodidae', null, null,197554,197554,99902356,'Scytodes sp. 1', null,'Scytodes sp. 1', '<i>Scytodes sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902357,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Scytodidae', null, null,197554,197554,99902357,'Scytodes sp. 3', null,'Scytodes sp. 3', '<i>Scytodes sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902358,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Selenopidae', null, null,215020,215020,99902358,'Selenops sp. 7', null,'Selenops sp. 7', '<i>Selenops sp. 7</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902359,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Senoculidae', null, null,437914,437914,99902359,'Senoculus sp. 1', null,'Senoculus sp. 1', '<i>Senoculus sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902360,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902360,'Sericomyrmex sp. A', null,'Sericomyrmex sp. A', '<i>Sericomyrmex sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902361,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902361,'Sericomyrmex sp. B', null,'Sericomyrmex sp. B', '<i>Sericomyrmex sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902362,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902362,'Sericomyrmex sp. C', null,'Sericomyrmex sp. C', '<i>Sericomyrmex sp. C</i>', null, null, null,'Arthropodes','Insectes'),
+(99902363,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902363,'Sericomyrmex sp. D', null,'Sericomyrmex sp. D', '<i>Sericomyrmex sp. D</i>', null, null, null,'Arthropodes','Insectes'),
+(99902364,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902364,'Sericomyrmex sp. E', null,'Sericomyrmex sp. E', '<i>Sericomyrmex sp. E</i>', null, null, null,'Arthropodes','Insectes'),
+(99902365,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902365,'Sericomyrmex sp. F', null,'Sericomyrmex sp. F', '<i>Sericomyrmex sp. F</i>', null, null, null,'Arthropodes','Insectes'),
+(99902366,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902366,'Sericomyrmex sp. G', null,'Sericomyrmex sp. G', '<i>Sericomyrmex sp. G</i>', null, null, null,'Arthropodes','Insectes'),
+(99902367,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902367,'Sericomyrmex sp. H', null,'Sericomyrmex sp. H', '<i>Sericomyrmex sp. H</i>', null, null, null,'Arthropodes','Insectes'),
+(99902368,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746190,746190,99902368,'Sericomyrmex sp. I', null,'Sericomyrmex sp. I', '<i>Sericomyrmex sp. I</i>', null, null, null,'Arthropodes','Insectes'),
+(99902369,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902369,'Solenopsis sp. IT14 1', null,'Solenopsis sp. IT14 1', '<i>Solenopsis sp. IT14 1</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902370,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902370,'Solenopsis sp. IT14 11', null,'Solenopsis sp. IT14 11', '<i>Solenopsis sp. IT14 11</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902371,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902371,'Solenopsis sp. IT14 12', null,'Solenopsis sp. IT14 12', '<i>Solenopsis sp. IT14 12</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902372,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902372,'Solenopsis sp. IT14 14', null,'Solenopsis sp. IT14 14', '<i>Solenopsis sp. IT14 14</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902373,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902373,'Solenopsis sp. IT14 15', null,'Solenopsis sp. IT14 15', '<i>Solenopsis sp. IT14 15</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902374,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902374,'Solenopsis sp. IT14 17', null,'Solenopsis sp. IT14 17', '<i>Solenopsis sp. IT14 17</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902375,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902375,'Solenopsis sp. IT14 19', null,'Solenopsis sp. IT14 19', '<i>Solenopsis sp. IT14 19</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902376,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902376,'Solenopsis sp. IT14 2', null,'Solenopsis sp. IT14 2', '<i>Solenopsis sp. IT14 2</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902377,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902377,'Solenopsis sp. IT14 20', null,'Solenopsis sp. IT14 20', '<i>Solenopsis sp. IT14 20</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902378,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902378,'Solenopsis sp. IT14 21', null,'Solenopsis sp. IT14 21', '<i>Solenopsis sp. IT14 21</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902379,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902379,'Solenopsis sp. IT14 22', null,'Solenopsis sp. IT14 22', '<i>Solenopsis sp. IT14 22</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902380,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902380,'Solenopsis sp. IT14 24', null,'Solenopsis sp. IT14 24', '<i>Solenopsis sp. IT14 24</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902381,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902381,'Solenopsis sp. IT14 26', null,'Solenopsis sp. IT14 26', '<i>Solenopsis sp. IT14 26</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902382,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902382,'Solenopsis sp. IT14 28', null,'Solenopsis sp. IT14 28', '<i>Solenopsis sp. IT14 28</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902383,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902383,'Solenopsis sp. IT14 29', null,'Solenopsis sp. IT14 29', '<i>Solenopsis sp. IT14 29</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902384,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902384,'Solenopsis sp. IT14 3', null,'Solenopsis sp. IT14 3', '<i>Solenopsis sp. IT14 3</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902385,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902385,'Solenopsis sp. IT14 30', null,'Solenopsis sp. IT14 30', '<i>Solenopsis sp. IT14 30</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902386,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902386,'Solenopsis sp. IT14 31', null,'Solenopsis sp. IT14 31', '<i>Solenopsis sp. IT14 31</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902387,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902387,'Solenopsis sp. IT14 32', null,'Solenopsis sp. IT14 32', '<i>Solenopsis sp. IT14 32</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902388,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902388,'Solenopsis sp. IT14 5', null,'Solenopsis sp. IT14 5', '<i>Solenopsis sp. IT14 5</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902389,'P', null,'ES','Plantae','Tracheophyta','Magnoliopsida','Asterales','Campanulaceae', null, null,197742,197742,99902389,'Solenopsis sp. IT14 7', null,'Solenopsis sp. IT14 7', '<i>Solenopsis sp. IT14 7</i>', null, null, null,'Trachéophytes','Angiospermes'),
+(99902390,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Salticidae', null, null,437172,437172,99902390,'Synemosyna sp. 1', null,'Synemosyna sp. 1', '<i>Synemosyna sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902391,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Synotaxidae', null, null,99902513,99902513,99902391,'Synotaxa sp. 2', null,'Synotaxa sp. 2', '<i>Synotaxa sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902392,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Trechaleidae', null, null,715778,715778,99902392,'Syntrechalea syntrechaloides','Mello-Leitão, 1941','Syntrechalea syntrechaloides Mello-Leitão, 1941','<i>Syntrechalea syntrechaloides</i>  Mello-Leitão, 1941', null, null, null,'Arthropodes','Arachnides'),
+(99902393,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,198316,198316,99902393,'Tetragnatha sp. 3', null,'Tetragnatha sp. 3', '<i>Tetragnatha sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902394,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,198316,198316,99902394,'Tetragnatha sp. 4', null,'Tetragnatha sp. 4', '<i>Tetragnatha sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902395,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,198316,198316,99902395,'Tetragnatha sp. 5', null,'Tetragnatha sp. 5', '<i>Tetragnatha sp. 5</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902396,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,198316,198316,99902396,'Tetragnatha sp. 6', null,'Tetragnatha sp. 6', '<i>Tetragnatha sp. 6</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902397,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Tetragnathidae', null, null,198316,198316,99902397,'Tetragnatha sp. 7', null,'Tetragnatha sp. 7', '<i>Tetragnatha sp. 7</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902398,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Salticidae', null, null,906355,906355,99902398,'Thiodina sp. 1', null,'Thiodina sp. 1', '<i>Thiodina sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902399,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902399,'Tmarus sp. 1', null,'Tmarus sp. 1', '<i>Tmarus sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902400,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902400,'Tmarus sp. 1bis', null,'Tmarus sp. 1bis', '<i>Tmarus sp. 1bis</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902401,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902401,'Tmarus sp. 2', null,'Tmarus sp. 2', '<i>Tmarus sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902402,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902402,'Tmarus sp. 21', null,'Tmarus sp. 21', '<i>Tmarus sp. 21</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902403,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902403,'Tmarus sp. 3', null,'Tmarus sp. 3', '<i>Tmarus sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902404,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902404,'Tmarus sp. 4', null,'Tmarus sp. 4', '<i>Tmarus sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902405,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902405,'Tmarus sp. 5', null,'Tmarus sp. 5', '<i>Tmarus sp. 5</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902406,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902406,'Tmarus sp. 6', null,'Tmarus sp. 6', '<i>Tmarus sp. 6</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902407,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902407,'Tmarus sp. 7', null,'Tmarus sp. 7', '<i>Tmarus sp. 7</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902408,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,198482,198482,99902408,'Tmarus sp. 9', null,'Tmarus sp. 9', '<i>Tmarus sp. 9</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902409,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902409,'Tobias sp. 2', null,'Tobias sp. 2', '<i>Tobias sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902410,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902410,'Tobias sp. 3', null,'Tobias sp. 3', '<i>Tobias sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902411,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902411,'Tobias sp. 4', null,'Tobias sp. 4', '<i>Tobias sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902412,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902412,'Tobias sp. 5', null,'Tobias sp. 5', '<i>Tobias sp. 5</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902413,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902413,'Tobias sp. 6', null,'Tobias sp. 6', '<i>Tobias sp. 6</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902414,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902414,'Tobias sp. 7', null,'Tobias sp. 7', '<i>Tobias sp. 7</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902415,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437199,437199,99902415,'Tobias sp. 8', null,'Tobias sp. 8', '<i>Tobias sp. 8</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902416,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae','Attini',99902515,99902515,99902416,'Trachymyrmex sp. A', null,'Trachymyrmex sp. A', '<i>Trachymyrmex sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902417,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae','Attini',99902515,99902515,99902417,'Trachymyrmex sp. B', null,'Trachymyrmex sp. B', '<i>Trachymyrmex sp. B</i>', null, null, null,'Arthropodes','Insectes'),
+(99902418,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae','Attini',99902515,99902515,99902418,'Trachymyrmex sp. C', null,'Trachymyrmex sp. C', '<i>Trachymyrmex sp. C</i>', null, null, null,'Arthropodes','Insectes'),
+(99902419,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Trechisporales','Sistotremataceae', null, null,198562,198562,99902419,'Trechispora aff. hypoleucum', null,'Trechispora aff. hypoleucum', '<i>Trechispora aff. hypoleucum</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902420,'P', null,'OR','Fungi','Basidiomycota','Agaricomycetes', null, null, null, null,826940,826940,99902420,'Trechisporale','Larss','Trechisporale Larss','<i>Trechisporale</i>  Larss', null, null, null,'Basidiomycètes','Autres'),
+(99902421,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Polyporaceae', null, null,198579,198579,99902421,'Trichaptum perroteti','Ryvarden, 1972','Trichaptum perroteti Ryvarden, 1972','<i>Trichaptum perroteti</i>  Ryvarden, 1972', null, null, null,'Basidiomycètes','Autres'),
+(99902422,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,198790,198790,99902422,'Uloborus sp. 1', null,'Uloborus sp. 1', '<i>Uloborus sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902423,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Uloboridae', null, null,198790,198790,99902423,'Uloborus sp. 2', null,'Uloborus sp. 2', '<i>Uloborus sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902424,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,715790,715790,99902424,'Wagneriana sp. 1', null,'Wagneriana sp. 1', '<i>Wagneriana sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902425,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,715790,715790,99902425,'Wagneriana sp. 2', null,'Wagneriana sp. 2', '<i>Wagneriana sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902426,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437193,437193,99902426,'Whittickius sp. 1', null,'Whittickius sp. 1', '<i>Whittickius sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902427,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437193,437193,99902427,'Whittickius sp. 2', null,'Whittickius sp. 2', '<i>Whittickius sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902428,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437103,437103,99902428,'Acacesia sp. 1', null,'Acacesia sp. 1', '<i>Acacesia sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902429,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437193,437193,99902429,'Acentroscelus sp. 1', null,'Acentroscelus sp. 1', '<i>Acentroscelus sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902430,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,437193,437193,99902430,'Acentroscelus sp. 4', null,'Acentroscelus sp. 4', '<i>Acentroscelus sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902431,'P', null,'SSES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,641265,641265,99902431,'Acromyrmex subterraneus subsp. bruneus','Forel','Acromyrmex subterraneus subsp. bruneus Forel','<i>Acromyrmex subterraneus subsp. bruneus</i>  Forel', null, null, null,'Arthropodes','Insectes'),
+(99902432,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Saturniidae','Ceratocampinae', null,744970,744970,99902432,'Adeloneivaia subangulata subangulata','Herrich-Schäffer, 1855','Adeloneivaia subangulata subangulata Herrich-Schäffer, 1855','<i>Adeloneivaia subangulata subangulata</i>  Herrich-Schäffer, 1855', null, null, null,'Arthropodes','Insectes'),
+(99902433,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Lycosidae', null, null,715701,715701,99902433,'Aglaoctenus sp. 1', null,'Aglaoctenus sp. 1', '<i>Aglaoctenus sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902434,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902434,'Alpaida sp. 10', null,'Alpaida sp. 10', '<i>Alpaida sp. 10</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902435,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902435,'Alpaida sp. 11', null,'Alpaida sp. 11', '<i>Alpaida sp. 11</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902436,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902436,'Alpaida sp. 12', null,'Alpaida sp. 12', '<i>Alpaida sp. 12</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902437,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902437,'Alpaida sp. 2', null,'Alpaida sp. 2', '<i>Alpaida sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902438,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902438,'Alpaida sp. 3', null,'Alpaida sp. 3', '<i>Alpaida sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902439,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902439,'Alpaida sp. 4', null,'Alpaida sp. 4', '<i>Alpaida sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902440,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902440,'Alpaida sp. 5', null,'Alpaida sp. 5', '<i>Alpaida sp. 5</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902441,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902441,'Alpaida sp. 6', null,'Alpaida sp. 6', '<i>Alpaida sp. 6</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902442,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902442,'Alpaida sp. 7', null,'Alpaida sp. 7', '<i>Alpaida sp. 7</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902443,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902443,'Alpaida sp. 8', null,'Alpaida sp. 8', '<i>Alpaida sp. 8</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902444,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437104,437104,99902444,'Alpaida sp. 9', null,'Alpaida sp. 9', '<i>Alpaida sp. 9</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902445,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Ganodermataceae', null, null,804418,804418,99902445,'Amauroderma calcigenum','Torrend, 1920','Amauroderma calcigenum Torrend, 1920','<i>Amauroderma calcigenum</i>  Torrend, 1920', null, null, null,'Basidiomycètes','Autres'),
+(99902446,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746169,746169,99902446,'Apterostigma bruchi','Santschi, 1919','Apterostigma bruchi Santschi, 1919','<i>Apterostigma bruchi</i>  Santschi, 1919', null, null, null,'Arthropodes','Insectes'),
+(99902447,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746169,746169,99902447,'Apterostigma complexe pilosum sp. A', null,'Apterostigma complexe pilosum sp. A', '<i>Apterostigma complexe pilosum sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902448,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,746169,746169,99902448,'Apterostigma reburrum','Lattke, 1997','Apterostigma reburrum Lattke, 1997','<i>Apterostigma reburrum</i>  Lattke, 1997', null, null, null,'Arthropodes','Insectes'),
+(99902449,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Theridiidae', null, null,99902516,99902516,99902449,'Aramniones sp. 1', null,'Aramniones sp. 1', '<i>Aramniones sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902450,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,189390,189390,99902450,'Araniella sp. 1', null,'Araniella sp. 1', '<i>Araniella sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902451,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Nymphalidae','Charaxinae', null,745468,745468,99902451,'Archaeoprepona demophon demophon','Linnaeus, 1758','Archaeoprepona demophon demophon Linnaeus, 1758','<i>Archaeoprepona demophon demophon</i>  Linnaeus, 1758', null, null, null,'Arthropodes','Insectes'),
+(99902452,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Nymphalidae','Charaxinae', null,745468,745468,99902452,'Archaeoprepona demophoon demophoon','Hübner, 1806','Archaeoprepona demophoon demophoon Hübner, 1806','<i>Archaeoprepona demophoon demophoon</i>  Hübner, 1806', null, null, null,'Arthropodes','Insectes'),
+(99902453,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Pisauridae', null, null,715707,715707,99902453,'Architis sp. 1', null,'Architis sp. 1', '<i>Architis sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902454,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Saturniidae','Arsenurinae', null,744954,744954,99902454,'Arsenura batesii arcaei','Felder, 1874','Arsenura batesii arcaei Felder, 1874','<i>Arsenura batesii arcaei</i>  Felder, 1874', null, null, null,'Arthropodes','Insectes'),
+(99902455,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,99902517,99902517,99902455,'Aspidolasius sp. 1', null,'Aspidolasius sp. 1', '<i>Aspidolasius sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902456,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,99902517,99902517,99902456,'Aspidolasius sp. 2', null,'Aspidolasius sp. 2', '<i>Aspidolasius sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902457,'P', null,'GN','Animalia','Arthropoda','Arachnida','Opiliones','Stygnidae', null, null,99902518,99902518,99902457,'Auranus','Mello-Leitão, 1941','Auranus Mello-Leitão, 1941','<i>Auranus</i>  Mello-Leitão, 1941', null, null, null,'Arthropodes','Arachnides'),
+(99902458,'P', null,'ES','Fungi','Basidiomycota','Basidiomycetes','Auriculariales','Auriculariaceae', null, null,189665,189665,99902458,'Auricularia fuscocinerea', null,'Auricularia fuscocinerea', '<i>Auricularia fuscocinerea</i>', null, null, null,'Basidiomycètes','Autres'),
+(99902459,'P', null,'ES','Animalia','Arthropoda','Insecta','Lepidoptera','Saturniidae', null, null,99902520,99902520,99902459,'Automeropsis caudatula', null,'Automeropsis caudatula', '<i>Automeropsis caudatula</i>', null, null, null,'Arthropodes','Insectes'),
+(99902460,'P', null,'GN','Animalia','Arthropoda','Arachnida','Opiliones','Agoristenidae', null, null,99902521,99902521,99902460,'Avima','Riewer, 1949','Avima Riewer, 1949','<i>Avima</i>  Riewer, 1949', null, null, null,'Arthropodes','Arachnides'),
+(99902461,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Dolichoderinae', null,641269,641269,99902461,'Azteca sp. SL13 1', null,'Azteca sp. SL13 1', '<i>Azteca sp. SL13 1</i>', null, null, null,'Arthropodes','Insectes'),
+(99902462,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Formicinae', null,209934,209934,99902462,'Brachymyrmex sp. SL13 1', null,'Brachymyrmex sp. SL13 1', '<i>Brachymyrmex sp. SL13 1</i>', null, null, null,'Arthropodes','Insectes'),
+(99902463,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,715709,715709,99902463,'Bucranium sp. 1', null,'Bucranium sp. 1', '<i>Bucranium sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902464,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,642607,642607,99902464,'Carebara sp. SL13 1', null,'Carebara sp. SL13 1', '<i>Carebara sp. SL13 1</i>', null, null, null,'Arthropodes','Insectes'),
+(99902465,'P', null,'GN','Fungi','Basidiomycota','Agaricomycetes','Agaricales','Omphalotaceae', null, null,443078,443078,99902465,'Caripia','Kuntze','Caripia Kuntze','<i>Caripia</i>  Kuntze', null, null, null,'Basidiomycètes','Autres'),
+(99902466,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Corinnidae', null, null,202255,202255,99902466,'Castianeira sp. 2', null,'Castianeira sp. 2', '<i>Castianeira sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902467,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437898,437898,99902467,'Centroctenus sp. 1', null,'Centroctenus sp. 1', '<i>Centroctenus sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902468,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437898,437898,99902468,'Centroctenus sp. 2', null,'Centroctenus sp. 2', '<i>Centroctenus sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902469,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Dorylinae', null,99902522,99902522,99902469,'Cerapachys splendens','Borgmeier, 1957','Cerapachys splendens Borgmeier, 1957','<i>Cerapachys splendens</i>  Borgmeier, 1957', null, null, null,'Arthropodes','Insectes'),
+(99902470,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,99902523,99902523,99902470,'Chaecitis sp. 1', null,'Chaecitis sp. 1', '<i>Chaecitis sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902471,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,99902523,99902523,99902471,'Chaecitis sp. 2', null,'Chaecitis sp. 2', '<i>Chaecitis sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902472,'P', null,'ES','Chromista','Foraminifera','Globothalamea','Textulariida','Valvulinidae','Valvulininae', null,702098,702098,99902472,'Clavulina aff. cristata', null,'Clavulina aff. cristata', '<i>Clavulina aff. cristata</i>', null, null, null,'Foraminifères','Autres'),
+(99902473,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902473,'Clubiona sp. 2', null,'Clubiona sp. 2', '<i>Clubiona sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902474,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902474,'Clubiona sp. 3', null,'Clubiona sp. 3', '<i>Clubiona sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902475,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902475,'Clubiona sp. 4', null,'Clubiona sp. 4', '<i>Clubiona sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902476,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902476,'Clubiona sp. 5', null,'Clubiona sp. 5', '<i>Clubiona sp. 5</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902477,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902477,'Clubiona sp. 7', null,'Clubiona sp. 7', '<i>Clubiona sp. 7</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902478,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902478,'Clubiona sp. 8', null,'Clubiona sp. 8', '<i>Clubiona sp. 8</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902479,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,190950,190950,99902479,'Clubiona sp. 9', null,'Clubiona sp. 9', '<i>Clubiona sp. 9</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902480,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,191241,191241,99902480,'Crematogaster nr stollii', null,'Crematogaster nr stollii', '<i>Crematogaster nr stollii</i>', null, null, null,'Arthropodes','Insectes'),
+(99902481,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,191241,191241,99902481,'Crematogaster sp. SL13 1', null,'Crematogaster sp. SL13 1', '<i>Crematogaster sp. SL13 1</i>', null, null, null,'Arthropodes','Insectes'),
+(99902482,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,191241,191241,99902482,'Crematogaster sp. SL13 2', null,'Crematogaster sp. SL13 2', '<i>Crematogaster sp. SL13 2</i>', null, null, null,'Arthropodes','Insectes'),
+(99902483,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902483,'Ctenus aff.amphora', null,'Ctenus aff.amphora', '<i>Ctenus aff.amphora</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902484,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902484,'Ctenus aff.sigma', null,'Ctenus aff.sigma', '<i>Ctenus aff.sigma</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902485,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902485,'Ctenus aff.sigma2', null,'Ctenus aff.sigma2', '<i>Ctenus aff.sigma2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902486,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902486,'Ctenus manauara','Höfer et al., 1994','Ctenus manauara Höfer et al., 1994','<i>Ctenus manauara</i>  Höfer et al., 1994', null, null, null,'Arthropodes','Arachnides'),
+(99902487,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902487,'Ctenus sp. 1', null,'Ctenus sp. 1', '<i>Ctenus sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902488,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902488,'Ctenus sp. 2', null,'Ctenus sp. 2', '<i>Ctenus sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902489,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Ctenidae', null, null,437899,437899,99902489,'Ctenus sp. 4', null,'Ctenus sp. 4', '<i>Ctenus sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902490,'P', null,'ES','Animalia','Arthropoda','Arachnida','Opiliones','Cosmetidae','Cosmetinae', null,885420,885420,99902490,'Cynorta sulphurata','Roewer, 1912','Cynorta sulphurata Roewer, 1912','<i>Cynorta sulphurata</i>  Roewer, 1912', null, null, null,'Arthropodes','Arachnides'),
+(99902491,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae', null,641502,641502,99902491,'Cyphomyrmex sp. A', null,'Cyphomyrmex sp. A', '<i>Cyphomyrmex sp. A</i>', null, null, null,'Arthropodes','Insectes'),
+(99902492,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Deinopidae', null, null,437902,437902,99902492,'Deinopis sp. 1', null,'Deinopis sp. 1', '<i>Deinopis sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902493,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Deinopidae', null, null,437902,437902,99902493,'Deinopis sp. 2', null,'Deinopis sp. 2', '<i>Deinopis sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902494,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Russulales','Russulaceae', null, null,460863,460863,99902494,'Dextrinocystidium aff. singulare','Boidin et al., 1997','Dextrinocystidium aff. singulare Boidin et al., 1997','<i>Dextrinocystidium aff. singulare</i>  Boidin et al., 1997', null, null, null,'Basidiomycètes','Autres'),
+(99902495,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,191683,191683,99902495,'Diae sp. 1', null,'Diae sp. 1', '<i>Diae sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902496,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,191683,191683,99902496,'Diae sp. 2', null,'Diae sp. 2', '<i>Diae sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902497,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,191683,191683,99902497,'Diae sp. 3', null,'Diae sp. 3', '<i>Diae sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902498,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,715721,715721,99902498,'Elaver sp. 1', null,'Elaver sp. 1', '<i>Elaver sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902499,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Clubionidae', null, null,715721,715721,99902499,'Elaver sp. 2', null,'Elaver sp. 2', '<i>Elaver sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902500,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,437109,437109,99902500,'Enacrosoma sp. 1', null,'Enacrosoma sp. 1', '<i>Enacrosoma sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902501,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,715724,715724,99902501,'Epicadus sp. 1', null,'Epicadus sp. 1', '<i>Epicadus sp. 1</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902502,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,715724,715724,99902502,'Epicadus sp. 2', null,'Epicadus sp. 2', '<i>Epicadus sp. 2</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902503,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,715724,715724,99902503,'Epicadus sp. 3', null,'Epicadus sp. 3', '<i>Epicadus sp. 3</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902504,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Thomisidae', null, null,715724,715724,99902504,'Epicadus sp. 5', null,'Epicadus sp. 5', '<i>Epicadus sp. 5</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902505,'P', null,'ES','Animalia','Arthropoda','Insecta','Coleoptera','Lycidae','Erotinae', null,99902511,99902511,99902505,'Eros sp. 1', null,'Eros sp. 1', '<i>Eros sp. 1</i>', null, null, null,'Arthropodes','Insectes'),
+(99902506,'P', null,'ES','Animalia','Arthropoda','Insecta','Coleoptera','Lycidae','Erotinae', null,99902511,99902511,99902506,'Eros sp. 2', null,'Eros sp. 2', '<i>Eros sp. 2</i>', null, null, null,'Arthropodes','Insectes'),
+(99902507,'P', null,'ES','Animalia','Arthropoda','Insecta','Coleoptera','Lycidae','Erotinae', null,99902511,99902511,99902507,'Eros sp. 3', null,'Eros sp. 3', '<i>Eros sp. 3</i>', null, null, null,'Arthropodes','Insectes'),
+(99902508,'P', null,'ES','Animalia','Arthropoda','Insecta','Coleoptera','Lycidae','Erotinae', null,99902511,99902511,99902508,'Eros sp. 4', null,'Eros sp. 4', '<i>Eros sp. 4</i>', null, null, null,'Arthropodes','Insectes'),
+(99902509,'P', null,'ES','Animalia','Arthropoda','Insecta','Coleoptera','Lycidae','Erotinae', null,99902511,99902511,99902509,'Eros sp. 5', null,'Eros sp. 5', '<i>Eros sp. 5</i>', null, null, null,'Arthropodes','Insectes'),
+(99902510,'P', null,'ES','Animalia','Arthropoda','Insecta','Coleoptera','Lycidae','Erotinae', null,99902511,99902511,99902510,'Eros sp. 6', null,'Eros sp. 6', '<i>Eros sp. 6</i>', null, null, null,'Arthropodes','Insectes'),
+(99902511,'P', null,'GN','Animalia','Arthropoda','Insecta','Coleoptera','Lycidae','Erotinae', null,184738,184738,99902511,'Eros','Newman, 1838','Eros Newman, 1838','<i>Eros</i>  Newman, 1838', null, null, null,'Arthropodes','Insectes'),
+(99902512,'P', null,'GN','Animalia','Arthropoda','Arachnida','Araneae','Sparassidae', null, null,184385,184385,99902512,'Pseudosparianthis','Simon, 1887','Pseudosparianthis Simon, 1887','<i>Pseudosparianthis</i>  Simon, 1887', null, null, null,'Arthropodes','Arachnides'),
+(99902513,'P', null,'GN','Animalia','Arthropoda','Arachnida','Araneae','Synotaxidae', null, null,99902514,99902514,99902513,'Synotaxa','Simon, 1895','Synotaxa Simon, 1895','<i>Synotaxa</i>  Simon, 1895', null, null, null,'Arthropodes','Arachnides'),
+(99902514,'P', null,'FM','Animalia','Arthropoda','Arachnida','Araneae', null, null, null,184348,184348,99902514,'Synotaxidae','Simon, 1894','Synotaxidae Simon, 1894','<i>Synotaxidae</i>  Simon, 1894', null, null, null,'Arthropodes','Arachnides'),
+(99902515,'P', null,'GN','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Myrmicinae','Attini',730191,730191,99902515,'Trachymyrmex','Forel, 1893','Trachymyrmex Forel, 1893','<i>Trachymyrmex</i>  Forel, 1893', null, null, null,'Arthropodes','Insectes'),
+(99902516,'P', null,'GN','Animalia','Arthropoda','Arachnida','Araneae','Theridiidae', null, null,184388,184388,99902516,'Aramniones', null,'Aramniones', '<i>Aramniones</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902517,'P', null,'GN','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,184354,184354,99902517,'Aspidolasius','Simon, 1887','Aspidolasius Simon, 1887','<i>Aspidolasius</i>  Simon, 1887', null, null, null,'Arthropodes','Arachnides'),
+(99902518,'P', null,'GN','Animalia','Arthropoda','Arachnida','Opiliones','Stygnidae', null, null,99902519,99902519,99902518,'Auranus','Mello-Leitão, 1942','Auranus Mello-Leitão, 1942','<i>Auranus</i>  Mello-Leitão, 1942', null, null, null,'Arthropodes','Arachnides'),
+(99902519,'P', null,'FM','Animalia','Arthropoda','Arachnida','Opiliones', null, null, null,183822,183822,99902519,'Stygnidae','Simon, 1879','Stygnidae Simon, 1879','<i>Stygnidae</i>  Simon, 1879', null, null, null,'Arthropodes','Arachnides'),
+(99902520,'P', null,'GN','Animalia','Arthropoda','Insecta','Lepidoptera','Saturniidae', null, null,185223,185223,99902520,'Automeropsis', 'Lemaire, 1969','Automeropsis  Lemaire, 1969','<i>Automeropsis </i>  Lemaire, 1969', null, null, null,'Arthropodes','Insectes'),
+(99902521,'P', null,'FM','Animalia','Arthropoda','Arachnida','Opiliones', null, null, null,183822,183822,99902521,'Agoristenidae','Šilhavý, 1973','Agoristenidae Šilhavý, 1973','<i>Agoristenidae</i>  Šilhavý, 1973', null, null, null,'Arthropodes','Arachnides'),
+(99902522,'P', null,'GN','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Dorylinae', null,641247,641247,99902522,'Cerapachys','Forel, 1907','Cerapachys Forel, 1907','<i>Cerapachys</i>  Forel, 1907', null, null, null,'Arthropodes','Insectes'),
+(99902523,'P', null,'GN','Animalia','Arthropoda','Arachnida','Araneae','Araneidae', null, null,184354,184354,99902522,'Chaecitis', null,'Chaecitis', '<i>Chaecitis</i>', null, null, null,'Arthropodes','Arachnides'),
+(99902524,'P', null,'GN','Animalia','Basidiomycota','Agaricomycetes','Agaricales','Inocybaceae', null, null,460663,460663,99902524,'Neopaxillus','Singer, 1948','Neopaxillus Singer, 1948','<i>Neopaxillus</i>  Singer, 1948', null, null, null,'Basidiomycètes','Autres'),
+(99902525,'P', null,'FM','Fungi','Glomeromycota','Glomeromycetes','Glomerales', null, null, null,99902526,99902526,99902525,'Glomeraceae','Piroz & Dalpé, 1989','Glomeraceae Piroz & Dalpé, 1989','<i>Glomeraceae</i>  Piroz & Dalpé, 1989', null, null, null,'Gloméromycètes','Autres'),
+(99902526,'P', null,'OR','Fungi','Glomeromycota','Glomeromycetes', null, null, null, null,99902527,99902527,99902526,'Glomerales','Morton & Benny, 1990','Glomerales Morton & Benny, 1990','<i>Glomerales</i>  Morton & Benny, 1990', null, null, null,'Gloméromycètes','Autres'),
+(99902527,'P', null,'CL','Fungi','Glomeromycota', null, null, null, null, null, null, null,99902527,'Glomeromycetes','Caval, 1998','Glomeromycetes Caval, 1998','<i>Glomeromycetes</i>  Caval, 1998', null, null, null,'Gloméromycètes','Autres'),
+(99902528, 'I', null, 'GN', 'Plantae', null,'Equisetopsida','Asparagales','Orchidaceae','Orchidoideae', null, 187494, 187494, 99902528, 'Phalaenopsis', 'Blume, 1825', 'Phalaenopsis Blume, 1825', '<i>Phalaenopsis</i> Blume, 1825', 'Phalaenopsis Blume, 1825', 'Phalaenopsis', null,'Trachéophytes','Angiospermes'),
+(99902529, 'I',3,'GN', 'Plantae', null,'Equisetopsida','Poales', 'Bromeliaceae', 'Bromelioideae', null, 446161, 446161, 99902529, 'Aechmea blanchetiana', '(Baker) L.B.Sm., 1955', 'Aechmea blanchetiana (Baker) L.B.Sm., 1955', '<i>Aechmea blanchetiana</i> (Baker) L.B.Sm., 1955', 'Aechmea blanchetiana (Baker) L.B.Sm., 1955', null, null,	'Trachéophytes', 'Angiospermes')
+;
 
+UPDATE taxonomie.taxref SET group2_inpn = 'Amphibiens' where cd_nom =99900163;
 UPDATE taxonomie.taxref 
 	SET id_statut = 'P'		
 	WHERE cd_nom >= 99900000;
@@ -842,125 +863,166 @@ INSERT INTO taxonomie.bib_noms(
 COPY taxonomie.import_taxref FROM  '/tmp/taxhub/TAXREF_v14_2020/TAXREFv14.txt' WITH  CSV HEADER DELIMITER E'\t'  encoding 'UTF-8';
 UPDATE taxonomie.taxref SET id_statut = import_taxref.gf, id_habitat = to_number(import_taxref.habitat, '9')  FROM taxonomie.import_taxref WHERE taxref.cd_nom = import_taxref.cd_nom;
 
--- Compléments dans bib_noms sur la base de taxref
-SELECT setval('taxonomie.bib_noms_id_nom_seq', (SELECT MAX(id_nom) FROM taxonomie.bib_noms)+1);
-INSERT INTO taxonomie.bib_noms(	cd_nom, cd_ref, nom_francais)
-	SELECT cd_nom, cd_ref, nom_vern
-		FROM taxonomie.taxref
-		WHERE id_statut <> 'A' 
-			AND id_habitat not in ('1','6')
-			AND cd_ref not in (select cd_ref from taxonomie.bib_noms);
-			
----- update des bib_noms (refs et noms vernaculaires !
+---- update des bib_noms (refs et noms vernaculaires !)
 UPDATE taxonomie.bib_noms
 	SET cd_ref = taxref.cd_ref
 	FROM taxonomie.taxref
 	WHERE bib_noms.cd_nom = taxref.cd_nom; -- les cd_ref
 	
-UPDATE taxonomie.bib_noms
-	SET nom_francais = nom_vern
-	FROM (select taxref.cd_nom, cd_ref, id_habitat, nom_vern
-				FROM taxonomie.taxref
-				WHERE id_statut <> 'A' 
-				and nom_vern is not null 
-				and id_habitat not in ('1','6')) as liste_sp_gf
-	WHERE bib_noms.cd_nom = liste_sp_gf.cd_nom and nom_francais <> nom_vern; -- les noms_vernaculaires
+-- Compléments dans bib_noms sur la base de taxref
+SELECT setval('taxonomie.bib_noms_id_nom_seq', (SELECT MAX(id_nom) FROM taxonomie.bib_noms)+1);
+INSERT INTO taxonomie.bib_noms(
+            cd_nom, cd_ref, nom_francais) 
+		SELECT cd_nom, cd_ref, nom_vern
+			FROM taxonomie.taxref 
+			WHERE id_statut <> 'A' 
+				AND (id_habitat not in ('1','6') or id_habitat is null)
+				AND cd_nom not in (select cd_nom from taxonomie.bib_noms)
+				order by cd_nom;
+	
 
 
 -------------------------- liste nom + celle d'occtax
-INSERT INTO taxonomie.bib_listes(
-            id_liste, nom_liste, code_liste, desc_liste, picto, regne, group2_inpn)
-SELECT id_liste, nom_liste, id_liste, desc_liste, picto, regne, group2_inpn
-        FROM v1_compat.bib_listes ;
--- Ajout de la liste OccTax
-INSERT INTO taxonomie.bib_listes(	id_liste, code_liste, nom_liste, desc_liste, picto, regne, group2_inpn)
-	VALUES (100,'OCCTAX','Saisie Occtax','Liste des noms dont la saisie est proposée dans le module Occtax','images/pictos/nopicto.gif','','');
+INSERT INTO taxonomie.bib_listes(id_liste, code_liste, nom_liste, desc_liste, picto, regne, group2_inpn)
+	VALUES (1, 'amph', 'Amphibiens', 'Amphibiens', 'images/pictos/amphibien.gif', 'Animalia', 'Amphibiens'),
+			(2, 'mamm_nvol', 'Mammifères non volants', 'Mammifères non volants', 'images/pictos/nopicto.gif', 'Animalia', 'Mammifères'),
+			(3, 'chiro', 'Mammifères volants', 'Mammifères volants', 'images/pictos/nopicto.gif', 'Animalia', 'Mammifères volants'),
+			(4, 'ois', 'Oiseaux', 'Oiseaux', 'images/pictos/oiseau.gif', 'Animalia', 'Oiseaux'),
+			(5, 'poiss', 'Poissons', 'Poissons', 'images/pictos/poisson.gif', 'Animalia', 'Poissons'),
+			(6, 'rept', 'Reptiles', 'Reptiles', 'images/pictos/reptile.gif', 'Animalia', 'Reptiles'),
+			(7, 'verteb_autres', 'Autres mammifères', 'Autres mammifères', 'images/pictos/nopicto.gif', 'Animalia', 'Vertébrés (autres)'),
+			(8, 'annel', 'Vers annélides', 'Annélides', 'images/pictos/nopicto.gif', 'Animalia', 'Annélides'),
+			(9, 'arach', 'Arachnides', 'Arachnides', 'images/pictos/nopicto.gif', 'Animalia', 'Arachnides'),
+			(10, 'biv', 'Bivalves', 'Bivalves', 'images/pictos/nopicto.gif', 'Animalia', 'Bivalves'),
+			(11, 'crus', 'Crustacés', 'Crustacés', 'images/pictos/nopicto.gif', 'Animalia', 'Crustacés'),
+			(12, 'gaste', 'Gastéropodes', 'Gastéropodes', 'images/pictos/nopicto.gif', 'Animalia', 'Gastéropodes'),
+			(13, 'insectes', 'Insectes', 'Insectes', 'images/pictos/nopicto.gif', 'Animalia', 'Insectes'),
+			(14, 'myriap', 'Myriapodes', 'Myriapodes', 'images/pictos/nopicto.gif', 'Animalia', 'Myriapodes'),
+			(15, 'nemato', 'Vers nématodes', 'Nématodes', 'images/pictos/nopicto.gif', 'Animalia', 'Nématodes'),
+			(16, 'plathel', 'Plathelminthes', 'Plathelminthes', 'images/pictos/nopicto.gif', 'Animalia', 'Plathelminthes'),
+			(17, 'inverteb_autres', 'Autres invertébrés', '', 'images/pictos/nopicto.gif', 'Animalia', 'Invertébrés (autres)'),
+			(22, 'asco', 'Ascomycètes', 'Ascomycètes', 'images/pictos/nopicto.gif', 'Fungi', 'Ascomycètes'),
+			(23, 'basidio', 'Basidiomycètes', 'Basidiomycètes', 'images/pictos/nopicto.gif', 'Fungi', 'Basidiomycètes'),
+			(24, 'champi_div', 'Autres champignons', 'Fonge hors ascomycètes et basidiomycètes', 'images/pictos/nopicto.gif', 'Fungi', 'Fonge (autres)'),
+			(25, 'bryo', 'Bryophytes', '', 'images/pictos/mousse.gif', 'Plantae', 'Mousses'),
+			(26, 'alg', 'Algues', '', 'images/pictos/nopicto.gif', 'Plantae', 'Algues'),
+			(27, 'pterido', 'Ptéridophytes', '', 'images/pictos/nopicto.gif', 'Plantae', 'Fougères'),
+			(28, 'monocot', 'Monocotylédones', '', 'images/pictos/nopicto.gif', 'Plantae', 'Angiospermes'),
+			(29, 'dicot', 'Dicotylédones', '', 'images/pictos/nopicto.gif', 'Plantae', 'Angiospermes'),
+			(30, 'gymno', 'Gymnospermes', '', 'images/pictos/nopicto.gif', 'Plantae', 'Gymnospermes'),
+			(500, 'tous', 'saisie_possible', '', 'images/pictos/nopicto.gif', '', ''),
+			(1000, 'occtax', 'Saisie Occtax', 'Liste des noms dont la saisie est proposée dans le module Occtax', 'images/pictos/nopicto.gif', '', ''),
+			(1001, 'verteb', 'Vertébrés', 'Liste des vertébrés', 'images/pictos/nopicto.gif', 'Animalia', ''),
+			(1002, 'invert', 'Invertébrés', 'Liste des invertébrés', 'images/pictos/nopicto.gif', 'Animalia', ''),
+			(1003, 'bota', 'Flore', 'Liste flore', 'images/pictos/nopicto.gif', 'Plantae', ''),
+			(1004, 'fonge', 'Fonge', 'Liste fonge', 'images/pictos/nopicto.gif', 'Fungi', '');
+
+
+
 
 
 
 -- cor nom liste
+-------- pour les champignons
 INSERT INTO taxonomie.cor_nom_liste(id_liste, id_nom)
-    SELECT 1, id_nom   --Amphibiens
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe ='Amphibia')
-    UNION SELECT 16, id_nom   --Arachnides
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe ='Arachnida')
-    UNION SELECT 12, id_nom   --Oiseaux
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe ='Aves')
-    UNION SELECT 10, id_nom   --Bivalves
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe ='Bivalvia')
-    UNION SELECT 8, id_nom   --Gastéropodes
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe ='Gastropoda')
-    UNION SELECT 9, id_nom   --Insectes
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe ='Insecta')
-    UNION SELECT 11, id_nom   --Mammifères
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe ='Mammalia')
-    UNION SELECT 14, id_nom   --Reptiles
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe ='Reptilia')
-    UNION SELECT 13, id_nom   --Poissons
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe in ('Actinoperygii', 'Actinopterygii', 'Dipneusti'))
-    UNION SELECT 15, id_nom   --Myriapodes
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe in ('Chilopoda', 'Diplopoda', 'Pauropoda', 'Symphyla'))
-    UNION SELECT 5, id_nom   --Crustacés
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE classe in ('Malacostraca', 'Hexanauplia', 'Copepoda'))
-    UNION SELECT 306, id_nom   --Monocotylédones
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Alismatales', 'Asparagales', 'Arecales', 'Commelinales', 'Poales', 'Zingiberales', 'Dioscoreales', 'Liliales', 'Pandanales'))
-    UNION SELECT 305, id_nom   --Ptéridophytes
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Isoetales', 'Lycopodiales', 'Selaginellales', 'Equisetales', 'Marattiales', 'Ophioglossales', 'Psilotales', 'Cyatheales', 'Gleicheniales', 'Hymenophyllales', 'Osmundales', 'Polypodiales', 'Salviniales', 'Schizaeales'))
-    UNION SELECT 307, id_nom   --Dicotylédones
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Amborellales', 'Apiales', 'Aquifoliales', 'Asterales', 'Boraginales', 'Cornales', 'Dipsacales', 'Ericales', 'Escalloniales', 'Garryales', 'Gentianales', 'Icacinales', 'Lamiales', 'Metteniusales', 'Paracryphiales', 'Solanales', 'Austrobaileyales', 'Chloranthales', 'Buxales', 'Caryophyllales', 'Ceratophyllales', 'Dilleniales', 'Acorales', 'Alismatales', 'Asparagales', 'Clade', 'Dioscoreales', 'Liliales', 'Pandanales', 'Canellales', 'Laurales', 'Magnoliales', 'Piperales', 'Gunnerales', 'Nymphaeales', 'Proteales', 'Ranunculales', 'Brassicales', 'Celastrales', 'Crossosomatales', 'Cucurbitales', 'Fabales', 'Fagales', 'Geraniales', 'Malpighiales', 'Malvales', 'Myrtales', 'Oxalidales', 'Picramniales', 'Rosales', 'Sapindales', 'Vitales', 'Zygophyllales', 'Santalales', 'Saxifragales'))
-    UNION SELECT 301, id_nom   --Bryophytes
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Anthocerotales', 'Dendrocerotales', 'Leiosporocerotales', 'Notothyladales', 'Phymatocerales', 'Andreaeales', 'Aulacomniales', 'Bartramiales', 'Bryales', 'Buxbaumiales', 'Catoscopiales', 'Dicranales', 'Diphysciales', 'Encalyptales', 'Funariales', 'Gigaspermales', 'Grimmiales', 'Hedwigiales', 'Hookeriales', 'Hypnales', 'Hypnodendrales', 'Orthotrichales', 'Polytrichales', 'Pottiales', 'Ptychomniales', 'Rhizogoniales', 'Sphagnales', 'Splachnales', 'Tetraphidales', 'Timmiales', 'Blasiales', 'Calobryales', 'Fossombroniales', 'Jungermanniales', 'Lunulariales', 'Marchantiales', 'Metzgeriales', 'Pallaviciniales', 'Pelliales', 'Pleuroziales', 'Porellales', 'Ptilidiales', 'Sphaerocarpales', 'Treubiales'))
-    UNION SELECT 308, id_nom   --Gymnospermes
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Ginkgoales', 'Ephedrales', 'Gnetales', 'Araucariales', 'Cupressales', 'Pinales'))
-    UNION SELECT 2, id_nom   --Vers
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE phylum ='Annelida')
-    UNION SELECT 1001, id_nom   --Faune vertébrée
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE phylum ='Chordata')
-    UNION SELECT 4, id_nom   --Echinodermes
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE phylum ='Echinodermata')
-    UNION SELECT 101, id_nom   --Mollusques
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE phylum ='Mollusca')
-    UNION SELECT 303, id_nom   --Algues
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE phylum in ('Charophyta', 'Chlorophyta', 'Rhodophyta'))
-    UNION SELECT 1002, id_nom   --Faune invertébrée
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Animalia' AND phylum <>'Chordata')
-    UNION SELECT 1004, id_nom   --Fonge
+	SELECT 22, id_nom
+		from taxonomie.bib_noms
+		where cd_nom in (select cd_nom from taxonomie.taxref WHERE group1_inpn ='Ascomycètes')
+	UNION SELECT 23, id_nom
+		from taxonomie.bib_noms
+		where cd_nom in (select cd_nom from taxonomie.taxref WHERE group1_inpn ='Basidiomycètes')
+	UNION SELECT 24, id_nom
+		from taxonomie.bib_noms
+		where cd_nom in (select cd_nom from taxonomie.taxref WHERE regne = 'Fungi' and group1_inpn not in ('Ascomycètes','Basidiomycètes'))
+	UNION SELECT 1004, id_nom   --Fonge
         FROM taxonomie.bib_noms  
         WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Fungi')
-    UNION SELECT 1003, id_nom   --Flore
+------- pour la bota
+    UNION SELECT 25, id_nom   --Bryophytes
         FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Plantae')
-    UNION SELECT 100, id_nom   --Saisie Occtax
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Anthocerotales', 'Dendrocerotales', 'Leiosporocerotales', 'Notothyladales', 'Phymatocerales', 'Andreaeales', 'Aulacomniales', 'Bartramiales', 'Bryales', 'Buxbaumiales', 'Catoscopiales', 'Dicranales', 'Diphysciales', 'Encalyptales', 'Funariales', 'Gigaspermales', 'Grimmiales', 'Hedwigiales', 'Hookeriales', 'Hypnales', 'Hypnodendrales', 'Orthotrichales', 'Polytrichales', 'Pottiales', 'Ptychomniales', 'Rhizogoniales', 'Sphagnales', 'Splachnales', 'Tetraphidales', 'Timmiales', 'Blasiales', 'Calobryales', 'Fossombroniales', 'Jungermanniales', 'Lunulariales', 'Marchantiales', 'Metzgeriales', 'Pallaviciniales', 'Pelliales', 'Pleuroziales', 'Porellales', 'Ptilidiales', 'Sphaerocarpales', 'Treubiales'))		
+    UNION SELECT 26, id_nom   --Algues
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE phylum in ('Charophyta', 'Chlorophyta', 'Rhodophyta'))
+    UNION SELECT 27, id_nom   --Ptéridophytes
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Isoetales', 'Lycopodiales', 'Selaginellales', 'Equisetales', 'Marattiales', 'Ophioglossales', 'Psilotales', 'Cyatheales', 'Gleicheniales', 'Hymenophyllales', 'Osmundales', 'Polypodiales', 'Salviniales', 'Schizaeales'))
+	UNION SELECT 28, id_nom   --Monocotylédones
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Alismatales', 'Asparagales', 'Arecales', 'Commelinales', 'Poales', 'Zingiberales', 'Dioscoreales', 'Liliales', 'Pandanales'))
+    UNION SELECT 29, id_nom   --Dicotylédones
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Amborellales', 'Apiales', 'Aquifoliales', 'Asterales', 'Boraginales', 'Cornales', 'Dipsacales', 'Ericales', 'Escalloniales', 'Garryales', 'Gentianales', 'Icacinales', 'Lamiales', 'Metteniusales', 'Paracryphiales', 'Solanales', 'Austrobaileyales', 'Chloranthales', 'Buxales', 'Caryophyllales', 'Ceratophyllales', 'Dilleniales', 'Acorales', 'Alismatales', 'Asparagales', 'Clade', 'Dioscoreales', 'Liliales', 'Pandanales', 'Canellales', 'Laurales', 'Magnoliales', 'Piperales', 'Gunnerales', 'Nymphaeales', 'Proteales', 'Ranunculales', 'Brassicales', 'Celastrales', 'Crossosomatales', 'Cucurbitales', 'Fabales', 'Fagales', 'Geraniales', 'Malpighiales', 'Malvales', 'Myrtales', 'Oxalidales', 'Picramniales', 'Rosales', 'Sapindales', 'Vitales', 'Zygophyllales', 'Santalales', 'Saxifragales'))
+    UNION SELECT 30, id_nom   --Gymnospermes
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Ginkgoales', 'Ephedrales', 'Gnetales', 'Araucariales', 'Cupressales', 'Pinales'))
+	UNION SELECT 1003, id_nom   --Flore
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Plantae')		
+------- pour les vertébrés
+    UNION SELECT 1, id_nom   --Amphibiens
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Amphibiens')
+	UNION SELECT 2, id_nom   --Mamm nvolants
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Mammifères' and ordre <> 'Chiroptera')	
+	UNION SELECT 3, id_nom   --Mamm nvolants
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Mammifères' and ordre = 'Chiroptera')			
+	UNION SELECT 4, id_nom   --Oiseaux
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Oiseaux')	
+	    UNION SELECT 5, id_nom   --Poissons
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Poissons')
+    UNION SELECT 6, id_nom   --Reptiles
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Reptiles')
+	UNION SELECT 7, id_nom   --Autres
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group1_inpn = 'Chordés' and group2_inpn not in ('Amphibiens','Mammifères', 'Oiseaux', 'Oiseaux','Reptiles'))	
+	UNION SELECT 1001, id_nom   --Faune vertébrée
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group1_inpn ='Chordés')
+------- pour les invertébrés		
+    UNION SELECT 8, id_nom   
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Annélides')
+    UNION SELECT 9, id_nom   
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Arachnides')
+    UNION SELECT 10, id_nom   
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Bivalves')
+    UNION SELECT 11, id_nom   
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Crustacés')
+    UNION SELECT 12, id_nom   
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Gastéropodes')
+    UNION SELECT 13, id_nom   
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Insectes')
+	UNION SELECT 14, id_nom   
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Myriapodes')
+	UNION SELECT 15, id_nom   
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Nématodes')
+	UNION SELECT 16, id_nom   
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Plathelminthes')
+	UNION SELECT 17, id_nom   
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Animalia' AND group1_inpn <> 'Chordés' and group2_inpn  not in ('Plathelminthes','Annélides','Arachnides', 'Bivalves','Crustacés', 'Gastéropodes', 'Insectes', 'Myriapodes', 'Nématodes', 'Plathelminthes'))
+    UNION SELECT 1002, id_nom   --Faune invertébrée
+        FROM taxonomie.bib_noms  
+        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Animalia' AND group1_inpn <> 'Chordés')
+    UNION SELECT 1000, id_nom   --Saisie Occtax
         FROM taxonomie.bib_noms
 	UNION SELECT 500, id_nom   --Saisie Possible
         FROM taxonomie.bib_noms
-;		-- Manque encore Entognathes, 
-		-- 				Pycnogonides, 
-		-- 				Rotifères, 
-		-- 				Tardigrades, 
-		-- 				Lichens
+;
 
 -- check-up cor_nom_liste
 --SELECT bib_listes.id_liste, nom_liste, count(cor_nom_liste.id_liste) 
@@ -969,3 +1031,13 @@ INSERT INTO taxonomie.cor_nom_liste(id_liste, id_nom)
 --	GROUP BY bib_listes.id_liste, nom_liste
 --	ORDER BY bib_listes.id_liste;
 
+-- syntheses de données par listes
+--SELECT bib_listes.id_liste, bib_listes.regne, nom_liste, count(id_synthese), dataset_name
+--FROM taxonomie.bib_listes
+--	inner join taxonomie.cor_nom_liste on bib_listes.id_liste = cor_nom_liste.id_liste
+--	inner join taxonomie.bib_noms on bib_noms.id_nom = cor_nom_liste.id_nom
+--	inner join gn_synthese.synthese on synthese.cd_nom = bib_noms.cd_nom
+--	inner join gn_meta.t_datasets on t_datasets.id_dataset = synthese.id_dataset
+--	inner join taxonomie.taxref on taxref.cd_nom = bib_noms.cd_nom
+--GROUP BY bib_listes.id_liste, bib_listes.regne, nom_liste, dataset_name
+--order by bib_listes.id_liste, bib_listes.regne, nom_liste;

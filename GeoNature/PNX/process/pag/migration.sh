@@ -114,7 +114,9 @@ echo "************************** CardObs Seb: Intégraton données"
 $psqla -f $BASE_DIR/$parc/integration_data/3_ajout_data_CardObsSeb.sql
 echo ""
 echo "************************** ECOBIOS-Limonade"
+echo ">>> import data geo"
 shp2pgsql -s ${srid_local} -D -I -W "latin1" $BASE_DIR/$parc/integration_data/20210628_Localisation_Data_Ecobios.shp gn_imports.tmp_localitespoly_ecobios | ${psqla}
+echo ">>> traitement données natu"
 $psqla -f $BASE_DIR/$parc/integration_data/6_Ecobios_Limonade.sql
 echo ""
 echo "************************** Itoupé, répartition données FG, intégration données ABC..."
