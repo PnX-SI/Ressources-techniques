@@ -126,13 +126,13 @@ INSERT INTO pr_occtax.cor_role_releves_occtax
 	FROM v1_compat.cor_role_fiche_cf
 	WHERE id_role <> 1;
 -- MAJ des observateurs dans le champ observers_txt
-UPDATE pr_occtax.t_releves_occtax
-	SET observers_txt = observateurs
-	FROM (SELECT id_releve_occtax, String_AGG(prenom_role ||' ' || nom_role, ', ') as observateurs
-		FROM pr_occtax.cor_role_releves_occtax inner join utilisateurs.t_roles 
-			ON cor_role_releves_occtax.id_role = t_roles.id_role
-		GROUP BY id_releve_occtax) As ssrqt
-	WHERE t_releves_occtax.id_releve_occtax = ssrqt.id_releve_occtax;
+--UPDATE pr_occtax.t_releves_occtax
+--	SET observers_txt = observateurs
+--	FROM (SELECT id_releve_occtax, String_AGG(prenom_role ||' ' || nom_role, ', ') as observateurs
+--		FROM pr_occtax.cor_role_releves_occtax inner join utilisateurs.t_roles 
+--			ON cor_role_releves_occtax.id_role = t_roles.id_role
+--		GROUP BY id_releve_occtax) As ssrqt
+--	WHERE t_releves_occtax.id_releve_occtax = ssrqt.id_releve_occtax;
 
 
 -- 4: denombrement
@@ -271,7 +271,7 @@ SELECT
         (id_synthese-70770) AS id_releve_occtax,
 	uuid_generate_v4() AS unique_id_sinp_grp,
 	1 AS id_dataset,
-	observateurs as observers_txt,
+	null as observers_txt,
 	ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS','133') AS id_nomenclature_tech_collect_campanule,
     	COALESCE(v1_compat.get_synonyme_id_nomenclature('TYP_GRP', 'id_lot', id_lot), ref_nomenclatures.get_id_nomenclature('TYP_GRP','NSP')) AS id_nomenclature_grp_typ,   
 	dateobs AS date_min,

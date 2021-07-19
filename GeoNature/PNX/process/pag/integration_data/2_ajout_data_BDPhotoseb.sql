@@ -19,7 +19,7 @@ INSERT INTO pr_occtax.t_releves_occtax(
 	date_min, date_max, place_name, meta_device_entry, 
 	comment, geom_local, geom_4326, 
 	id_nomenclature_geo_object_nature, "precision")
-SELECT id_releve_occtax, uuid_generate_v4() AS unique_id_sinp_grp, id_dataset, id_digitiser, observers_txt, 
+SELECT id_releve_occtax, uuid_generate_v4() AS unique_id_sinp_grp, id_dataset, id_digitiser, null, 
 	id_nomenclature_tech_collect_campanule, id_nomenclature_grp_typ, grp_method, 
 	TO_DATE(date_min, 'DD/MM/YYYY'), TO_DATE(date_max, 'DD/MM/YYYY'),  place_name, meta_device_entry, 
 	comment, geom, ST_TRANSFORM(geom, 4326) AS geom_4326,

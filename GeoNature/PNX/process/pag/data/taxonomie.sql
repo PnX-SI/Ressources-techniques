@@ -55,7 +55,7 @@ INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_habitat, id_rang, regne, phy
 	VALUES (99901748,'P', null,'ES','Fungi','Ascomycota','Sordariomycetes','Coronophorales','Nitschkiaceae', null, null, null, null,99901748,'Acanthonischkea macrobarbata', null,'Acanthonischkea macrobarbata Fitzp.', null,'Acanthonischkea macrobarbata Fitzp.', null, null,'Ascomycètes','Autres'), (
 	99901749,'P', null,'GN', null, null, null, null, null, null, null, null, null,99901749,'Acrocardia', null,'Acrocardia A.Massal.', null,'Acrocardia A.Massal.', null, null,'Algues', 'Autres'), (
 	99901750,'P', null,'VAR','Plantae', null,'Equisetopsida','Fabales','Fabaceae','Caesalpinioideae','Mimoseae','630968','630968',99901750,'Albizia niopoides var. niopoides', null,'Albizia niopoides (Spruce ex Benth.) Burkart var. niopoides', null,'Albizia niopoides (Spruce ex Benth.) Burkart var. niopoides', null, null,'Trachéophytes','Angiospermes'), (
-	99901751,'P', null,'ES','Protozoa','Mycetozoa','Myxomycetes','Liceales','Tubiferaceae', null, null, null, null,99901751,'Alwisia bombarda', null,'Alwisia bombarda Berk. & Broome', null,'Alwisia bombarda Berk. & Broome', null, null, null,'Autres'), (
+	99901751,'P', null,'ES','Protozoa','Mycetozoa','Myxomycetes','Liceales','Tubiferaceae', null, null, null, null,99901751,'Alwisia bombarda', null,'Alwisia bombarda Berk. & Broome', null,'Alwisia bombarda Berk. & Broome', null, null, 'Myxomycètes','Autres'), (
 	99901752,'P', null,'ES','Plantae', null,'Equisetopsida','Bartramiales','Bartramiaceae', null, null,'189113','189113',99901752,'Anacolia intertexta', null,'Anacolia intertexta (Schimp.) Jaeger', null,'Anacolia intertexta (Schimp.) Jaeger', null, null,'Bryophytes','Mousses'), (
 	99901753,'P', null,'ES','Plantae', null,'Equisetopsida','Andreaeales','Andreaeaceae', null, null,'189149','189149',99901753,'Andreaea nitida', null,'Andreaea nitida Hook.f. & Wilson', null,'Andreaea nitida Hook.f. & Wilson', null, null,'Bryophytes','Mousses'), (
 	99901754,'P', null,'ES','Plantae', null,'Equisetopsida','Schizaeales','Anemiaceae', null, null,'716110','716110',99901754,'Anemia hispida', null,'Anemia hispida Kunze', null,'Anemia hispida Kunze', null, null,'Trachéophytes','Ptéridophytes'), (
@@ -357,7 +357,7 @@ INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_habitat, id_rang, regne, phy
 	99902050,'P', null,'ES','Plantae', null,'Equisetopsida','Lamiales','Plantaginaceae', null,'Gratioleae','446748','446748',99902050,'Otacanthus coeruleus', null,'Otacanthus coeruleus Lindl.', null,'Otacanthus coeruleus Lindl.', null, null,'Trachéophytes','Angiospermes'), (
 	99902051,'P', null,'ES','Plantae', null,'Equisetopsida','Malpighiales','Ochnaceae','Ochnoideae','Ochneae','628094','628094',99902051,'Ouratea acuminata', null,'Ouratea acuminata (DC.) Engl.', null,'Ouratea acuminata (DC.) Engl.', null, null,'Trachéophytes','Angiospermes'), (
 	99902052,'P', null,'ES','Plantae', null,'Equisetopsida','Malpighiales','Ochnaceae','Ochnoideae','Ochneae','628094','628094',99902052,'Ouratea saulensis', null,'Ouratea saulensis Sastre', null,'Ouratea saulensis Sastre', null, null,'Trachéophytes','Angiospermes'), (
-	99902053,'P', null,'GN','Fungi','Ascomycota','Sordariomycetes','Xylariales','Oxydothidaceae', null, null, null, null,99902053,'Oxydothis', null,'Oxydothis Penz. & Sacc.', null,'Oxydothis Penz. & Sacc.', null, null, null,'Autres'), (
+	99902053,'P', null,'GN','Fungi','Ascomycota','Sordariomycetes','Xylariales','Oxydothidaceae', null, null, null, null,99902053,'Oxydothis', null,'Oxydothis Penz. & Sacc.', null,'Oxydothis Penz. & Sacc.', null, null, 'Ascomycètes','Autres'), (
 	99902054,'P', null,'ES','Fungi','Basidiomycota', null,'Hymenochaetales','Schizoporaceae', null, null,'195625','195625',99902054,'Oxyporus latemarginata', null,'Oxyporus latemarginata (Durieu & Mont.) Donk', null,'Oxyporus latemarginata (Durieu & Mont.) Donk', null, null,'Basidiomycètes','Autres'), (
 	99902055,'P', null,'ES','Plantae', null,'Equisetopsida','Poales','Eriocaulaceae','Paepalanthoideae', null,'730957','730957',99902055,'Paepalanthus oyapokensis', null,'Paepalanthus oyapokensis Herzog', null,'Paepalanthus oyapokensis Herzog', null, null,'Trachéophytes','Angiospermes'), (
 	99902056,'P', null,'ES','Plantae', null,'Equisetopsida','Gentianales','Rubiaceae','Rubioideae','Gaertnereae','730860','730860',99902056,'Pagamea thyrsiflora', null,'Pagamea thyrsiflora Spruce ex Benth.', null,'Pagamea thyrsiflora Spruce ex Benth.', null, null,'Trachéophytes','Angiospermes'), (
@@ -392,7 +392,7 @@ INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_habitat, id_rang, regne, phy
 	99902085,'P', null,'ES','Fungi','Ascomycota','Lecanoromycetes','Lecanorales','Ramalinaceae', null, null,'652897','652897',99902085,'Phyllopsora corallina', null,'Phyllopsora corallina (Eschw.) Müll.Arg.', null,'Phyllopsora corallina (Eschw.) Müll.Arg.', null, null,'Ascomycètes','Autres'), (
 	99902086,'P', null,'VAR','Fungi','Ascomycota','Lecanoromycetes','Lecanorales','Ramalinaceae', null, null,'652897','652897',99902086,'Phyllopsora parvifolia var. breviuscula', null,'Phyllopsora parvifolia (Pers.) Müll.Arg. var. breviuscula (Nyl.) Brako', null,'Phyllopsora parvifolia (Pers.) Müll.Arg. var. breviuscula (Nyl.) Brako', null, null,'Ascomycètes','Autres'), (
 	99902087,'P', null,'ES','Fungi','Ascomycota','Lecanoromycetes','Teloschistales','Physciaceae', null, null,'196232','196232',99902087,'Physcia fragilescens', null,'Physcia fragilescens Zahlbr.', null,'Physcia fragilescens Zahlbr.', null, null,'Ascomycètes','Autres'), (
-	99902088,'P', null,'FM','Fungi','Ascomycota','Lecanoromycetideae','Caliciales', null, null, null, null, null,99902088,'Physiaceae', null,'Physiaceae Rostaf.', null,'Physiaceae Rostaf.', null, null, null, null), (
+	99902088,'P', null,'FM','Fungi','Ascomycota','Lecanoromycetideae','Caliciales', null, null, null, null, null,99902088,'Physiaceae', null,'Physiaceae Rostaf.', null,'Physiaceae Rostaf.', null, null, 'Ascomycètes', null), (
 	99902089,'P', null,'ES','Plantae', null,'Equisetopsida','Hypnales','Stereophyllaceae', null, null,'839000','839000',99902089,'Pilosium remotifolium', null,'Pilosium remotifolium (Hornsch.) Müll.Hal.', null,'Pilosium remotifolium (Hornsch.) Müll.Hal.', null, null,'Bryophytes','Mousses'), (
 	99902090,'P', null,'ES','Plantae', null,'Equisetopsida','Hypnales','Lembophyllaceae', null, null,'726856','726856',99902090,'Pilotrichella pentasticha', null,'Pilotrichella pentasticha (Brid.) Wijk & Margad.', null,'Pilotrichella pentasticha (Brid.) Wijk & Margad.', null, null,'Bryophytes','Mousses'), (
 	99902091,'P', null,'ES','Plantae', null,'Equisetopsida','Hypnales','Lembophyllaceae', null, null,'726856','726856',99902091,'Pilotrichella versicolor', null,'Pilotrichella versicolor (Müll.Hal.) Jaeger', null,'Pilotrichella versicolor (Müll.Hal.) Jaeger', null, null,'Bryophytes','Mousses'), (
@@ -506,7 +506,7 @@ INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_habitat, id_rang, regne, phy
 	99902199,'P', null,'ES','Plantae', null,'Equisetopsida','Malpighiales','Clusiaceae', null,'Clusieae','627923','627923',99902199,'Tovomita fanshawei', null,'Tovomita fanshawei Maguire', null,'Tovomita fanshawei Maguire', null, null,'Trachéophytes','Angiospermes'), (
 	99902200,'P', null,'ES','Plantae', null,'Equisetopsida','Malpighiales','Clusiaceae', null,'Clusieae','627923','627923',99902200,'Tovomita tenuiflora', null,'Tovomita tenuiflora Benth.', null,'Tovomita tenuiflora Benth.', null, null,'Trachéophytes','Angiospermes'), (
 	99902201,'P', null,'SSES','Plantae', null,'Equisetopsida','Sapindales','Burseraceae', null,'Garugeae','732851','732851',99902201,'Trattinnickia rhoifolia subsp. sprucei', null,'Trattinnickia rhoifolia Willd. subsp. sprucei Engl.', null,'Trattinnickia rhoifolia Willd. subsp. sprucei Engl.', null, null,'Trachéophytes','Angiospermes'), (
-	99902202,'P', null,'GN','Fungi','Basidiomycota','Agaricomycetes','Boletales','Diplocystidiaceae', null, null, null, null,99902202,'Tremellogaster', null,'Tremellogaster E.Fisch.', null,'Tremellogaster E.Fisch.', null, null, null,'Autres'), (
+	99902202,'P', null,'GN','Fungi','Basidiomycota','Agaricomycetes','Boletales','Diplocystidiaceae', null, null, null, null,99902202,'Tremellogaster', null,'Tremellogaster E.Fisch.', null,'Tremellogaster E.Fisch.', null, null, 'Basidiomycètes','Autres'), (
 	99902203,'P', null,'ES','Plantae', null,'Equisetopsida','Polypodiales','Aspleniaceae', null, null,'200271','200271',99902203,'Trichomanes pinnatifidum', null,'Trichomanes pinnatifidum Bosch', null,'Trichomanes pinnatifidum Bosch', null, null,'Trachéophytes','Ptéridophytes'), (
 	99902204,'P', null,'ES','Plantae', null,'Equisetopsida','Hypnales','Sematophyllaceae', null, null,'656456','656456',99902204,'Trichosteleum rubrisetum', null,'Trichosteleum rubrisetum (Mitt.) Jaeger', null,'Trichosteleum rubrisetum (Mitt.) Jaeger', null, null,'Bryophytes','Mousses'), (
 	99902205,'P', null,'ES','Fungi','Ascomycota','Dothideomycetes','Trypetheliales','Trypetheliaceae', null, null,'791385','791385',99902205,'Trypethelium nitidusculum', null,'Trypethelium nitidusculum (Nyl.) R.C.Harris', null,'Trypethelium nitidusculum (Nyl.) R.C.Harris', null, null,'Ascomycètes','Autres'), (
@@ -563,7 +563,7 @@ INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_habitat, id_rang, regne, phy
 (99902253,'P', null,'ES','Animalia','Arthropoda','Arachnida','Araneae','Mimetidae', null, null,437131,437131,99902253,'Gelanor sp. 4', null,'Gelanor sp. 4', '<i>Gelanor sp. 4</i>', null, null, null,'Arthropodes','Arachnides'),
 (99902254,'P', null,'FM','Animalia','Arthropoda','Arachnida','Opiliones','Agoristenidae', null, null,183822,183822,99902254,'Agoristenidae','Šilhavý, 1973','Agoristenidae Šilhavý, 1973','<i>Agoristenidae</i>  Šilhavý, 1973', null, null, null,'Arthropodes','Arachnides'),
 (99902255,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Agaricales','Tricholomataceae', null, null,192778,192778,99902255,'Gerronema aff. citrinum', null,'Gerronema aff. citrinum', '<i>Gerronema aff. citrinum</i>', null, null, null,'Basidiomycètes','Autres'),
-(99902256,'P', null,'GN','Fungi','Glomeromycota','Glomeromycetes','Glomerales','Glomeraceae', null, null,99902525,99902525,99902256,'Glomus','Tul & Tul, 1844','Glomus Tul & Tul, 1844','<i>Glomus</i>  Tul & Tul, 1844', null, null, null,'Glomeromycota','Autres'),
+(99902256,'P', null,'GN','Fungi','Glomeromycota','Glomeromycetes','Glomerales','Glomeraceae', null, null,99902525,99902525,99902256,'Glomus','Tul & Tul, 1844','Glomus Tul & Tul, 1844','<i>Glomus</i>  Tul & Tul, 1844', null, null, null,'Glomeromycètes','Autres'),
 (99902257,'P', null,'ES','Animalia','Chordata','Aves','Passeriformes','Thamnophilidae','Thamnophilinae', null,440414,440414,99902257,'Gymnopithys rubricollis', null,'Gymnopithys rubricollis', '<i>Gymnopithys rubricollis</i>', null, null, null,'Chordés','Oiseaux'),
 (99902258,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Hyphodermataceae', null, null,903811,903811,99902258,'Hyphoderma aff. sphaeropedunculatum', null,'Hyphoderma aff. sphaeropedunculatum', '<i>Hyphoderma aff. sphaeropedunculatum</i>', null, null, null,'Basidiomycètes','Autres'),
 (99902259,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902259,'Hypoponera sp. 05(FG/SGt)', null,'Hypoponera sp. 05(FG/SGt)', '<i>Hypoponera sp. 05(FG/SGt)</i>', null, null, null,'Arthropodes','Insectes'),
@@ -571,7 +571,7 @@ INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_habitat, id_rang, regne, phy
 (99902261,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902261,'Hypoponera sp. A', null,'Hypoponera sp. A', '<i>Hypoponera sp. A</i>', null, null, null,'Arthropodes','Insectes'),
 (99902262,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902262,'Hypoponera sp. B', null,'Hypoponera sp. B', '<i>Hypoponera sp. B</i>', null, null, null,'Arthropodes','Insectes'),
 (99902263,'P', null,'ES','Animalia','Arthropoda','Insecta','Hymenoptera','Formicidae','Ponerinae', null,209927,209927,99902263,'Hypoponera sp. C', null,'Hypoponera sp. C', '<i>Hypoponera sp. C</i>', null, null, null,'Arthropodes','Insectes'),
-(99902264,'P', null,'GN','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Meruliaceae', null, null,443159,443159,99902264,'Jacksonomyces','Rea, 1922','Jacksonomyces Rea, 1922','<i>Jacksonomyces</i>  Rea, 1922', null, null, null,'Basidiomycota','Agaricomicetes'),
+(99902264,'P', null,'GN','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Meruliaceae', null, null,443159,443159,99902264,'Jacksonomyces','Rea, 1922','Jacksonomyces Rea, 1922','<i>Jacksonomyces</i>  Rea, 1922', null, null, null,'Basidiomycètes','Agaricomicetes'),
 (99902265,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Hymenochaetales','Schizoporaceae', null, null,460894,460894,99902265,'Kneiffiella subglobosa', null,'Kneiffiella subglobosa', '<i>Kneiffiella subglobosa</i>', null, null, null,'Basidiomycètes','Autres'),
 (99902266,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Tricholomatales','Marasmiaceae', null, null,193785,193785,99902266,'Lactocollybia angiospermarum', null,'Lactocollybia angiospermarum', '<i>Lactocollybia angiospermarum</i>', null, null, null,'Basidiomycètes','Autres'),
 (99902267,'P', null,'ES','Fungi','Basidiomycota','Agaricomycetes','Polyporales','Polyporaceae', null, null,899700,899700,99902267,'Leiotrametes guyanensis', null,'Leiotrametes guyanensis', '<i>Leiotrametes guyanensis</i>', null, null, null,'Basidiomycètes','Autres'),
@@ -836,7 +836,8 @@ INSERT INTO taxonomie.taxref (cd_nom, id_statut, id_habitat, id_rang, regne, phy
 (99902526,'P', null,'OR','Fungi','Glomeromycota','Glomeromycetes', null, null, null, null,99902527,99902527,99902526,'Glomerales','Morton & Benny, 1990','Glomerales Morton & Benny, 1990','<i>Glomerales</i>  Morton & Benny, 1990', null, null, null,'Gloméromycètes','Autres'),
 (99902527,'P', null,'CL','Fungi','Glomeromycota', null, null, null, null, null, null, null,99902527,'Glomeromycetes','Caval, 1998','Glomeromycetes Caval, 1998','<i>Glomeromycetes</i>  Caval, 1998', null, null, null,'Gloméromycètes','Autres'),
 (99902528, 'I', null, 'GN', 'Plantae', null,'Equisetopsida','Asparagales','Orchidaceae','Orchidoideae', null, 187494, 187494, 99902528, 'Phalaenopsis', 'Blume, 1825', 'Phalaenopsis Blume, 1825', '<i>Phalaenopsis</i> Blume, 1825', 'Phalaenopsis Blume, 1825', 'Phalaenopsis', null,'Trachéophytes','Angiospermes'),
-(99902529, 'I',3,'GN', 'Plantae', null,'Equisetopsida','Poales', 'Bromeliaceae', 'Bromelioideae', null, 446161, 446161, 99902529, 'Aechmea blanchetiana', '(Baker) L.B.Sm., 1955', 'Aechmea blanchetiana (Baker) L.B.Sm., 1955', '<i>Aechmea blanchetiana</i> (Baker) L.B.Sm., 1955', 'Aechmea blanchetiana (Baker) L.B.Sm., 1955', null, null,	'Trachéophytes', 'Angiospermes')
+(99902529, 'I',3,'GN', 'Plantae', null,'Equisetopsida','Poales', 'Bromeliaceae', 'Bromelioideae', null, 446161, 446161, 99902529, 'Aechmea blanchetiana', '(Baker) L.B.Sm., 1955', 'Aechmea blanchetiana (Baker) L.B.Sm., 1955', '<i>Aechmea blanchetiana</i> (Baker) L.B.Sm., 1955', 'Aechmea blanchetiana (Baker) L.B.Sm., 1955', null, null,	'Trachéophytes', 'Angiospermes'),
+(99902530, 'J', 3, 'ES', 'Plantae', null,'Equisetopsida', 'Dioscoreales', 'Dioscoreaceae', null, null, 446208, 446208, 99902530, 'Dioscorea oppositifolia', 'L.', 'Dioscorea oppositifolia L.', '<i>Dioscorea oppositifolia</i> L.', 'Dioscorea oppositifolia L.', null, null,	'Trachéophytes', 'Angiospermes')
 ;
 
 UPDATE taxonomie.taxref SET group2_inpn = 'Amphibiens' where cd_nom =99900163;
@@ -881,163 +882,109 @@ INSERT INTO taxonomie.bib_noms(
 				order by cd_nom;
 	
 
-
 -------------------------- liste nom + celle d'occtax
 INSERT INTO taxonomie.bib_listes(id_liste, code_liste, nom_liste, desc_liste, picto, regne, group2_inpn)
-	VALUES (1, 'amph', 'Amphibiens', 'Amphibiens', 'images/pictos/amphibien.gif', 'Animalia', 'Amphibiens'),
-			(2, 'mamm_nvol', 'Mammifères non volants', 'Mammifères non volants', 'images/pictos/nopicto.gif', 'Animalia', 'Mammifères'),
-			(3, 'chiro', 'Mammifères volants', 'Mammifères volants', 'images/pictos/nopicto.gif', 'Animalia', 'Mammifères volants'),
-			(4, 'ois', 'Oiseaux', 'Oiseaux', 'images/pictos/oiseau.gif', 'Animalia', 'Oiseaux'),
-			(5, 'poiss', 'Poissons', 'Poissons', 'images/pictos/poisson.gif', 'Animalia', 'Poissons'),
-			(6, 'rept', 'Reptiles', 'Reptiles', 'images/pictos/reptile.gif', 'Animalia', 'Reptiles'),
-			(7, 'verteb_autres', 'Autres mammifères', 'Autres mammifères', 'images/pictos/nopicto.gif', 'Animalia', 'Vertébrés (autres)'),
-			(8, 'annel', 'Vers annélides', 'Annélides', 'images/pictos/nopicto.gif', 'Animalia', 'Annélides'),
-			(9, 'arach', 'Arachnides', 'Arachnides', 'images/pictos/nopicto.gif', 'Animalia', 'Arachnides'),
-			(10, 'biv', 'Bivalves', 'Bivalves', 'images/pictos/nopicto.gif', 'Animalia', 'Bivalves'),
-			(11, 'crus', 'Crustacés', 'Crustacés', 'images/pictos/nopicto.gif', 'Animalia', 'Crustacés'),
-			(12, 'gaste', 'Gastéropodes', 'Gastéropodes', 'images/pictos/nopicto.gif', 'Animalia', 'Gastéropodes'),
-			(13, 'insectes', 'Insectes', 'Insectes', 'images/pictos/nopicto.gif', 'Animalia', 'Insectes'),
-			(14, 'myriap', 'Myriapodes', 'Myriapodes', 'images/pictos/nopicto.gif', 'Animalia', 'Myriapodes'),
-			(15, 'nemato', 'Vers nématodes', 'Nématodes', 'images/pictos/nopicto.gif', 'Animalia', 'Nématodes'),
-			(16, 'plathel', 'Plathelminthes', 'Plathelminthes', 'images/pictos/nopicto.gif', 'Animalia', 'Plathelminthes'),
-			(17, 'inverteb_autres', 'Autres invertébrés', '', 'images/pictos/nopicto.gif', 'Animalia', 'Invertébrés (autres)'),
-			(22, 'asco', 'Ascomycètes', 'Ascomycètes', 'images/pictos/nopicto.gif', 'Fungi', 'Ascomycètes'),
-			(23, 'basidio', 'Basidiomycètes', 'Basidiomycètes', 'images/pictos/nopicto.gif', 'Fungi', 'Basidiomycètes'),
-			(24, 'champi_div', 'Autres champignons', 'Fonge hors ascomycètes et basidiomycètes', 'images/pictos/nopicto.gif', 'Fungi', 'Fonge (autres)'),
-			(25, 'bryo', 'Bryophytes', '', 'images/pictos/mousse.gif', 'Plantae', 'Mousses'),
-			(26, 'alg', 'Algues', '', 'images/pictos/nopicto.gif', 'Plantae', 'Algues'),
-			(27, 'pterido', 'Ptéridophytes', '', 'images/pictos/nopicto.gif', 'Plantae', 'Fougères'),
-			(28, 'monocot', 'Monocotylédones', '', 'images/pictos/nopicto.gif', 'Plantae', 'Angiospermes'),
-			(29, 'dicot', 'Dicotylédones', '', 'images/pictos/nopicto.gif', 'Plantae', 'Angiospermes'),
-			(30, 'gymno', 'Gymnospermes', '', 'images/pictos/nopicto.gif', 'Plantae', 'Gymnospermes'),
-			(500, 'tous', 'saisie_possible', '', 'images/pictos/nopicto.gif', '', ''),
-			(1000, 'occtax', 'Saisie Occtax', 'Liste des noms dont la saisie est proposée dans le module Occtax', 'images/pictos/nopicto.gif', '', ''),
-			(1001, 'verteb', 'Vertébrés', 'Liste des vertébrés', 'images/pictos/nopicto.gif', 'Animalia', ''),
-			(1002, 'invert', 'Invertébrés', 'Liste des invertébrés', 'images/pictos/nopicto.gif', 'Animalia', ''),
-			(1003, 'bota', 'Flore', 'Liste flore', 'images/pictos/nopicto.gif', 'Plantae', ''),
-			(1004, 'fonge', 'Fonge', 'Liste fonge', 'images/pictos/nopicto.gif', 'Fungi', '');
-
-
-
-
-
-
--- cor nom liste
--------- pour les champignons
+	VALUES (1, 'amph', 'v:Amphibiens', 'Amphibiens', 'images/pictos/picto_Amphibiens.png', 'Animalia', 'Amphibiens'),
+			(2, 'mamm_nvol', 'v:Mammifères non volants', 'Mammifères non volants', 'images/pictos/picto_Mammiferes.png', 'Animalia', 'Mammifères'),
+			(3, 'chiro', 'v:Mammifères volants', 'Mammifères volants', 'images/pictos/picto_Mammiferes_chiro.png', 'Animalia', 'Mammifères volants'),
+			(4, 'ois', 'v:Oiseaux', 'Oiseaux', 'images/pictos/picto_Oiseaux.png', 'Animalia', 'Oiseaux'),
+			(5, 'poiss', 'v:Poissons', 'Poissons', 'images/pictos/picto_Poissons.png', 'Animalia', 'Poissons'),
+			(6, 'rept', 'v:Reptiles', 'Reptiles', 'images/pictos/picto_Reptiles.png', 'Animalia', 'Reptiles'),
+			(7, 'verteb_autres', 'v:Vertébrés (autres)', 'Autres vertébrés', 'images/pictos/picto_Autres.png', 'Animalia', 'Vertébrés (autres)'),
+			--invertébrés
+			(8, 'annel', 'i:Vers annélides', 'Annélides', 'images/pictos/picto_Annelides.png', 'Animalia', 'Annélides'),
+			(9, 'arach', 'i:Arachnides', 'Arachnides', 'images/pictos/picto_Arachnides.png', 'Animalia', 'Arachnides'),
+			(10, 'biv', 'i:Bivalves', 'Bivalves', 'images/pictos/picto_Bivalves.png', 'Animalia', 'Bivalves'),
+			(11, 'crus', 'i:Crustacés', 'Crustacés', 'images/pictos/picto_Crustaces.png', 'Animalia', 'Crustacés'),
+			(12, 'gaste', 'i:Gastéropodes', 'Gastéropodes', 'images/pictos/picto_Gasteropodes.png', 'Animalia', 'Gastéropodes'),
+			(13, 'insectes', 'i:Insectes', 'Insectes', 'images/pictos/picto_Insectes.png', 'Animalia', 'Insectes'),
+			(14, 'myriap', 'i:Myriapodes', 'Myriapodes', 'images/pictos/picto_Myriapodes.png', 'Animalia', 'Myriapodes'),
+			(15, 'nemato', 'i:Vers nématodes', 'Nématodes', 'images/pictos/nopicto.gif', 'Animalia', 'Nématodes'),
+			(16, 'plathel', 'i:Plathelminthes', 'Plathelminthes', 'images/pictos/picto_Autres.png', 'Animalia', 'Plathelminthes'),
+			(17, 'inverteb_autres', 'i:Invertébrés (autres)', '', 'images/pictos/picto_Autres.png', 'Animalia', 'Invertébrés (autres)'),
+			--fonge
+			(22, 'asco', 'c:Ascomycètes', 'Ascomycètes', 'images/pictos/picto_Autres.png', 'Fungi', 'Ascomycètes'),
+			(23, 'basidio', 'c:Basidiomycètes', 'Basidiomycètes', 'images/pictos/picto_Autres.png', 'Fungi', 'Basidiomycètes'),
+			(24, 'champi_div', 'c:Champignons (autres)', 'Fonge hors ascomycètes et basidiomycètes', 'images/pictos/picto_Autres.png', 'Fungi', 'Fonge (autres)'),
+			--flore
+			(25, 'bryo', 'f:Bryophytes', '', 'images/pictos/picto_Mousses.png', 'Plantae', 'Bryophytes'),
+			(26, 'alg', 'f:Algues', '', 'images/pictos/nopicto.gif', 'Plantae', 'Algues'),
+			(27, 'pterido', 'f:Ptéridophytes', '', 'images/pictos/picto_Fougeres.png', 'Plantae', 'Ptéridophytes'),
+			(28, 'monocot', 'f:Monocotylédones', '', 'images/pictos/picto_Monocotyledone.png', 'Plantae', 'Monocotylédones'),
+			(29, 'dicot', 'f:Dicotylédones', '', 'images/pictos/picto_Dicotyledone.png', 'Plantae', 'Dicotylédones'),
+			(30, 'gymno', 'f:Gymnospermes', '', 'images/pictos/picto_Gymnospermes.png', 'Plantae', 'Gymnospermes'),
+			(31, 'flore_autres', 'f:Flore (autres)', '', 'images/pictos/picto_Autres.png', 'Plantae', 'Flore (autres)'),
+			--les autres listes plus générales
+			(500, 'tous', 'saisie_possible', '', 'images/pictos/picto_Autres.png', '', ''),
+			(100, 'occtax', 'Saisie Occtax', 'Liste des noms dont la saisie est proposée dans le module Occtax', 'images/pictos/picto_Autres.png', '', ''),
+			(1001, 'verteb', 'Vertébrés', 'Liste des vertébrés', 'images/pictos/picto_Autres.png', 'Animalia', ''),
+			(1002, 'invert', 'Invertébrés', 'Liste des invertébrés', 'images/pictos/picto_Autres.png', 'Animalia', ''),
+			(1003, 'bota', 'Flore', 'Liste flore', 'images/pictos/picto_Autres.png', 'Plantae', ''),
+			(1004, 'fonge', 'Fonge', 'Liste fonge', 'images/pictos/picto_Autres.png', 'Fungi', '');
+ --Fonge
+UPDATE taxonomie.taxref SET group2_inpn = 'Ascomycètes' WHERE group1_inpn ='Ascomycètes';
+UPDATE taxonomie.taxref SET group2_inpn = 'Basidiomycètes' WHERE group1_inpn ='Basidiomycètes';
+UPDATE taxonomie.taxref SET group2_inpn = 'Fonge (autres)' WHERE regne = 'Fungi' and group1_inpn not in ('Ascomycètes','Basidiomycètes');
 INSERT INTO taxonomie.cor_nom_liste(id_liste, id_nom)
-	SELECT 22, id_nom
-		from taxonomie.bib_noms
-		where cd_nom in (select cd_nom from taxonomie.taxref WHERE group1_inpn ='Ascomycètes')
-	UNION SELECT 23, id_nom
-		from taxonomie.bib_noms
-		where cd_nom in (select cd_nom from taxonomie.taxref WHERE group1_inpn ='Basidiomycètes')
-	UNION SELECT 24, id_nom
-		from taxonomie.bib_noms
-		where cd_nom in (select cd_nom from taxonomie.taxref WHERE regne = 'Fungi' and group1_inpn not in ('Ascomycètes','Basidiomycètes'))
-	UNION SELECT 1004, id_nom   --Fonge
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Fungi')
-------- pour la bota
-    UNION SELECT 25, id_nom   --Bryophytes
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Anthocerotales', 'Dendrocerotales', 'Leiosporocerotales', 'Notothyladales', 'Phymatocerales', 'Andreaeales', 'Aulacomniales', 'Bartramiales', 'Bryales', 'Buxbaumiales', 'Catoscopiales', 'Dicranales', 'Diphysciales', 'Encalyptales', 'Funariales', 'Gigaspermales', 'Grimmiales', 'Hedwigiales', 'Hookeriales', 'Hypnales', 'Hypnodendrales', 'Orthotrichales', 'Polytrichales', 'Pottiales', 'Ptychomniales', 'Rhizogoniales', 'Sphagnales', 'Splachnales', 'Tetraphidales', 'Timmiales', 'Blasiales', 'Calobryales', 'Fossombroniales', 'Jungermanniales', 'Lunulariales', 'Marchantiales', 'Metzgeriales', 'Pallaviciniales', 'Pelliales', 'Pleuroziales', 'Porellales', 'Ptilidiales', 'Sphaerocarpales', 'Treubiales'))		
-    UNION SELECT 26, id_nom   --Algues
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE phylum in ('Charophyta', 'Chlorophyta', 'Rhodophyta'))
-    UNION SELECT 27, id_nom   --Ptéridophytes
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Isoetales', 'Lycopodiales', 'Selaginellales', 'Equisetales', 'Marattiales', 'Ophioglossales', 'Psilotales', 'Cyatheales', 'Gleicheniales', 'Hymenophyllales', 'Osmundales', 'Polypodiales', 'Salviniales', 'Schizaeales'))
-	UNION SELECT 28, id_nom   --Monocotylédones
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Alismatales', 'Asparagales', 'Arecales', 'Commelinales', 'Poales', 'Zingiberales', 'Dioscoreales', 'Liliales', 'Pandanales'))
-    UNION SELECT 29, id_nom   --Dicotylédones
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Amborellales', 'Apiales', 'Aquifoliales', 'Asterales', 'Boraginales', 'Cornales', 'Dipsacales', 'Ericales', 'Escalloniales', 'Garryales', 'Gentianales', 'Icacinales', 'Lamiales', 'Metteniusales', 'Paracryphiales', 'Solanales', 'Austrobaileyales', 'Chloranthales', 'Buxales', 'Caryophyllales', 'Ceratophyllales', 'Dilleniales', 'Acorales', 'Alismatales', 'Asparagales', 'Clade', 'Dioscoreales', 'Liliales', 'Pandanales', 'Canellales', 'Laurales', 'Magnoliales', 'Piperales', 'Gunnerales', 'Nymphaeales', 'Proteales', 'Ranunculales', 'Brassicales', 'Celastrales', 'Crossosomatales', 'Cucurbitales', 'Fabales', 'Fagales', 'Geraniales', 'Malpighiales', 'Malvales', 'Myrtales', 'Oxalidales', 'Picramniales', 'Rosales', 'Sapindales', 'Vitales', 'Zygophyllales', 'Santalales', 'Saxifragales'))
-    UNION SELECT 30, id_nom   --Gymnospermes
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE ordre in ('Ginkgoales', 'Ephedrales', 'Gnetales', 'Araucariales', 'Cupressales', 'Pinales'))
-	UNION SELECT 1003, id_nom   --Flore
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Plantae')		
-------- pour les vertébrés
-    UNION SELECT 1, id_nom   --Amphibiens
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Amphibiens')
-	UNION SELECT 2, id_nom   --Mamm nvolants
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Mammifères' and ordre <> 'Chiroptera')	
-	UNION SELECT 3, id_nom   --Mamm nvolants
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Mammifères' and ordre = 'Chiroptera')			
-	UNION SELECT 4, id_nom   --Oiseaux
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Oiseaux')	
-	    UNION SELECT 5, id_nom   --Poissons
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Poissons')
-    UNION SELECT 6, id_nom   --Reptiles
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Reptiles')
-	UNION SELECT 7, id_nom   --Autres
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group1_inpn = 'Chordés' and group2_inpn not in ('Amphibiens','Mammifères', 'Oiseaux', 'Oiseaux','Reptiles'))	
-	UNION SELECT 1001, id_nom   --Faune vertébrée
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group1_inpn ='Chordés')
-------- pour les invertébrés		
-    UNION SELECT 8, id_nom   
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Annélides')
-    UNION SELECT 9, id_nom   
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Arachnides')
-    UNION SELECT 10, id_nom   
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Bivalves')
-    UNION SELECT 11, id_nom   
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Crustacés')
-    UNION SELECT 12, id_nom   
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Gastéropodes')
-    UNION SELECT 13, id_nom   
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Insectes')
-	UNION SELECT 14, id_nom   
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Myriapodes')
-	UNION SELECT 15, id_nom   
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Nématodes')
-	UNION SELECT 16, id_nom   
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Plathelminthes')
-	UNION SELECT 17, id_nom   
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Animalia' AND group1_inpn <> 'Chordés' and group2_inpn  not in ('Plathelminthes','Annélides','Arachnides', 'Bivalves','Crustacés', 'Gastéropodes', 'Insectes', 'Myriapodes', 'Nématodes', 'Plathelminthes'))
-    UNION SELECT 1002, id_nom   --Faune invertébrée
-        FROM taxonomie.bib_noms  
-        WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Animalia' AND group1_inpn <> 'Chordés')
-    UNION SELECT 1000, id_nom   --Saisie Occtax
-        FROM taxonomie.bib_noms
-	UNION SELECT 500, id_nom   --Saisie Possible
-        FROM taxonomie.bib_noms
-;
+	SELECT 22, id_nom  from taxonomie.bib_noms where cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Ascomycètes')
+	UNION SELECT 23, id_nom from taxonomie.bib_noms where cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Basidiomycètes')
+	UNION SELECT 24, id_nom from taxonomie.bib_noms where cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn = 'Fonge (autres)')
+	UNION SELECT 1004, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Fungi');
 
--- check-up cor_nom_liste
---SELECT bib_listes.id_liste, nom_liste, count(cor_nom_liste.id_liste) 
---	FROM taxonomie.cor_nom_liste RIGHT JOIN taxonomie.bib_listes 
---		ON cor_nom_liste.id_liste = bib_listes.id_liste
---	GROUP BY bib_listes.id_liste, nom_liste
---	ORDER BY bib_listes.id_liste;
+--Flore
+UPDATE taxonomie.taxref SET group2_inpn = 'Bryophytes' WHERE group2_inpn in ('Mousses', 'Hépatiques et Anthocérotes') 
+	or ordre in ('Anthocerotales', 'Dendrocerotales', 'Leiosporocerotales', 'Notothyladales', 'Phymatocerales', 'Andreaeales', 'Aulacomniales', 'Bartramiales', 'Bryales', 'Buxbaumiales', 'Catoscopiales', 'Dicranales', 'Diphysciales', 'Encalyptales', 'Funariales', 'Gigaspermales', 'Grimmiales', 'Hedwigiales', 'Hookeriales', 'Hypnales', 'Hypnodendrales', 'Orthotrichales', 'Polytrichales', 'Pottiales', 'Ptychomniales', 'Rhizogoniales', 'Sphagnales', 'Splachnales', 'Tetraphidales', 'Timmiales', 'Blasiales', 'Calobryales', 'Fossombroniales', 'Jungermanniales', 'Lunulariales', 'Marchantiales', 'Metzgeriales', 'Pallaviciniales', 'Pelliales', 'Pleuroziales', 'Porellales', 'Ptilidiales', 'Sphaerocarpales', 'Treubiales');
+UPDATE taxonomie.taxref SET group2_inpn = 'Algues' WHERE phylum in ('Charophyta', 'Chlorophyta', 'Rhodophyta', 'Ochrophyta');
+UPDATE taxonomie.taxref SET group2_inpn = 'Ptéridophytes' WHERE ordre in ('Isoetales', 'Lycopodiales', 'Selaginellales', 'Equisetales', 'Marattiales', 'Ophioglossales', 'Psilotales', 'Cyatheales', 'Gleicheniales', 'Hymenophyllales', 'Osmundales', 'Polypodiales', 'Salviniales', 'Schizaeales');
+UPDATE taxonomie.taxref SET group2_inpn = 'Monocotylédones' WHERE ordre in ('Alismatales', 'Asparagales', 'Arecales', 'Commelinales', 'Poales', 'Zingiberales', 'Dioscoreales', 'Liliales', 'Pandanales');
+UPDATE taxonomie.taxref SET group2_inpn = 'Dicotylédones' WHERE ordre in ('Amborellales', 'Apiales', 'Aquifoliales', 'Asterales', 'Boraginales', 'Cornales', 'Dipsacales', 'Ericales', 'Escalloniales', 'Garryales', 'Gentianales', 'Icacinales', 'Lamiales', 'Metteniusales', 'Paracryphiales', 'Solanales', 'Austrobaileyales', 'Chloranthales', 'Buxales', 'Caryophyllales', 'Ceratophyllales', 'Dilleniales', 'Acorales', 'Alismatales', 'Asparagales', 'Clade', 'Dioscoreales', 'Liliales', 'Pandanales', 'Canellales', 'Laurales', 'Magnoliales', 'Piperales', 'Gunnerales', 'Nymphaeales', 'Proteales', 'Ranunculales', 'Brassicales', 'Celastrales', 'Crossosomatales', 'Cucurbitales', 'Fabales', 'Fagales', 'Geraniales', 'Malpighiales', 'Malvales', 'Myrtales', 'Oxalidales', 'Picramniales', 'Rosales', 'Sapindales', 'Vitales', 'Zygophyllales', 'Santalales', 'Saxifragales');
+UPDATE taxonomie.taxref SET group2_inpn = 'Gymnospermes' WHERE ordre in ('Ginkgoales', 'Ephedrales', 'Gnetales', 'Araucariales', 'Cupressales', 'Pinales');
+UPDATE taxonomie.taxref SET group2_inpn = 'Flore (autres)' WHERE regne = 'Plantae' and group2_inpn not in ('Bryophytes','Algues','Ptéridophytes', 'Monocotylédones', 'Dicotylédones', 'Gymnospermes');
+INSERT INTO taxonomie.cor_nom_liste(id_liste, id_nom)
+	SELECT 25, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn = 'Bryophytes')		
+	UNION SELECT 26, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn = 'Algues')
+	UNION SELECT 27, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn = 'Ptéridophytes')
+	UNION SELECT 28, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn = 'Monocotylédones')
+    UNION SELECT 29, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn = 'Dicotylédones')
+    UNION SELECT 30, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn = 'Gymnospermes')
+    UNION SELECT 31, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn = 'Flore (autres)')
+	UNION SELECT 1003, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Plantae');
 
--- syntheses de données par listes
---SELECT bib_listes.id_liste, bib_listes.regne, nom_liste, count(id_synthese), dataset_name
---FROM taxonomie.bib_listes
---	inner join taxonomie.cor_nom_liste on bib_listes.id_liste = cor_nom_liste.id_liste
---	inner join taxonomie.bib_noms on bib_noms.id_nom = cor_nom_liste.id_nom
---	inner join gn_synthese.synthese on synthese.cd_nom = bib_noms.cd_nom
---	inner join gn_meta.t_datasets on t_datasets.id_dataset = synthese.id_dataset
---	inner join taxonomie.taxref on taxref.cd_nom = bib_noms.cd_nom
---GROUP BY bib_listes.id_liste, bib_listes.regne, nom_liste, dataset_name
---order by bib_listes.id_liste, bib_listes.regne, nom_liste;
+--Faune vertébrée
+UPDATE taxonomie.taxref SET group2_inpn = 'Mammifères non volants' WHERE group2_inpn ='Mammifères' and ordre <> 'Chiroptera';
+UPDATE taxonomie.taxref SET group2_inpn = 'Mammifères volants' WHERE group2_inpn ='Mammifères' and ordre = 'Chiroptera';
+
+SELECT regne,group2_inpn from taxonomie.taxref 	---------------------- point de contrôle!
+	where group1_inpn = 'Chordés'
+	group by regne,group2_inpn 
+	order by regne,group2_inpn  ;				---------------------- point de contrôle!
+	
+UPDATE taxonomie.taxref SET group2_inpn = 'Vertébrés (autres)' WHERE group1_inpn = 'Chordés' and group2_inpn not in ('Amphibiens','Mammifères volants', 'Mammifères non volants', 'Oiseaux', 'Poissons','Reptiles');
+INSERT INTO taxonomie.cor_nom_liste(id_liste, id_nom)
+	SELECT 1, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Amphibiens')
+	UNION SELECT 2, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Mammifères non volants')	
+	UNION SELECT 3, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Mammifères volants')			
+	UNION SELECT 4, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Oiseaux')	
+	UNION SELECT 5, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Poissons')
+    UNION SELECT 6, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn ='Reptiles')
+	UNION SELECT 7, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn = 'Vertébrés (autres)')	
+	UNION SELECT 1001, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group1_inpn ='Chordés');
+
+--faune invertébrée
+UPDATE taxonomie.taxref SET group2_inpn = 'Invertébrés (autres)' WHERE regne ='Animalia' AND group1_inpn <> 'Chordés' and group2_inpn  not in ('Annélides','Arachnides', 'Bivalves','Crustacés', 'Gastéropodes', 'Insectes', 'Myriapodes', 'Nématodes', 'Plathelminthes');
+INSERT INTO taxonomie.cor_nom_liste(id_liste, id_nom)
+	SELECT 8, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Annélides')
+    UNION SELECT 9, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Arachnides')
+    UNION SELECT 10, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Bivalves')
+    UNION SELECT 11, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Crustacés')
+    UNION SELECT 12, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Gastéropodes')
+    UNION SELECT 13, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Insectes')
+	UNION SELECT 14, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Myriapodes')
+	UNION SELECT 15, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Nématodes')
+	UNION SELECT 16, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn  ='Plathelminthes')
+	UNION SELECT 17, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE group2_inpn = 'Invertébrés (autres)')
+	UNION SELECT 1002, id_nom FROM taxonomie.bib_noms WHERE cd_nom in (select cd_nom from taxonomie.taxref WHERE regne ='Animalia' AND group1_inpn <> 'Chordés');
+--tout
+INSERT INTO taxonomie.cor_nom_liste(id_liste, id_nom)
+	SELECT 100, id_nom FROM taxonomie.bib_noms    --Saisie Occtax
+	UNION SELECT 500, id_nom FROM taxonomie.bib_noms;    --Saisie Possible

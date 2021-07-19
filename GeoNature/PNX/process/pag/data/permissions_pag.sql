@@ -144,7 +144,14 @@ INSERT INTO gn_permissions.cor_filter_type_module (id_filter_type, id_module)
 	GROUP BY cor_role_action_filter_module_object.id_module, module_code,
 		t_filters.id_filter_type, label_filter_type
 	ORDER BY cor_role_action_filter_module_object.id_module,t_filters.id_filter_type;
-	
+
+UPDATE gn_commons.t_modules set module_picto = 'fa-leaf' where module_code = 'OCCTAX';
+UPDATE gn_commons.t_modules set module_picto = 'fa-image' where module_code = 'OCCHAB';
+UPDATE gn_commons.t_modules set module_picto = 'fa-check-square-o' where module_code = 'VALIDATION';
+UPDATE gn_commons.t_modules set module_picto = 'fa-bar-chart' where module_code = 'DASHBOARD';
+UPDATE gn_commons.t_modules set module_picto = 'fa-eye' where module_code = 'MONITORINGS';
+UPDATE gn_commons.t_modules set module_picto = 'fa-download' where module_code = 'IMPORT';
+UPDATE gn_commons.t_modules set module_picto = 'fa-upload' where module_code = 'EXPORTS';
 -- checkup_permissions
 --SELECT cor_role_action_filter_module_object.id_role, nom_role, 
 --		cor_role_action_filter_module_object.id_action, description_action, 

@@ -184,13 +184,13 @@ INSERT INTO pr_occtax.cor_role_releves_occtax
 	FROM v1_compat.vm_cor_role_fiche_flore
 	WHERE id_role <> 1;
 -- MAJ des observateurs dans le champ observers_txt
-UPDATE pr_occtax.t_releves_occtax
-	SET observers_txt = observateurs
-	FROM (SELECT id_releve_occtax, String_AGG(prenom_role ||' ' || nom_role, ', ') as observateurs
-		FROM pr_occtax.cor_role_releves_occtax inner join utilisateurs.t_roles 
-			ON cor_role_releves_occtax.id_role = t_roles.id_role
-		GROUP BY id_releve_occtax) As ssrqt
-	WHERE t_releves_occtax.id_releve_occtax = ssrqt.id_releve_occtax;
+--UPDATE pr_occtax.t_releves_occtax
+--	SET observers_txt = observateurs
+--	FROM (SELECT id_releve_occtax, String_AGG(prenom_role ||' ' || nom_role, ', ') as observateurs
+--		FROM pr_occtax.cor_role_releves_occtax inner join utilisateurs.t_roles 
+--			ON cor_role_releves_occtax.id_role = t_roles.id_role
+--		GROUP BY id_releve_occtax) As ssrqt
+--	WHERE t_releves_occtax.id_releve_occtax = ssrqt.id_releve_occtax;
 
 --- 4: counting
 

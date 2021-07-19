@@ -83,7 +83,11 @@ INSERT INTO utilisateurs.cor_roles (id_role_groupe,id_role_utilisateur)
 	UNION SELECT 9, id_role FROM utilisateurs.t_roles WHERE id_role in (1,1000052) -- les admin: administrateur + audrey
 	UNION SELECT 10, id_role FROM utilisateurs.t_roles WHERE id_role in (1,1000052,1000016) -- les admin taxo: administrateur + audrey + seb
 	UNION SELECT 11, id_role FROM utilisateurs.t_roles WHERE id_role in (1,1000052,5); -- les valdateurs: administrateur + audrey + validateur
-
+	
+-- mise à jour des mails
+UPDATE utilisateurs.t_roles SET email= null;
+UPDATE utilisateurs.t_roles SET email= 'en-'||identifiant||'@guyane-parcnational.fr' WHERE groupe = false and active = true and id_role <> 1 ;
+UPDATE utilisateurs.t_roles SET email= 'audrey.thonnel@guyane-parcnational.fr' WHERE id_role = 1 ;
 -- listes d'utilisateurs
 INSERT INTO utilisateurs.cor_role_liste(
 	id_role, id_liste)

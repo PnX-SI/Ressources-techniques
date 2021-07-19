@@ -8,7 +8,7 @@ INSERT INTO pr_occtax.t_releves_occtax(
 	date_min, date_max, place_name, meta_device_entry, 
 	comment, geom_local, geom_4326, 
 	id_nomenclature_geo_object_nature, "precision")
-SELECT id_releve_occtax, uuid_generate_v4() AS unique_id_sinp_grp, id_dataset, id_digitiser, observers_txt, 
+SELECT id_releve_occtax, uuid_generate_v4() AS unique_id_sinp_grp, id_dataset, id_digitiser, null, 
 	id_nomenclature_tech_collect_campanule, id_nomenclature_grp_typ, grp_method, 
 	TO_DATE(date_min, 'DD/MM/YYYY'), TO_DATE(date_max, 'DD/MM/YYYY'),  place_name, meta_device_entry, 
 	comment, ST_Transform(ST_SetSRID(ST_MakePoint(to_number(longitude, '99D999999999999999'),to_number(latitude, '99D999999999999999')), 4326),2972)  as geom, ST_SetSRID(ST_MakePoint(to_number(longitude, '99D999999999999999'),to_number(latitude, '99D999999999999999')), 4326) AS geom_4326,

@@ -133,7 +133,7 @@ SELECT uuid_generate_v4() AS unique_id_sinp_grp, id_source, id_module, entity_so
 	count_min, count_max, cd_nom, cd_hab, nom_cite, meta_v_taxref, sample_number_proof, 
 	digital_proof, non_digital_proof, altitude_min, altitude_max, depth_min, depth_max, 
 	place_name, 
-	ST_Transform(tmp_localitespoly_ecobios.geom, 4326) as the_geom_4326, tmp_localitespoly_ecobios.geom as the_geom_local, 
+	ST_SetSRID(tmp_localitespoly_ecobios.geom, 4326) as the_geom_4326, ST_Transform(ST_SetSRID(tmp_localitespoly_ecobios.geom, 4326),2972) as the_geom_local,
 	id_area_attachment, date_min, date_max, validator, validation_comment, 
 	observers, determiner, id_digitiser, id_nomenclature_determination_method, 
 	comment_context, comment_description	
