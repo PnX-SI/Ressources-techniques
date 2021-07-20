@@ -46,24 +46,26 @@ INSERT INTO utilisateurs.t_roles (
         (CAST(to_json(ca) AS JSONB)) - 'id_role' AS champs_addi
     FROM v1_compat.t_roles r
     JOIN champs_addi ca ON ca.id_role = r.id_role  
-    WHERE r.id_role NOT IN (1,2,3) -- partenaire, agent off
+    WHERE r.id_role NOT IN (1,2,3,10,20002, 1000042, 1000043, 1000054) -- partenaire, agent off
 ;
 
 
 ---- Ajout de qq utilisateurs utiles pour l'insertion des données
 INSERT INTO utilisateurs.t_roles values 
+	(false, 1, uuid_generate_v4(), 'admin', 'Administrateur', 'test', 'administrateur test à modifier', null, '$2b$12$1kI/jVtbw6CN5tHCQvcPLuRJFdBNfHEpjPTAaEVg0OzwOdmcLU97C', 'audrey.thonnel@guyane-parcnational.fr', -1, 'administrateur test à modifier', true, null, now(), now()),
 	(false, 1000055, uuid_generate_v4(), 'omorillas', 'Morillas', 'Olivier', null, null, null, null, 3, 'Ajout pour historique Contact Faune', false, null,now(), now()),
 	(false, 1000056, uuid_generate_v4(), 'seda', 'Eda', 'Steven', null, null, null, null, 3, 'Ajout pour historique Contact Faune', false, null,now(), now()),
 	(false, 1000057, uuid_generate_v4(), 'ajenge', 'Jenge', 'August', null, null, null, null, 3, 'Ajout pour historique Contact Faune', false, null,now(), now()),
 	(false, 1000058, uuid_generate_v4(), 'fponsmoreau', 'Pons-Moreau', 'Fabien', null, null, null, null, 3, 'Ajout pour historique Contact Faune', false, null,now(), now()),
 	(false, 1000059, uuid_generate_v4(), 'dbagadi', 'Bagadi', 'Daniel', null, null, null, null, 3, 'Ajout pour historique Contact Faune', true, null,now(), now()),
-	(true, 8, uuid_generate_v4(), 		null, 		'Grp_ext', null, 'Personnes extérieures', null, null, null, null, 'Personnes extérieures ayant les droits de saisie', true, null,now(), now()),
-	(true, 11, uuid_generate_v4(), 		null, 		'Grp_valid', null, 'Groupe restreint de validateurs', null, null, null, null, 'Groupe à droits restreints pour la validation des données', true, null,now(), now())
+	(false, 3, uuid_generate_v4(), 'partenaire', 'Partenaire', 'test', 'Personne extérieure', null, null, null,-1, 'utilisateur test à modifier ou supprimer', true, null,now(), now()),
+	(true, 7, uuid_generate_v4(), null, 'Grp_en_poste', null, 'Tous les agents en poste au PAG', null, null, null,3, 'Groupe des agents de la structure avec droits d''écriture limité', true, null,now(), now()),
+	(true, 8, uuid_generate_v4(), null, 'Grp_ext', null, 'Personnes extérieures', null, null, null, null, 'Personnes extérieures ayant les droits de saisie', true, null,now(), now()),
+	(true, 9, uuid_generate_v4(), null, 'Grp_admin', null, 'Administrateurs données et GéoNature', null, null, null,3, 'Groupe à droits complets', true, null,now(), now()),
+	(true, 10, uuid_generate_v4(), null, 'Grp_admin_taxo', null, 'Administrateurs taxonomiques', null, null, null,3, 'Groupe restreint pouvant administrer Taxhub sans administrer tout GéoNature', true, null,now(), now()),
+	(true, 11, uuid_generate_v4(), null, 'Grp_valid', null, 'Groupe restreint de validateurs', null, null, null, null, 'Groupe à droits restreints pour la validation des données', true, null,now(), now())
 ;
-DELETE FROM utilisateurs.t_roles WHERE id_role in (20002, 1000042, 1000043);
 UPDATE utilisateurs.t_roles SET nom_role = 'Scellier' where nom_role = 'Mathoulin-Scellier';
-UPDATE utilisateurs.t_roles SET id_role = 10, nom_role = 'Grp_admin_taxo', id_organisme = 3  where nom_role = 'grp_admin_taxo';
-UPDATE utilisateurs.t_roles SET id_organisme = 3  where id_role in (7,9,10);
 UPDATE utilisateurs.bib_organismes SET nom_organisme = 'Divers' where nom_organisme = 'ALL';
 
 --- tri
@@ -78,7 +80,7 @@ INSERT INTO utilisateurs.bib_organismes(nom_organisme)
 		
 -- groupe en poste
 INSERT INTO utilisateurs.cor_roles (id_role_groupe,id_role_utilisateur)
-	SELECT 7, id_role FROM utilisateurs.t_roles WHERE (id_role >= 1000000 and id_organisme = 3) OR id_role = 2  -- le groupe en poste
+	SELECT 7, id_role FROM utilisateurs.t_roles WHERE (id_role >= 1000000 and id_organisme = 3)  -- le groupe en poste
 	UNION SELECT 8, id_role FROM utilisateurs.t_roles WHERE id_role = 3 -- les partenaires
 	UNION SELECT 9, id_role FROM utilisateurs.t_roles WHERE id_role in (1,1000052) -- les admin: administrateur + audrey
 	UNION SELECT 10, id_role FROM utilisateurs.t_roles WHERE id_role in (1,1000052,1000016) -- les admin taxo: administrateur + audrey + seb
@@ -89,6 +91,5 @@ UPDATE utilisateurs.t_roles SET email= null;
 UPDATE utilisateurs.t_roles SET email= 'en-'||identifiant||'@guyane-parcnational.fr' WHERE groupe = false and active = true and id_role <> 1 ;
 UPDATE utilisateurs.t_roles SET email= 'audrey.thonnel@guyane-parcnational.fr' WHERE id_role = 1 ;
 -- listes d'utilisateurs
-INSERT INTO utilisateurs.cor_role_liste(
-	id_role, id_liste)
+INSERT INTO utilisateurs.cor_role_liste(id_role, id_liste)
 	select id_role, 1 from utilisateurs.t_roles where groupe = false and id_role >=1000000 and active = true;

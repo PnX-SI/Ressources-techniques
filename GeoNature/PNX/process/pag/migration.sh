@@ -64,9 +64,12 @@ echo ""
 echo "************************ Transfert des users & organismes"
 $psqla -f $BASE_DIR/$parc/data/user.sql
 echo ""
+echo "************************ Permissions "
+$psqla -f $BASE_DIR/$parc/data/permissions_pag.sql
+echo ""
 echo "************************ Transfert taxonomie + complements taxref v14"
-#wget http://geonature.fr/data/inpn/taxonomie/TAXREF_v14_2020.zip -P /tmp/taxhub
-#unzip -o /tmp/taxhub/TAXREF_v14_2020.zip -d /tmp/taxhub
+wget http://geonature.fr/data/inpn/taxonomie/TAXREF_v14_2020.zip -P /tmp/taxhub
+unzip -o /tmp/taxhub/TAXREF_v14_2020.zip -d /tmp/taxhub
 $psqla -f $BASE_DIR/$parc/data/taxonomie.sql
 echo ""
 echo "************************ Transfert metadonnées "
@@ -86,9 +89,6 @@ $psqla -f $BASE_DIR/$parc/data/synthese.sql -v srid_local=$srid_local
 echo ""
 echo "************************ Corrections/ajouts sur les métadonnées "
 $psqla -f $BASE_DIR/$parc/data/correction_metadata.sql
-echo ""
-echo "************************ Permissions "
-$psqla -f $BASE_DIR/$parc/data/permissions_pag.sql
 echo ""
 echo "----------------------------------------------------------------------------"
 echo "------------------------ MAJ données partenariales -------------------------" 
