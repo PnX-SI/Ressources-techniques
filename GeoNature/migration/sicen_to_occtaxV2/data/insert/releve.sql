@@ -2,8 +2,9 @@
 
 WITH dataset AS (
     SELECT DISTINCT id_protocole, id_dataset::int, id_etude, ids_structure FROM export_oo.cor_dataset
+), data_add AS (
+    SELECT DISTINCT nom_etude, libelle_protocole, id_dataset::int FROM export_oo.cor_dataset
 )
-
 INSERT INTO pr_occtax.t_releves_occtax(
     unique_id_sinp_grp,
     id_dataset,
@@ -22,10 +23,9 @@ INSERT INTO pr_occtax.t_releves_occtax(
     geom_local,
     geom_4326,
     ids_obs_releve,
-    observateur
-
+    observateur,
+    champs_addi_obsocc
 ) SELECT 
-
 	uuid_generate_v4() AS unique_id_sinp_grp,
     d.id_dataset,
     ref_nomenclatures.get_id_nomenclature('TECHNIQUE_OBS', '133') AS id_nomenclature_tech_collect_campanule,
@@ -43,16 +43,20 @@ INSERT INTO pr_occtax.t_releves_occtax(
     ST_TRANSFORM(geometrie, :srid) AS geom_local,
     ST_TRANSFORM(geometrie, 4326) AS geom_4326,
     ARRAY_AGG(id_obs) AS ids_obs_releve,
-    s.observateur
+    s.observateur,
+    (CAST(to_json(dp) AS JSONB)) AS champs_addi_obs_occ
 
     FROM export_oo.v_saisie_observation_cd_nom_valid s
     JOIN dataset d
         ON d.id_etude = s.id_etude
         AND d.id_protocole = s.id_protocole
         AND d.ids_structure = s.ids_structure
+    JOIN data_add dp
+        ON dp.id_dataset = d.id_dataset
 
     GROUP BY 
-        id_dataset,
+        dp.*,   
+        d.id_dataset,
         date_min,
         date_max,
         hour_min,

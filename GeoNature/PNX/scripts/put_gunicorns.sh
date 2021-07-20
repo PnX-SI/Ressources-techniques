@@ -12,7 +12,8 @@ put $dirout/gngs -o geonature/backend/gunicorn_start.sh ;
 put $dirout/uhgs -o usershub/gunicorn_start.sh;
 put $dirout/thgs -o taxhub/gunicorn_start.sh;
 put $dirout/atgs -o atlas/gunicorn_start.sh;
-
 bye
 "
+
+
 

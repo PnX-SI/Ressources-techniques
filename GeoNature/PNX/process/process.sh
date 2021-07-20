@@ -19,11 +19,14 @@ install_db_all $parc
 # ATLAS
 # medias_taxref gua
 
-up_schema_atlas gua
+up_schema_atlas $parc
 
-set_admin_pass gua
+set_admin_pass $parc
 
-# $pgdumpa > ${parc}.dump
+[[ -f $BASE_DIR/$parc/after_process.sh ]] && $BASE_DIR/$parc/after_process.sh $parc
+
+
+$pgdumpa > ${parc}.dump
 
 # export ftp
 #. $BASE_DIR/../scripts/settings.ini

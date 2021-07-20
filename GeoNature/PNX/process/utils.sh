@@ -34,8 +34,10 @@ function up_app_config
     init_config $parc
     sudo supervisorctl restart all
     cd $geonature_DIR/frontend
-    if [ ! -z "$build" ]; then 
-        npm run build
+    if [ ! -z "$build" ]; then
+        source $geonature_DIR/backend/venv/bin/activate
+        geonature update_configuration
+        deactivate
     fi
     cd $BASE_DIR
 }
@@ -80,7 +82,6 @@ function init_config
     config_taxhub=config_taxhub.py
     config_atlas=config_atlas.py
 
-
     cat $BASE_DIR/config/config.ini $BASE_DIR/config/${parc}.ini | grep -v '#' > $BASE_DIR/config/cur.ini
     for app in $(echo "geonature usershub taxhub atlas"); do
         # settings_<app>.ini
@@ -111,13 +112,12 @@ function init_config
             -e "s#API_TAXHUB.*#API_TAXHUB = '${my_url}taxhub/api'#g" \
             -e "s/LOCAL_SRID.*/LOCAL_SRID = '${srid_local}'/g" \
             -e "s#TAXHUB_URL.*#TAXHUB_URL = '${my_url}taxhub'#g" \
-            -e "s/MAP_CENTER.*/MAP_CENTER = ${map_center}/g" \
+            -e "s/CENTER.*/CENTER = ${map_center}/g" \
             -e "s/ZOOM_LEVEL.*/ZOOM_LEVEL = ${map_zoom_level}/g" \
             -e "s/'LAT_LONG'.*/'LAT_LONG': ${map_center},/g" \
             -e "s/'ZOOM'.*/'ZOOM': ${map_zoom_level},/g" \
             -e "s/PASS_METHOD.*/PASS_METHOD = '${pass_method}'/" \
             $config_file
-
 
     done
             set_app_files $parc
@@ -220,6 +220,7 @@ function set_admin_pass() {
 
 
 function reset_all() {
+
     parc=$1
     init_config $parc
     . $BASE_DIR/$parc/config/settings_geonature.ini
@@ -230,6 +231,7 @@ function reset_all() {
 
     $psqlg -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE pid <> pg_backend_pid()AND datname = '${db_name}'";
     $psqlg -c "DROP DATABASE $db_name"
+
 }
 
 function medias_taxref() {

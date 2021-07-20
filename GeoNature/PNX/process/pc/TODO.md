@@ -1,0 +1,10 @@
+- [x] medias
+- [x] refgeo 
+- [x] dump oo
+- [x] config
+- [x] data
+- [x] media atlas
+- [x] ftp send media 
+- [x] dump db
+- [x] ftp send db
+- [ ] francois

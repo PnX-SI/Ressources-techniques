@@ -110,7 +110,7 @@ INSERT INTO gn_commons.t_mobile_apps(
     id_mobile_app, app_code, relative_path_apk, url_apk, package, version_code
     )
 VALUES
-(2, 'SYNC', 'static/mobile/sync/sync-${tag_sync}-generic-debug.apk', '', 'fr.geonature.sync','${version_sync}')n
+(2, 'SYNC', 'static/mobile/sync/sync-${tag_sync}-generic-debug.apk', '', 'fr.geonature.sync','${version_sync}'),
 (1, 'OCCTAX', 'static/mobile/occtax/occtax-${tag_occtax}-generic-debug.apk', '', 'fr.geonature.occtax','${version_occtax}')
 ;"  > $sql_file
 
