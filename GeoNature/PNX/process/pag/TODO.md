@@ -147,3 +147,10 @@ SELECT synthese.id_source, name_source, id_module, id_dataset, id_nomenclature_g
 	id_nomenclature_type_count, id_nomenclature_sensitivity, id_nomenclature_observation_status, 
 	id_nomenclature_blurring, id_nomenclature_source_status, id_nomenclature_info_geo_type, 
 	id_nomenclature_behaviour, id_nomenclature_biogeo_status ;
+
+
+# Joel
+
+- config map coordonnées pag
+- ref_geo ??
+- restore v1

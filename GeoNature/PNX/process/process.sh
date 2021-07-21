@@ -6,9 +6,13 @@ BASE_DIR=$(readlink -e "${0%/*}")
 . utils.sh
 
 # init_config
-init_config $parc
+# init_config $parc
 
 mkdir -p $BASE_DIR/$parc/var/log
+
+# manage git
+. $BASE_DIR/config/config.ini
+manage_git $parc
 
 # install_db
 install_db_all $parc

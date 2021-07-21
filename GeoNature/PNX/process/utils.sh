@@ -45,7 +45,7 @@ function up_app_config
 function set_app_files() {
     # config
     parc=$1
-    .  ${BASE_DIR}/config/config.ini
+    set_config $parc
 
     cp ${BASE_DIR}/${parc}/config/settings_geonature.ini $geonature_DIR/config/settings.ini
     cp ${BASE_DIR}/${parc}/config/geonature_config.toml $geonature_DIR/config/geonature_config.toml
@@ -89,7 +89,6 @@ function init_config
         cp $BASE_DIR/config/settings_${app}.ini.sample $settings_file
         # sed
         . $BASE_DIR/config/cur.ini
-
         while read line; do
             if echo $line | grep '#' > out; then continue; fi 
             if [ -z "$line" ]; then continue; fi 
@@ -118,9 +117,9 @@ function init_config
             -e "s/'ZOOM'.*/'ZOOM': ${map_zoom_level},/g" \
             -e "s/PASS_METHOD.*/PASS_METHOD = '${pass_method}'/" \
             $config_file
-
+        
     done
-            set_app_files $parc
+    set_app_files $parc
 }
 
 
@@ -130,22 +129,26 @@ function init_config
 function manage_git
 {
     parc=$1
-    init_config $parc
+    # init_config $parc
 
     cd $DEPOTS_DIR
 
     for depot in $(echo "$DEPOTS"); do
-        name=${depot%-*}
-        version=${depot#*-}
+        name=${depot%%_*}
+        version=${depot##*_}
+        echo $depot $name $version
         [[ ! -d $DEPOTS_DIR/$name ]] && git clone https://github.com/PnX-SI/$name.git $DEPOTS_DIR/$name
         cd $DEPOTS_DIR/$name; git co $version; git pull origin $version 
-    done   
+    done
+
+    cd $BASE_DIR
 }
 
 # installer la base de données (+ modules)
 function install_db_all
 {
     parc=$1
+
 
     # initialisation de la config pour le parc
     init_config $parc
@@ -164,7 +167,6 @@ function install_db_all
     fi
     echo install db $db_name
     # gestion des fichiers (applications /modules)
-    manage_git $parc
     # installation base
 
     cd $geonature_DIR/install
@@ -172,32 +174,41 @@ function install_db_all
     # if base exists return no drop_app db
 
 
-    # si besoin installation app
-    if [ ! -d $geonature_DIR/backend/venv ]; then
-        ./install_app.sh
-    else
-        source $geonature_DIR/backend/venv/bin/activate
-        geonature install_gn_module $geonature_DIR/contrib/occtax /occtax --build=false
-        geonature install_gn_module $geonature_DIR/contrib/gn_module_occhab /occhab --build=false
-        geonature install_gn_module $geonature_DIR/contrib/gn_module_validation /validation --build=false
-    fi
-    # installation modules
-
-    # module qui ne sont pas dans le coeur
-
-    echo $DEPOTS | grep 'import' && geonature install_gn_module $DEPOTS_DIR/gn_module_import /import --build=false
-    echo $DEPOTS | grep 'export' && geonature install_gn_module $DEPOTS_DIR/gn_module_export /export --build=false
-    echo $DEPOTS | grep 'dashboard' && geonature install_gn_module $DEPOTS_DIR/gn_module_dashboard /dashboard --build=false
-    echo $DEPOTS | grep 'monitoring' && geonature install_gn_module $DEPOTS_DIR/gn_module_monitoring /monitoring --build=false
+    install_modules $parc
     
     # ref_geo
     [[ -f $BASE_DIR/$parc/process_ref_geo.sh ]] && $BASE_DIR/$parc/process_ref_geo.sh $parc
-
 
     process_atlas_db $parc
 
     mkdir -p $BASE_DIR/$parc/dumps
     $pgdumpa > $BASE_DIR/$parc/dumps/gn_${parc}_pre.dump
+}
+
+function install_modules() {
+        # si besoin installation app
+    parc=$1
+
+    # initialisation de la config pour le parc
+    init_config $parc
+
+    if [ ! -d $geonature_DIR/backend/venv ]; then
+        cd $geonature_DIR/install
+        ./install_app.sh
+    else
+    # installation modules    
+        source $geonature_DIR/backend/venv/bin/activate
+        geonature install_gn_module $geonature_DIR/contrib/occtax /occtax --build=false
+        geonature install_gn_module $geonature_DIR/contrib/gn_module_occhab /occhab --build=false
+        geonature install_gn_module $geonature_DIR/contrib/gn_module_validation /validation --build=false
+    fi
+
+    # module qui ne sont pas dans le coeur
+    echo $DEPOTS | grep 'import' && geonature install_gn_module $DEPOTS_DIR/gn_module_import /import --build=false
+    echo $DEPOTS | grep 'export' && geonature install_gn_module $DEPOTS_DIR/gn_module_export /export --build=false
+    echo $DEPOTS | grep 'dashboard' && geonature install_gn_module $DEPOTS_DIR/gn_module_dashboard /dashboard --build=false
+    echo $DEPOTS | grep 'monitoring' && geonature install_gn_module $DEPOTS_DIR/gn_module_monitoring /monitoring --build=false
+
 }
 
 function set_admin_pass() {
@@ -227,7 +238,7 @@ function reset_all() {
 
     rm -f $BASE_DIR/$parc/ref_geo/dem.sql
     rm -Rf $BASE_DIR/$parc/renamed
-    # rm -Rf $geonature_DIR/tmp
+    # rm -Rf $geonature_DIR/backend/venv
 
     $psqlg -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE pid <> pg_backend_pid()AND datname = '${db_name}'";
     $psqlg -c "DROP DATABASE $db_name"

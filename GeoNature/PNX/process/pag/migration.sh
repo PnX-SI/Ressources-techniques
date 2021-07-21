@@ -34,9 +34,16 @@ export BASE_DIR=$(readlink -e "${0%/*}")/..
 init_config $parc
 
 echo "************************ init config "
-. $BASE_DIR/$parc/config/settings.ini
-. $BASE_DIR/$parc/config/settings_v1.ini
+. $BASE_DIR/config/${parc}_v1.ini
 export psqlv1="psql -d ${db_name_v1} -h ${db_host_v1} -U ${user_pg_v1} -p ${db_port_v1} -v ON_ERROR_STOP=1"
+
+
+echo "************************ get taxref v14 file"
+if [ ! -f  /tmp/taxhub/TAXREF_v14_2020.zip ]; then
+    mkdir -p /tmp/taxhub
+    wget http://geonature.fr/data/inpn/taxonomie/TAXREF_v14_2020.zip -P /tmp/taxhub
+    unzip -o /tmp/taxhub/TAXREF_v14_2020.zip -d /tmp/taxhub
+fi
 
 echo "************************ clean "
 $psqla -f $BASE_DIR/$parc/data/clean.sql
@@ -65,8 +72,6 @@ echo "************************ Transfert des users & organismes"
 $psqla -f $BASE_DIR/$parc/data/user.sql
 echo ""
 echo "************************ Transfert taxonomie + complements taxref v14"
-#wget http://geonature.fr/data/inpn/taxonomie/TAXREF_v14_2020.zip -P /tmp/taxhub
-#unzip -o /tmp/taxhub/TAXREF_v14_2020.zip -d /tmp/taxhub
 $psqla -f $BASE_DIR/$parc/data/taxonomie.sql
 echo ""
 echo "************************ Transfert metadonnées "
@@ -102,6 +107,9 @@ echo ""
 echo "----------------------------------------------------------------------------"
 echo "--------------------------------- Ajout data -------------------------------" 
 echo "----------------------------------------------------------------------------"
+echo "************************** Copie des fichiers csv dans tmp"
+cp $BASE_DIR/$parc/integration_data/*.csv /tmp/.
+echo ""
 echo "************************** BD photo & CardObs: Import données"
 $psqla -f $BASE_DIR/$parc/integration_data/1_import_data_seb.sql
 echo "************************** BD photo: Import données géo"

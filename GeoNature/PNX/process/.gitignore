@@ -21,5 +21,6 @@ out
 *.log
 sql
 tiff
+medias.sql
 */integration_data/*
 !.gitkeep    

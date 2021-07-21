@@ -1,6 +1,6 @@
 # Process ref_geo pag
 
-parc=pag
+parc=$1
 
 BASE_DIR=$(readlink -e "${0%/*}")/..
 . $BASE_DIR/utils.sh
@@ -8,23 +8,23 @@ init_config $parc
 
 # Suppression des communes existantes
 
-# Insertions des communes depuis for/ref_geo/Communes_AOA_geotreck.shp
+# # Insertions des communes depuis for/ref_geo/Communes_AOA_geotreck.shp
 
-# nettoyage
-$psqla -c "
-    DROP TABLE IF EXISTS ref_geo.tmp_coeur;
-    DROP TABLE IF EXISTS ref_geo.tmp_communes;
-"
+# # nettoyage
+# $psqla -c "
+#     DROP TABLE IF EXISTS ref_geo.tmp_coeur;
+#     DROP TABLE IF EXISTS ref_geo.tmp_communes;
+# "
 
-# Communes
-shp2pgsql -s ${srid_local} -D -I $BASE_DIR/$parc/ref_geo/COMMUNE.shp ref_geo.tmp_communes | ${psqla}
-$psqla -f $BASE_DIR/$parc/data/insert_communes.sql
+# # Communes
+# shp2pgsql -s ${srid_local} -D -I $BASE_DIR/$parc/ref_geo/COMMUNE.shp ref_geo.tmp_communes | ${psqla}
+# $psqla -f $BASE_DIR/$parc/data/insert_communes.sql
 
-# Limites
+# # Limites
 
 
-shp2pgsql -s ${srid_local} -D -I $BASE_DIR/$parc/ref_geo/PAG_ZA_Zcoeur.shp ref_geo.tmp_coeur | ${psqla}
-$psqla -f $BASE_DIR/$parc/data/insert_limites.sql
+# shp2pgsql -s ${srid_local} -D -I $BASE_DIR/$parc/ref_geo/PAG_ZA_Zcoeur.shp ref_geo.tmp_coeur | ${psqla}
+# $psqla -f $BASE_DIR/$parc/data/insert_limites.sql
 
 # MNT
 # $psqla -c '
