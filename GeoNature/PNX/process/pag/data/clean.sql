@@ -35,7 +35,7 @@ ALTER TABLE taxonomie.taxref ENABLE TRIGGER ALL;
 -- user
 DELETE FROM utilisateurs.cor_roles;
 DELETE FROM utilisateurs.cor_role_liste;
-DELETE FROM utilisateurs.t_roles WHERE id_role >= 10 or id_role = 8;
+DELETE FROM utilisateurs.t_roles; --  WHERE id_role >= 10 or id_role = 8;
 UPDATE utilisateurs.t_roles SET id_organisme = -1;
 DELETE FROM gn_meta.cor_dataset_actor WHERE id_organism > 0;
 DELETE FROM utilisateurs.bib_organismes WHERE id_organisme > 0;
