@@ -20,7 +20,7 @@ altitudes=(0 250 500 750 1000 1250 1500)
 atlas_marin=1
 
 # pass method
-pass_method=md5
+pass_method=hash
 
 # MAP
 map_center="[16.1977009479195,-61.5394194522855]"

@@ -1,28 +1,35 @@
 # pour acceder aux applications
 DEPOTS_DIR=~/info/app_gn/
 geonature_DIR=$DEPOTS_DIR/GeoNature
-atlas_DIR=$DEPOTS_DIR/GeoNature-atlas
+atlas_DIR=$DEPOTS_DIR/GeoNature-Atlas
 usershub_DIR=$DEPOTS_DIR/UsersHub
 taxhub_DIR=$DEPOTS_DIR/TaxHub
 
 #???
-DEPOTS="GeoNature-2.6.2"
-
 
 my_url=http://localhost/
 
 # DB access
 db_host=localhost
 db_port=5432
-user_pg=xxx
-user_pg_pass=xxx
+user_pg=geonatadmin
+user_pg_pass=monpassachanger
 
 # Version
-taxhub_release=taxrefv14
+geonature_release=2.7.2
+geonature_atlas_release=1.4.2
 usershub_release=2.1.3
-taxhub_release=taxrefv14
-habref_api_release=0.1.5
-nomenclature_release=1.3.6
+taxhub_release=1.8.1
+habref_api_release=0.1.6
+nomenclature_release=1.3.8
+
+DEPOTS="
+    GeoNature_${geonature_release}
+    UsersHub_${usershub_release}
+    TaxHub_${taxhub_release}
+    GeoNature-Atlas_${geonature_atlas_release}
+"
+
 
 # pass method
 pass_method='hash'

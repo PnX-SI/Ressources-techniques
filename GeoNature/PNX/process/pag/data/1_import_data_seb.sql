@@ -29,7 +29,7 @@ CREATE TABLE gn_imports.t_releves_basephotoseb (num integer,
 COPY gn_imports.t_releves_basephotoseb (num, id_releve_occtax,id_dataset, id_digitiser, observers_txt , id_nomenclature_tech_collect_campanule,
 											id_nomenclature_grp_typ , grp_method , date_min, date_max, hour_min , hour_max , place_name , 
 											meta_device_entry , "comment" , id_nomenclature_geo_object_nature ,"precision" )
-	FROM '/home/geonatureadmin/Ressources-techniques/GeoNature/PNX/process/pag/integration_data/basephotoseb_1_releves.csv' WITH csv HEADER DELIMITER ';';
+	FROM '/tmp/basephotoseb_1_releves.csv' WITH csv HEADER DELIMITER ';';
 	
 	
 --------------------------------------- 2/ import des occurrences
@@ -59,7 +59,7 @@ COPY gn_imports.t_occurrences_basephotoseb (num , id_occurrence_occtax ,id_relev
 											id_nomenclature_diffusion_level, id_nomenclature_observation_status , id_nomenclature_blurring,
 											id_nomenclature_source_status, id_nomenclature_behaviour ,   determiner ,   id_nomenclature_determination_method ,
 											cd_nom , nom_cite , nom_tmp_pour_cd_nom , meta_v_taxref  , sample_number_proof  ,digital_proof )
-		FROM '/home/geonatureadmin/Ressources-techniques/GeoNature/PNX/process/pag/integration_data/basephotoseb_2_occurrences.csv' WITH csv HEADER DELIMITER ';';
+		FROM '/tmp/basephotoseb_2_occurrences.csv' WITH csv HEADER DELIMITER ';';
 		
 		
 --------------------------------------- 2/ import des décomptes
@@ -76,7 +76,7 @@ CREATE TABLE gn_imports.cor_counting_basephotoseb ( num integer,
 COPY gn_imports.cor_counting_basephotoseb (num ,id_counting_occtax,id_occurrence_occtax , id_nomenclature_life_stage ,
 										   id_nomenclature_sex , id_nomenclature_obj_count , id_nomenclature_type_count ,
 										   count_min ,count_max)
-		FROM '/home/geonatureadmin/Ressources-techniques/GeoNature/PNX/process/pag/integration_data/basephotoseb_3_counting.csv' WITH csv HEADER DELIMITER ';';
+		FROM '/tmp/basephotoseb_3_counting.csv' WITH csv HEADER DELIMITER ';';
 		
 		
 		
@@ -92,7 +92,7 @@ CREATE TABLE gn_imports.t_medias_basephotoseb
     description_fr text COLLATE pg_catalog."default");
 COPY gn_imports.t_medias_basephotoseb (id_counting, id_nomenclature_media_type, id_table_location, title_fr, 
 									   media_path, author, description_fr)
-	FROM '/home/geonatureadmin/Ressources-techniques/GeoNature/PNX/process/pag/integration_data/basephotoseb_4_media.csv' WITH csv HEADER DELIMITER ';';
+	FROM '/tmp/basephotoseb_4_media.csv' WITH csv HEADER DELIMITER ';';
 	
 	
 ----------------------------------------------------------------------------------------------------------------------------
@@ -128,7 +128,7 @@ CREATE TABLE gn_imports.t_releves_cardobsseb (num integer,
 COPY gn_imports.t_releves_cardobsseb (num, cd_station, id_releve_occtax, id_dataset, id_digitiser, observers_txt , id_nomenclature_tech_collect_campanule,
 											id_nomenclature_grp_typ , grp_method , date_min, date_max, hour_min , hour_max , place_name , 
 											meta_device_entry , "comment" , id_nomenclature_geo_object_nature ,"precision", latitude, longitude, regne )
-	FROM '/home/geonatureadmin/Ressources-techniques/GeoNature/PNX/process/pag/integration_data/cardobsseb_1_releves.csv' WITH csv HEADER DELIMITER ';';
+	FROM '/tmp/cardobsseb_1_releves.csv' WITH csv HEADER DELIMITER ';';
 
 
 --------------------------------------- 2/ import des occurrences
@@ -159,7 +159,7 @@ COPY gn_imports.t_occurrences_cardobsseb (num , id_occurrence_occtax ,id_releve_
 											id_nomenclature_diffusion_level, id_nomenclature_observation_status , id_nomenclature_blurring,
 											id_nomenclature_source_status, id_nomenclature_behaviour ,   determiner ,   id_nomenclature_determination_method ,
 											cd_nom , nom_cite , nom_tmp_pour_cd_nom , meta_v_taxref  , sample_number_proof  ,digital_proof, "comment" )
-		FROM '/home/geonatureadmin/Ressources-techniques/GeoNature/PNX/process/pag/integration_data/cardobsseb_2_occurrences.csv' WITH csv HEADER DELIMITER ';';
+		FROM '/tmp/cardobsseb_2_occurrences.csv' WITH csv HEADER DELIMITER ';';
 		
 		
 --------------------------------------- 3/ import des décomptes
@@ -176,7 +176,7 @@ CREATE TABLE gn_imports.cor_counting_cardobsseb ( num integer,
 COPY gn_imports.cor_counting_cardobsseb (num ,id_counting_occtax,id_occurrence_occtax , id_nomenclature_life_stage ,
 										   id_nomenclature_sex , id_nomenclature_obj_count , id_nomenclature_type_count ,
 										   count_min ,count_max)
-		FROM '/home/geonatureadmin/Ressources-techniques/GeoNature/PNX/process/pag/integration_data/cardobsseb_3_counting.csv' WITH csv HEADER DELIMITER ';';
+		FROM '/tmp/cardobsseb_3_counting.csv' WITH csv HEADER DELIMITER ';';
 		
 
 ----------------------------------------------------------------------------------------------------------------------------

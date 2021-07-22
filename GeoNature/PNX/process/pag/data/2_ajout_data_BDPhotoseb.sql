@@ -20,10 +20,10 @@ INSERT INTO pr_occtax.t_releves_occtax(
 	comment, geom_local, geom_4326, 
 	id_nomenclature_geo_object_nature, "precision")
 SELECT id_releve_occtax, uuid_generate_v4() AS unique_id_sinp_grp, id_dataset, id_digitiser, null, 
-	id_nomenclature_tech_collect_campanule, id_nomenclature_grp_typ, grp_method, 
+	get_nom_corr(id_nomenclature_tech_collect_campanule), get_nom_corr(id_nomenclature_grp_typ), grp_method, 
 	TO_DATE(date_min, 'DD/MM/YYYY'), TO_DATE(date_max, 'DD/MM/YYYY'),  place_name, meta_device_entry, 
 	comment, geom, ST_TRANSFORM(geom, 4326) AS geom_4326,
-	id_nomenclature_geo_object_nature, "precision"
+	get_nom_corr(id_nomenclature_geo_object_nature), "precision"
 	FROM gn_imports.t_releves_basephotoseb
 		INNER JOIN (SELECT localite, saul, entite_geo, geom
 			FROM gn_imports.tmp_localiteslignes_seb
@@ -49,10 +49,10 @@ INSERT INTO pr_occtax.t_occurrences_occtax(
 	id_nomenclature_behaviour, determiner, id_nomenclature_determination_method, cd_nom, nom_cite, 
 	meta_v_taxref, sample_number_proof, digital_proof)
 SELECT id_occurrence_occtax, uuid_generate_v4() AS unique_id_occurence_occtax, id_releve_occtax, 
-	37, id_nomenclature_bio_condition, id_nomenclature_bio_status, 
-	id_nomenclature_naturalness, id_nomenclature_exist_proof, id_nomenclature_diffusion_level, 
-	id_nomenclature_observation_status, id_nomenclature_blurring, id_nomenclature_source_status, 
-	id_nomenclature_behaviour, determiner, id_nomenclature_determination_method, cd_nom, nom_cite, 
+	get_nom_corr(37), get_nom_corr(id_nomenclature_bio_condition), get_nom_corr(id_nomenclature_bio_status), 
+	get_nom_corr(id_nomenclature_naturalness), get_nom_corr(id_nomenclature_exist_proof), get_nom_corr(id_nomenclature_diffusion_level), 
+	get_nom_corr(id_nomenclature_observation_status), get_nom_corr(id_nomenclature_blurring), get_nom_corr(id_nomenclature_source_status), 
+	get_nom_corr(id_nomenclature_behaviour), determiner, get_nom_corr(id_nomenclature_determination_method), cd_nom, nom_cite, 
 	meta_v_taxref, sample_number_proof, digital_proof
 	FROM gn_imports.t_occurrences_basephotoseb;
 SELECT setval('pr_occtax.t_occurrences_occtax_id_occurrence_occtax_seq', (SELECT MAX(id_occurrence_occtax) FROM pr_occtax.t_occurrences_occtax)+1);
@@ -64,8 +64,8 @@ INSERT INTO pr_occtax.cor_counting_occtax(id_counting_occtax, unique_id_sinp_occ
 										  id_nomenclature_obj_count, id_nomenclature_type_count, 
 										  count_min, count_max)
 	SELECT id_counting_occtax, uuid_generate_v4() AS unique_id_sinp_occtax, id_occurrence_occtax , 
-			id_nomenclature_life_stage, id_nomenclature_sex, 
-			id_nomenclature_obj_count, id_nomenclature_type_count,
+			get_nom_corr(id_nomenclature_life_stage), get_nom_corr(id_nomenclature_sex), 
+			get_nom_corr(id_nomenclature_obj_count), get_nom_corr(id_nomenclature_type_count),
 			count_min ,count_max
 	from gn_imports.cor_counting_basephotoseb;
 SELECT setval('pr_occtax.cor_counting_occtax_id_counting_occtax_seq', (SELECT MAX(id_counting_occtax) FROM pr_occtax.cor_counting_occtax)+1);
@@ -82,7 +82,7 @@ SELECT setval('pr_occtax.cor_counting_occtax_id_counting_occtax_seq', (SELECT MA
 --	adresse de la photos: 'static/medias/4/photoici.JPG'
 INSERT INTO gn_commons.t_medias(unique_id_media, id_nomenclature_media_type, id_table_location, uuid_attached_row, 
 	title_fr, media_path, author, description_fr, is_public)
-SELECT uuid_generate_v4() AS unique_id_media, id_nomenclature_media_type, id_table_location, unique_id_sinp_occtax, 
+SELECT uuid_generate_v4() AS unique_id_media, get_nom_corr(id_nomenclature_media_type), id_table_location, unique_id_sinp_occtax, 
 	title_fr, media_path, 'Sébastien Sant/Parc amazonien de Guyane', description_fr, true
 	FROM gn_imports.t_medias_basephotoseb
 	INNER JOIN pr_occtax.cor_counting_occtax ON t_medias_basephotoseb.id_counting = cor_counting_occtax.id_counting_occtax;

@@ -17,10 +17,10 @@ INSERT INTO gn_meta.t_datasets(
 	id_dataset, id_acquisition_framework, dataset_name, dataset_shortname, dataset_desc, 
 	id_nomenclature_data_type, keywords, marine_domain, terrestrial_domain, id_nomenclature_dataset_objectif,id_nomenclature_collecting_method, 
 	id_nomenclature_data_origin, id_nomenclature_source_status, id_nomenclature_resource_type, active, validable, id_digitizer)
- VALUES(45, 18, 'Etude d''impact crique Limonade (2007-2008)', 'EI Limonade (2007-2008)', 'Etude d''impact pour le permis minier REXMA de la crique Limonade **Ecobios**', 
-	324, 'REXMA, Limonade, batraciens, chiroptères, mammifères, mollusques, oiseaux, poissons, reptiles, flore' , false, true, 422, 395, 
-	75, 71, 320, false, false, 1000052);
-INSERT INTO gn_meta.cor_dataset_actor(id_dataset, id_organism, id_nomenclature_actor_role) VALUES (45, 12, 363);
+ VALUES(get_nom_corr(45), get_nom_corr(18), 'Etude d''impact crique Limonade (2007-2008)', 'EI Limonade (2007-2008)', 'Etude d''impact pour le permis minier REXMA de la crique Limonade **Ecobios**', 
+	get_nom_corr(324), 'REXMA, Limonade, batraciens, chiroptères, mammifères, mollusques, oiseaux, poissons, reptiles, flore' , false, true, get_nom_corr(422), get_nom_corr(395), 
+	get_nom_corr(75), get_nom_corr(71), get_nom_corr(320), false, false, 1000052);
+INSERT INTO gn_meta.cor_dataset_actor(id_dataset, id_organism, id_nomenclature_actor_role) VALUES (45, 12, get_nom_corr(363));
 	
 -- id_source ====> 57
 INSERT INTO gn_synthese.t_sources(id_source, name_source, desc_source)	
@@ -33,11 +33,11 @@ INSERT INTO gn_meta.t_datasets(
 	id_dataset, id_acquisition_framework, dataset_name, dataset_shortname, dataset_desc, 
 	id_nomenclature_data_type, keywords, marine_domain, terrestrial_domain, id_nomenclature_dataset_objectif,id_nomenclature_collecting_method, 
 	id_nomenclature_data_origin, id_nomenclature_source_status, id_nomenclature_resource_type, active, validable, id_digitizer)
- VALUES(46, 18, 'Originalités biogéo de Saül (2009)', 'Erythrine (2009)', 'Biodiversité, espèces nouvelles et originalité biogéographique de la région de Saül : érythrine, rainette et orchidées **Ecobios**', 
-	324, 'Saül, Erythrine, rainette, orchidées' , false, true, 414, 406, 
-	75, 71, 320, false, false, 1000052);
+ VALUES(get_nom_corr(46), get_nom_corr(18), 'Originalités biogéo de Saül (2009)', 'Erythrine (2009)', 'Biodiversité, espèces nouvelles et originalité biogéographique de la région de Saül : érythrine, rainette et orchidées **Ecobios**', 
+	get_nom_corr(324), 'Saül, Erythrine, rainette, orchidées' , false, true, 414, 406, 
+	get_nom_corr(75), get_nom_corr(71), get_nom_corr(320), false, false, 1000052);
 INSERT INTO gn_meta.cor_dataset_actor(id_dataset, id_organism, id_nomenclature_actor_role)
-	VALUES (46, 12, 363), (46, 3, 360);
+	VALUES (46, 12, get_nom_corr(363)), (46, 3, get_nom_corr(360));
 	
 -- id_source ====> 58
 INSERT INTO gn_synthese.t_sources(id_source, name_source, desc_source)	
@@ -103,7 +103,7 @@ COPY gn_imports.synthese_EcobiosLimonade (id_synthese, id_source, id_module, ent
 	id_nomenclature_type_count, count_min, count_max, cd_nom, cd_hab, nom_cite, nom_cite_raccourci, meta_v_taxref, sample_number_proof ,
     digital_proof, non_digital_proof, altitude_min, altitude_max, depth_min, depth_max, place_name, latitude, longitude,
     id_area_attachment, date_min, date_max, validator, validation_comment, observers, determiner, id_digitiser, id_nomenclature_determination_method, comment_context, comment_description)
-	FROM '/home/geonatureadmin/Ressources-techniques/GeoNature/PNX/process/pag/integration_data/20210629_Ecobios_Limonade.csv' WITH csv HEADER DELIMITER ';';
+	FROM '/tmp/20210629_Ecobios_Limonade.csv' WITH csv HEADER DELIMITER ';';
 UPDATE gn_imports.synthese_ecobioslimonade SET date_max = '2007/12/15' WHERE place_name = 'Rexma Chiro 2';
 	
 --------------------------------------- 2/ Injection dans la synthese
@@ -124,18 +124,18 @@ INSERT INTO gn_synthese.synthese(
 	observers, determiner, id_digitiser, id_nomenclature_determination_method, 
 	comment_context, comment_description)
 SELECT uuid_generate_v4() AS unique_id_sinp_grp, id_source, id_module, entity_source_pk_value, id_dataset, 
-	id_nomenclature_geo_object_nature, id_nomenclature_grp_typ, grp_method, id_nomenclature_obs_technique, 
-	id_nomenclature_bio_status, id_nomenclature_bio_condition, id_nomenclature_naturalness, 
-	id_nomenclature_exist_proof, id_nomenclature_valid_status, id_nomenclature_diffusion_level, 
-	id_nomenclature_life_stage, id_nomenclature_sex, id_nomenclature_obj_count, 
-	id_nomenclature_type_count, 84, 
-	171,71,123, 543, 176,
+	get_nom_corr(id_nomenclature_geo_object_nature), get_nom_corr(id_nomenclature_grp_typ), grp_method, get_nom_corr(id_nomenclature_obs_technique), 
+	get_nom_corr(id_nomenclature_bio_status), get_nom_corr(id_nomenclature_bio_condition), get_nom_corr(id_nomenclature_naturalness), 
+	get_nom_corr(id_nomenclature_exist_proof), get_nom_corr(id_nomenclature_valid_status), get_nom_corr(id_nomenclature_diffusion_level), 
+	get_nom_corr(id_nomenclature_life_stage), get_nom_corr(id_nomenclature_sex), get_nom_corr(id_nomenclature_obj_count), 
+	get_nom_corr(id_nomenclature_type_count), get_nom_corr(84), 
+	get_nom_corr(171), get_nom_corr(71), get_nom_corr(123), get_nom_corr(543), get_nom_corr(176),
 	count_min, count_max, cd_nom, cd_hab, nom_cite, meta_v_taxref, sample_number_proof, 
 	digital_proof, non_digital_proof, altitude_min, altitude_max, depth_min, depth_max, 
 	place_name, 
 	ST_SetSRID(tmp_localitespoly_ecobios.geom, 4326) as the_geom_4326, ST_Transform(ST_SetSRID(tmp_localitespoly_ecobios.geom, 4326),2972) as the_geom_local,
 	id_area_attachment, date_min, date_max, validator, validation_comment, 
-	observers, determiner, id_digitiser, id_nomenclature_determination_method, 
+	observers, determiner, id_digitiser, get_nom_corr(id_nomenclature_determination_method), 
 	comment_context, comment_description	
 		FROM gn_imports.synthese_EcobiosLimonade INNER JOIN gn_imports.tmp_localitespoly_ecobios 
 			ON synthese_EcobiosLimonade.place_name = tmp_localitespoly_ecobios.lieu_name;

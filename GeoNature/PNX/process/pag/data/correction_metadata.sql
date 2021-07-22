@@ -385,51 +385,51 @@ delete from gn_meta.t_acquisition_frameworks where id_acquisition_framework in (
 -- les contacts principaux pour chaque framework
 INSERT INTO gn_meta.cor_acquisition_framework_actor(
 	id_acquisition_framework, id_organism, id_nomenclature_actor_role)
-	VALUES (1, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '1')), 
-		(10, 7, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '1')), 
-		(11, 10, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '1')), 
-		(12, 6, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '1')), 
-		(16, 0, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '1')), 
-		(8, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '1')), 
-		(9, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '1'));
+	VALUES (1, 3, get_nom_corr(358)), 
+		(10, 7, get_nom_corr(358)), 
+		(11, 10, get_nom_corr(358)), 
+		(12, 6, get_nom_corr(358)), 
+		(16, 0, get_nom_corr(358)), 
+		(8, 3, get_nom_corr(358)), 
+		(9, 3, get_nom_corr(358));
 -- les fournisseurs des jeux de données
 INSERT INTO gn_meta.cor_dataset_actor(
 	id_dataset, id_organism, id_nomenclature_actor_role)
-	VALUES (1, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(2, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(8, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(22, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(9, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(28, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(10, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(11, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(12, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(13, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(14, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(15, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(16, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(17, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(18, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(19, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(29, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(30, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(31, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(32, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(33, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(34, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(35, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(20, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(37, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(38, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(39, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(40, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(21, 9, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(23, 4, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(24, 6, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(25, 8, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(26, 4, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(27, -1, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5')), 
-		(41, -1, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '5'));
+	VALUES (1, 3, get_nom_corr(362)), 
+		(2, 3, get_nom_corr(362)), 
+		(8, 3, get_nom_corr(362)), 
+		(22, 3, get_nom_corr(362)), 
+		(9, 3, get_nom_corr(362)), 
+		(28, 3, get_nom_corr(362)), 
+		(10, 3, get_nom_corr(362)), 
+		(11, 3, get_nom_corr(362)), 
+		(12, 3, get_nom_corr(362)), 
+		(13, 3, get_nom_corr(362)), 
+		(14, 3, get_nom_corr(362)), 
+		(15, 3, get_nom_corr(362)), 
+		(16, 3, get_nom_corr(362)), 
+		(17, 3, get_nom_corr(362)), 
+		(18, 3, get_nom_corr(362)), 
+		(19, 3, get_nom_corr(362)), 
+		(29, 3, get_nom_corr(362)), 
+		(30, 3, get_nom_corr(362)), 
+		(31, 3, get_nom_corr(362)), 
+		(32, 3, get_nom_corr(362)), 
+		(33, 3, get_nom_corr(362)), 
+		(34, 3, get_nom_corr(362)), 
+		(35, 3, get_nom_corr(362)), 
+		(20, 3, get_nom_corr(362)), 
+		(37, 3, get_nom_corr(362)), 
+		(38, 3, get_nom_corr(362)), 
+		(39, 3, get_nom_corr(362)), 
+		(40, 3, get_nom_corr(362)), 
+		(21, 9, get_nom_corr(362)), 
+		(23, 4, get_nom_corr(362)), 
+		(24, 6, get_nom_corr(362)), 
+		(25, 8, get_nom_corr(362)), 
+		(26, 4, get_nom_corr(362)), 
+		(27, -1, get_nom_corr(362)), 
+		(41, -1, get_nom_corr(362));
 -- les dates min et max des frameworks
 UPDATE gn_meta.t_acquisition_frameworks
 	SET acquisition_framework_start_date = dt_minmax.datemin	
@@ -480,28 +480,28 @@ INSERT INTO gn_meta.t_acquisition_frameworks(unique_acquisition_framework_id,
 	VALUES (uuid_generate_v4(), 
 			'Atlas de la Biodiversité Communale de Saül', 
 			'Etat des lieux de la biodiversité de Saül. **PAG + Mairie**', 
-			ref_nomenclatures.get_id_nomenclature('NIVEAU_TERRITORIAL', '7'), 
+			get_nom_corr(357), 
 			'Centrage des inventaires sur quelques zones clés de Saül', 
 			'ABC, Saül, amphibiens, escargots, champignons, flore, habitats, orchidées', 
-			ref_nomenclatures.get_id_nomenclature('TYPE_FINANCEMENT', '1'),
+			get_nom_corr(382),
 			'Identifier les enjeux sur les groupes taxonomiques suivants: amphibiens, escargots, champignons, flore, habitats, orchidées', 'ecologic', 
 			null, false, true, null, 
 			'2018-01-01', '2021-12-31'),
 		(uuid_generate_v4(), 
 			'Atlas de la Biodiversité Communale de Papaïchton', 
 			'Etat des lieux de la biodiversité de Papaïchton. **PAG + Mairie**', 
-			ref_nomenclatures.get_id_nomenclature('NIVEAU_TERRITORIAL', '7'), 
+			get_nom_corr(357), 
 			'Centrage des inventaires sur quelques zones clés de Papaïchton', 
 			'ABC, Papaïchton, amphibiens, oiseaux, poissons, flore, habitats', 
-			ref_nomenclatures.get_id_nomenclature('TYPE_FINANCEMENT', '1'),
+			get_nom_corr(382),
 			'Identifier les enjeux sur les groupes taxonomiques suivants: amphibiens, oiseaux, poissons, flore, habitats', 'ecologic', 
 			null, false, true, null, 
 			'2020-06-01', '2023-12-31');
 INSERT INTO gn_meta.cor_acquisition_framework_actor(id_acquisition_framework, id_organism, id_nomenclature_actor_role)
-	SELECT id_acquisition_framework, 3, 360  -- MO
+	SELECT id_acquisition_framework, 3, get_nom_corr(360)  -- MO
 		FROM gn_meta.t_acquisition_frameworks
 		WHERE acquisition_framework_name like 'Atlas de la Biodiversité Communale de%'
-	UNION 	SELECT id_acquisition_framework, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '1') -- Contact pricipal
+	UNION 	SELECT id_acquisition_framework, 3, get_nom_corr(358) -- Contact pricipal
 		FROM gn_meta.t_acquisition_frameworks
 		WHERE acquisition_framework_name like 'Atlas de la Biodiversité Communale de%';
 		
@@ -513,8 +513,8 @@ INSERT INTO gn_meta.t_datasets(	id_dataset, unique_dataset_id, id_acquisition_fr
 		active, validable, id_digitizer)
 	SELECT 42, uuid_generate_v4() as unique_dataset_id, id_acquisition_framework, 
 		'ABCSaül - Flore', 'ABCSaül - Flore', 'Acquisition de données floristiques dans le cadre de l''ABC de Saül', 
-		ref_nomenclatures.get_id_nomenclature('DATA_TYP', '1'), false, true, 
-		ref_nomenclatures.get_id_nomenclature('METHO_RECUEIL', '1'), ref_nomenclatures.get_id_nomenclature('METHO_RECUEIL', '1'), ref_nomenclatures.get_id_nomenclature('DS_PUBLIQUE', 'Pu'), ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE', 'Te'), ref_nomenclatures.get_id_nomenclature('RESOURCE_TYP', '1'),
+		get_nom_corr(322), false, true, 
+		get_nom_corr(417), get_nom_corr(395), get_nom_corr(76), get_nom_corr(73), get_nom_corr(320),
 		true, true, 1000052	
 	FROM gn_meta.t_acquisition_frameworks
 		WHERE acquisition_framework_name = 'Atlas de la Biodiversité Communale de Saül';
@@ -526,8 +526,8 @@ INSERT INTO gn_meta.t_datasets(	id_dataset, unique_dataset_id, id_acquisition_fr
 		active, validable, id_digitizer)
 	SELECT 43, uuid_generate_v4() as unique_dataset_id, id_acquisition_framework, 
 		'ABCSaül - Faune', 'ABCSaül - Faune', 'Acquisition de données faunistiques opportunistes dans le cadre de l''ABC de Saül', 
-		ref_nomenclatures.get_id_nomenclature('DATA_TYP', '1'), false, true, 
-		ref_nomenclatures.get_id_nomenclature('METHO_RECUEIL', '1'), ref_nomenclatures.get_id_nomenclature('METHO_RECUEIL', '1'), ref_nomenclatures.get_id_nomenclature('DS_PUBLIQUE', 'Pu'), ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE', 'Te'), ref_nomenclatures.get_id_nomenclature('RESOURCE_TYP', '1'),
+		get_nom_corr(322), false, true, 
+		get_nom_corr(417), get_nom_corr(395), get_nom_corr(76), get_nom_corr(73), get_nom_corr(320),
 		true, true, 1000052	
 	FROM gn_meta.t_acquisition_frameworks
 		WHERE acquisition_framework_name = 'Atlas de la Biodiversité Communale de Saül';
@@ -539,15 +539,15 @@ INSERT INTO gn_meta.t_datasets(	id_dataset, unique_dataset_id, id_acquisition_fr
 		active, validable, id_digitizer)
 	SELECT 44, uuid_generate_v4() as unique_dataset_id, id_acquisition_framework, 
 		'ABCSaül - Fonge', 'ABCSaül - Fonge', 'Acquisition de données fonge opportunistes dans le cadre de l''ABC de Saül', 
-		ref_nomenclatures.get_id_nomenclature('DATA_TYP', '1'), false, true, 
-		ref_nomenclatures.get_id_nomenclature('METHO_RECUEIL', '1'), ref_nomenclatures.get_id_nomenclature('METHO_RECUEIL', '1'), ref_nomenclatures.get_id_nomenclature('DS_PUBLIQUE', 'Pu'), ref_nomenclatures.get_id_nomenclature('STATUT_SOURCE', 'Te'), ref_nomenclatures.get_id_nomenclature('RESOURCE_TYP', '1'),
+		get_nom_corr(322), false, true, 
+		get_nom_corr(417), get_nom_corr(395), get_nom_corr(76), get_nom_corr(73), get_nom_corr(320),
 		true, true, 1000052	
 	FROM gn_meta.t_acquisition_frameworks
 		WHERE acquisition_framework_name = 'Atlas de la Biodiversité Communale de Saül';
 		
 INSERT INTO gn_meta.cor_dataset_actor(
 	id_dataset, id_organism, id_nomenclature_actor_role)
-	SELECT id_dataset, 3, ref_nomenclatures.get_id_nomenclature('ROLE_ACTEUR', '6'))
+	SELECT id_dataset, 3, get_nom_corr(363)
 	FROM gn_meta.t_datasets
 		WHERE dataset_shortname in ('ABCSaül - Flore', 'ABCSaül - Faune', 'ABCSaül - Fonge');
 		

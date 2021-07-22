@@ -9,10 +9,10 @@ INSERT INTO pr_occtax.t_releves_occtax(
 	comment, geom_local, geom_4326, 
 	id_nomenclature_geo_object_nature, "precision")
 SELECT id_releve_occtax, uuid_generate_v4() AS unique_id_sinp_grp, id_dataset, id_digitiser, null, 
-	id_nomenclature_tech_collect_campanule, id_nomenclature_grp_typ, grp_method, 
+	get_nom_corr(id_nomenclature_tech_collect_campanule), get_nom_corr(id_nomenclature_grp_typ), grp_method, 
 	TO_DATE(date_min, 'DD/MM/YYYY'), TO_DATE(date_max, 'DD/MM/YYYY'),  place_name, meta_device_entry, 
 	comment, ST_Transform(ST_SetSRID(ST_MakePoint(to_number(longitude, '99D999999999999999'),to_number(latitude, '99D999999999999999')), 4326),2972)  as geom, ST_SetSRID(ST_MakePoint(to_number(longitude, '99D999999999999999'),to_number(latitude, '99D999999999999999')), 4326) AS geom_4326,
-	id_nomenclature_geo_object_nature, "precision"
+	get_nom_corr(id_nomenclature_geo_object_nature), "precision"
 	FROM gn_imports.t_releves_cardobsseb
 		order by id_releve_occtax;
 SELECT setval('pr_occtax.t_releves_occtax_id_releve_occtax_seq', (SELECT MAX(id_releve_occtax) FROM pr_occtax.t_releves_occtax)+1);
@@ -31,10 +31,10 @@ INSERT INTO pr_occtax.t_occurrences_occtax(
 	id_nomenclature_behaviour, determiner, id_nomenclature_determination_method, cd_nom, nom_cite, 
 	meta_v_taxref, sample_number_proof, digital_proof, comment)
 SELECT id_occurrence_occtax, uuid_generate_v4() AS unique_id_occurence_occtax, id_releve_occtax, 
-	37, id_nomenclature_bio_condition, id_nomenclature_bio_status, 
-	id_nomenclature_naturalness, id_nomenclature_exist_proof, id_nomenclature_diffusion_level, 
-	id_nomenclature_observation_status, id_nomenclature_blurring, id_nomenclature_source_status, 
-	id_nomenclature_behaviour, determiner, id_nomenclature_determination_method, cd_nom, nom_cite, 
+	get_nom_corr(37), get_nom_corr(id_nomenclature_bio_condition), get_nom_corr(id_nomenclature_bio_status), 
+	get_nom_corr(id_nomenclature_naturalness), get_nom_corr(id_nomenclature_exist_proof), get_nom_corr(id_nomenclature_diffusion_level), 
+	get_nom_corr(id_nomenclature_observation_status), get_nom_corr(id_nomenclature_blurring), get_nom_corr(id_nomenclature_source_status), 
+	get_nom_corr(id_nomenclature_behaviour), determiner, get_nom_corr(id_nomenclature_determination_method), cd_nom, nom_cite, 
 	meta_v_taxref, sample_number_proof, digital_proof, comment
 	FROM gn_imports.t_occurrences_cardobsseb;
 SELECT setval('pr_occtax.t_occurrences_occtax_id_occurrence_occtax_seq', (SELECT MAX(id_occurrence_occtax) FROM pr_occtax.t_occurrences_occtax)+1);
@@ -46,8 +46,8 @@ INSERT INTO pr_occtax.cor_counting_occtax(id_counting_occtax, unique_id_sinp_occ
 										  id_nomenclature_obj_count, id_nomenclature_type_count, 
 										  count_min, count_max)
 	SELECT num + 4407 as id_counting_occtax, uuid_generate_v4() AS unique_id_sinp_occtax, id_occurrence_occtax , 
-			id_nomenclature_life_stage, id_nomenclature_sex, 
-			id_nomenclature_obj_count, id_nomenclature_type_count,
+			get_nom_corr(id_nomenclature_life_stage), get_nom_corr(id_nomenclature_sex), 
+			get_nom_corr(id_nomenclature_obj_count), get_nom_corr(id_nomenclature_type_count),
 			count_min ,count_max
 	from gn_imports.cor_counting_cardobsseb;
 SELECT setval('pr_occtax.cor_counting_occtax_id_counting_occtax_seq', (SELECT MAX(id_counting_occtax) FROM pr_occtax.cor_counting_occtax)+1);

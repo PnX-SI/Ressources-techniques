@@ -60,8 +60,8 @@ COPY gn_imports.synthese_FGJuin2021 (id_synthese, id_source, id_module, entity_s
 	id_nomenclature_type_count, count_min, count_max, cd_nom, cd_hab, nom_cite, meta_v_taxref, sample_number_proof ,
     digital_proof, non_digital_proof, altitude_min, altitude_max, depth_min, depth_max, place_name, latitude, longitude,
     id_area_attachment, date_min, date_max, validator, validation_comment, observers, determiner, id_digitiser, id_nomenclature_determination_method, comment_context, comment_description)
-	FROM '/home/geonatureadmin/Ressources-techniques/GeoNature/PNX/process/pag/integration_data/20210616_FG_juin2021.csv' WITH csv HEADER DELIMITER ';';
-	
+	FROM '/tmp/20210616_FG_juin2021.csv' WITH csv HEADER DELIMITER ';';
+    
 --------------------------------------- 2/ Injection dans la synthese
 
 INSERT INTO gn_synthese.synthese(
@@ -87,17 +87,17 @@ INSERT INTO gn_synthese.synthese(
 							 group by geometrie)  as geom_pag
 						WHERE id_type = 25  and area_code not in ('97352', '97353', '97356', '97362'))
 	SELECT uuid_generate_v4() AS unique_id_sinp_grp, id_source, id_module, entity_source_pk_value, id_dataset, 
-		id_nomenclature_geo_object_nature, id_nomenclature_grp_typ, grp_method, id_nomenclature_obs_technique, 
-		id_nomenclature_bio_status, id_nomenclature_bio_condition, id_nomenclature_naturalness, 
-		id_nomenclature_exist_proof, id_nomenclature_valid_status,id_nomenclature_diffusion_level, 
-		id_nomenclature_life_stage, id_nomenclature_sex, id_nomenclature_obj_count,
-		id_nomenclature_type_count, case when count_min = 0 then 83 else 84 end ,
-		171,73,122, 543, 175,
+		get_nom_corr(id_nomenclature_geo_object_nature), get_nom_corr(id_nomenclature_grp_typ), grp_method, get_nom_corr(id_nomenclature_obs_technique), 
+		get_nom_corr(id_nomenclature_bio_status), get_nom_corr(id_nomenclature_bio_condition), get_nom_corr(id_nomenclature_naturalness), 
+		get_nom_corr(id_nomenclature_exist_proof), get_nom_corr(id_nomenclature_valid_status),get_nom_corr(id_nomenclature_diffusion_level), 
+		get_nom_corr(id_nomenclature_life_stage), get_nom_corr(id_nomenclature_sex), get_nom_corr(id_nomenclature_obj_count),
+		get_nom_corr(id_nomenclature_type_count), case when count_min = 0 then 83 else 84 end ,
+		get_nom_corr(171), get_nom_corr(73), get_nom_corr(122), get_nom_corr(543), get_nom_corr(175),
 		count_min, count_max, cd_nom, cd_hab, nom_cite, meta_v_taxref, sample_number_proof,
 		digital_proof, non_digital_proof, altitude_min, altitude_max, depth_min, depth_max, 
 		place_name, ST_SetSRID(ST_MakePoint(to_number(longitude, '99D999999999999999'),to_number(latitude, '99D999999999999999')), 4326) AS geom_4326, ST_SetSRID(ST_MakePoint(to_number(longitude, '99D999999999999999'),to_number(latitude, '99D999999999999999')), 4326) AS the_geom_point, ST_Transform(ST_SetSRID(ST_MakePoint(to_number(longitude, '99D999999999999999'),to_number(latitude, '99D999999999999999')), 4326),2972)  as geom, 
 		id_area_attachment, date_min, date_max, validator, validation_comment, 
-		observers, determiner, 1000052, id_nomenclature_determination_method, 
+		observers, determiner, 1000052, get_nom_corr(id_nomenclature_determination_method), 
 		comment_context, comment_description
 		FROM gn_imports.synthese_FGJuin2021 inner join exclusion_pag
 		on not st_intersects(ST_Transform(ST_SetSRID(ST_MakePoint(to_number(longitude, '99D999999999999999'),to_number(latitude, '99D999999999999999')), 4326),2972), geometrie);

@@ -57,6 +57,11 @@ $psqla -f $BASE_DIR/$parc/data/open_fdw.sql \
     -v user_pg_v1=$user_pg_v1 \
     -v user_pg=$user_pg
 
+echo "************************** Copie des fichiers csv dans tmp"
+cp $BASE_DIR/$parc/integration_data/*.csv $BASE_DIR/$parc/csv/*.csv /tmp/.
+echo ""
+
+
 #echo "----------------------------------------------------------------------------"
 #echo "-------------------------------- Refs Geo ----------------------------" 
 #echo "----------------------------------------------------------------------------"
@@ -74,6 +79,9 @@ echo ""
 echo "************************ Transfert taxonomie + complements taxref v14"
 $psqla -f $BASE_DIR/$parc/data/taxonomie.sql
 echo ""
+echo "************************ Permissions "
+$psqla -f $BASE_DIR/$parc/data/permissions_pag.sql
+echo ""
 echo "************************ Transfert metadonnées "
 $psqla -f $BASE_DIR/$parc/data/metadonnee.sql
 echo ""
@@ -89,52 +97,50 @@ echo ""
 echo "************************ Transfert synthese -hors Faune-Guyane et Herbier de Cayenne"
 $psqla -f $BASE_DIR/$parc/data/synthese.sql -v srid_local=$srid_local
 echo ""
+echo "************************ Correspondance nomenclatures / csv Access"
+$psqla -f $BASE_DIR/$parc/data/correspondance_nomenclature.sql
+echo ""
 echo "************************ Corrections/ajouts sur les métadonnées "
 $psqla -f $BASE_DIR/$parc/data/correction_metadata.sql
-echo ""
-echo "************************ Permissions "
-$psqla -f $BASE_DIR/$parc/data/permissions_pag.sql
 echo ""
 echo "----------------------------------------------------------------------------"
 echo "------------------------ MAJ données partenariales -------------------------" 
 echo "----------------------------------------------------------------------------"
 echo "************************ Faune-Guyane 01/06/2021 >>>>> Synthese"
-$psqla -f $BASE_DIR/$parc/integration_data/4_import_FGjuin2021.sql
+$psqla -f $BASE_DIR/$parc/data/4_import_FGjuin2021.sql
 echo ""
 echo "************************ Herbier de Cayenne 01/06/2021 >>>>> Synthese" 
-$psqla -f $BASE_DIR/$parc/integration_data/5_import_Herbierjuin2021.sql
+$psqla -f $BASE_DIR/$parc/data/5_import_Herbierjuin2021.sql
 echo ""
 echo "----------------------------------------------------------------------------"
 echo "--------------------------------- Ajout data -------------------------------" 
 echo "----------------------------------------------------------------------------"
-echo "************************** Copie des fichiers csv dans tmp"
-cp $BASE_DIR/$parc/integration_data/*.csv /tmp/.
 echo ""
 echo "************************** BD photo & CardObs: Import données"
-$psqla -f $BASE_DIR/$parc/integration_data/1_import_data_seb.sql
+$psqla -f $BASE_DIR/$parc/data/1_import_data_seb.sql
 echo "************************** BD photo: Import données géo"
 shp2pgsql -s ${srid_local} -D -I -W "latin1" $BASE_DIR/$parc/integration_data/20201013_cartoLocalites_polygones.shp gn_imports.tmp_localitespoly_seb | ${psqla}
 shp2pgsql -s ${srid_local} -D -I -W "latin1" $BASE_DIR/$parc/integration_data/20201013_cartoLocalites_lignes.shp gn_imports.tmp_localiteslignes_seb | ${psqla}
 shp2pgsql -s ${srid_local} -D -I -W "latin1" $BASE_DIR/$parc/integration_data/20201013_cartoLocalites_points.shp gn_imports.tmp_localitespoints_seb | ${psqla}
 echo "************************** BD photo Seb: Intégraton données"
-$psqla -f $BASE_DIR/$parc/integration_data/2_ajout_data_BDPhotoseb.sql
+$psqla -f $BASE_DIR/$parc/data/2_ajout_data_BDPhotoseb.sql
 echo "************************** CardObs Seb: Intégraton données"
-$psqla -f $BASE_DIR/$parc/integration_data/3_ajout_data_CardObsSeb.sql
+$psqla -f $BASE_DIR/$parc/data/3_ajout_data_CardObsSeb.sql
 echo ""
 echo "************************** ECOBIOS-Limonade"
 echo ">>> import data geo"
 shp2pgsql -s ${srid_local} -D -I -W "latin1" $BASE_DIR/$parc/integration_data/20210628_Localisation_Data_Ecobios.shp gn_imports.tmp_localitespoly_ecobios | ${psqla}
 echo ">>> traitement données natu"
-$psqla -f $BASE_DIR/$parc/integration_data/6_Ecobios_Limonade.sql
+$psqla -f $BASE_DIR/$parc/data/6_Ecobios_Limonade.sql
 echo ""
 echo "************************** Itoupé, répartition données FG, intégration données ABC..."
-$psqla -f $BASE_DIR/$parc/integration_data/7_Data_Limonade_et_ABC.sql
+$psqla -f $BASE_DIR/$parc/data/7_Data_Limonade_et_ABC.sql
 
 echo "----------------------------------------------------------------------------"
 echo "--------------------------------- Finalisation -----------------------------" 
 echo "----------------------------------------------------------------------------"
 $psqla -f $BASE_DIR/$parc/data/close_fdw.sql
-$psqla -f $BASE_DIR/$parc/integration_data/10_Drop_tables.sql
+$psqla -f $BASE_DIR/$parc/data/10_Drop_tables.sql
 echo ""
 echo ""
 echo "----------------------------------------------------------------------------"

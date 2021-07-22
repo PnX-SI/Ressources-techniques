@@ -1,17 +1,11 @@
 # Process
 
 Ici sont stockes les manip pour recreer les base des parcs depuis 0.
-A clarifier!!
 
 # Pré-requis
 
-Créer le fichier 
-- config.ini
-
-```
-geonature_DIR=~/info/app_gn/GeoNature/
-ATLAS_dir=~/info/app_gn/GeoNature-atlas/ 
-```
+Créer les fichier 
+- config/config.ini
 
 Dans le dossier config du parc (par ex `pag/config/`)
 
