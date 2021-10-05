@@ -146,3 +146,29 @@ WHERE EXTRACT('year' FROM s.date_min) >= 2017
   AND t.cd_ref NOT IN (Select * FROM TaxonsConnusAvant2017)
 GROUP BY t.cd_ref, t.nom_complet, t.nom_vern
 ORDER BY NbObs DESC;
+
+
+-- Nb de taxon connu à l'année X /Taxons recontactés / taxons non recontactés / nouveaux taxons
+WITH 
+total_before_current_year as (
+	SELECT DISTINCT cd_ref FROM gn_synthese.synthese s JOIN taxonomie.taxref t ON t.cd_nom=s.cd_nom WHERE date_part('year', date_min) < :selectedYear
+),
+recontactees AS
+(SELECT DISTINCT cd_ref FROM gn_synthese.synthese s JOIN taxonomie.taxref t ON t.cd_nom=s.cd_nom WHERE date_part('year', date_min) < :selectedYear
+INTERSECT
+SELECT DISTINCT cd_ref FROM gn_synthese.synthese s JOIN taxonomie.taxref t ON t.cd_nom=s.cd_nom WHERE date_part('year', date_min) = :selectedYear),
+non_recontactees AS
+(SELECT DISTINCT cd_ref FROM gn_synthese.synthese s JOIN taxonomie.taxref t ON t.cd_nom=s.cd_nom WHERE date_part('year', date_min) < :selectedYear
+EXCEPT
+SELECT DISTINCT cd_ref FROM gn_synthese.synthese s JOIN taxonomie.taxref t ON t.cd_nom=s.cd_nom WHERE date_part('year', date_min) = :selectedYear),
+nouvelles AS
+(SELECT DISTINCT cd_ref FROM gn_synthese.synthese s JOIN taxonomie.taxref t ON t.cd_nom=s.cd_nom WHERE date_part('year', date_min) = :selectedYear
+EXCEPT
+SELECT DISTINCT cd_ref FROM gn_synthese.synthese s JOIN taxonomie.taxref t ON t.cd_nom=s.cd_nom WHERE date_part('year', date_min) < :selectedYear)
+select count(*) as total_before from total_before_current_year
+union ALL
+SELECT count(cd_ref) FROM recontactees
+UNION ALL
+SELECT count(cd_ref) FROM non_recontactees
+UNION ALL
+SELECT count(cd_ref) FROM nouvelles
