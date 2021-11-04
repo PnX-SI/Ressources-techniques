@@ -234,7 +234,7 @@ Sur le serveur qui porte le partage NFS :
 
 Pour une autorisation perenne, editer le fichier /etc/exports
 
-    <repertoire_source> <IP_du_clien>(rw,all_squash,anonuid=1000,anongid=1000,sync)
+    <repertoire_à_partager> <IP_du_clien>(rw,all_squash,anonuid=1000,anongid=1000,sync)
     
   
 Sur le serveur client du partage NFS on monte le partage NFS
