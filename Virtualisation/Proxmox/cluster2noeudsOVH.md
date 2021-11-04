@@ -232,6 +232,11 @@ Sur le serveur qui porte le partage NFS :
     cd /rpool/backups
     touch toto.txt
 
+Pour une autorisation perenne, editer le fichier /etc/exports
+
+    <repertoire_source> <IP_du_clien>(rw,all_squash,anonuid=1000,anongid=1000,sync)
+    
+  
 Sur le serveur client du partage NFS on monte le partage NFS
 
     cd /mnt/pve
