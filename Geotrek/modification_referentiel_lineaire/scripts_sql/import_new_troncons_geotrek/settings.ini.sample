@@ -1,0 +1,5 @@
+# Constantes de connexion à la base geotrek
+HOST=mon_hote
+PG_USER=mon_user
+PG_PASS=mon_pass
+DATABASE_NAME=geotrekdb
