@@ -3,7 +3,8 @@
 
 Sommaire:
   - [Principes](#principes)
-  - [Préparation](#préparation)
+  - [Préparation et présentation des scripts](#préparation-et-présentation-des-scripts)
+  - [Scripts sql](#scripts-sql)
   - [Définition des relations entre tronçons référence et importés](#définition-des-relations-entre-tronçons-référence-et-importés)
     - [Supervision manuelle des relations `bruit = NULL`](#supervision-manuelle-des-relations-bruit--null)
   - [Modification des géométries](#modification-des-géométries)
@@ -16,7 +17,7 @@ Sommaire:
     - [Jointure des informations attributaires](#jointure-des-informations-attributaires)
   - [Ajustements et supervision finale](#ajustements-et-supervision-finale)
     - [Supervision des erreurs finales](#supervision-des-erreurs-finales)
-      - [Préparation](#préparation-1)
+      - [Préparation](#préparation)
       - [Correction sur QGIS](#correction-sur-qgis)
 
 
