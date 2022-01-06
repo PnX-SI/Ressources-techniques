@@ -4,7 +4,7 @@
 Sommaire:
 - [Mise à jour de la base de données Geotrek](#mise-à-jour-de-la-base-de-données-geotrek)
 	- [Tronçons (`core_path`)](#tronçons-core_path)
-	- [Correction des itinéraires (`core_topology WHERE kind = 'TREK`)](#correction-des-itinéraires-core_topology-where-kind--trek)
+	- [Correction des itinéraires (`core_topology WHERE kind = 'TREK'`)](#correction-des-itinéraires-core_topology-where-kind--trek)
 	- [Statuts](#statuts)
 		- [Types fonciers (`landedge`)](#types-fonciers-landedge)
 		- [Types de voie (`physicaledge`)](#types-de-voie-physicaledge)
@@ -37,7 +37,7 @@ Etapes :
  * Lancer le script `run.sh`
 
 
-## Correction des itinéraires (`core_topology WHERE kind = 'TREK`)
+## Correction des itinéraires (`core_topology WHERE kind = 'TREK'`)
 
 On peut repérer les itinéraires qui ont été cassés par les opérations précédentes par les deux requêtes suivantes :
 
@@ -107,7 +107,7 @@ Les scripts ayant servi à l'import de nos données sont situés dans le répert
 
 ### Types fonciers (`landedge`)
 
-**Script SQL associé** : `1_import_landedge.sql`
+**Script SQL associé** : [1_import_landedge.sql](scripts_sql/import_status_geotrek/1_import_landedge.sql)
 
 Cinq champs de notre linéaire importé avaient un intérêt pour nous :
 - `proprio` : propriétaire de la voie
@@ -141,9 +141,9 @@ La suite du processus est la même que pour les `landedge`, à l'exception qu'on
 ### Correction des erreurs
 
 **Scripts SQL associés** :
- * `3_detection_core_pathaggregation_manquants.sql`
- * `3.1_insertion_core_pathaggregation_manquants.sql`
- * `4_detection_overlapping_landedge.sql`
+ * [3_detection_core_pathaggregation_manquants.sql](scripts_sql/import_status_geotrek/3_detection_core_pathaggregation_manquants.sql)
+ * [3.1_insertion_core_pathaggregation_manquants.sql](scripts_sql/import_status_geotrek/3.1_insertion_core_pathaggregation_manquants.sql)
+ * [4_detection_overlapping_landedge.sql](scripts_sql/import_status_geotrek/4_detection_overlapping_landedge.sql)
 
 Il s'agit enfin de corriger les erreurs et manques restants dans la table `core_pathaggregation`. Pour cela, on cherche d'abord à corriger automatiquement les `landedge` et `physicaledge` comportant un trou : un `core_path` absent de `core_pathaggregation` en leur milieu.
 
