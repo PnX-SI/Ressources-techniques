@@ -10,7 +10,7 @@ L'objectif de cette partie est de présenter les principes et quelques technique
 
 ## Nettoyage de la base de données Geotrek
 
-Le but est de nettoyer sa base de données geotrek de tous les artéfacts créés au fil des ans, des incohérences topologiques, etc. Pour cela, plusieurs requêtes SQL peuvent nous aider (ne pas oublier de créer un index spatial sur la colonne `geom` de la table `public.core_path` afin d'accélérer les requêtes) :
+Le but est de nettoyer sa base de données Geotrek de tous les artéfacts créés au fil des ans, des incohérences topologiques, etc. Pour cela, plusieurs requêtes SQL peuvent nous aider (ne pas oublier de créer un index spatial sur la colonne `geom` de la table `public.core_path` afin d'accélérer les requêtes) :
 
 Identifier les tronçons qui en croisent d'autres sans être découpés à l'intersection :
 ``` sql
@@ -191,7 +191,7 @@ SELECT * FROM f
  UNION
 SELECT * FROM g
 ```
-Attention un core_path peut avoir plusieurs erreurs et donc se retrouver plusieurs fois dans le résultat de la requête.
+Attention un `core_path` peut avoir plusieurs erreurs et donc se retrouver plusieurs fois dans le résultat de la requête.
 
 La seule requête à lancer de manière isolée est la suivante, car les identifiants des deux tronçons concernés sont nécessaires, et qu'il ne s'agit pas à proprement parler d'une erreur :
 ``` sql

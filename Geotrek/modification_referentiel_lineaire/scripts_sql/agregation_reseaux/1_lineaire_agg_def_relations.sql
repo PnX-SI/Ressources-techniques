@@ -1,5 +1,5 @@
------------ CREATION DE TABLES DES TAMPONS DES TRONÇONS reference ET importe
----------- choix d'une distance de 5m par l'expérimentation de plusieurs valeurs
+----------- CRÉATION DE TABLES DES TAMPONS DES TRONÇONS reference ET importe
+----------- distance de 5m obtenue après expérimentation de plusieurs valeurs
 DROP TABLE IF EXISTS tampon_reference;
 
 CREATE TABLE tampon_reference AS
@@ -16,7 +16,7 @@ CREATE TABLE tampon_importe AS
 	  	     i.geom AS geom_i
 	    FROM importe i;
 
----------- CREATION INDEX SPATIAUX SUR LES TAMPONS
+---------- CRÉATION D'INDEX SPATIAUX SUR LES TAMPONS
 ---------- accélère les requêtes spatiales
 DROP INDEX IF EXISTS tampon_reference_geom_idx;
 
@@ -36,7 +36,9 @@ CREATE INDEX tampon_importe_geom_idx
 
 CLUSTER tampon_importe
   USING tampon_importe_geom_idx;
--------------------- OBTENTION DES RELATIONS reference PAR RAPPORT A importe
+
+
+-------------------- OBTENTION DES RELATIONS reference PAR RAPPORT À importe :
 
 ---------- le but est de comparer le linéaire de référence (r) au linéaire importé (i)
 ---------- pour cela, on se sert des tampons/buffers créés autour des tronçons i
@@ -49,7 +51,7 @@ CLUSTER tampon_importe
 ---------- 		partiellement doublon de manière discontinue
 
 
----------- CREATION GEOMETRIES INTERIEURES AUX TAMPONS
+---------- CRÉATION DES GÉOMÉTRIES INTÉRIEURES AUX TAMPONS
 ---------- préparation de la table qui accueille toutes les géométries issues du découpage contre les tampons
 DROP TABLE IF EXISTS tampon_splits_r;
 
@@ -102,10 +104,9 @@ CREATE TABLE tampon_inner_r AS
 ALTER TABLE tampon_inner_r ADD PRIMARY KEY (rid, iid); -- nécessaire pour modification dans QGIS
 
 
----------- ATTRIBUTION DE CAS AUX RELATIONS ri
---UPDATE tampon_inner_r SET cas_i = NULL;
+---------- ATTRIBUTION DE CAS AUX RELATIONS ri :
 
----------- TRONÇON reference 100% DOUBLON PAR RAPPORT A UN TRONÇON importe
+---------- TRONÇON reference 100% DOUBLON PAR RAPPORT À UN TRONÇON importe
 ---------- car l'union de tous ses splits intérieurs est égale à la géométrie initiale
 UPDATE tampon_inner_r
    SET cas_r = 1
@@ -123,7 +124,10 @@ UPDATE tampon_inner_r
 UPDATE tampon_inner_r
    SET cas_r = 3
  WHERE St_GeometryType(geom_ri) = 'ST_MultiLineString';
--------------------- OBTENTION DES RELATIONS importe PAR RAPPORT A reference
+
+
+
+-------------------- OBTENTION DES RELATIONS importe PAR RAPPORT À reference :
 
 ---------- le but est de comparer le linéaire importé (i) au linéaire de référence (r)
 ---------- pour cela, on se sert des tampons/buffers créés autour des tronçons r
@@ -136,7 +140,7 @@ UPDATE tampon_inner_r
 ---------- 		partiellement doublon de manière discontinue
 
 
----------- CREATION GEOMETRIES INTERIEURES AUX TAMPONS
+---------- CRÉATION DES GÉOMÉTRIES INTÉRIEURES AUX TAMPONS
 ---------- préparation de la table qui accueille toutes les géométries issues du découpage contre les tampons
 DROP TABLE IF EXISTS tampon_splits_i;
 
@@ -189,10 +193,9 @@ CREATE TABLE tampon_inner_i AS
 ALTER TABLE tampon_inner_i ADD PRIMARY KEY (iid, rid); -- nécessaire pour modification dans QGIS
 
 
--- ATTRIBUTION DE CAS AUX RELATIONS ir
---UPDATE tampon_inner_i SET cas_i = NULL;
+---------- ATTRIBUTION DE CAS AUX RELATIONS ir :
 
----------- TRONÇON importe 100% DOUBLON PAR RAPPORT A UN TRONÇON reference
+---------- TRONÇON importe 100% DOUBLON PAR RAPPORT À UN TRONÇON reference
 ---------- car l'union de tous ses splits intérieurs est égale à la géométrie initiale
 UPDATE tampon_inner_i
    SET cas_i = 1
@@ -210,14 +213,17 @@ UPDATE tampon_inner_i
 UPDATE tampon_inner_i
    SET cas_i = 3
  WHERE ST_GeometryType(geom_ir) = 'ST_MultiLineString';
--------------------- FUSION DES DEUX tampon_inner ET CREATION DE MATRICE DE DECISION
+
+
+
+-------------------- FUSION DES DEUX TABLES tampon_inner ET CRÉATION DE LA MATRICE DE DÉCISION
 
 ---------- le but est de créer une matrice de décision avec toutes les relations entre r et i
 ---------- pour cela, il faut joindre les enregistrements des tables tampon_inner_r et tampon_inner_i
 ---------- afin d'avoir une vision complète de la relation sur la même ligne, à la fois du point de vue de r et du point de vue de i
 
 
----------- CREATION DE tampon_inner_all PAR JOINTURE DE tampon_inner_r ET tampon_inner_i
+---------- CRÉATION DE tampon_inner_all PAR JOINTURE DE tampon_inner_r ET tampon_inner_i
 DROP TABLE IF EXISTS tampon_inner_all;
 
 CREATE TABLE tampon_inner_all AS
@@ -244,8 +250,8 @@ CREATE TABLE tampon_inner_all AS
 ALTER TABLE tampon_inner_all ADD PRIMARY KEY (rid, iid); -- nécessaire pour modification dans QGIS
 
 
----------- CRÉATION DE geom_ir_ri, ET CALCUL DE aire_ir_ri;
----------- geom_ir_ri : polygone dont deux des côtés correspondent à geom_ir et à geom_ri
+---------- CRÉATION DE geom_ir_ri ET CALCUL DE aire_ir_ri;
+---------- geom_ir_ri : polygone à quatre côtés dont deux correspondent à geom_ir et à geom_ri
 WITH projections AS ( -- LOCALISATION DES PROJECTIONS DES EXTREMITES DE ir SUR r AFIN DE DETERMINER LA DIRECTION DE ir PAR RAPPORT A r
 		SELECT iid,
 			   rid,
@@ -254,11 +260,11 @@ WITH projections AS ( -- LOCALISATION DES PROJECTIONS DES EXTREMITES DE ir SUR r
 			   ST_LineLocatePoint(geom_r, ST_StartPoint(ST_GeometryN(geom_ir, 1))) AS start_ir_on_r,
 			   ST_LineLocatePoint(geom_r, ST_EndPoint(ST_GeometryN(geom_ir, ST_NumGeometries(geom_ir)))) AS end_ir_on_r
 		  FROM tampon_inner_all
-		 WHERE ST_GeometryType(geom_ir) = 'ST_LineString' -- EXCLUSION DES GEOMETRIES DISCONTINUES POUR SIMPLIFIER LA TACHE
+		 WHERE ST_GeometryType(geom_ir) = 'ST_LineString' -- exclusion des géométries discontinues pour simplifier la tâche
 		   AND ST_GeometryType(geom_ri) = 'ST_LineString'
 	),
-	moities_sens_inverse AS ( -- AJOUT DE POINTS AU DEBUT ET A LA FIN DE geom_ri ET geom_ir AFIN DE FORMER LE POLYGONE
-					   -- SI geom_ri ET geom_ir SONT DANS UN SENS INVERSE
+	moities_sens_inverse AS ( -- ajout de points au début et à la fin de geom_ri et geom_ir afin de former le polygone
+					   -- si geom_ri et geom_ir sont dans un sens inverse
 		SELECT iid,
 			   rid,
 			   ST_AddPoint(geom_ir, ST_StartPoint(geom_ri)) AS un,
@@ -266,8 +272,8 @@ WITH projections AS ( -- LOCALISATION DES PROJECTIONS DES EXTREMITES DE ir SUR r
 		  FROM projections
 		 WHERE start_ir_on_r > end_ir_on_r
 	),
-	moities_meme_sens AS ( -- AJOUT DE POINTS AU DEBUT ET A LA FIN DE geom_ri ET geom_ir AFIN DE FORMER LE POLYGONE
-					-- SI geom_ri ET geom_ir SONT DANS LE MEME SENS
+	moities_meme_sens AS ( -- ajout de points au début et a la fin de geom_ri et geom_ir afin de former le polygone
+					-- si geom_ri et geom_ir sont dans le même sens
 		SELECT iid,
 			   rid,
 			   ST_AddPoint(ST_Reverse(geom_ir), ST_StartPoint(geom_ri)) AS un,
@@ -280,7 +286,7 @@ WITH projections AS ( -- LOCALISATION DES PROJECTIONS DES EXTREMITES DE ir SUR r
 		 UNION ALL
 		SELECT * FROM moities_meme_sens
 	),
-	polygones AS ( -- CREATION DES POLYGONES => geom_ir_ri
+	polygones AS ( -- création des polygones => geom_ir_ri
 		SELECT iid,
 			   rid,
 			   ST_CollectionHomogenize(ST_Polygonize(ST_Union(un, deux))) AS geom_ir_ri,
@@ -298,7 +304,7 @@ UPDATE tampon_inner_all ti
 
 
 
----------- EXCLUSION DES RELATIONS CONSIDEREES COMME DU BRUIT
+---------- EXCLUSION DES RELATIONS CONSIDÉRÉES COMME DU BRUIT
 ---------- certaines relations entre tronçons ne sont pas pertinentes, c'est du bruit créé par l'algorithme
 ---------- l'extrémité d'un tronçon r peut par exemple être en doublon avec plusieurs tronçons i au niveau d'une intersection
 ---------- ce sont des "faux" doublons, car les deux tronçons ne représentent pas réellement un même sentier
@@ -307,19 +313,19 @@ UPDATE tampon_inner_all ti
 ---------- ceci en se servant, par ordre de préférence :
 ---------- 		 des cas définis précédemment
 ---------- 		 d'indicateurs "objectifs" (exemple : si r est déjà contenu à 100% dans un autre tampon i, alors ses autres relations sont du bruit)
-----------       d'indicateurs subjectifs (valeurs seuils fixées plus ou moins empiriquement)
+----------      d'indicateurs subjectifs (valeurs seuils fixées plus ou moins empiriquement)
 
 UPDATE tampon_inner_all
    SET bruit = NULL;
 
----------- SI r OU i EST ENTIEREMENT CONTENU DANS LE TAMPON DE L'AUTRE : PAS BRUIT
----------- une relation où l'un des tronçons est entièrement en doublon avec un autre est signifiante
+---------- SI r OU i EST ENTIÈREMENT CONTENU DANS LE TAMPON DE L'AUTRE : PAS BRUIT
+---------- car une relation où l'un des tronçons est entièrement en doublon avec un autre est signifiante
 UPDATE tampon_inner_all
    SET bruit = FALSE
  WHERE cas_r = 1
     OR cas_i = 1;
 
----------- POUR LES TRONÇONS r ENTIEREMENT EN DOUBLON AVEC PLUSIEURS i : IDENTIFIER LE i LE PLUS PROCHE
+---------- POUR LES TRONÇONS r ENTIÈREMENT EN DOUBLON AVEC PLUSIEURS i : IDENTIFIER LE i LE PLUS PROCHE
 ---------- la relation dont aire_ir_ri a la valeur la plus faible est celle où le r et le i sont les plus proches
 ---------- donc devrait être la plus signifiante. Toutes les autres relations sont donc du bruit.
 ---------- utile pour les mini tronçons r (moins de 5m) entièrement compris dans plusieurs tampons i à la fois
@@ -327,22 +333,22 @@ WITH a AS (
 	SELECT rid,
 		   iid,
 		   aire_ir_ri,
-		   ROW_NUMBER() OVER ( -- NUMEROTATION DES LIGNES DE GROUPES D'ENREGISTREMENTS...
-		   	PARTITION BY (rid) -- ...CREES SELON LEUR rid
-		   		ORDER BY aire_ir_ri ASC -- TRI ASCENDANT POUR QUE LA RELATION DONT aire_ir_ri EST LA PLUS FAIBLE SOIT EN PREMIERE LIGNE DE CHAQUE GROUPE
+		   ROW_NUMBER() OVER ( -- numérotation des lignes par groupes d'enregistrements...
+		   	PARTITION BY (rid) -- ...ayant été rassemblés selon leur rid
+		   		ORDER BY aire_ir_ri ASC -- tri ascendant pour que la relation dont aire_ir_ri est la plus faible soit en première ligne de chaque groupe
 		   		) rn
 	  FROM tampon_inner_all ti
-	 WHERE NOT cas_i = 1 -- EXCLUSION DES RELATIONS OÙ I EST AUSSI ENTIEREMENT COMPRIS DANS LE TAMPON R
+	 WHERE NOT cas_i = 1 -- exclusion des relations où i est aussi entièrement compris dans le tampon r
 	   AND cas_r = 1
 	)
 UPDATE tampon_inner_all ti
    SET bruit = TRUE
   FROM a
- WHERE rn != 1 -- EXCLUSION DES RELATIONS EN PREMIERE LIGNE DE CHAQUE GROUPE
+ WHERE rn != 1 -- exclusion des relations en premiere ligne de chaque groupe
    AND ti.rid = a.rid
    AND ti.iid = a.iid;
 
----------- POUR LES TRONÇONS i ENTIEREMENT EN DOUBLON AVEC PLUSIEURS r : IDENTIFIER LE r LE PLUS PROCHE
+---------- POUR LES TRONÇONS i ENTIÈREMENT EN DOUBLON AVEC PLUSIEURS r : IDENTIFIER LE r LE PLUS PROCHE
 ---------- la relation dont aire_ir_ri a la valeur la plus faible est celle où le i et le r sont les plus proches
 ---------- donc devrait être la plus signifiante. Toutes les autres relations sont donc du bruit.
 ---------- utile pour les mini tronçons i (moins de 5m) entièrement compris dans plusieurs tampons r à la fois
@@ -350,23 +356,23 @@ WITH a AS (
 	SELECT rid,
 		   iid,
 		   aire_ir_ri,
-		   ROW_NUMBER() OVER ( -- NUMEROTATION DES LIGNES DE GROUPES D'ENREGISTREMENTS...
-		   	PARTITION BY (iid) -- ...CREES SELON LEUR rid
-		   		ORDER BY aire_ir_ri ASC -- TRI ASCENDANT POUR QUE LA RELATION DONT aire_ir_ri EST LA PLUS FAIBLE SOIT EN PREMIERE LIGNE DE CHAQUE GROUPE
+		   ROW_NUMBER() OVER ( -- numérotation des lignes de groupes d'enregistrements...
+		   	PARTITION BY (iid) -- ...ayant été rassemblés selon leur rid
+		   		ORDER BY aire_ir_ri ASC -- tri ascendant pour que la relation dont aire_ir_ri est la plus faible soit en première ligne de chaque groupe
 		   		) rn
 	  FROM tampon_inner_all ti
-	 WHERE NOT cas_r = 1 -- EXCLUSION DES RELATIONS OÙ r EST AUSSI ENTIEREMENT COMPRIS DANS LE TAMPON i
+	 WHERE NOT cas_r = 1 -- exclusion des relations où r est aussi entièrement compris dans le tampon i
 	   AND cas_i = 1
 	)
 UPDATE tampon_inner_all ti
    SET bruit = TRUE
   FROM a
- WHERE rn != 1 -- EXCLUSION DES RELATIONS EN PREMIERE LIGNE DE CHAQUE GROUPE
+ WHERE rn != 1 -- exclusion des relations en première ligne de chaque groupe
    AND ti.rid = a.rid
    AND ti.iid = a.iid;
 
 
----------- SI r EST DEJA 100% CONTENU DANS UN BUFFER i, ALORS LES AUTRES RELATIONS DE r SONT DU BRUIT
+---------- SI r EST DÉJÀ 100% CONTENU DANS UN BUFFER i, ALORS LES AUTRES RELATIONS DE r SONT DU BRUIT
 ---------- corrollaire du traitement précédent :
 ---------- les relations de doublon partiel impliquant un tronçon r déjà en doublon total avec un i sont du bruit
 WITH a AS (
@@ -382,7 +388,7 @@ UPDATE tampon_inner_all tia
    AND cas_r != 1;
 
 
----------- SI r ET i SONT DES DOUBLONS PARTIELS ET QUE LES LONGUEURS DE ri ET ir REPONDENT A CERTAINS CRITERES : BRUIT
+---------- SI r ET i SONT DES DOUBLONS PARTIELS ET QUE LES LONGUEURS DE ri ET ir RÉPONDENT À CERTAINS CRITÈRES : BRUIT
 ---------- on considère que si les longueurs de ri ou de ir sont inférieures à 10m (soit deux fois la longueur du tampon)
 ---------- ou que si le rapport des longueurs de ri sur r et de ir sur i sont inférieurs à 10%, alors la relation est du bruit
 ---------- le choix des valeurs est arbitraire et crée un effet de seuil qui peut être indésirable
@@ -397,7 +403,7 @@ UPDATE tampon_inner_all
 			AND longueur_ri/longueur_r < 0.1));
 
 
----------- SI r ET i SONT DES DOUBLONS MAIS PAS DETECTES COMME BRUIT PRECEDEMMENT ET PAS DOUBLE RELATION DISCONTINUE : PAS BRUIT
+---------- SI r ET i SONT DES DOUBLONS MAIS PAS DÉTECTÉS COMME BRUIT PRÉCÉDEMMENT ET PAS DOUBLE RELATION DISCONTINUE : PAS BRUIT
 UPDATE tampon_inner_all
    SET bruit = FALSE
  WHERE bruit IS NULL
@@ -406,7 +412,7 @@ UPDATE tampon_inner_all
    AND NOT (cas_r = 3 AND cas_i = 3);
 
 
----------- DOUBLE DOUBLON DISCONTINU A PRIORI REEL DOUBLON
+---------- DOUBLE DOUBLON DISCONTINU À PRIORI RÉEL DOUBLON
 ---------- car r et i intersectent leurs tampons respectifs plus de deux fois
 ---------- ils sont donc en relation de manière assez constante
 UPDATE tampon_inner_all
@@ -415,7 +421,7 @@ UPDATE tampon_inner_all
    AND cas_i = 3
    AND (ST_NumGeometries(geom_ri) != 2 OR ST_NumGeometries(geom_ir) != 2);
 
----------- DOUBLE DOUBLON DISCONTINU A PRIORI REEL DOUBLON
+---------- DOUBLE DOUBLON DISCONTINU À PRIORI RÉEL DOUBLON
 ---------- car la longueur en doublon d'un des tronçons de la relation est supérieure a la moitié de sa longueur totale
 ---------- le choix des valeurs est arbitraire et crée un effet de seuil qui peut être indésirable
 UPDATE tampon_inner_all
@@ -425,7 +431,7 @@ UPDATE tampon_inner_all
    AND bruit IS NULL
    AND (longueur_ri/longueur_r > 0.5 OR longueur_ir/longueur_i > 0.5);
 
----------- DOUBLE DOUBLON DISCONTINU A PRIORI BRUIT (SOUVENT EXTREMITES DE TRONÇON)
+---------- DOUBLE DOUBLON DISCONTINU À PRIORI BRUIT (SOUVENT EXTRÉMITÉS DE TRONÇON)
 ---------- car la longueur en doublon des deux tronçons de la relation est inférieure a 20% de leur longueur totale
 ---------- le choix des valeurs est arbitraire et crée un effet de seuil qui peut être indésirable
 UPDATE tampon_inner_all
@@ -436,7 +442,7 @@ UPDATE tampon_inner_all
    AND longueur_ri/longueur_r < 0.2
    AND longueur_ir/longueur_i < 0.2;
 
----------- SI geom_ir D'UN i DEJA EVALUE CONTIENT geom_ir D'UNE AUTRE RELATION DE CE i, ALORS CETTE AUTRE RELATION = BRUIT
+---------- SI geom_ir D'UN i DÉJÀ ÉVALUÉ CONTIENT geom_ir D'UNE AUTRE RELATION DE CE i, ALORS CETTE AUTRE RELATION = BRUIT
 ---------- une relation dont la geom_ir (la partie de i à moins de 5m de r) est entièrement comprise dans la geom_ir d'une autre relation est considérée comme du bruit
 ---------- en effet une même portion d'un tronçon i ne doit correspondre qu'à un seul tronçon r et pas à plusieurs
 ---------- il faut donc conserver la plus signifiante, donc celle qui englobe les autres
@@ -450,7 +456,7 @@ WITH a AS (
 UPDATE tampon_inner_all tia
    SET bruit = TRUE
   FROM a
- WHERE ST_Contains(ST_Buffer(a.geom_ir, 0.5), tia.geom_ir) -- TAMPON NECESSAIRE CAR LES geom_ir SONT LEGEREMENT DIFFERENTES
+ WHERE ST_Contains(ST_Buffer(a.geom_ir, 0.5), tia.geom_ir) -- tampon nécessaire car les geom_ir sont légèrement différentes
    AND a.iid = tia.iid
    AND a.rid != tia.rid
    AND cas_r IN (2,3)
@@ -467,7 +473,7 @@ WITH a AS (
 UPDATE tampon_inner_all tia
    SET bruit = TRUE
   FROM a
- WHERE ST_Contains(ST_Buffer(a.geom_ri, 0.5), tia.geom_ri) -- TAMPON NECESSAIRE CAR LES geom_ri SONT LEGEREMENT DIFFERENTES
+ WHERE ST_Contains(ST_Buffer(a.geom_ri, 0.5), tia.geom_ri) -- tampon nécessaire car les geom_ri sont légèrement différentes
    AND a.rid = tia.rid
    AND a.iid != tia.iid
    AND cas_r IN (2,3)

@@ -5,7 +5,7 @@ Sommaire:
 - [Agrégation des deux réseaux](#agrégation-des-deux-réseaux)
   - [Principes](#principes)
   - [Préparation et présentation des scripts](#préparation-et-présentation-des-scripts)
-    - [Scripts sql](#scripts-sql)
+    - [Scripts SQL](#scripts-sql)
   - [Définition des relations entre tronçons référence et importés](#définition-des-relations-entre-tronçons-référence-et-importés)
     - [Supervision manuelle des relations `bruit = NULL`](#supervision-manuelle-des-relations-bruit--null)
   - [Modification des géométries](#modification-des-géométries)
@@ -61,7 +61,7 @@ Deux étapes manuelles sont nécessaires à la réalisation du processus :
 
 ## Préparation et présentation des scripts
 
-Pour réaliser les opérations décrites ci-dessous, lancer les scripts, utiliser les projets Qgis sans réaliser d'adaptation, nous vous conseillons de créer une base de données nommée `geotrek_process` avec utilisateur `geotrek_process`:
+Pour réaliser les opérations décrites ci-dessous, lancer les scripts, utiliser les projets QGIS sans réaliser d'adaptation, nous vous conseillons de créer une base de données nommée `geotrek_process` avec utilisateur `geotrek_process` :
 
 
 ``` sql
@@ -79,19 +79,19 @@ Vous devez créer deux tables contenant les données des réseaux :
 
 La couche du réseau à importer doit respecter la structure suivante :
 
-| nom colonne | type                 | description                  |
-| ----------  | -------------------- | -------------------------- 	|
-| id          | int                  | identifiant unique           |
-| geom        | geometry(LineString) | geométrie                    |
-| structure_id| int                  | identifiant geotrek de la structure liée aux données |
-| eid         | varchar              | identifiant de la donnée dans la couche d'origine |
+| nom colonne | type                 | description                                                              |
+| ----------  | -------------------- | -------------------------- 	                                            |
+| id          | int                  | identifiant unique                                                       |
+| geom        | geometry(LineString) | geométrie                                                                |
+| structure_id| int                  | identifiant geotrek de la structure liée aux données                     |
+| eid         | varchar              | identifiant de la donnée dans la couche d'origine                        |
 | layer       | varchar              | nom de la couche d'origine (utile en cas de multiples fichiers d'origine)|
 
-La couche du réseau de référence doit avoir la structure de la table `core_path` de geotrek. Pour cela vous pouvez importer manuellement les données ou utiliser des foreign data wrapper.
+La couche du réseau de référence doit avoir la structure de la table `core_path` de geotrek. Pour cela vous pouvez importer manuellement les données ou utiliser des [Foreign Data Wrappers](https://wiki.postgresql.org/wiki/Foreign_data_wrappers).
 
-### Scripts sql
+### Scripts SQL
 
-Quatre scripts sql sont proposés dans le répertoire `agregation_reseaux`. Ils permettent de réaliser les opérations qui sont généralisables. Par ailleurs dans le document des requêtes de selection des données sont indiquées et ne sont pas incluses dans les scripts. Il faut les lancer manuellement pour analyser les résulats.
+Quatre scripts SQL sont proposés dans le répertoire `agregation_reseaux`. Ils permettent de réaliser les opérations qui sont généralisables. Par ailleurs dans le document des requêtes de selection des données sont indiquées et ne sont pas incluses dans les scripts. Il faut les lancer manuellement pour analyser les résulats.
 
 En premier lieu il faut exécuter le script [0_lineaire_agg_preparation.sql](scripts_sql/agregation_reseaux/0_lineaire_agg_preparation.sql) qui permet de créer la table des types de cas `cas` et des index sur les tables `importe` et `reference`.
 
@@ -99,30 +99,30 @@ Le script [1_lineaire_agg_def_relations.sql](scripts_sql/agregation_reseaux/1_li
 Il créera les tables suivantes :
  - `tampon_importe` : table contenant les tampons du réseau de la table `importe`
  - `tampon_reference` : table contenant les tampons du réseau de la table `reference`
- - `tampon_splits_r` : table qui contenant toutes les géométries issues du découpage des geometries de `reference` contre les tampons de `importe`
- - `tampon_inner_r` : table qui contenant toutes les géométries communes entre `reference` et `importe` quand elles sont incluses dans les tampons avec mention au cas (doublons partiels, ...)
-- `tampon_splits_i` : table qui contenant toutes les géométries issues du découpage des geometries de `importe` contre les tampons de `reference`
- - `tampon_inner_i` : table qui contenant toutes les géométries communes entre `importe` et  `reference` quand elles sont incluses dans les tampons avec mention au cas (doublons partiels, ...)
-- `tampon_inner_all` : table qui correspond à la matrice de décission finale. Elle correspond à la jointure des données contenues dans `tampon_inner_i`, `tampon_inner_r`. Avec un calcul indiquant si la relation semble ou non être du bruit.
+ - `tampon_splits_r` : table contenant toutes les géométries issues du découpage des géometries de `reference` contre les tampons de `importe`
+ - `tampon_inner_r` : table contenant toutes les géométries communes entre `reference` et `importe` quand elles sont incluses dans les tampons avec mention du cas (doublons partiels, ...)
+- `tampon_splits_i` : table contenant toutes les géométries issues du découpage des géometries de `importe` contre les tampons de `reference`
+ - `tampon_inner_i` : table contenant toutes les géométries communes entre `importe` et  `reference` quand elles sont incluses dans les tampons avec mention du cas (doublons partiels, ...)
+- `tampon_inner_all` : table de jointure des données contenues dans `tampon_inner_i` et `tampon_inner_r`. C'est dans celle-ci que le script détermine si une relation semble être du bruit ou non.
 
 
-Le script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) permettra de calculer le nouveau réseau issu de la fusion du réseau importé et de référence.
+Le script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) permettra de calculer le nouveau réseau issu de la fusion des réseaux importé et de référence.
 
 Il créera les tables suivantes :
- - `decision_inner` : table contenant la matrice de décision des données de `tampon_inner_all` n'étant pas considéré comme du bruit.
- - `tampon_outer_r` :  table contenant la liste des tronçons r qui sont totalement en-dehors des tampons i et les portions uniques de tronçons r dont une partie est en doublon avec un ou plusieurs i.
- - `decision_outer_r` : table contenant la matrice de décision des aouter_r sur le même modele que `decision_inner`
+ - `decision_inner` : table contenant la matrice de décision des données de `tampon_inner_all` n'étant pas considérées comme du bruit.
+ - `tampon_outer_r` : table contenant la liste des tronçons `r` qui sont totalement en-dehors des tampons `i` et les portions uniques de tronçons `r` dont une partie est en doublon avec un ou plusieurs `i`.
+ - `decision_outer_r` : table contenant la matrice de décision des `outer_r` sur le même modèle que `decision_inner`
  - `r_parties_uniques` : table contenant les parties unique de `reference`
- - `r_extremites` : table contenant une matrice d'extrémités. Le but est d'identifier les extrémités de tronçons r qui ont changé de coordonnées fin de pouvoir rattacher les parties uniques d'autres tronçons r qui partageaient une extrémité identique en effet une partie unique de r n'étant par définition pas calquée sur une géométrie i, si le tronçon r auquel elles étaient connectées a changé de géométrie, il faut adapter les extrémités de cette partie unique
+ - `r_extremites` : table contenant une matrice d'extrémités. Le but est d'identifier les extrémités de tronçons `r` qui ont changé de coordonnées afin de pouvoir rattacher les parties uniques d'autres tronçons `r` qui partageaient une extrémité identique. En effet une partie unique de `r` n'étant par définition pas calquée sur une géométrie `i`, si le tronçon `r` auquel elles étaient connectées a changé de géométrie, il faut adapter les extrémités de cette partie unique
  - `core_path_wip_new` : table finale contenant le futur nouveau réseau : les doublons, les parties unique de `reference` et les parties uniques de `importe`.
 
 
-Le script [3_lineaire_agg_correction_erreurs.sql](scripts_sql/agregation_reseaux/3_lineaire_agg_correction_erreurs.sql) permettra de réaliser des opérations de mise en évidence de potentielle erreurs à suppervisées manuellement.
+Le script [3_lineaire_agg_correction_erreurs.sql](scripts_sql/agregation_reseaux/3_lineaire_agg_correction_erreurs.sql) permettra de réaliser des opérations de mise en évidence de potentielles erreurs à superviser manuellement.
 
 Il créera la table suivante :
- - `erreurs_compte` : table qui calcul le nombre d'erreur en fonction de leur type.
+ - `erreurs_compte` : table qui calcule le nombre d'erreurs en fonction de leur type.
 
-Il créera également des triggers permettant de relaculer automatiquement les erreurs lors de modifications réalisées sur la table `core_path_wip_new`
+Il créera également des *triggers* permettant de recalculer automatiquement les erreurs lors de modifications réalisées sur la table `core_path_wip_new`
 
 ## Définition des relations entre tronçons référence et importés
 
@@ -167,7 +167,7 @@ L'attribution de la valeur `true` à `bruit` signifie que c'est une fausse relat
 
 Une fois cette étape réalisée, la suite du script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) peut être lancée. Par défaut, toutes les relations dont le champ `bruit` est nul sont considérées comme signifiantes.
 
-Le projet Qgis `correction_manuelle_bruits.qgz` vous permettra de visualiser les données à superviser.
+Le projet QGIS `correction_manuelle_bruits.qgz` vous permettra de visualiser les données à superviser.
 
 ## Modification des géométries
 
@@ -273,9 +273,9 @@ Corriger manuellement des erreurs peut prendre de quelques secondes à plusieurs
 Avant de passer sur QGIS, certaines étapes sont nécessaires pour faciliter la supervision. Le principe est de mettre à jour la table `core_path_wip_new` en ajoutant une mention de l'erreur potentielle dans la colonne `erreur`.
 
 
-De façon à pouvoir modifier les données dans Qgis, il faut qu'elles aient toutes le même type de géométrie. Ce type doit être de type linestring. De plus dans Geotrek les géométries ponctuelles ou trop courtes, poseront problème avec la contrainte `core_path_geom_isvalid` lors de la mise à jour des géométries de `core_path` :
+De façon à pouvoir modifier les données dans QGIS, il faut qu'elles aient toutes le même type de géométrie. Ce type doit être de type linestring. De plus dans Geotrek les géométries ponctuelles ou trop courtes, poseront problème avec la contrainte `core_path_geom_isvalid` lors de la mise à jour des géométries de `core_path` :
 
-Une table `erreurs_compte` stocke le nombre d'erreurs de chaque type à chaque exécution du script, ce qui permet de suivre son évolution selon les ajustements apportés (taille du tampon, etc).
+Une table `erreurs_compte` stocke le nombre d'erreurs de chaque type à chaque exécution du script [3_lineaire_agg_correction_erreurs.sql](scripts_sql/agregation_reseaux/3_lineaire_agg_correction_erreurs.sql). Cela permet par exemple de suivre l'évolution du nombre et du type d'erreurs selon les ajustements apportés aux requeêtes d'agrégation des réseaux (taille du tampon, etc).
 
 Les erreurs suivantes sont identifiées et viennent renseigner le champ `core_path_wip_new.erreur` :
 - `ligne_trop_courte` : géométries ponctuelles et LineString de moins de 1m ;
@@ -286,7 +286,7 @@ Les erreurs suivantes sont identifiées et viennent renseigner le champ `core_pa
 - `st_geometrytype` : tronçons dont la géométrie n'est pas une LineString ;
 - `extremite` : tronçons courts dont une extrémité n'est reliée à aucun autre tronçon.
 
-Une fonction `trigger_geom_new()`, appelée par un trigger déclenché à chaque mise à jour du champ `core_path_wip_new.geom_new`, met à jour le champ `erreur` à chaque sauvegarde de la couche dans QGIS. Cela permet de ne conserver la symbologie spécifique que pour les tronçons encore problématiques, et pas pour ceux corrigés.
+Une fonction `trigger_geom_new()` est appelée par un trigger déclenché à chaque mise à jour du champ `core_path_wip_new.geom_new`. Elle met à jour le champ `erreur` à chaque sauvegarde de la couche dans QGIS. Cela permet de ne conserver la symbologie spécifique que pour les tronçons encore problématiques, et pas pour ceux corrigés.
 
 #### Correction sur QGIS
 
@@ -309,14 +309,14 @@ Il vaut mieux corriger les erreurs dans cet ordre :
 ----
 Attention
 
-L'exécution du trigger lors de la sauvegarde de la couche `core_path_wip_new` se lance de façon unitaire et il est fréquent lors de la correction simultanée de plusieurs tronçons que de nouvelles erreurs soient détectées alors qu'elles ont été corrigées. Dans ce cas il faut simuler une mise à jour de la géométrie (ex : déplacement d'un sommet et remise à sa place initiale) pour que tout rentre dans l'ordre.
+L'exécution du trigger lors de la sauvegarde de la couche `core_path_wip_new` se lance de façon unitaire et il est fréquent lors de la correction simultanée de plusieurs tronçons que de nouvelles erreurs soient détectées alors qu'elles ont bien été corrigées. Dans ce cas il faut simuler une nouvelle mise à jour de la géométrie (ex : déplacement d'un sommet et remise à sa place initiale) pour que tout rentre dans l'ordre.
 
 ------
 
-L'algorithme crée de nombreux tronçons "uniques" issus du réseau importé. La correction manuelle permet d'en supprimer un bon nombre et de recalquer les tronçons référence sur ceux-ci. Lorsque cela se produit, il ne faut pas oublier de mettre à jour les champs `eid`, `comments` et `structure_id` selon la même structure que celle créée par le script (remplacement de `eid` et `structure_id`, agrégation de la valeur originale et de la nouvelle valeur de `comments`).
+L'algorithme crée de nombreux tronçons "uniques" issus du réseau importé, alors qu'un tronçon `r` aurait pu voir sa géométrie calquée dessus. La correction manuelle permet d'en supprimer un bon nombre et de recalquer les tronçons référence correspondants sur ceux-ci. Lorsque cela se produit, il ne faut pas oublier de mettre à jour les champs `eid`, `comments` et `structure_id` selon la même structure que celle créée par le script (remplacement total des valeurs de `eid` et `structure_id`, agrégation de la valeur originale et de la nouvelle valeur de `comments`).
 
 Par exemple, cela arrive souvent là où des tronçons `r` ont été projetés sur les tronçons `i` à 6 ou 7 mètres d'une intersection. Cela n'a pas vraiment de sens que le `r` s'arrête à quelques mètres d'une intersection et soit ainsi séparé du `r` qu'il touchait à l'origine par un mini-tronçon `i` de quelques mètres. Dans ce genre de cas, il suffit de supprimer le tronçon `i` et de raccorder les deux `r` au niveau de l'intersection (tout en suivant le tracé du `i` supprimé bien sûr).
 
 Une fois toutes les erreurs supervisées, on peut vérifier que tous les tronçons ont bien une `geom_new` : lors de certaines suppressions de tronçons, seule la géométrie est supprimée au lieu de l'entité entière.
 
-Un exemple de projet Qgis permettant la correction des erreurs détectées est présent dans le dépot : [correction_manuelle_finale.qgz](projet_qgis/correction_manuelle_finale.qgz).
+Un exemple de projet QGIS permettant la correction des erreurs détectées est présent dans le dépôt : [correction_manuelle_finale.qgz](projet_qgis/correction_manuelle_finale.qgz).

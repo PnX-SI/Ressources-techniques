@@ -1,4 +1,6 @@
----------- ESTIMATION DU NOMBRE D'ERREURS A SUPERVISER
+-------------------- ESTIMATION DU NOMBRE D'ERREURS À SUPERVISER
+
+---------- CRÉATION D'INDEX POUR ACCÉLÉRER LES CALCULS
 DROP INDEX IF EXISTS core_path_wip_new_geom_new_idx;
 
 CREATE INDEX core_path_wip_new_geom_new_idx
@@ -18,6 +20,7 @@ CREATE INDEX core_path_wip_new_geom_idx
 CLUSTER core_path_wip_new
   USING core_path_wip_new_geom_idx;
 
+---------- CRÉATION D'UNE TABLE POUR ACCUEILLIR LES DÉCOMPTES
 CREATE TABLE IF NOT EXISTS erreurs_compte
 (st_crosses integer,
  st_overlaps_contains integer,
@@ -31,6 +34,7 @@ CREATE TABLE IF NOT EXISTS erreurs_compte
 
 
 ---------- TRANSFORMATION DES POINTS EN FAUSSES LIGNES
+---------- permet de les visualiser dans un SIG
 UPDATE core_path_wip_new
    SET geom_new = ST_MakeLine(geom_new, ST_Translate(geom_new, 5, 5)),
    	   erreur = 'ligne_trop_courte'
@@ -43,7 +47,7 @@ UPDATE core_path_wip_new
  WHERE ST_Length(geom_new) < 1;
 
 
-
+---------- DÉTECTION DE DIFFÉRENTS TYPES D'ERREURS, DÉCOMPTE ET INSERTION DU NOMBRE DANS erreurs_compte
 WITH
 a AS ( -- tronçons qui en croisent d'autres
 	SELECT count(DISTINCT cp_wn1.id) AS st_crosses
@@ -92,7 +96,7 @@ g AS ( -- tronçons courts dont une extrémité n'est pas reliée
 	              WHERE cp_wn1.id != cp_wn3.id
 	                AND ST_Intersects(ST_EndPoint(cp_wn1.geom_new), cp_wn3.geom_new)))
 ),
----------- total
+----- de h à j : calcul du nombre de tronçons différents ayant au moins une erreur
 h AS (
 	SELECT cp_wn1.id
 	  FROM core_path_wip_new cp_wn1
@@ -114,7 +118,9 @@ j AS (
 	 UNION
 	SELECT * FROM i
 )
-INSERT INTO erreurs_compte
+INSERT INTO erreurs_compte (st_crosses, st_overlaps_contains, st_isvalid,
+		                      st_issimple, st_geometrytype, ligne_trop_courte,
+		                      extremite, total, "date")
 SELECT st_crosses,
 	   st_overlaps_contains_within,
 	   st_isvalid,
@@ -128,11 +134,8 @@ SELECT st_crosses,
  GROUP BY st_crosses, st_overlaps_contains_within, st_isvalid, st_issimple, st_geometrytype, ligne_trop_courte, extremite;
 
 
-
-UPDATE core_path_wip_new
-   SET erreur = NULL
- WHERE erreur != 'ligne_trop_courte';
-
+---------- MISE À JOUR DU CHAMP erreur DE core_path_wip_new
+---------- afin de visualiser les tronçons problématiques dans QGIS
 WITH
 a AS (  -- tronçons qui en croisent d'autres
 	SELECT DISTINCT cp_wn1.id,
@@ -207,9 +210,11 @@ UPDATE core_path_wip_new cp_wn
    SET erreur = h.erreur
   FROM h
  WHERE cp_wn.id = h.id
-   AND cp_wn.erreur IS NULL;
+   AND cp_wn.erreur != 'ligne_trop_courte'; -- évite d'écraser cette erreur avec une autre valeur
 
----------- AIDE A LA CORRECTION SUR QGIS
+
+
+---------- AIDE À LA CORRECTION SUR QGIS
 ---------- création d'une fonction appelée ensuite par le trigger
 CREATE OR REPLACE FUNCTION trigger_geom_new()
    RETURNS TRIGGER
@@ -230,13 +235,13 @@ BEGIN
 	 WHERE NEW.id = cp_wn.id;
 
 	  IF inversed THEN
-	  	NEW.geom_new := ST_Reverse(ST_LineMerge(NEW.geom_new)); -- TRANSFORME LES GÉOMETRIES CURVE CRÉÉES PAR QGIS EN LINESTRING HABITUELLES
+	  	NEW.geom_new := ST_Reverse(ST_LineMerge(NEW.geom_new)); -- transforme les géometries curve créées par QGIS en LineStrings habituelles
 	  ELSE
-	  	NEW.geom_new := ST_LineMerge(NEW.geom_new); 		    -- ET FUSIONNE LES MULTILINESTRING EN LINESTRING APRÈS CORRECTION
+	  	NEW.geom_new := ST_LineMerge(NEW.geom_new); 		    -- et fusionne les MultiLineStrings en LineStrings après correction
 	  END IF;
 
 	NEW.erreur :=  (
-    	WITH a AS -- RÉÉVALUE SI LES TRONÇONS MODIFIÉS RÉPONDENT À UNE CONDITION D'ERREUR
+    	WITH a AS -- réévalue si les tronçons modifiés répondent à une condition d'erreur
 	   		(SELECT CASE
 					WHEN ST_Crosses(NEW.geom_new, cp_wn.geom_new)
 					THEN 'st_crosses'
@@ -259,7 +264,7 @@ BEGIN
 						              	   WHERE NEW.id != cp_wn3.id
 						                		 AND ST_Intersects(ST_EndPoint(NEW.geom_new), cp_wn3.geom_new)))
 					THEN 'extremite'
-					WHEN OLD.erreur = 'ligne_trop_courte'
+					WHEN ST_Length(NEW.geom_new) < 1
 					THEN 'ligne_trop_courte'
 					WHEN ST_Touches(OLD.geom, cp_wn.geom)
 		   				 AND NOT ST_Touches(NEW.geom_new, cp_wn.geom_new)
@@ -272,7 +277,7 @@ BEGIN
 		  FROM a
 		 GROUP BY erreur
 		 ORDER BY count(erreur) DESC
-		 LIMIT 1 -- EN CAS D'ERREURS MULTIPLES, NE PREND QUE CELLE QUI RESSORT LE PLUS SOUVENT
+		 LIMIT 1 -- en cas d'erreurs multiples, ne prend que celle qui ressort le plus souvent
    	);
 
     NEW.supervised := TRUE;
@@ -282,11 +287,11 @@ END;
 $$;
 
 
----------- création du trigger
+---------- CRÉATION DU TRIGGER
 DROP TRIGGER IF EXISTS trigger_geom_new ON core_path_wip_new;
 
 CREATE TRIGGER trigger_geom_new
-  BEFORE UPDATE OF geom_new ON core_path_wip_new -- LE TRIGGER AGIT AVANT LA MISE À JOUR EFFECTIVE DE LA GÉOMÉTRIE DANS LA BASE, PERMET D'UTILISER LA SYNTAXE NEW/OLD
+  BEFORE UPDATE OF geom_new ON core_path_wip_new -- le trigger agit avant la mise à jour effective de la géométrie dans la base, permet d'utiliser la syntaxe new/old
   FOR EACH ROW
   EXECUTE PROCEDURE trigger_geom_new();
 
@@ -294,29 +299,3 @@ CREATE TRIGGER trigger_geom_new
 
 ---------- VISUALISATION DU NOMBRE D'ERREURS
 SELECT * FROM erreurs_compte;
-
-
----------- DERNIERE ETAPE DE LA CORRECTION :
-
----------- Identification des tronçons qui se touchaient dans le réseau référence
----------- mais ne se touchent plus après agrégation des linéaires
-WITH a AS (
-	SELECT DISTINCT cp_wn1.id
-	  FROM core_path_wip_new cp_wn1
-	 INNER JOIN core_path_wip_new cp_wn2
-		   ON ST_Touches(cp_wn1.geom, cp_wn2.geom)
-		   AND NOT ST_Touches(cp_wn1.geom_new, cp_wn2.geom_new)
-)
-UPDATE core_path_wip_new cp_wn
-   SET erreur = 'separes'
-  FROM a
- WHERE a.id = cp_wn.id;
-
-
-
---SELECT DISTINCT cp_wn1.id, cp_wn2.id, cp_wn1.geom_new, cp_wn2.geom_new
---	FROM core_path_wip_new cp_wn1
---	INNER JOIN core_path_wip_new cp_wn2
---	 ON ST_DWithin(ST_Boundary(cp_wn1.geom_new), cp_wn2.geom_new, 5)
---	 AND NOT ST_Intersects(cp_wn1.geom_new, cp_wn2.geom_new);
---

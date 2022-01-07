@@ -1,3 +1,6 @@
+---------- DÉSACTIVATION DES TRIGGERS DE core_pathaggregation
+ALTER TABLE core_pathaggregation DISABLE TRIGGER USER;
+
 ---------- CRÉATION D'UNE TABLE RETROUVANT LES core_pathaggregation À INSÉRER
 ---------- pour les tronçons ayant été découpés lors de la mise à jour de core_path
 ---------- le but est d'identifier les core_path issus d'un split grâce aux champs
@@ -154,23 +157,20 @@ SELECT path_id, start_position, end_position, "order", NULL::varchar AS suborder
   FROM core_pathaggregation
  WHERE topo_object_id NOT IN (SELECT id FROM core_topology WHERE kind = 'TREK');
 
----------- DÉSACTIVATION DES TRIGGERS DE CORE_PATHAGGREGATION
-ALTER TABLE core_pathaggregation DISABLE TRIGGER USER;
-
----------- SUPPRESSION DU CONTENU DE CORE_PATHAGGREGATION
+---------- SUPPRESSION DU CONTENU DE core_pathaggregation
 DELETE FROM core_pathaggregation;
 
----------- INSERTION DU NOUVEAU CONTENU DE CORE_PATHAGGREGATION
-INSERT INTO core_pathaggregation (
-			path_id, start_position, end_position, "order", topo_object_id
-			)
-	 SELECT path_id, start_position, end_position, new_order, topo_object_id
-	   FROM core_pathaggregation_new;
+---------- INSERTION DU NOUVEAU CONTENU DE core_pathaggregation
+INSERT INTO core_pathaggregation (path_id, start_position, end_position, "order", topo_object_id)
+SELECT path_id, start_position, end_position, new_order, topo_object_id
+	FROM core_pathaggregation_new;
 
----------- ACTIVATION DES TRIGGERS DE CORE_PATHAGGREGATION
+---------- ACTIVATION DES TRIGGERS DE core_pathaggregation
 ALTER TABLE core_pathaggregation ENABLE TRIGGER USER;
 
-
----------- REND VISIBLE TOUS LES CORE_PATH UTILISÉS DANS CORE_PATHAGGREGATION
-UPDATE core_path cp SET visible = TRUE
-WHERE cp.id IN (SELECT path_id FROM core_pathaggregation);
+---------- REND VISIBLE TOUS LES core_path UTILISÉS DANS core_pathaggregation
+---------- est censé régler le problème de l'interface d'édition qui n'affiche aucun tracé sur la carte
+---------- et du bouton "Créer une nouvelle route" grisé
+UPDATE core_path
+   SET visible = TRUE
+ WHERE id IN (SELECT path_id FROM core_pathaggregation);

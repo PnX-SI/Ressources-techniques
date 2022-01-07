@@ -1,4 +1,3 @@
-
 ---------- EXÉCUTION DE LA FONCTION update_geometry_of_topology()
 ---------- sur tous les core_topology d'itinéraires pour mettre à jour leur géométrie
 ---------- selon les nouveaux pathaggregation

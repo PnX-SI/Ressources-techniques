@@ -1,5 +1,5 @@
---- TEST : LES GÉOMÉTRIES DES TABLES IMPORTE ET REFERENCE DOIVENT TOUTES ÊTRE DES LINESTRING
---		SINON LES OPÉRATIONS D'AGRÉGATION NE PEUVENT PAS AVOIR LIEU
+---------- TEST : LES GÉOMÉTRIES DES TABLES importe ET reference DOIVENT TOUTES ÊTRE DES LINESTRING
+---------- sinon les opérations d'agrégation ne peuvent pas avoir lieu
 DO $$
 BEGIN
 	IF EXISTS(
@@ -24,7 +24,7 @@ END $$;
 
 
 
----------- CREATION DE LA TABLE DES CAS
+---------- CRÉATION DE LA TABLE DES CAS
 ---------- description des cinq types de cas
 DROP TABLE IF EXISTS cas;
 
@@ -41,7 +41,7 @@ VALUES ('100% doublon'),
 	   ('100% unique');
 
 
----------- CREATION INDEX SPATIAUX SUR reference ET importe
+---------- CRÉATION D'INDEX SPATIAUX SUR LES TABLES reference ET importe
 ---------- accélère les requêtes spatiales
 DROP INDEX IF EXISTS reference_geom_idx;
 

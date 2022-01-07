@@ -1,4 +1,3 @@
-
 ---------- Calcul des core_pathaggregation qui manquent à certaines core_topology
 CREATE TABLE IF NOT EXISTS core_pathaggregation_manquants AS
 WITH a AS (

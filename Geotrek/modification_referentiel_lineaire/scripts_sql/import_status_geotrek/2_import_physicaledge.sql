@@ -1,4 +1,4 @@
--- Création d'une table aggrégeant les géométries quand les données attributaires étaient équivalentes
+---------- Création d'une table agrégeant les géométries quand les données attributaires étaient équivalentes
 
 CREATE TABLE IF NOT EXISTS rlesi_cartosud_updated_merged_on_type_revet AS
 WITH a AS (

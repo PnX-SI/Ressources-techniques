@@ -1,5 +1,4 @@
-
--- execution des triggers
+---------- EXÉCUTION DES TRIGGERS DE core_path POUR ACTIVER LES DÉCOUPAGES AUTOMATIQUES DE GEOTREK
 DO $$DECLARE r record;
 DECLARE
 	v_state   TEXT;
@@ -10,14 +9,14 @@ DECLARE
 BEGIN
 	FOR r IN (
 		SELECT *
-		FROM core_path
-		WHERE date_update = (SELECT max(date_update) FROM core_path cp2 LIMIT 1)
-		ORDER BY id
-		LIMIT MY_LIMIT OFFSET MY_OFFSET
+		  FROM core_path
+		 WHERE date_update = (SELECT max(date_update) FROM core_path LIMIT 1)
+		 ORDER BY id
+		 LIMIT MY_LIMIT OFFSET MY_OFFSET
 	) LOOP
 		BEGIN
-			-- UPDATE core_path c SET geom = geom WHERE id = r.id;
-			RAISE NOTICE 'DO';
+			UPDATE core_path SET geom = geom WHERE id = r.id;
+			-- RAISE NOTICE 'DO';
 		EXCEPTION
 			WHEN OTHERS THEN
 				get stacked diagnostics

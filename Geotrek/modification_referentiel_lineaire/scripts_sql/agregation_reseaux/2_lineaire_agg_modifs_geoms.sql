@@ -1,4 +1,4 @@
----------- CREATION D'UNE MATRICE DE DECISION DES inner AVEC TOUTES LES RELATIONS N'ETANT PAS DU BRUIT
+---------- CRÉATION D'UNE MATRICE DE DÉCISION DES inner AVEC TOUTES LES RELATIONS N'ÉTANT PAS DU BRUIT
 DROP TABLE IF EXISTS decision_inner;
 
 CREATE TABLE decision_inner AS
@@ -13,11 +13,11 @@ CREATE TABLE decision_inner AS
 	         CASE
              WHEN cas_r IN (4,5) THEN 1-longueur_ri/longueur_r
 		     ELSE longueur_ri/longueur_r
-		     END AS tx_longueur_doublon_r, -- CALCUL D'UN INDICATEUR DE PERTINENCE DE LA RELATION ri
+		     END AS tx_longueur_doublon_r, -- calcul d'un indicateur de pertinence de la relation ri
 	         CASE
 	         WHEN cas_i IN (4,5) THEN 1-longueur_ir/longueur_i
 		     ELSE longueur_ir/longueur_i
-		     END AS tx_longueur_doublon_i, -- CALCUL D'UN INDICATEUR DE PERTINENCE DE LA RELATION ir
+		     END AS tx_longueur_doublon_i, -- calcul d'un indicateur de pertinence de la relation ir
 		     geom_ir_ri,
 		     aire_ir_ri,
 		     NULL::varchar AS "action",
@@ -25,29 +25,26 @@ CREATE TABLE decision_inner AS
 	    FROM tampon_inner_all ti
 	    JOIN importe i
 	      ON i.id = ti.iid
-	     AND NOT bruit IS TRUE --(en l'absence de supervision, tous les BRUIT IS NULL sont importés aussi)
+	     AND NOT bruit IS TRUE -- (en l'absence de supervision, tous les "BRUIT IS NULL" sont importés aussi)
        ORDER BY rid;
 
 
-ALTER TABLE decision_inner ADD PRIMARY KEY (rid, iid); -- nécessaire pour modification dans QGIS
 
 
-
-
--------------------- GEOMETRIES UNIQUES DES TRONÇONS r
+-------------------- GÉOMÉTRIES UNIQUES DES TRONÇONS r :
 ---------- le but est d'obtenir à la fois la liste des tronçons r qui sont totalement en-dehors des tampons i
 ---------- mais aussi les portions uniques de tronçons r dont une partie est en doublon avec un ou plusieurs i
 ---------- le même procédé n'est pas appliqué aux tronçons i, dont les parties uniques sont récupérées ultérieurement d'une autre manière
 
 
----------- CREATION D'UNE TABLE AVEC TOUTES LES GEOMETRIES UNIQUES DE r
+---------- CRÉATION D'UNE TABLE AVEC TOUTES LES GÉOMÉTRIES UNIQUES DE r
 DROP TABLE IF EXISTS tampon_outer_r;
 
 CREATE TABLE tampon_outer_r AS
-	WITH uniques AS ( -- SELECTION DES TRONÇONS DONT L'ID EST ABSENT DE decision_inner, DONC 100% UNIQUES
+	WITH uniques AS ( -- sélection des tronçons dont l'id est absent de decision_inner, donc 100% uniques
 		SELECT r.id AS rid,
-			   r.geom AS geom_ri, -- SACHANT QU'IL N'Y A PAS DE i, ri EST A COMPRENDRE COMME LA RELATION DE r PAR RAPPORT A "RIEN"
-		       					  -- C'EST DONC LA PARTIE UNIQUE DE r
+			   r.geom AS geom_ri, -- sachant qu'il n'y a pas de i, ri est à comprendre comme la relation de r par rapport à "rien"
+		       					    -- c'est donc la partie unique de r
 			   r.geom AS geom_r,
 			   5 AS cas_r
 		  FROM reference r
@@ -55,8 +52,8 @@ CREATE TABLE tampon_outer_r AS
 		       ON di.rid = r.id
 		 WHERE di.rid IS NULL
 	),
-	split_outer AS ( -- CREATION DES GEOMETRIES DE r EXTERIEURES AUX TAMPONS i
- 					  -- VIA ST_DIFFERENCE SUR UN TAMPON DES GEOMETRIES INTERIEURES geom_ri
+	split_outer AS ( -- création des géométries de r extérieures aux tampons i
+ 					  -- via ST_Difference sur un tampon des géométries intérieures geom_ri
 		SELECT rid,
 			   ST_Difference(geom_r, ST_Union(ST_Buffer(geom_ri, 0.000001, 'endcap=flat'))) AS geom_ri,
 			   geom_r,
@@ -64,7 +61,7 @@ CREATE TABLE tampon_outer_r AS
 		  FROM decision_inner
 		 GROUP BY rid, geom_r
 	),
-	"union" AS ( -- UNION DES DEUX TABLES
+	"union" AS ( -- union des deux tables
 		SELECT * FROM uniques
 		 UNION ALL
 		SELECT * FROM split_outer
@@ -79,7 +76,7 @@ SELECT rid,
   FROM "union";
 
 
----------- ELIMINATION DES r QUI N'ONT AUCUNE PARTIE UNIQUE
+---------- ÉLIMINATION DES r QUI N'ONT AUCUNE PARTIE UNIQUE
 UPDATE tampon_outer_r
    SET bruit = TRUE
  WHERE geom_ri = 'GEOMETRYCOLLECTION EMPTY';
@@ -89,7 +86,7 @@ UPDATE tampon_outer_r
  WHERE bruit IS NULL;
 
 
----------- CREATION D'UNE TABLE DE DECISION
+---------- CRÉATION D'UNE TABLE DE DÉCISION
 ---------- sur le même modèle que decision_inner
 DROP TABLE IF EXISTS decision_outer_r;
 
@@ -98,66 +95,69 @@ CREATE TABLE decision_outer_r AS
 		     cas_r,
 		     geom_ri,
 		     geom_r,
-		     longueur_ri/longueur_r AS tx_longueur_unicite_r, -- CALCUL D'UN INDICATEUR DE PERTINENCE DE LA RELATION ri
+		     longueur_ri/longueur_r AS tx_longueur_unicite_r, -- calcul d'un indicateur de pertinence de la relation ri
 		     NULL::varchar AS "action"
 	    FROM tampon_outer_r
 	   WHERE bruit IS FALSE
 	   ORDER BY rid;
 
 
--------------------- MODIFICATIONS DES GEOMETRIES DU REFERENTIEL : DOUBLONS
+-------------------- MODIFICATIONS DES GÉOMÉTRIES DU RÉFÉRENTIEL : DOUBLONS
 ---------- le but est ici d'attribuer à chaque relation une action de modification de la géométrie du tronçon r.
 ---------- on peut vouloir modifier la totalité de la géométrie de r, une partie seulement, ou bien ne rien modifier
-
 DROP TABLE IF EXISTS core_path_wip_new;
 
 CREATE TABLE core_path_wip_new AS
 	   SELECT id,
-	   		  length,
-	   		  geom,
-	  	      NULL::geometry AS geom_new,
-	  	      NULL::varchar AS erreur,
-	  	      FALSE::boolean AS supervised,
-	  	      "comments",
-	  	      structure_id,
-	  	      eid
+	   		 geom,
+	  	       NULL::geometry AS geom_new,
+	  	       NULL::varchar AS erreur,
+	  	       FALSE::boolean AS supervised,
+	  	       "comments",
+	  	       structure_id,
+	  	       eid,
+	  	       NULL::varchar AS geom_modified -- permet de tracer simplement si l'enregistrement a eu sa géométrie modifiée
 	     FROM reference r;
 
-ALTER TABLE core_path_wip_new ADD PRIMARY KEY(id);
+ALTER TABLE core_path_wip_new ADD PRIMARY KEY(id); -- pour pouvoir modifier les géométries dans QGIS
 
 CREATE SEQUENCE core_path_wip_new_id_seq OWNED BY core_path_wip_new.id;
 SELECT setval('core_path_wip_new_id_seq', (SELECT max(id) FROM core_path_wip_new));
 ALTER TABLE core_path_wip_new ALTER COLUMN id SET DEFAULT nextval('core_path_wip_new_id_seq');
 
 
----------- DEFINITION DE L'ACTION A REALISER
+---------- DÉFINITION DE L'ACTION À RÉALISER :
 
----------- IL Y A UNE RELATION DE DOUBLE DOUBLON TOTAL
----------- la nouvelle geometrie de r sera geom_i
+---------- IL Y A UNE RELATION DE DOUBLE DOUBLON TOTAL :
+---------- la nouvelle géométrie de r sera geom_i
 UPDATE decision_inner
    SET "action" = 'geom_r geom_i'
  WHERE cas_r = 1
    AND cas_i = 1;
 
 ---------- TOUT r EST DOUBLON AVEC i MAIS PAS L'INVERSE :
----------- la nouvelle geometrie de r sera une projection de celle-ci sur une partie de geom_i
+---------- la nouvelle géométrie de r sera une projection de celle-ci sur une partie de geom_i
 UPDATE decision_inner
    SET "action" = 'geom_r locate geom_i'
  WHERE cas_r = 1
    AND cas_i != 1;
 
----------- UNE PARTIE DE r EST DOUBLON AVEC i
----------- une partie de la nouvelle geometrie de r sera une projection de geom_ri sur une partie de geom_i
+---------- UNE PARTIE DE r EST DOUBLON AVEC i :
+---------- une partie de la nouvelle géométrie de r sera une projection de geom_ri sur une partie de geom_i
 UPDATE decision_inner
    SET "action" = 'geom_ri locate geom_i'
  WHERE cas_r != 1;
 
 
+
+---------- RÉALISATION DES ACTIONS :
+
 ---------- IL Y A UNE RELATION DE DOUBLE DOUBLON TOTAL
 UPDATE core_path_wip_new cp_wn
    SET geom_new = geom_i,
        eid = iid,
-       structure_id = di.structure_id
+       structure_id = di.structure_id,
+       geom_modified = 'oui'
   FROM decision_inner di
  WHERE cp_wn.id = di.rid
    AND "action" = 'geom_r geom_i';
@@ -165,16 +165,16 @@ UPDATE core_path_wip_new cp_wn
 
 ---------- TOUT r EST DOUBLON AVEC i MAIS PAS L'INVERSE :
 
----------- r est a moins de 5m du debut de i
----------- la nouvelle géométrie de r est geom_i,
----------- de son point de départ (0) jusqu'au point le plus loin de celui-ci entre
+---------- r est a moins de 5m du debut de i :
+---------- la nouvelle géométrie de r est geom_i, de son point de départ (0)
+---------- jusqu'au point le plus loin de celui-ci parmi
 ---------- les projections du point de départ et du point d'arrivée de geom_r
 WITH a AS (
 	SELECT *,
 		   ST_LineSubstring(
 		   		geom_i,
 		   		0,
-				GREATEST( -- nécessaire pour pallier aux differences de direction entre les tronçons r et i
+				GREATEST( -- nécessaire pour pallier aux différences de direction entre les tronçons r et i
 					ST_LineLocatePoint(geom_i, ST_StartPoint(geom_r)),
 					ST_LineLocatePoint(geom_i, ST_EndPoint(geom_r))
 				)
@@ -186,19 +186,20 @@ WITH a AS (
 UPDATE core_path_wip_new cp_wn
    SET geom_new = a.geom_new,
        eid = iid,
-       structure_id = a.structure_id
+       structure_id = a.structure_id,
+       geom_modified = 'oui'
   FROM a
  WHERE cp_wn.id = a.rid;
 
----------- r est a moins de 5m de la fin de i
----------- la nouvelle géométrie de r est geom_i,
----------- du point le plus proche du départ entre les projections du point de départ et du point d'arrivée de geom_r
+---------- r est a moins de 5m de la fin de i :
+---------- la nouvelle géométrie de r est geom_i, du point le plus proche de son point de départ
+---------- parmi les projections du point de départ et du point d'arrivée de geom_r
 ---------- jusqu'à son point d'arrivée (1)
 WITH a AS (
 	SELECT *,
 		   ST_LineSubstring(
 				geom_i,
-				LEAST( -- nécessaire pour pallier aux differences de direction entre les tronçons r et i
+				LEAST( -- nécessaire pour pallier aux différences de direction entre les tronçons r et i
 					ST_LineLocatePoint(geom_i, ST_StartPoint(geom_r)),
 					ST_LineLocatePoint(geom_i, ST_EndPoint(geom_r))
 				),
@@ -211,24 +212,25 @@ WITH a AS (
 UPDATE core_path_wip_new cp_wn
    SET geom_new = a.geom_new,
        eid = iid,
-       structure_id = a.structure_id
+       structure_id = a.structure_id,
+       geom_modified = 'oui'
   FROM a
  WHERE cp_wn.id = a.rid;
 
----------- r n'est pas proche des extremites de i
----------- en quelque sorte "au milieu" de i
----------- la nouvelle géométrie de r est geom_i,
----------- du point le plus proche du départ entre les projections du point de départ et du point d'arrivée de geom_r
----------- jusqu'au point le plus loin de celui-ci entre les deux mêmes projections
+---------- r n'est pas proche des extremites de i :
+---------- en quelque sorte "au milieu" de i.
+---------- la nouvelle géométrie de r est geom_i, du point le plus proche de son point de départ 
+---------- parmi les projections du point de départ et du point d'arrivée de geom_r
+---------- jusqu'au point le plus loin de son point de départ, toujours parmi les deux mêmes projections
 WITH a AS (
 	SELECT *,
 		   ST_LineSubstring(
 				geom_i,
-				LEAST( -- nécessaire pour pallier aux differences de direction entre les tronçons r et i
+				LEAST( -- nécessaire pour pallier aux différences de direction entre les tronçons r et i
 					ST_LineLocatePoint(geom_i, ST_StartPoint(geom_r)),
 					ST_LineLocatePoint(geom_i, ST_EndPoint(geom_r))
 				),
-				GREATEST( -- nécessaire pour pallier aux differences de direction entre les tronçons r et i
+				GREATEST( -- nécessaire pour pallier aux différences de direction entre les tronçons r et i
 					ST_LineLocatePoint(geom_i, ST_StartPoint(geom_r)),
 					ST_LineLocatePoint(geom_i, ST_EndPoint(geom_r))
 				)
@@ -241,16 +243,17 @@ WITH a AS (
 UPDATE core_path_wip_new cp_wn
    SET geom_new = a.geom_new,
        eid = iid,
-       structure_id = a.structure_id
+       structure_id = a.structure_id,
+       geom_modified = 'oui'
   FROM a
  WHERE cp_wn.id = a.rid;
 
 
 
----------- UNE PARTIE DE r EST DOUBLON AVEC i
----------- la nouvelle géométrie de r est geom_i,
----------- du point le plus proche du départ entre les projections du point de départ et du point d'arrivée de geom_ri
----------- jusqu'au point le plus loin de celui-ci entre les deux mêmes projections
+---------- UNE PARTIE DE r EST DOUBLON AVEC i :
+---------- la nouvelle géométrie de r est geom_i, du point le plus proche de son point de départ
+---------- parmi les projections du point de départ et du point d'arrivée de geom_ri
+---------- jusqu'au point le plus loin de son point de départ, toujours parmi les deux mêmes projections
 WITH a AS (
 	SELECT *,
 		   ST_StartPoint(ST_GeometryN(geom_ri, 1)) AS start_ri,
@@ -285,7 +288,7 @@ c AS (
 		   ST_LineSubstring(
 				geom_i,
 				0,
-				GREATEST(locate_ri_start, locate_ri_end) -- nécessaire pour pallier aux differences de direction entre les tronçons r et i
+				GREATEST(locate_ri_start, locate_ri_end) -- nécessaire pour pallier aux différences de direction entre les tronçons r et i
 		   ) AS geom_new
 	  FROM a
 	 WHERE cas_i != 1
@@ -299,7 +302,7 @@ d AS (
 		   ST_LineSubstring(
 				geom_i,
 				LEAST(locate_ri_start, locate_ri_end),
-				1 -- nécessaire pour pallier aux differences de direction entre les tronçons r et i
+				1 -- nécessaire pour pallier aux différences de direction entre les tronçons r et i
 		   ) AS geom_new
 	  FROM a
 	 WHERE cas_i != 1
@@ -313,7 +316,7 @@ e AS (
 		   ST_LineSubstring(
 				geom_i,
 				LEAST(locate_ri_start, locate_ri_end),
-				GREATEST(locate_ri_start, locate_ri_end) -- nécessaire pour pallier aux differences de direction entre les tronçons r et i
+				GREATEST(locate_ri_start, locate_ri_end) -- nécessaire pour pallier aux différences de direction entre les tronçons r et i
 		   ) AS geom_new
 	  FROM a
 	 WHERE cas_i != 1
@@ -352,23 +355,23 @@ h AS (
 UPDATE core_path_wip_new cp_wn
    SET geom_new = h.geom_new,
        eid = iid,
-       structure_id = h.structure_id
+       structure_id = h.structure_id,
+       geom_modified = 'oui'
   FROM h
  WHERE cp_wn.id = h.rid;
 
 
 
---------------------MODIFICATIONS DES GEOMETRIES DU REFERENTIEL : PARTIES UNIQUES DE r ET DE i
+-------------------- MODIFICATIONS DES GÉOMÉTRIES DU RÉFÉRENTIEL : PARTIES UNIQUES DE r ET DE i
 ---------- le but est d'identifier et intégrer les parties uniques de tronçons r ou i,
 ---------- qui ont donc déjà été partiellement intégrés sur leur partie en doublon (que ce soit r ou i)
 
 
 
----------- AJOUT DES PARTIES UNIQUES DE r
+---------- AJOUT DES PARTIES UNIQUES DE r :
 ---------- si geom_ri < 5m alors normalement déjà prise en compte via l'action "geom_r locate geom_i" sur les géométries intérieures
 ---------- si r est dans une relation "doublon discontinu" et "doublon discontinu" (cas_r = 3 et cas_i = 3) alors déjà prise en compte
 ---------- si geom_ri est une MultiLineString alors conservation uniquement des parties de plus de 5m
-
 DROP TABLE IF EXISTS r_parties_uniques;
 
 CREATE TABLE r_parties_uniques AS
@@ -405,36 +408,36 @@ SELECT b.*
 
 
 
----------- MAJ DES GEOMETRIES DES r DONT UNE PARTIE EST UNIQUE
+---------- MAJ DES GÉOMÉTRIES DES r DONT UNE PARTIE EST UNIQUE :
 ---------- le but est de rattacher les parties uniques aux géométries r qui ont été modifiées pour coller à des geom_i
 ---------- sur leurs parties en doublon. Il faut donc recréer une continuité pour éviter les trous et erreurs topologiques.
 ---------- (étape complétée plus tard par une autre requête pour les r dont l'extrémité de la partie unique doit egalement être modifiée)
 WITH
-a AS (  -- PARTIES UNIQUES A UN BOUT OU L'AUTRE DE r (cf. ST_Overlaps)
+a AS (  -- parties uniques à un bout ou l'autre de r (cf. ST_Overlaps)
 	SELECT trpu.rid,
-		   ST_ClosestPoint(ST_Boundary(cp_wn.geom_new),  -- IDENTIFICATION DE L'EXTREMITE DE geom_new LA PLUS PROCHE
-		   				   ST_Boundary(trpu.geom_ri)  -- DES EXTREMITES DE geom_ri UNIQUE (trpu.geom_ri)
+		   ST_ClosestPoint(ST_Boundary(cp_wn.geom_new),  -- identification de l'extrémité de geom_new la plus proche
+		   				   ST_Boundary(trpu.geom_ri)  -- des extrémités de geom_ri unique (trpu.geom_ri)
 		   ) AS closest_new,
-		   ST_LineLocatePoint(trpu.geom_ri, -- IDENTIFICATION DE L'EXTREMITE DE trpu.geom_ri LA PLUS PROCHE
-		   									-- DES EXTREMITES DE geom_new
+		   ST_LineLocatePoint(trpu.geom_ri, -- identification de l'extrémité de trpu.geom_ri la plus proche
+		   									-- des extrémités de geom_new
 		   					  ST_ClosestPoint(ST_Boundary(trpu.geom_ri),
 		   					  				  ST_Boundary(cp_wn.geom_new)
 		   					  )
 		   )::integer AS closest_ri,
 		   trpu.geom_ri,
 		   cp_wn.geom_new
-	  FROM r_parties_uniques trpu -- JOINTURE ENTRE LA TABLE DES PARTIES UNIQUES DES r
-	  								   -- ET LA TABLE AVEC LES GEOMETRIES DEJA MODIFIEES PAR LES REQUETES PRECEDENTES
+	  FROM r_parties_uniques trpu -- jointure entre la table des parties uniques des r
+	  								   -- et la table avec les géométries déjà modifiees par les requêtes précédentes
 	  	   JOIN core_path_wip_new cp_wn
 	       ON cp_wn.id = trpu.rid
 	       AND ST_Overlaps(ST_Boundary(trpu.geom_ri), ST_Boundary(trpu.geom_r))
 ),
 b AS (
 	SELECT  rid,
-			-- AJOUT DE L'EXTREMITE DE geom_new LA PLUS PROCHE DES EXTREMITES DE trpu.geom_ri A CETTE DERNIERE
+			-- ajout de l'extrémité de geom_new la plus proche des extrémités de trpu.geom_ri à cette dernière
 			CASE
-				WHEN closest_ri = 1 THEN ST_AddPoint(geom_ri, closest_new)  -- EST LE POINT D'ARRIVEE : closest_ri = 1
-				ELSE ST_AddPoint(geom_ri, closest_new, 0) -- EST LE POINT DE DEPART : closest_ri = 0
+				WHEN closest_ri = 1 THEN ST_AddPoint(geom_ri, closest_new)  -- est le point d'arrivée : closest_ri = 1
+				ELSE ST_AddPoint(geom_ri, closest_new, 0) -- est le point de départ : closest_ri = 0
 			END AS geom_ri_new
 	  FROM a
 ),
@@ -446,8 +449,8 @@ union_geom_ri_new AS (
 ),
 c AS (
 	SELECT rid,
-		   ST_LineMerge(ST_Union(geom_ri_new, cp_wn.geom_new)) AS geom_new -- UNION DE L'ANCIENNE geom_new ET DE LA PARTIE UNIQUE
-		   																-- AUGMENTEE DU POINT DE RACCORDEMENT A LA geom_new
+		   ST_LineMerge(ST_Union(geom_ri_new, cp_wn.geom_new)) AS geom_new -- union de l'ancienne geom_new et de la partie unique
+		   																-- augmentée du point de raccordement à la geom_new
 	  FROM union_geom_ri_new
 	  JOIN core_path_wip_new cp_wn
 	    ON cp_wn.id = union_geom_ri_new.rid
@@ -471,7 +474,9 @@ UPDATE core_path_wip_new cp_wn
 		 );
 
 
----------- CREATION D'UNE MATRICE DES EXTREMITES
+
+
+---------- CRÉATION D'UNE MATRICE DES EXTRÉMITÉS
 ---------- le but est d'identifier les extrémités de tronçons r qui ont changé de coordonnées
 ---------- afin de pouvoir rattacher les parties uniques d'autres tronçons r qui partageaient une extrémité identique
 ---------- en effet une partie unique de r n'étant par définition pas calquée sur une géométrie i,
@@ -488,8 +493,7 @@ CREATE TABLE r_extremites AS
 			 geom_new
 		FROM core_path_wip_new;
 
----------- ENREGISTREMENT DES NOUVELLES EXTREMITES DES TRONÇONS r MODIFIES
-
+---------- ENREGISTREMENT DES NOUVELLES EXTRÉMITÉS DES TRONÇONS r MODIFIÉS
 DROP INDEX IF EXISTS r_extremites_geom_idx;
 
 CREATE INDEX r_extremites_geom_idx
@@ -548,40 +552,40 @@ CLUSTER r_extremites
 
 
 
----------- MISE A JOUR DES NOUVELLES EXTREMITES DES r EN PARTIE UNIQUES
+---------- MISE À JOUR DES NOUVELLES EXTRÉMITÉS DES r EN PARTIE UNIQUES
 ---------- identification des extrémités qui étaient en commun entre plusieurs r dans le référentiel originel
 ---------- puis adaptation aux nouvelles extrémités provenant des modifications de géométrie ayant déjà eu lieu
 WITH a AS (
  	SELECT r1.id AS r1_id,
-		   r1.geom AS r1_geom, -- GEOMETRIE ORIGINELLE
-		   r1.startpoint AS r1_startpoint, -- POINT DE DEPART ORIGINEL
-		   r1.endpoint AS r1_endpoint, -- POINT D'ARRIVEE ORIGINEL
-		   r1.geom_new AS r1_geom_new, -- GEOMETRIE MODIFIEE PAR LES REQUETES PRECEDENTES
+		   r1.geom AS r1_geom, -- géométrie originelle
+		   r1.startpoint AS r1_startpoint, -- point de départ originel
+		   r1.endpoint AS r1_endpoint, -- point d'arrivée originel
+		   r1.geom_new AS r1_geom_new, -- géométrie modifiée par les requêtes précédentes
 		   r2.id AS r2_id,
 		   r2.geom AS r2_geom,
 		   r2.startpoint AS r2_startpoint,
 		   r2.endpoint AS r2_endpoint,
-		   r2.startpoint_new AS r2_startpoint_new, -- POINT DE DEPART DE LA GEOMETRIE MODIFIEE PAR LES REQUETES PRECEDENTES
-		   r2.endpoint_new AS r2_endpoint_new -- POINT D'ARRIVEE DE LA GEOMETRIE MODIFIEE PAR LES REQUETES PRECEDENTES
+		   r2.startpoint_new AS r2_startpoint_new, -- point de départ de la géométrie modifiée par les requêtes précédentes
+		   r2.endpoint_new AS r2_endpoint_new -- point d'arrivée de la géométrie modifiée par les requêtes précédentes
 	  FROM r_extremites r1
-	       INNER JOIN r_extremites r2 -- JOINTURE DE LA MATRICE DES EXTREMITES AVEC ELLE-MEME
+	       INNER JOIN r_extremites r2 -- jointure de la matrice des extrémités avec elle-même
 	       ON r1.id != r2.id
-	       	 AND r1.geom_new IS NOT NULL -- SI r EST EN PARTIE UNIQUE, ALORS IL DOIT AVOIR UNE geom_new EN RAISON DE SA PARTIE DOUBLON
-		   	 AND r2.geom_new IS NOT NULL -- ON VEUT TROUVER LES AUTRES r DONT LA GEOMETRIE A ETE MODIFIEE, DONC QUI ONT UNE geom_new
+	       	 AND r1.geom_new IS NOT NULL -- si r est en partie unique, alors il doit avoir une geom_new en raison de sa partie doublon
+		   	 AND r2.geom_new IS NOT NULL -- on veut trouver les autres r dont la géométrie a été modifiée, donc qui ont une geom_new
 			    AND (
-			   	ST_Overlaps(ST_Boundary(r2.geom), ST_Boundary(r1.geom)) -- ON VEUT TROUVER LES r DONT UNE EXTREMITE
-			   													  		-- ETAIT AUSSI UNE EXTREMITE D'UN AUTRE r
+			   	ST_Overlaps(ST_Boundary(r2.geom), ST_Boundary(r1.geom)) -- on veut trouver les r dont une extrémité
+			   													  		-- était aussi une extrémité d'un autre r
 			   	AND NOT
-			   	ST_Overlaps(ST_Boundary(r2.geom_new), ST_Boundary(r1.geom_new)) -- MAIS DONT LES NOUVELLES EXTREMITES ONT DIVERGÉ
-			   	 														   		-- DES NOUVELLES EXTREMITES DE CET AUTRE r
-			   																	-- (PERMET DE NE PAS PRENDRE EN COMPTE
-			   																	-- LES EXTREMITES COMMUNES AYANT DEJA ETE MODIFIEES ENSEMBLE)
+			   	ST_Overlaps(ST_Boundary(r2.geom_new), ST_Boundary(r1.geom_new)) -- mais dont les nouvelles extrémités ont divergé
+			   	 														   		-- des nouvelles extrémités de cet autre r
+			   																	-- (permet de ne pas prendre en compte
+			   																	-- les extrémités communes ayant déjà ete modifiées ensemble)
 			    )
 	  JOIN r_parties_uniques trpu
 	    ON trpu.rid = r1.id
-), -- 4 CAS À TESTER SELON SI L'EXTRÉMITÉ COMMUNE ÉTAIT CONSTITUÉE DU POINT DE DÉPART OU D'ARRIVÉE DE R1 ET DU POINT DE DÉPART OU D'ARRIVÉE DE R2
+), -- 4 cas à tester selon si l'extrémité commune était constituée du point de départ ou d'arrivée de r1 et du point de départ ou d'arrivée de r2
 b AS (
-	SELECT r2_startpoint_new AS r1_startpoint_new, -- ETANT DONNE LES CLAUSES WHERE CI-DESSOUS, LE NOUVEAU startpoint DE r1 EST EGAL AU r2_startpoint_new
+	SELECT r2_startpoint_new AS r1_startpoint_new, -- étant donné les clauses WHERE ci-dessous, le nouveau startpoint de r1 est égal au r2_startpoint_new
 		   NULL::geometry AS r1_endpoint_new,
 		   *,
 		   1 AS cas
@@ -590,14 +594,14 @@ b AS (
 ),
 c AS (
 	SELECT NULL::geometry AS r1_startpoint_new,
-		   r2_endpoint_new AS r1_endpoint_new, -- ETANT DONNE LES CLAUSES WHERE CI-DESSOUS, LE NOUVEAU endpoint DE r1 EST EGAL AU r2_startpoint_new
+		   r2_endpoint_new AS r1_endpoint_new, -- étant donné les clauses WHERE ci-dessous, le nouveau endpoint de r1 est égal au r2_startpoint_new
 		   *,
 		   2 AS cas
 	  FROM a
 	 WHERE ST_Equals(r1_endpoint, r2_endpoint)
 ),
 d AS (
-	SELECT r2_endpoint_new AS r1_startpoint_new, -- ETANT DONNE LES CLAUSES WHERE CI-DESSOUS, LE NOUVEAU startpoint DE r1 EST EGAL AU r2_endpoint_new
+	SELECT r2_endpoint_new AS r1_startpoint_new, -- étant donné les clauses WHERE ci-dessous, le nouveau startpoint de r1 est égal au r2_endpoint_new
 		   NULL::geometry AS r1_endpoint_new,
 		   *,
 		   3 AS cas
@@ -606,7 +610,7 @@ d AS (
 ),
 e AS (
 	SELECT NULL::geometry AS r1_startpoint_new,
-		   r2_startpoint_new AS r1_endpoint_new, -- ETANT DONNE LES CLAUSES WHERE CI-DESSOUS, LE NOUVEAU endpoint DE r1 EST EGAL AU r2_endpoint_new
+		   r2_startpoint_new AS r1_endpoint_new, -- étant donné les clauses WHERE ci-dessous, le nouveau endpoint de r1 est égal au r2_endpoint_new
 		   *,
 		   4 AS cas
 	  FROM a
@@ -623,11 +627,11 @@ f AS (
 ),
 g AS (
 	SELECT r1_id,
-		   COALESCE(ST_Union(r1_startpoint_new), ST_StartPoint(r1_geom_new)) AS startpoint_new, -- SI UN NOUVEAU startpoint_new N'A PAS ETE ATTRIBUE A r1, ALORS ON REPREND L'ANCIEN startpoint_new
-		   COALESCE(ST_Union(r1_endpoint_new), ST_EndPoint(r1_geom_new)) AS endpoint_new -- SI UN NOUVEAU endpoint_new N'A PAS ETE ATTRIBUE A r1, ALORS ON REPREND L'ANCIEN endpoint_new
+		   COALESCE(ST_Union(r1_startpoint_new), ST_StartPoint(r1_geom_new)) AS startpoint_new, -- si un nouveau startpoint_new n'a pas été attribué a r1, alors on reprend l'ancien startpoint_new
+		   COALESCE(ST_Union(r1_endpoint_new), ST_EndPoint(r1_geom_new)) AS endpoint_new -- si un nouveau endpoint_new n'a pas été attribué a r1, alors on reprend l'ancien endpoint_new
 	  FROM f
-	 GROUP BY r1_id, r1_geom, r1_geom_new -- LES INTERSECTIONS ENTRE PLUS DE DEUX r PRODUISENT PLUSIEURS RELATIONS r1/r2,
-	 									  -- IL FAUT DONC FUSIONNER ET REGROUPER PAR rid TOUTES LES NOUVELLES EXTREMITES PRODUITES
+	 GROUP BY r1_id, r1_geom, r1_geom_new -- les intersections entre plus de deux r produisent plusieurs relations r1/r2,
+	 									  -- il faut donc fusionner et regrouper par rid toutes les nouvelles extrémités produites
 )
 UPDATE r_extremites re
    SET startpoint_new = g.startpoint_new,
@@ -636,18 +640,11 @@ UPDATE r_extremites re
  WHERE re.id = g.r1_id;
 
 
----------- MISE A JOUR DES GEOMETRIES DES r DONT UNE EXTREMITE A ETE DEPLACEE
+---------- MISE À JOUR DES GÉOMÉTRIES DES r DONT UNE EXTRÉMITÉ A ÉTÉ DÉPLACÉE
 ---------- ajout des nouvelles extrémités au début et à la fin de tous les tronçons r ayant une geom_new
 ---------- pour une partie d'entre eux, leur geom_new, et donc leurs nouvelles extrémités, n'a pas été modifiée
 ---------- par la requête précédente, donc leurs points de départ et d'arrivée vont se retrouver dupliqués.
 ---------- d'où la nécessité de ST_RemoveRepeatedPoints, pour nettoyer les géométries
---UPDATE core_path_wip_new cp_wn
---   SET geom_new = ST_RemoveRepeatedPoints(ST_AddPoint(ST_AddPoint(cp_wn.geom_new, startpoint_new, 0), endpoint_new, -1))
---  FROM r_extremites re
--- WHERE re.id = cp_wn.id
---   AND ST_GeometryType(startpoint_new) = 'ST_Point'
---   AND ST_GeometryType(endpoint_new) = 'ST_Point'
---   AND ST_GeometryType(cp_wn.geom_new) = 'ST_LineString';
 
 UPDATE core_path_wip_new cp_wn
    SET geom_new = ST_RemoveRepeatedPoints(ST_SetPoint(ST_SetPoint(cp_wn.geom_new, 0, startpoint_new), -1, endpoint_new))
@@ -659,7 +656,7 @@ UPDATE core_path_wip_new cp_wn
 
 
 
----------- NOUVELLE MISE A JOUR DES EXTREMITES POUR PRENDRE EN COMPTE LES MODIFICATIONS JUSTE EFFECTUEES
+---------- NOUVELLE MISE À JOUR DES EXTRÉMITÉS POUR PRENDRE EN COMPTE LES MODIFICATIONS JUSTE EFFECTUÉES
 ---------- comme nous venons de modifier les géométries des r ayant une partie unique, il faut de nouveau mettre à jour
 ---------- la table des extrémités, afin qu'elle soit correcte et prête pour la suite
 UPDATE r_extremites re
@@ -672,7 +669,7 @@ UPDATE r_extremites re
 
 
 
----------- CREATION DE NOUVEAUX TRONÇONS CORRESPONDANT AUX PARTIES UNIQUES DES i
+---------- CRÉATION DE NOUVEAUX TRONÇONS CORRESPONDANT AUX PARTIES UNIQUES DES i
 ---------- différence entre  les géométries des tronçons i et l'union de toutes les geom_new
 ---------- pour identifier les parties de i encore manquantes
 INSERT INTO core_path_wip_new (geom_new, structure_id, eid)
@@ -691,7 +688,7 @@ WITH a AS (
 b AS (
 	SELECT iid,
 	       structure_id,
-		   (ST_Dump(geom_diff)).geom -- ECLATEMENT DES MULTILINESTRING EN LINESTRINGS INDIVIDUELLES
+		   (ST_Dump(geom_diff)).geom -- éclatement des MultiLinestrings en Linestrings individuelles
 	  FROM a
 	 WHERE ST_GeometryType(geom_diff) != 'ST_GeometryCollection'
 	)
@@ -701,11 +698,11 @@ SELECT geom,
   FROM b;
 
 
--------------------- INTEGRATION DES TRONÇONS r 100% UNIQUES
+-------------------- INTÉGRATION DES TRONÇONS r 100% UNIQUES
 ---------- le but est d'intégrer les tronçons r 100% uniques
 ---------- et toujours d'identifier les extrémités qui ont pu être déplacées par des opérations précédentes
 
----------- MISE A JOUR DES EXTREMITES DES r 100% UNIQUES DONT AU MOINS UNE EXTREMITE A ETE DEPLACEE
+---------- MISE À JOUR DES EXTRÉMITÉS DES r 100% UNIQUES DONT AU MOINS UNE EXTRÉMITÉ A ÉTÉ DÉPLACÉE
 ---------- le fonctionnement est similaire à celui vu précédemment, les différences sont commentées
 WITH a AS (
 	SELECT r1.id AS r1_id,
@@ -721,28 +718,28 @@ WITH a AS (
 	  FROM r_extremites r1
 	       INNER JOIN r_extremites r2
 	       ON r1.id != r2.id
-	       	 AND r1.geom_new IS NULL -- CETTE FOIS ON SOUHAITE IDENTIFIER LES TRONÇONS r 100% UNIQUES, DONC DONT LA GEOMETRIE N'A PAS ETE MODIFIEE
-	       	 AND r2.geom_new IS NOT NULL -- ET TOUJOURS LES APPAIRER A DES TRONÇONS r DONT LA GEOMETRIE A ETE MODIFIEE
+	       	 AND r1.geom_new IS NULL -- cette fois on souhaite identifier les tronçons r 100% uniques, donc dont la géométrie n'a pas été modifiée
+	       	 AND r2.geom_new IS NOT NULL -- et toujours les appairer a des tronçons r dont la géométrie a été modifiée
 	       	 AND ST_Touches(r2.geom, r1.geom)
 	),
 b AS (
-	SELECT r2_startpoint_new AS r1_startpoint_new, -- ETANT DONNE LES CLAUSES WHERE CI-DESSOUS, LE NOUVEAU startpoint DE r1 EST EGAL AU r2_startpoint_new
+	SELECT r2_startpoint_new AS r1_startpoint_new, -- étant donné les clauses WHERE ci-dessous, le nouveau startpoint de r1 est égal au r2_startpoint_new
 		   NULL::geometry AS r1_endpoint_new,
 		   *,
 		   1 AS cas
 	  FROM a
-	 WHERE ST_Equals(r1_startpoint, r2_startpoint) -- LES DEUX POINT DE DEPART ORIGINELS ETAIENT IDENTIQUES
+	 WHERE ST_Equals(r1_startpoint, r2_startpoint) -- les deux points de départ originels étaient identiques
 ),
 c AS (
 	SELECT NULL::geometry AS r1_startpoint_new,
-		   r2_startpoint_new AS r1_endpoint_new, -- ETANT DONNE LES CLAUSES WHERE CI-DESSOUS, LE NOUVEAU endpoint DE r1 EST EGAL AU r2_startpoint_new
+		   r2_startpoint_new AS r1_endpoint_new, -- étant donné les clauses WHERE ci-dessous, le nouveau endpoint de r1 est égal au r2_startpoint_new
 		   *,
 		   3 AS cas
 	  FROM a
 	 WHERE ST_Equals(r1_endpoint, r2_startpoint)
 ),
 d AS (
-	SELECT r2_endpoint_new AS r1_startpoint_new, -- ETANT DONNE LES CLAUSES WHERE CI-DESSOUS, LE NOUVEAU startpoint DE r1 EST EGAL AU r2_endpoint_new
+	SELECT r2_endpoint_new AS r1_startpoint_new, -- étant donné les clauses WHERE ci-dessous, le nouveau startpoint de r1 est égal au r2_endpoint_new
 		   NULL::geometry AS r1_endpoint_new,
 		   *,
 		   5 AS cas
@@ -751,7 +748,7 @@ d AS (
 ),
 e AS (
 	SELECT NULL::geometry AS r1_startpoint_new,
-		   r2_endpoint_new AS r1_endpoint_new, -- ETANT DONNE LES CLAUSES WHERE CI-DESSOUS, LE NOUVEAU endpoint DE r1 EST EGAL AU r2_endpoint_new
+		   r2_endpoint_new AS r1_endpoint_new, -- étant donné les clauses WHERE ci-dessous, le nouveau endpoint de r1 est égal au r2_endpoint_new
 		   *,
 		   7 AS cas
 	  FROM a
@@ -768,11 +765,11 @@ f AS (
 ),
 g AS (
 	SELECT r1_id,
-		   ST_Union(r1_startpoint_new) AS startpoint_new, -- SI UN NOUVEAU startpoint_new N'A PAS ETE ATTRIBUE A r1, ALORS ON REPREND LE startpoint ORIGINEL
-		   ST_Union(r1_endpoint_new) AS endpoint_new -- SI UN NOUVEAU endpoint_new N'A PAS ETE ATTRIBUE A r1, ALORS ON REPREND LE endpoint ORIGINEL
+		   ST_Union(r1_startpoint_new) AS startpoint_new, -- si un nouveau startpoint_new n'a pas été attribué a r1, alors on reprend le startpoint originel
+		   ST_Union(r1_endpoint_new) AS endpoint_new -- si un nouveau endpoint_new n'a pas été attribué a r1, alors on reprend le endpoint originel
 	  FROM f
-	 GROUP BY r1_id, r1_geom -- LES INTERSECTIONS ENTRE PLUS DE DEUX r PRODUISENT PLUSIEURS RELATIONS r1/r2,
-	 						 -- IL FAUT DONC FUSIONNER ET REGROUPER PAR rid TOUTES LES NOUVELLES EXTREMITES PRODUITES
+	 GROUP BY r1_id, r1_geom -- les intersections entre plus de deux r produisent plusieurs relations r1/r2,
+	 						 -- il faut donc fusionner et regrouper par rid toutes les nouvelles extrémités produites
 )
 UPDATE r_extremites re
    SET startpoint_new = g.startpoint_new,
@@ -781,32 +778,32 @@ UPDATE r_extremites re
  WHERE re.id = g.r1_id;
 
 
----------- MISE A JOUR DES geom_new DES r 100% UNIQUES DONT AU MOINS UNE EXTREMITE A ETE DEPLACEE
----------- utilisation des extremités mises à jour pour remplacer la ou les extrémités qui ont été déplacées
+---------- MISE À JOUR DES geom_new DES r 100% UNIQUES DONT AU MOINS UNE EXTRÉMITÉ A ÉTÉ DÉPLACÉE
+---------- utilisation des extrémités mises à jour pour remplacer la ou les extrémités qui ont été déplacées
 WITH
-a AS ( -- SELECTIONNE LES r DONT SEUL LE POINT DE DEPART A ETE MODIFIE
+a AS ( -- sélectionne les r dont seul le point de départ a été modifié
 	SELECT id,
-		   ST_SetPoint(geom, 0, startpoint_new) AS geom -- REMPLACEMENT DU POINT DE DEPART DU r PAR startpoint_new
+		   ST_SetPoint(geom, 0, startpoint_new) AS geom -- remplacement du point de départ du r par startpoint_new
 	  FROM r_extremites
 	 WHERE geom_new IS NULL
-	   AND ST_GeometryType(startpoint_new) = 'ST_Point' -- VERIFICATION QUE startpoint_new EXISTE ET N'EST PAS UN MULTIPOINT
-	   AND endpoint_new IS NULL							-- EXCLUT LES r DONT LE POINT D'ARRIVEE A ETE MODIFIE
+	   AND ST_GeometryType(startpoint_new) = 'ST_Point' -- vérification que startpoint_new existe et n'est pas un MultiPoint
+	   AND endpoint_new IS NULL							-- exclut les r dont le point d'arrivée a été modifié
 ),
-b AS ( -- SELECTIONNE LES r DONT SEUL LE POINT D'ARRIVEE A ETE MODIFIE
+b AS ( -- sélectionne les r dont seul le point d'arrivée a été modifié
 	SELECT id,
-		   ST_SetPoint(geom, -1, endpoint_new) AS geom -- REMPLACEMENT DU POINT D'ARRIVEE DU r PAR endpoint_new
+		   ST_SetPoint(geom, -1, endpoint_new) AS geom -- remplacement du point d'arrivée du r par endpoint_new
 	  FROM r_extremites
 	 WHERE geom_new IS NULL
-	   AND ST_GeometryType(endpoint_new) = 'ST_Point' -- VERIFICATION QUE endpoint_new EXISTE ET N'EST PAS UN MULTIPOINT
-	   AND startpoint_new IS NULL					  -- EXCLUT LES r DONT LE POINT DE DEPART A ETE MODIFIE
+	   AND ST_GeometryType(endpoint_new) = 'ST_Point' -- vérification que endpoint_new existe et n'est pas un MultiPoint
+	   AND startpoint_new IS NULL					  -- exclut les r dont le point de départ a été modifié
 ),
-c AS ( -- SELECTIONNE LES r DONT LES DEUX EXTREMITES ONT ETE MODIFIEES
+c AS ( -- sélectionne les r dont les deux extrémités ont été modifiées
 	SELECT id,
-		   ST_SetPoint(ST_SetPoint(geom, -1, endpoint_new), 0, startpoint_new) AS geom -- REMPLACEMENT DES DEUX EXTREMITES
+		   ST_SetPoint(ST_SetPoint(geom, -1, endpoint_new), 0, startpoint_new) AS geom -- remplacement des deux extrémités
 	  FROM r_extremites
 	 WHERE geom_new IS NULL
-	   AND ST_GeometryType(startpoint_new) = 'ST_Point' -- VERIFICATION QUE startpoint_new EXISTE ET N'EST PAS UN MULTIPOINT
-	   AND ST_GeometryType(endpoint_new) = 'ST_Point' -- VERIFICATION QUE endpoint_new EXISTE ET N'EST PAS UN MULTIPOINT
+	   AND ST_GeometryType(startpoint_new) = 'ST_Point' -- vérification que startpoint_new existe et n'est pas un MultiPoint
+	   AND ST_GeometryType(endpoint_new) = 'ST_Point' -- vérification que endpoint_new existe et n'est pas un MultiPoint
 ),
 d AS (
 	SELECT * FROM a
@@ -821,12 +818,12 @@ UPDATE core_path_wip_new cp_wn
  WHERE d.id = cp_wn.id;
 
 
--- MISE A JOUR DES geom_new DES r 100% UNIQUES ET DONT LA GEOMETRIE N'EST PAS A MODIFIER
+---------- MISE À JOUR DES geom_new DES r 100% UNIQUES ET DONT LA GÉOMÉTRIE N'EST PAS À MODIFIER
 UPDATE core_path_wip_new
    SET geom_new = geom
  WHERE geom_new IS NULL;
 
----------- CREATION DE NOUVEAUX TRONÇONS CORRESPONDANT AUX i 100% UNIQUES
+---------- CRÉATION DE NOUVEAUX TRONÇONS CORRESPONDANT AUX i 100% UNIQUES
 INSERT INTO core_path_wip_new (geom_new, structure_id, eid)
 SELECT geom,
 	   structure_id,
@@ -837,13 +834,20 @@ SELECT geom,
  					WHERE di.iid = i.id);
 
 
----------- MISE A JOUR DE LA COLONNE eid EN RETROUVANT LE REEL id ORIGINEL
----------- au lieu de celui de la table gard.geotrek_plus_vigan_et_hautes_cevennes (artificiel)
+
+
+---------- MISE À JOUR DES COLONNES eid ET comments
+---------- on se sert de la colonne eid qui a jusqu'ici été remplie avec decision_inner.iid,
+---------- soit l'identifiant automatique de importe (donc un identifiant artificiel)
+---------- car eid est absent de cette table decision_inner.
+---------- Il faut donc refaire le lien avec la table importe et importer le réel eid, ainsi que les commentaires
+---------- Idéalement il faudrait réécrire le script en intégrant directement les réels eid sans passer par cette étape
 WITH a AS (
 	SELECT id,
-		   UNNEST(string_to_array(eid, ',')) AS eid
+		   UNNEST(string_to_array(eid, ',')) AS eid -- étend l'array créée à partir du champ eid 
 	  FROM core_path_wip_new
-	 WHERE structure_id = (SELECT DISTINCT structure_id FROM importe)
+	 WHERE geom_modified = 'oui' -- tronçon issu de r dont la géométrie a été modifiée et dont on veut extraire l'eid issu de i
+	 	 OR geom is NULL          -- si pas de geom, alors c'est un tronçon nouveau issu de importe, on veut aussi extraire son eid
 ),
 b AS (
 	SELECT a.id,
@@ -856,13 +860,13 @@ b AS (
 ),
 c AS (
 	SELECT id,
-		   string_agg(eid::varchar, ', ') AS eid,
-		   'couche(s) ' || string_agg(layer::varchar, ', ') AS "comments"
+		   string_agg(eid::varchar, ', ') AS eid, -- agrégation des eid pour chaque tronçon de core_path_wip_new
+		   'couche(s) ' || string_agg(layer::varchar, ', ') AS "comments" -- création du commentaire avec le nom de la couche/du fichier (il peut y en avoir plusieurs)
 	  FROM b
 	 GROUP BY id
 )
 UPDATE core_path_wip_new cp_wn
    SET eid = c.eid,
-       "comments" = concat((cp_wn."comments" || ' ; '), c."comments")
+       "comments" = concat((cp_wn."comments" || ' ; '), c."comments") -- concaténation de l'ancien commentaire et du nouveau pour ne pas perdre d'information
   FROM c
  WHERE c.id = cp_wn.id;
