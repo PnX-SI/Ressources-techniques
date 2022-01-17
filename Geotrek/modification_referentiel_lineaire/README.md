@@ -3,9 +3,9 @@
 
 La gestion des réseaux et leur mise à jour est un problème récurent dans Geotrek du fait de la segmentation dynamique. Nous étions confronté au problème suivant : dans notre base Geotrek nous avions un réseau de tronçons existants et suite à la mise en place d'un RLESI (Réseaux Locaux d’Espaces Sites et Itinéraires) sur une partie de notre territoire nous souhaitions substituer le réseau existant par celui défini par le RLESI.
 
-Le RLESI couvrait une partie de notre territoire et sur cette zone nous avons des tronçons non présents dans le RLESI que nous souhaitons conserver. Du fait de la segmentation dynamique dans Geotrek, il ne nous était pas possible de supprimer les tronçons une fois identifiés pour les remplacer par le nouveau référentiel. Nous devions modifier la géométrie de ces tronçons de façon à mettre à jour notre réseau sans "impacter" les données déjà présentes dans la base.
+Le RLESI couvrait une partie de notre territoire et sur cette zone nous avons des tronçons non présents dans le RLESI que nous souhaitons conserver. Du fait de la segmentation dynamique dans Geotrek, il ne nous était pas possible de supprimer les tronçons présent dans les deux réseaux une fois identifiés pour les remplacer par le nouveau référentiel. Nous devions modifier la géométrie de ces tronçons de façon à mettre à jour notre réseau sans "impacter" les données déjà présentes dans la base.
 
-Le schéma ci dessous illuste les différents cas que nous avons du traiter:
+Le schéma ci dessous illuste les cas que nous avons du traiter:
 
 <p align="center">
      <img src="img/comparaison_rlesi_troncons.png" height="500">
