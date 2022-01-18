@@ -40,3 +40,9 @@ Les lignes traitées sont volontairement limitées à 10.000 lignes pour éviter
 heure de traitement.
 
 Il suffit de relancer le script pour traiter les 10.000 lignes suivantes.
+
+Le script affiche des informations sur le traitement et les erreurs éventuelles. Exemple :
+- Début à 2022-01-12 16:09:51.902675
+- Fin à 2022-01-12 16:40:17.505163
+- Lignes traitées : 8387
+- Database connection closed.
