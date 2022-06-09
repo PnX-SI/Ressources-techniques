@@ -38,30 +38,32 @@ Si les deux premiers cas sont relativement faciles à gérer, c'est le troisièm
 
 Nous avons distingué 5 types de cas qu'il convient de traiter différement :
 
-|code|description des cas       |
-|----|------------------------- |
-| 1  |100% doublon              |
-| 2  |Doublon partiel continu   |
-| 3  |Doublon partiel discontinu|
-| 4  |Unique partiel            |
-| 5  |100% unique               |
+|code|description des cas       |explication                                                                                       |
+|----|--------------------------|--------------------------------------------------------------------------------------------------|
+| 1  |100% doublon              |Le tronçon est en doublon avec un tronçon de l'autre réseau sur 100% de sa longueur               |
+| 2  |Doublon partiel continu   |Le tronçon est en doublon avec un tronçon de l'autre réseau sur une partie continue de sa longueur|
+| 3  |Doublon partiel discontinu|Le tronçon est en doublon avec un tronçon de l'autre réseau sur plusieurs parties de sa longueur  |
+| 4  |Unique partiel            |Une partie du tronçon est unique et non représentée dans l'autre réseau                           |
+| 5  |100% unique               |L'entièreté de la longueur du tronçon est unique et non représentée dans l'autre réseau           |
 
-Par ailleurs il faut idéalement essayer de respecter les principes suivants :
-- limiter la création de nouveaux tronçons pour une voie déjà représentée dans notre réseau référence de façon à conserver le lien avec les éléments de la segmentation dynamique;
-- conserver au maximum la continuité entre les tronçons connectés dans notre réseau référence ;
+Par ailleurs l'agrégation doit idéalement respecter les principes suivants :
+- limiter la création de nouveaux tronçons pour une voie représentée dans le réseau référence de façon à ce que le moins de liens de segmentation dynamique soient cassés ;
+- ne pas séparer deux tronçons qui étaient connectés dans le réseau référenceconserver au maximum la continuité entre les tronçons connectés dans notre réseau référence ;
 - connecter toutes les extrémités de tronçons qui doivent l'être, quels que soient les changements de géométrie effectués ;
-- enfin, conserver une trace de la source de la nouvelle géométrie via les champs `eid` et `comments`, ainsi que la table `core_path_networks`.
+- enfin, conserver une trace de la source de la nouvelle géométrie via les champs `eid` et `comments`, ainsi que la table `core_path_networks` (par exemple avec un réseau nommé "RLESI ComCom XXX").
 
-Les scripts SQL effectuent de nombreuses opérations automatiques dans l'objectif de s'en approcher, mais n'évitent pas des étapes manuelles de correction. Le résultat de ces scripts est la création d'une table finale `core_path_wip_new` constituée de tous les tronçons du réseau référence, avec leur géométrie mise à jour (`geom_new`), ainsi que des tronçons uniques (c-a-d non présent dans le réseau référence) du réseau importé.
+Les scripts SQL effectuent de nombreuses opérations automatiques pour s'approcher de cet idéal, mais ne dispensent pas des étapes de correction manuelle. Le résultat de ces scripts est la création d'une table finale `core_path_wip_new` constituée :
+- de tous les tronçons du réseau référence, avec leur géométrie mise à jour (`geom_new`) ;
+- des tronçons uniques (c'est-à-dire non présents dans le réseau référence) du réseau importé.
 
 Deux étapes manuelles sont nécessaires à la réalisation du processus :
-- la première se fait au milieu de celui-ci, avant la mise en place de la matrice de décision, en définissant certaines relations référence/importé comme du bruit ou pas. Ces relations étant trop ambigües pour l'algorithme ;
+- la première se fait au milieu de celui-ci, avant la mise en place de la matrice de décision, en définissant certaines relations référence/importé comme étant du bruit ou des relations signifiantes. L'algorithme le fait pour la majorité des relations référence/importé, mais dans certains cas ambigus il faut l'aider. ;
 - la deuxième se fait après l'exécution de l'ensemble des scripts, et consiste à corriger toutes les erreurs détectées sur le réseau obtenu.
 
 
 ## Préparation et présentation des scripts
 
-Pour réaliser les opérations décrites ci-dessous, lancer les scripts, utiliser les projets QGIS sans réaliser d'adaptation, nous vous conseillons de créer une base de données nommée `geotrek_process` avec utilisateur `geotrek_process` :
+Pour réaliser les opérations décrites ci-après, lancer les scripts et utiliser les projets QGIS sans réaliser d'adaptation, nous vous conseillons de créer une base de données nommée `geotrek_process` avec un utilisateur `geotrek_process` :
 
 
 ``` sql
@@ -73,7 +75,7 @@ CREATE DATABASE geotrek_process WITH OWNER geotrek_process;
 CREATE EXTENSION postgis;
 ```
 
-Vous devez créer deux tables contenant les données des réseaux :
+Vous devez ensuite y créer deux tables contenant les données des réseaux :
   * `importe` : réseau à importer
   * `reference` : réseau de référence contenu dans la base geotrek
 
@@ -91,38 +93,39 @@ La couche du réseau de référence doit avoir la structure de la table `core_pa
 
 ### Scripts SQL
 
-Quatre scripts SQL sont proposés dans le répertoire `agregation_reseaux`. Ils permettent de réaliser les opérations qui sont généralisables. Par ailleurs dans le document des requêtes de selection des données sont indiquées et ne sont pas incluses dans les scripts. Il faut les lancer manuellement pour analyser les résulats.
+Quatre scripts SQL sont proposés dans le répertoire `scripts_sql/agregation_reseaux/`. Ils permettent de réaliser les opérations qui sont généralisables. 
+Certaines requêtes sont présentes uniquement dans la documentation ici présente, et ne sont pas incluses dans les scripts. Elles permettente d'analyser les résultats de certaines étapes de l'agrégation, et sont à lancer manuellement.
 
-En premier lieu il faut exécuter le script [0_lineaire_agg_preparation.sql](scripts_sql/agregation_reseaux/0_lineaire_agg_preparation.sql) qui permet de créer la table des types de cas `cas` et des index sur les tables `importe` et `reference`.
+En premier lieu il faut exécuter le script [0_lineaire_agg_preparation.sql](scripts_sql/agregation_reseaux/0_lineaire_agg_preparation.sql) qui permet de créer la table des types de cas `cas`, ainsi que des index spatiaux pour les tables `importe` et `reference`.
 
-Le script [1_lineaire_agg_def_relations.sql](scripts_sql/agregation_reseaux/1_lineaire_agg_def_relations.sql) permettra d'établir les relations entre les tronçons présents dans les deux réseaux (unique, doublons, ...).
-Il créera les tables suivantes :
+Le script [1_lineaire_agg_def_relations.sql](scripts_sql/agregation_reseaux/1_lineaire_agg_def_relations.sql) permet d'établir les relations entre les tronçons présents dans les deux réseaux (unique, doublons, ...).
+Il crée les tables suivantes :
  - `tampon_importe` : table contenant les tampons du réseau de la table `importe`
  - `tampon_reference` : table contenant les tampons du réseau de la table `reference`
  - `tampon_splits_r` : table contenant toutes les géométries issues du découpage des géometries de `reference` contre les tampons de `importe`
- - `tampon_inner_r` : table contenant toutes les géométries communes entre `reference` et `importe` quand elles sont incluses dans les tampons avec mention du cas (doublons partiels, ...)
+ - `tampon_inner_r` : table contenant toutes les géométries communes entre `reference` et `importe` quand elles sont incluses dans les tampons, avec mention du cas (doublons partiels, ...)
 - `tampon_splits_i` : table contenant toutes les géométries issues du découpage des géometries de `importe` contre les tampons de `reference`
- - `tampon_inner_i` : table contenant toutes les géométries communes entre `importe` et  `reference` quand elles sont incluses dans les tampons avec mention du cas (doublons partiels, ...)
+ - `tampon_inner_i` : table contenant toutes les géométries communes entre `importe` et  `reference` quand elles sont incluses dans les tampons, avec mention du cas (doublons partiels, ...)
 - `tampon_inner_all` : table de jointure des données contenues dans `tampon_inner_i` et `tampon_inner_r`. C'est dans celle-ci que le script détermine si une relation semble être du bruit ou non.
 
 
-Le script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) permettra de calculer le nouveau réseau issu de la fusion des réseaux importé et de référence.
+Le script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) permet de calculer le nouveau réseau issu de la fusion des réseaux importé et de référence.
 
-Il créera les tables suivantes :
+Il crée les tables suivantes :
  - `decision_inner` : table contenant la matrice de décision des données de `tampon_inner_all` n'étant pas considérées comme du bruit.
  - `tampon_outer_r` : table contenant la liste des tronçons `r` qui sont totalement en-dehors des tampons `i` et les portions uniques de tronçons `r` dont une partie est en doublon avec un ou plusieurs `i`.
  - `decision_outer_r` : table contenant la matrice de décision des `outer_r` sur le même modèle que `decision_inner`
  - `r_parties_uniques` : table contenant les parties unique de `reference`
  - `r_extremites` : table contenant une matrice d'extrémités. Le but est d'identifier les extrémités de tronçons `r` qui ont changé de coordonnées afin de pouvoir rattacher les parties uniques d'autres tronçons `r` qui partageaient une extrémité identique. En effet une partie unique de `r` n'étant par définition pas calquée sur une géométrie `i`, si le tronçon `r` auquel elles étaient connectées a changé de géométrie, il faut adapter les extrémités de cette partie unique
- - `core_path_wip_new` : table finale contenant le futur nouveau réseau : les doublons, les parties unique de `reference` et les parties uniques de `importe`.
+ - `core_path_wip_new` : table finale contenant le futur nouveau réseau : les doublons, les parties uniques de `reference` et les parties uniques de `importe`.
 
 
-Le script [3_lineaire_agg_correction_erreurs.sql](scripts_sql/agregation_reseaux/3_lineaire_agg_correction_erreurs.sql) permettra de réaliser des opérations de mise en évidence de potentielles erreurs à superviser manuellement.
+Le script [3_lineaire_agg_correction_erreurs.sql](scripts_sql/agregation_reseaux/3_lineaire_agg_correction_erreurs.sql) permet de mettre en évidence de potentielles erreurs à superviser manuellement.
 
-Il créera la table suivante :
- - `erreurs_compte` : table qui calcule le nombre d'erreurs en fonction de leur type.
+Il crée la table suivante :
+ - `erreurs_compte` : table qui calcule le nombre d'erreurs en fonction de leur type, et permet un suivi de l'évolution des erreurs si on lance plusieurs fois l'agrégation avec des paramètres ou des données différentes
 
-Il créera également des *triggers* permettant de recalculer automatiquement les erreurs lors de modifications réalisées sur la table `core_path_wip_new`
+Il crée également des *triggers* permettant de recalculer automatiquement les erreurs lors de modifications réalisées sur la table `core_path_wip_new`.
 
 ## Définition des relations entre tronçons référence et importés
 
@@ -130,12 +133,12 @@ Il créera également des *triggers* permettant de recalculer automatiquement le
  *   [1_lineaire_agg_def_relations.sql](scripts_sql/agregation_reseaux/1_lineaire_agg_def_relations.sql)
 
 Le principe de base sur lequel se fonde la reconnaissance des tronçons en doublon entre réseaux de référence et importé est la comparaison de zones tampons (*buffers*) créées autour de chacun des tronçons des deux réseaux. Les cas extrêmes sont plutôt simples à identifier :
-- si un tronçon référence `r` et un tronçon importé `i` sont mutuellement compris dans le tampon de l'autre, alors ces deux tronçons représentent la même voie de circulation (route, chemin...), il y a une relation de doublon total ;
-- si un tronçon référence `r` et un tronçon importé `i` n'ont aucune partie de leur géométrie comprise dans le tampon de l'autre, alors ils ne représentent pas la même voie, mais surtout : si un tronçon `r` ou `i` n'intersecte (`ST_Intersects`) aucun tampon de l'autre réseau, alors c'est que la voie n'est représentée qu'au sein du réseau auquel il appartient, c'est un tronçon unique.
+- si un tronçon référence `r` et un tronçon importé `i` sont mutuellement compris dans le tampon de l'autre, alors ces deux tronçons représentent la même voie de circulation (route, chemin...) et il y a une relation de doublon total ;
+- si un tronçon référence `r` et un tronçon importé `i` n'ont aucune partie de leur géométrie comprise dans le tampon de l'autre, alors ils ne représentent pas la même voie, mais surtout : si un tronçon `r` ou `i` n'intersecte (`ST_Intersects`) aucun tampon de l'autre réseau, alors c'est que la voie n'est représentée qu'au sein du réseau auquel il appartient, c'est un tronçon 100% unique.
 
-Bien que simples, ces situations renferment déjà une part de subjectivité, dûe notamment à la taille du tampon, des tronçons et à la confiance que l'on a dans les données. Plus des tronçons seront petits, issus de données pour lesquelles la marge d'erreur est grande (3 à 5m pour des relevés GNSS basiques), les réseaux denses (milieux urbains) et le tampon large, moins les relations de doublon total seront pertinentes (risque augmenté de faux positifs).
+Bien que simples, ces situations renferment déjà une part de subjectivité, dûe notamment à la taille du tampon, des tronçons et à la confiance que l'on a dans les données. Plus les tronçons seront petits, issus de données pour lesquelles la marge d'erreur est grande (3 à 5m pour des relevés GNSS basiques), les réseaux denses (milieux urbains) et le tampon large, moins les relations de doublon total seront pertinentes (risque augmenté de faux positifs).
 
-Toutes les situations situées entre ces deux extrêmes sont donc encore plus sujettes à appréciation personnelle : est-ce qu'une relation de doublon à 95% est finalement équivalente à une relation de doublon total ? D'ailleurs 95% de la longueur ? Du nombre de points ? De `i` par rapport à `r` ou l'inverse ? Etc.
+Toutes les situations entre ces deux extrêmes sont donc encore plus sujettes à appréciation personnelle : est-ce qu'une relation de doublon à 95% est finalement équivalente à une relation de doublon total ? D'ailleurs 95% de la longueur ou du nombre de points de la géométrie ? De `i` par rapport à `r` ou l'inverse ? Etc.
 
 Pour déterminer toutes ces situations, voici le procédé utilisé :
 - découpage (ST_Split) des `r` contre les tampons `i` ;
@@ -157,17 +160,17 @@ Le même procédé est appliqué aux tronçons `i` par rapport aux tampons `r`, 
 
 ### Supervision manuelle des relations `bruit = NULL`
 
-Une fois le script [1_lineaire_agg_def_relations.sql](scripts_sql/agregation_reseaux/1_lineaire_agg_def_relations.sql) exécuté une supervision manuelle est nécessaire.
+Une fois le script [1_lineaire_agg_def_relations.sql](scripts_sql/agregation_reseaux/1_lineaire_agg_def_relations.sql) exécuté, une supervision manuelle est nécessaire.
 
-Un ensemble de requêtes permet donc de déterminer si une relation est signifiante, ou bien fait partie du bruit créé par l'algorithme et les tampons. Certaines situations sont trop floues pour que celui-ci décide, et toutes les relations pour lesquelles le champ `bruit` est toujours nul après l'ensemble de requêtes concerné doivent être supervisées manuellement via un SIG comme QGIS.
+Un ensemble de requêtes permet de déterminer si une relation est signifiante, ou bien fait partie du bruit créé par l'algorithme et les tampons. Certaines situations sont trop floues pour que celui-ci décide, et toutes les relations pour lesquelles le champ `bruit` est toujours nul après l'ensemble de requêtes concerné doivent être supervisées manuellement via un SIG comme QGIS.
 
-Le but est qu'un·e humain·e détermine visuellement, par comparaison des tronçons concernés et leur contexte géographique, si la relation de doublon est signifiante ou non. Pour cela, il suffit d'attribuer une symbologie spécifique à la table `tampon_inner_all` pour les entités pour lesquelles `bruit = NULL`, table présente sous forme de deux couches QGIS pour `geom_r` et `geom_i`. Pour chaque relation supervisée, il suffit alors d'attribuer les valeurs `false` si elle est signifiante, ou `true` si on souhaite l'exclure de la suite des traitements.
+Le but est qu'un·e humain·e détermine visuellement, par comparaison des tronçons concernés et leur contexte géographique, si la relation de doublon est signifiante ou non. Pour cela, il suffit d'attribuer une symbologie spécifique à la table `tampon_inner_all` pour les entités pour lesquelles `bruit = NULL`, table présente sous forme d'une couche QGIS pour `geom_r` et d'une autre pour `geom_i`. Pour chaque relation supervisée, il suffit alors d'attribuer au champ `bruit` la valeur `false` si elle est signifiante, ou `true` si on souhaite l'exclure de la suite des traitements.
 
-L'attribution de la valeur `true` à `bruit` signifie que c'est une fausse relation de doublon et que les deux tronçons représentent deux voies différente sur le terrain. Lors de l'intégration des données dans Geotrek les deux tronçons seront donc importés.
+L'attribution de la valeur `true` à `bruit` signifie que c'est une fausse relation de doublon et que les deux tronçons représentent deux voies différentes sur le terrain. Lors de l'intégration des données dans Geotrek, les deux tronçons seront donc importés.
 
 Une fois cette étape réalisée, la suite du script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) peut être lancée. Par défaut, toutes les relations dont le champ `bruit` est nul sont considérées comme signifiantes.
 
-Le projet QGIS `correction_manuelle_bruits.qgz` vous permettra de visualiser les données à superviser.
+Le projet QGIS `correction_manuelle_bruits.qgz` vous permet de visualiser les données à superviser.
 
 ## Modification des géométries
 
