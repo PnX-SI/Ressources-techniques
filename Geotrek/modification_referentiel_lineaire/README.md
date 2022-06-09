@@ -15,9 +15,9 @@ Le schéma ci-dessous illustre les cas que nous avons dû traiter :
 Ce travail a été mené par Idrissa DJEPA CREUTZ ([@IdrissaD](https://github.com/IdrissaD)) durant son stage puis un contrat au Parc national des Cévennes. Nous présentons ici les différentes étapes qui nous ont permis de réaliser la modification de notre réseau de tronçons dans notre base Geotrek.
 
 Cette documentation se découpe en trois parties :
- - [Préparation des données à intégrer](preparation_donnees.md)
- - [Analyse des réseaux en vue de leur fusion](agregation_reseaux.md)
- - [Import des données une fois traitées dans une base Geotrek](import_donnees_geotrek.md)
+ - [Préparation des données à intégrer](0_preparation_donnees.md)
+ - [Analyse des réseaux en vue de leur fusion](1_agregation_reseaux.md)
+ - [Import des données une fois traitées dans une base Geotrek](2_import_donnees_geotrek.md)
 
 
 ---
