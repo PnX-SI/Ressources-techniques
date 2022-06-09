@@ -105,7 +105,7 @@ SELECT cp1.id,
 ```
 Ici la tolérance est placée à 1 mètre, mais elle peut être modifiée à souhait.
 
-Le nettoyage peut ensuite se faire directement en base de données, ou bien via un SIG comme QGIS en créant la colonne `erreur` et en appliquant une symbologie catégorisée sur celle-ci.
+Le nettoyage peut ensuite se faire directement en base de données, ou bien via un SIG comme QGIS en créant la colonne `erreur` dans la table et en appliquant une symbologie catégorisée sur celle-ci.
 
 Si le choix de la méthode base de données est fait, on peut utiliser l'extension `topology` de PostGIS pour automatiser la correction d'un certain nombre des erreurs décrites. Voir ce billet de blog de Mathieu Leplâtre pour la méthode : [http://blog.mathieu-leplatre.info/use-postgis-topologies-to-clean-up-road-networks.html]().
 Attention, les résultats de ces opérations sont donc non maîtrisés, au contraire de la méthode manuelle qui est plus longue mais vous assure un nettoyage tel qu'il correspond à votre vision et vos besoins.
@@ -113,15 +113,15 @@ Attention, les résultats de ces opérations sont donc non maîtrisés, au contr
 
 ## Nettoyage des données à intégrer
 
-Les données reçues devraient dans l'idéal déjà se soumettre à des principes topologiques fondamentaux :
-- deux lignes ne peuvent pas se croiser, seulement se toucher aux extrémités => Si ce n'est pas le cas il faut découper chaque ligne de part et d'autre de l'intersection ;
-- une ligne ne peut s'auto-croiser => Si ce n'est pas le cas il faut la découper en plusieurs lignes ;
-- une géométrie ou un tronçon doit être de type LineString (et pas MultiLineString, Point, GeometryCollection...).
+Les données reçues devraient dans l'idéal déjà se soumettre à des principes topologiques fondamentaux, si ce n'est pas le cas un nettoyage manuel est fortement recommandé :
+- deux lignes différentes ne doivent pas se croiser, elles peuvent seulement se toucher aux extrémités => Si des lignes ne répondent pas à cette condition, il faut découper chaque ligne de part et d'autre de l'intersection ;
+- une ligne ne peut s'auto-croiser => Si c'est le cas, il faut la découper en plusieurs lignes distinctes ;
+- une géométrie ou un tronçon doit être de type LineString (et pas MultiLineString, Point, GeometryCollection...) => Si ce n'est pas le cas, il faut la décomposer (MultiLineString, GeometryCollection) ou la supprimer (Point).
 
-Seule exception au nettoyage manuel: une ligne touchée par l'extrémité d'une autre ligne n'a pas besoin d'être découpée, les triggers de Geotrek-admin s'en chargeront.
+Seule exception au nettoyage manuel : une ligne touchée en son milieu par l'extrémité d'une autre ligne n'a pas besoin d'être découpée. C'est une erreur topologique, car les contacts entre lignes ne devraient se faire qu'en leurs extrémités respectives, mais les triggers de Geotrek-admin se chargeront de ce découpage, ce qui nous économise du temps.
 
 De manière plus subjective, pour garantir une qualité optimale du réseau, il est intéressant que :
-- une intersection sur le terrain ne soit représentée que par une seule intersection dans le réseau => éviter de multiplier les intersections à quelques dizaines de centimètres d'écart (Cas des carrefours);
+- une intersection sur le terrain ne soit représentée que par une seule intersection dans le réseau => éviter de multiplier les intersections à quelques dizaines de centimètres d'écart (souvent le cas aux carrefours);
 - des rues ou chemins qui sont connectées sur le terrain le soient aussi dans le réseau => éviter les "trous" de quelques centimètres qui donnent visuellement l'impression que les deux tronçons sont connectés jusqu'à ce qu'on zoome assez.
 
 Pour cela, les mêmes requêtes spatiales que précédemment sont applicables, ici rassemblées en une seule pour plus de praticité (après création d'un index spatial pour plus de rapidité) :
