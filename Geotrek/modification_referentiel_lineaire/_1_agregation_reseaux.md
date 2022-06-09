@@ -93,7 +93,7 @@ La couche du réseau de référence doit avoir la structure de la table `core_pa
 
 ### Scripts SQL
 
-Quatre scripts SQL sont proposés dans le répertoire `scripts_sql/agregation_reseaux/`. Ils permettent de réaliser les opérations qui sont généralisables. 
+Quatre scripts SQL sont proposés dans le répertoire `scripts_sql/agregation_reseaux/`. Ils permettent de réaliser les opérations qui sont généralisables.
 Certaines requêtes sont présentes uniquement dans la documentation ici présente, et ne sont pas incluses dans les scripts. Elles permettente d'analyser les résultats de certaines étapes de l'agrégation, et sont à lancer manuellement.
 
 En premier lieu il faut exécuter le script [0_lineaire_agg_preparation.sql](scripts_sql/agregation_reseaux/0_lineaire_agg_preparation.sql) qui permet de créer la table des types de cas `cas`, ainsi que des index spatiaux pour les tables `importe` et `reference`.
@@ -322,4 +322,4 @@ Par exemple, cela arrive souvent là où des tronçons `r` ont été projetés s
 
 Une fois toutes les erreurs supervisées, on peut vérifier que tous les tronçons ont bien une `geom_new` : lors de certaines suppressions de tronçons, seule la géométrie est supprimée au lieu de l'entité entière.
 
-Un exemple de projet QGIS permettant la correction des erreurs détectées est présent dans le dépôt : [correction_manuelle_finale.qgz](projet_qgis/correction_manuelle_finale.qgz).
+Un exemple de projet QGIS permettant la correction des erreurs détectées est présent dans le dépôt : [correction_manuelle_finale.qgz](projets_qgis/correction_manuelle_finale.qgz).
