@@ -20,25 +20,27 @@ Sommaire:
 
 Une fois toutes les corrections réalisées, il faut importer la table `core_path_wip_new` dans la base de données dans le schéma `public`. Cet import peut se faire via les outils de QGIS ou [ogr2ogr](https://gdal.org/programs/ogr2ogr.html).
 
-Une fois la table importée les scripts [1.0_maj_core_path.sql](scripts_sql/import_new_troncons_geotrek/1.0_maj_core_path.sql) et [1.1_maj_core_path_trigger.sql](scripts_sql/import_new_troncons_geotrek/1.1_maj_core_path_trigger.sql) permettent de mettre à jour les données de Geotrek selon les étapes suivantes :
+Une fois la table importée, les scripts [1.0_maj_core_path.sql](scripts_sql/import_new_troncons_geotrek/1.0_maj_core_path.sql) et [1.1_maj_core_path_trigger.sql](scripts_sql/import_new_troncons_geotrek/1.1_maj_core_path_trigger.sql) permettent de mettre à jour les données de Geotrek selon les étapes suivantes :
  * désactivation des triggers
  * mise à jour des géométries des `core_path` existants
  * insertion des nouveaux tronçons dans `core_path`
  * réactivation des triggers
- * simulation d'une mise à jour des géométries de `core_path` pour que les triggers se jouent et découpent tous les tronçons selon les règles de topologie de Geotrek. Des erreurs sont susceptibles d'arriver : elles s'afficheront dans les *logs* des scripts mais ne seront pas bloquantes. Si les nettoyages et la supervision ont été bien réalisées, on peut s'attendre à une erreur pour mille tronçons.
+ * simulation d'une mise à jour des géométries de `core_path` pour que les triggers se jouent et découpent tous les tronçons selon les règles de topologie de Geotrek.
 
-Avec la mise à jour de `core_path`, les tables `core_pathaggregation` et `core_topology` seront également mises à jour. En se connectant sur Geotrek-admin, on peut observer qu'un certain nombre d'itinéraires de randonnée sont cassés : il manque des tronçons à certains endroits, ou bien l'altimétrie ne fonctionne pas, etc. C'est un résultat attendu de ces opérations, qui sont rarement sans conséquence sur l'intégrité des itinéraires. Les trous qui apparaissent dans certains itinéraires sont souvent le symptôme de `core_path` manquants dans `core_pathaggregation` : par exemple dans le cas d'un tronçon ayant été découpé en deux parties, parfois seule la moitié qui a conservé le même identifiant reste référencée dans `core_pathaggregation`, alors que l'autre moitié en est absente.
+Des erreurs sont susceptibles d'arriver : elles s'afficheront dans les *logs* des scripts mais ne seront pas bloquantes. Si les nettoyages et la supervision ont été correctement réalisées, on peut s'attendre à une erreur pour mille tronçons.
+
+Avec la mise à jour de `core_path`, les tables `core_pathaggregation` et `core_topology` sont également mises à jour. Si on se connecte sur Geotrek-admin à ce moment, on peut observer qu'un certain nombre d'itinéraires de randonnée sont cassés : il manque des tronçons à certains endroits, ou bien l'altimétrie ne fonctionne pas, etc. C'est un résultat attendu de ces opérations, qui sont rarement sans conséquence sur l'intégrité des itinéraires. Les trous qui apparaissent dans certains itinéraires sont souvent le symptôme de `core_path` manquants dans `core_pathaggregation` : par exemple dans le cas d'un tronçon ayant été découpé en deux parties, parfois seule la moitié qui a conservé le même identifiant reste référencée dans `core_pathaggregation`, alors que l'autre moitié en est absente.
 
 Avant de corriger à la main, via Geotrek-admin, les itinéraires cassés, les scripts [2.0_maj_core_pathaggregation.sql](scripts_sql/import_new_troncons_geotrek/2.0_maj_core_pathaggregation.sql) et [2.1_maj_core_topology_trigger.sql](scripts_sql/import_new_troncons_geotrek/2.1_maj_core_topology_trigger.sql) permettent de minimiser le nombre de trous dans les `core_pathaggregation` des itinéraires, en retrouvant les tronçons manquants.
 
-Deux tables `core_pathaggregation_to_insert` et `core_pathaggregation_new` sont créées. `core_pathaggregation_to_insert` contient les tronçons qui ont été repérés comme manquants à `core_pathaggregation`. `core_pathaggregation_new` agrège les données de `core_pathaggregation_to_insert` et celles de `core_pathaggregation` tout en réattribuant un ordre à tous les tronçons (colonne `order`). Le contenu de `core_pathaggregation` est ensuite remplacé par celui de `core_pathaggregation_new` après avoir désactivé ses triggers. Enfin, l'exécution de la fonction native `update_geometry_of_topology()` sur tous les enregistrements de `core_topology` permet de mettre à jour leur géométrie selon le nouveau contenu de `core_pathaggregation`.
+Deux tables `core_pathaggregation_to_insert` et `core_pathaggregation_new` sont créées. `core_pathaggregation_to_insert` contient les tronçons qui ont été repérés comme manquants à `core_pathaggregation`. `core_pathaggregation_new` agrège les données de `core_pathaggregation_to_insert` et celles de `core_pathaggregation` tout en réattribuant un ordre à chaque `pathaggregation` (colonne `order`). Le contenu de `core_pathaggregation` est ensuite remplacé par celui de `core_pathaggregation_new` après avoir désactivé ses triggers. Enfin, l'exécution de la fonction native `update_geometry_of_topology()` sur tous les enregistrements de `core_topology` permet de mettre à jour leur géométrie selon le nouveau contenu de `core_pathaggregation`.
 
 
-L'ensemble du processus d'import est encapsulé dans un script bash `import_new_troncons_geotrek/run.sh`. En fonction des données à importer son exécution peut être longue (plusieurs heures).
+L'ensemble du processus d'import est encapsulé dans un script bash `import_new_troncons_geotrek/run.sh`. En fonction de la taille des données à importer son exécution peut être longue (plusieurs heures).
 
-Etapes :
+Étapes :
  * Importer la table `core_path_wip_new` dans la base Geotrek
- * Copier le fichier [`settings.ini.sample`](scripts_sql/import_new_troncons_geotrek/settings.ini.sample) en `settings.ini` et renseigner les paramètres du fichier
+ * Copier le fichier [`settings.ini.sample`](scripts_sql/import_new_troncons_geotrek/settings.ini.sample) en `settings.ini` et renseigner les paramètres demandés
  * Lancer le script `run.sh`
 
 
@@ -73,9 +75,9 @@ SELECT ct.id,
 	   OR cta.length > (1.1 * ct.length));
 ```
 
-Selon nos essais, 25% des itinéraires semblent intacts, 75% d'entre eux nécessitant une correction.
+Selon nos essais, 25% des itinéraires semblent intacts et 75% nécessitent une correction.
 
-Si celle-ci se passe sans soucis dans la majorité des cas, il peut arriver que l'interface d'édition de certains itinéraires n'affiche aucun tracé sur la carte, et que le bouton "Créer une nouvelle route" soit grisé. Dans ce cas, il suffit de rendre visibles tous les `core_path` utilisés par l'itinéraire :
+Si celle-ci se passe sans difficulté dans la majorité des cas, il peut arriver que l'interface d'édition de certains itinéraires n'affiche aucun tracé sur la carte, et que le bouton "Créer une nouvelle route" soit grisé. Dans ce cas, il suffit de rendre visibles tous les `core_path` utilisés par l'itinéraire ace la requête suivante :
 ``` sql
 UPDATE core_path
    SET visible = TRUE
@@ -110,13 +112,13 @@ DELETE
    AND NOT path_id IN (SELECT path_id FROM b);
 ```
 
-Enfin, on peut supprimer les tables utilisées dans ce processus grâce au script [3.0_clean_geotrekdb_corepath.sql](scripts_sql/import_new_troncons_geotrek/3.0_clean_geotrekdb_corepath.sql).
+Enfin, on peut supprimer les tables créées par les scripts précédents grâce au script [3.0_clean_geotrekdb_corepath.sql](scripts_sql/import_new_troncons_geotrek/3.0_clean_geotrekdb_corepath.sql).
 
 ## Statuts
 
 Si le linéaire importé comprend des informations attributaires sur le foncier et le revêtement, il est possible de les ajouter à la base de données après l'intégration des `core_path`.
 
-Le processus présenté ici n'est pas générique car adapté aux données que nous avons intégré et à nos besoins de gestion. Il peut néanmoins servir de base à modifier selon la structure de vos données.
+Le processus présenté ici n'est pas générique car adapté aux données que nous avons intégré et à nos besoins de gestion (Parc national des Cévennes). Il peut néanmoins servir de base à modifier selon la structure de vos données.
 
 Les scripts ayant servi à l'import de nos données sont situés dans le répertoire `import_status_geotrek`. Au préalable nous avons importé notre couche de données dans le schéma public de Geotrek dans la table `rlesi_cartosud_updated`.
 
@@ -143,11 +145,11 @@ Des erreurs sont inévitables, mais nous avons fait le choix de les traiter apr�
 
 **Script SQL associé** : `2_import_physicaledge.sql`
 
-Contrairement aux types fonciers, pour lesquels nous avons souhaité conserver le découpage juridique du réseau importé, la table `land_physicaledge` n'accepte qu'un champ attributaire : `physical_type_id`.
+Contrairement aux types fonciers – pour lesquels nous avons souhaité conserver le découpage juridique du réseau importé – la table `land_physicaledge` n'accepte qu'un champ attributaire : `physical_type_id`.
 
-Nous avons trouvé inutilement lourd de représenter par exemple une même piste de gravier par plusieurs entités `land_landedge`, uniquement car elle a plusieurs propriétaires et donc est découpée en autant de tronçons juridiques. Nous avons donc fusionné les géométries des tronçons importés par leur champ `type_revet` et à la condition que le résultat de la fusion soit une `LineString`.
+Nous avons trouvé inutilement lourd de représenter par exemple une même piste de gravier par plusieurs entités `land_landedge`, uniquement car elle a plusieurs propriétaires et donc est découpée en autant de tronçons juridiques. Nous avons donc fusionné les géométries des tronçons importés en les groupant par leur champ `type_revet`, à la condition que le résultat de la fusion soit une `LineString`.
 
-La suite du processus est la même que pour les `landedge`, à l'exception qu'on utilise la table créée précédemment au lieu du réseau importé d'origine comme base des requêtes.
+La suite du processus est la même que pour les `landedge`, à l'exception qu'on utilise la table de géométries regroupées au lieu de la table d'origine comme base des requêtes.
 
 
 ### Correction des erreurs
@@ -159,14 +161,14 @@ La suite du processus est la même que pour les `landedge`, à l'exception qu'on
 
 Il s'agit enfin de corriger les erreurs et manques restants dans la table `core_pathaggregation`. Pour cela, on cherche d'abord à corriger automatiquement les `landedge` et `physicaledge` comportant un trou : un `core_path` absent de `core_pathaggregation` en leur milieu.
 
-A l'issue du script `3_correction_core_pathaggregation_manquants.sql`, la table `core_pathaggregation_manquants` représentent les "trous".
+A l'issue du script `3_correction_core_pathaggregation_manquants.sql`, la table `core_pathaggregation_manquants` représente les "trous".
 
-Il faut superviser manuellement les cas où deux core_path ont été identifiés comme comblant le trou des core_pathaggregation (`SELECT * FROM core_pathaggregation_manquants WHERE compte = 2;`).
+Il faut superviser manuellement les cas où deux core_path ont été identifiés comme comblant le trou des core_pathaggregation (`SELECT * FROM core_pathaggregation_manquants WHERE compte = 2;`), afin de ne conserver qu'un seul des deux.
 
 Une fois les éventuelles corrections effectuées, on peut insérer dans `core_pathaggregation` les `core_pathaggregation` manquants via le script `3.1_insertion_core_pathaggregation_manquants.sql`.
 
 
-Une fois les `core_topology` trouées, donc ayant une géométrie en `MultiLineString` corrigées, une autre phase de correction manuelle commence pour les `landedge` dont la géométrie chevauche celle d'au moins un tronçon importé. C'est le signe d'une erreur car nous sommes partis du postulat que chaque tronçon importé devait correspondre strictement à un `landedge`, soit une relation spatiale de type `ST_Equals()` et pas `ST_Overlaps()`. Pour cela, on crée une table `overlapping_landedge` stockant les endroits des erreurs sous forme de points avec le script `4_correction_overlapping_landedge.sql`.
+Une fois les `core_topology` trouées, donc ayant une géométrie en `MultiLineString`, corrigées, une autre phase de correction manuelle commence pour les `landedge` dont la géométrie chevauche celle d'au moins un tronçon importé. C'est le signe d'une erreur car nous sommes partis du postulat que chaque tronçon importé devait correspondre strictement à un `landedge`, soit une relation spatiale de type `ST_Equals()` et pas `ST_Overlaps()`. Pour cela, on crée une table `overlapping_landedge` qui stocke les endroits des erreurs sous forme de points avec le script `4_correction_overlapping_landedge.sql`.
 
 Enfin, on peut corriger les erreurs de deux manières :
 - dans Geotrek-admin, en modifiant les tracés de chaque `landedge` reconnu comme ayant une erreur ;
