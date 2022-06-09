@@ -158,29 +158,9 @@ Voici une visualisation de ces trois cas :
 
 Le même procédé est appliqué aux tronçons `i` par rapport aux tampons `r`, ce qui donne des relations `ir` et des `cas_i`.
 
-### Supervision manuelle des relations `bruit = NULL`
+### Calcul d'indicateurs et classement automatique en `bruit = True` ou `bruit = False`
 
-Une fois le script [1_lineaire_agg_def_relations.sql](scripts_sql/agregation_reseaux/1_lineaire_agg_def_relations.sql) exécuté, une supervision manuelle est nécessaire.
-
-Un ensemble de requêtes permet de déterminer si une relation est signifiante, ou bien fait partie du bruit créé par l'algorithme et les tampons. Certaines situations sont trop floues pour que celui-ci décide, et toutes les relations pour lesquelles le champ `bruit` est toujours nul après l'ensemble de requêtes concerné doivent être supervisées manuellement via un SIG comme QGIS.
-
-Le but est qu'un·e humain·e détermine visuellement, par comparaison des tronçons concernés et leur contexte géographique, si la relation de doublon est signifiante ou non. Pour cela, il suffit d'attribuer une symbologie spécifique à la table `tampon_inner_all` pour les entités pour lesquelles `bruit = NULL`, table présente sous forme d'une couche QGIS pour `geom_r` et d'une autre pour `geom_i`. Pour chaque relation supervisée, il suffit alors d'attribuer au champ `bruit` la valeur `false` si elle est signifiante, ou `true` si on souhaite l'exclure de la suite des traitements.
-
-L'attribution de la valeur `true` à `bruit` signifie que c'est une fausse relation de doublon et que les deux tronçons représentent deux voies différentes sur le terrain. Lors de l'intégration des données dans Geotrek, les deux tronçons seront donc importés.
-
-Une fois cette étape réalisée, la suite du script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) peut être lancée. Par défaut, toutes les relations dont le champ `bruit` est nul sont considérées comme signifiantes.
-
-Le projet QGIS `correction_manuelle_bruits.qgz` vous permet de visualiser les données à superviser.
-
-## Modification des géométries
-
-**Script SQL associé** :
- *   [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql)
-
-
-### Matrice de décision
-
-La prochaine étape consiste en la création d'une matrice de toutes les relations entre tronçons `r` et tronçons `i`. Pour cela, on effectue d'abord une jointure entre la table des `r` par rapport aux tampons `i` (`tampon_inner_r`) et la table des `i` par rapport aux tampons `r` (`tampon_inner_i`). Un ensemble d'indicateurs, comme la longueur des relations `ri` et `ir`, ou l'aire d'un polygone dont les deux plus longs côtés sont `ri` et `ir`, sont calculés.
+La prochaine étape consiste en la création d'une table `tampon_inner_all` rassemblant toutes les relations entre tronçons `r` et tronçons `i`. Pour cela, on effectue d'abord une jointure entre la table des `r` par rapport aux tampons `i` (`tampon_inner_r`) et la table des `i` par rapport aux tampons `r` (`tampon_inner_i`). Un ensemble d'indicateurs, comme la longueur des relations `ri` et `ir`, ou l'aire d'un polygone dont les deux plus longs côtés sont `ri` et `ir`, sont calculés.
 La table `tampon_inner_all` rassemble donc un ensemble d'informations permettant d'évaluer si une relation est signifiante ou non :
 
 
@@ -199,39 +179,61 @@ La définition d'une relation comme étant du `bruit` ou pas dépend donc de ces
 - si `r` et `i` sont des doublons partiels (`cas_r IN (2,3) AND cas_i IN (2,3)`) et que les longueurs de `ri` ou `ir` ne répondent pas à des critères, subjectifs, de signifiance, alors la relation est du bruit. Actuellement, si `longueur_ri` ou `longueur_ir` font moins de 10.5m (un peu plus de deux fois la taille du tampon), ou si le rapport entre les longueurs de `ir` et `i` et celles de `ri` et `r` sont égaux à moins de 10%, la relation est considérée comme du bruit.
 - etc.
 
-La table `decision_inner` est alors créée, rassemblant toutes les relations non classées comme bruit.
+### Supervision manuelle des relations `bruit = NULL`
+
+Une fois le script [1_lineaire_agg_def_relations.sql](scripts_sql/agregation_reseaux/1_lineaire_agg_def_relations.sql) exécuté et la table `tampon_inner_all` créée, une supervision manuelle est nécessaire.
+
+En effet, certaines situations sont trop floues pour que le script les classe comme bruit ou relation signifiante, et toutes les relations pour lesquelles le champ `bruit` est toujours nul après l'exécution de ce deuxième script doivent être supervisées manuellement via un SIG comme QGIS.
+
+Le but est qu'un·e humain·e détermine visuellement, par comparaison des tronçons concernés et leur contexte géographique, si la relation de doublon est signifiante ou non. Pour cela, il suffit d'attribuer une symbologie spécifique à la table `tampon_inner_all` pour les entités pour lesquelles `bruit = NULL`, table présente sous forme d'une couche QGIS pour `geom_r` et d'une autre pour `geom_i`. Pour chaque relation supervisée, il suffit alors d'attribuer au champ `bruit` la valeur `false` si elle est signifiante, ou `true` si on souhaite l'exclure de la suite des traitements.
+
+L'attribution de la valeur `true` à `bruit` signifie que c'est une fausse relation de doublon et que les deux tronçons représentent deux voies différentes sur le terrain. Lors de l'intégration des données dans Geotrek, les deux tronçons seront donc importés.
+
+Une fois cette étape réalisée, la suite du script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) peut être lancée. Par défaut, toutes les relations dont le champ `bruit` est nul sont considérées comme signifiantes.
+
+Le projet QGIS `correction_manuelle_bruits.qgz` vous permet de visualiser les données à superviser.
+
+## Modification des géométries
+
+**Script SQL associé** :
+ *   [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql)
+
+
+### Matrice de décision
+
+La table `decision_inner` est créée, rassemblant toutes les relations de `tampon_inner_all` pour lesquelles `bruit = False`.
 
 ### Géométries uniques
 
-Cette table permet alors d'obtenir toutes les géométries uniques des `r`, c'est-à-dire en doublon avec aucun `i`, soit :
-- tous les `r` dont l'identifiant n'est pas présent dans `decision_inner` sont 100% uniques ;
-- tous les `r` présents dans `decision_inner` mais dont l'union des géométries en doublon avec des `i` n'est pas égale au `r` original sont partiellement uniques.
+Cette table `decision_inner` permet alors d'obtenir par soustraction toutes les géométries uniques des `r`, c'est-à-dire en doublon avec aucun `i`, soit :
+- tous les `r` dont l'identifiant n'est pas présent dans `decision_inner`, qui sont 100% uniques ;
+- tous les `r` présents dans `decision_inner` mais dont l'union des géométries en doublon avec des `i` n'est pas égale au `r` original, qui sont partiellement uniques.
 
 Une matrice de décision `decision_outer_r` de ces géométries extérieures (aux tampons) est alors créée.
 
 ### Création des nouvelles géométries du réseau référence
 
-À partir de cette table, le script peut déterminer quelles opérations spatiales effectuer afin d'obtenir la nouvelle géométrie des tronçons du réseau référence. À partir de maintenant, les opérations sont construites pour modifier les géométries du réseau référence en l'adaptant un maximum au réseau importé, qui constitue la nouvelle référence.
+À partir de cette table, le script peut déterminer quelles opérations spatiales effectuer afin d'obtenir la nouvelle géométrie des tronçons du réseau référence. À partir de maintenant, les opérations spatiales modifient les géométries du réseau référence en l'adaptant un maximum au réseau importé, qui constitue in fine la nouvelle référence.
 
 Une table `core_path_wip_new` est créée. Cette table comprend également les champs attributaires de `core_path` qui sont à modifier avec la géométrie (en l'occurrence `comments`, `eid` et `structure_id`), ainsi que des champs utiles pour la supervision manuelle (`erreur`, `supervised`). Le champ `geom_new` contient la nouvelle géométrie de chaque tronçon.
 
 Trois types d'actions sont définis selon les valeurs de `decision_inner.cas_r` et `decision_inner.cas_i` :
-- si `cas_r` et `cas_i` sont égaux à 1, alors la nouvelle géométrie de `r` sera celle du `i` correspondant. C-a-d si chacun des deux tronçons est inclus dans le tampon de l'autre ;
-- si seul `cas_r` est égal à 1, alors la nouvelle géométrie de `r` sera la projection de `r` sur `i` (en utilisant `ST_LineSubstring` et `ST_LineLocate` des extrémités de `r`). Cas où la géométrie de `r` est totalement incluse dans le tampon `i` et celle de `i` n'est pas incluse totalement dans le tampon de `r`  ;
-- si ni `cas_r` ni `cas_i` ne sont égaux à 1, alors la nouvelle géométrie de `r` sera la projection de `ri` sur `i`. C-a-d que les géométries de `r` et `i` ne sont pas totalement incluses dans le tampon de l'autre.
+- si `cas_r` et `cas_i` sont égaux à 1, alors la nouvelle géométrie de `r` sera celle du `i` correspondant. C'est le cas où chacun des deux tronçons est inclus dans le tampon de l'autre ;
+- si seul `cas_r` est égal à 1, alors la nouvelle géométrie de `r` sera la projection de `r` sur `i` (en utilisant `ST_LineSubstring` et `ST_LineLocate` des extrémités de `r`). C'est le cas où la géométrie de `r` est totalement incluse dans le tampon `i` et celle de `i` n'est pas incluse totalement dans le tampon de `r` ;
+- si ni `cas_r` ni `cas_i` ne sont égaux à 1, alors la nouvelle géométrie de `r` sera la projection de `ri` sur `i`. C'est le cas où les géométries de `r` et `i` ne sont pas totalement incluses dans le tampon de l'autre.
 
 Afin d'éviter de découper trop près d'une extrémité, si les points obtenus par projection sur `i` sont à moins de 5m du début ou de la fin de `i`, c'est l'extrémité concernée qui sera prise en compte pour la nouvelle géométrie.
 
 ### Intégration des géométries uniques `r` et `i`
 
 Il y a deux cas de géométries uniques :
-- les géométries partiellement uniques c-a-d représentant des voies présentes dans `r` et dans `i` mais qui n'ont pas la même "longueur" (ne s'arrétant pas au même endroit).
-- les géométries 100% uniques c-a-d représentant des voies présentes dans `r` et absentes de `i`.
+- les géométries partiellement uniques, c'est-à-dire représentant des voies présentes dans `r` et dans `i` mais qui n'ont pas la même "longueur" (ne s'arrétent pas au même endroit) ;
+- les géométries 100% uniques, c'est-à-dire représentant des voies présentes dans `r` et absentes de `i`.
 
 #### Géométries partiellement uniques
 Une table `r_parties_uniques` stocke toutes les parties uniques (en doublon avec aucun `i`) des tronçons `r`, par sélection depuis `decision_outer_r`. La colonne `geom_new` des enregistrements correspondants dans la table `core_path_wip_new` est mise à jour en y ajoutant la géométrie de la partie considérée comme unique.
 
-Cette mise à jour a pour conséquence de faire cohabiter des tronçons issus des deux réseaux (référence et importé). Or, cette cohabitation peut provoquer des incohérences. Le cas typique est lorsque deux tronçons `r` se touchaient (c'est-à-dire partageaient une extrémité), que la géométrie de l'un a été calquée sur un tronçon `i` alors que la géométrie de l'autre est restée intacte, l'extrémité commune peut être déconnectée.
+Cette mise à jour a pour conséquence de faire cohabiter des tronçons issus des deux réseaux (référence et importé). Or, cette cohabitation peut provoquer des incohérences. Le cas typique est lorsque deux tronçons `r` se touchaient (c'est-à-dire partageaient une extrémité), que la géométrie de l'un a été calquée sur un tronçon `i` alors que la géométrie de l'autre est restée intacte, l'extrémité commune peut ainsi être déconnectée.
 
 On voit dans l'exemple suivant une situation où ce problème se pose : une déconnexion des tronçons r4 et r5 suite à la mise à jour de r5 par i5.
 
@@ -247,17 +249,16 @@ Une fois l'ensemble des géométries `r` traitées (parties en doublon et partie
 
 #### Géométries 100% uniques
 
-Les tronçons `r` 100% uniques, déjà présents dans `core_path_wip_new`, doivent également subir une mise à jour de leurs extrémités afin de conserver la cohérence du réseau.
+Les tronçons `r` 100% uniques, déjà présents dans `core_path_wip_new`, doivent également subir une mise à jour de leurs extrémités afin de préserver la continuité du réseau.
 
 ### Jointure des informations attributaires
 
-Pour conserver une trace de cette agrégation de réseau, le script ajoute aux valeurs déjà présentes des champs `eid`, `comments` et `structure_id` les valeurs issues du réseau importé.
-L'`eid` est remplacé par l'`id` du ou des tronçons `i` desquels le tronçon `r` a pris sa nouvelle géométrie, le nom de la couche et la date des données sont ajoutés à la valeur existante de `comments`, et le champ `structure_id` prend la valeur de l'id de la structure correspondante dans la table `authent_structure`.
+Pour conserver une trace de cette agrégation de réseaux, le script ajoute aux champs `eid`, `comments` et `structure_id` les valeurs issues du réseau importé. L'`eid` est remplacé par l'`id` du ou des tronçons `i` desquels le tronçon `r` a pris sa nouvelle géométrie, le nom de la couche et la date des données sont ajoutés à la valeur déjà existante de `comments` (concaténation), et le champ `structure_id` prend la valeur de l'id de la structure correspondante dans la table `authent_structure`.
 
 
 ## Ajustements et supervision finale
 
-Un paramètre principal peut être ajusté selon les données : c'est la taille du tampon. Fixée à 5 mètres pour l'instant, elle peut être augmentée afin de réduire le nombre de tronçons finaux et potentiellement réduire le nombre d'erreurs, au détriment de la finesse de reconnaissance des doublons. Elle peut aussi être réduite afin d'éviter que des tronçons soient considérés comme des doublons par erreur : plus de tronçons seront considérés comme uniques et le nombre total de tronçons finaux sera plus élevé, l'analyse est plus fine mais demandera peut-être plus d'intervention manuelle.
+Un paramètre principal peut être ajusté selon les données : c'est la taille du tampon. Fixée à 5 mètres pour l'instant, elle peut être augmentée afin de réduire le nombre de tronçons finaux et potentiellement réduire le nombre d'erreurs, au détriment de la finesse de reconnaissance des doublons. Elle peut aussi être réduite afin d'éviter que des tronçons soient considérés comme des doublons par erreur : plus de tronçons seront ainsi considérés comme uniques et le nombre total de tronçons finaux sera plus élevé, l'analyse est plus fine mais demandera peut-être plus d'intervention manuelle.
 
 Plus un réseau est dense, plus il faut augmenter la taille du tampon avec prudence, car cela risque d'amener autant d'erreurs et incohérences que d'en supprimer. Par exemple, le réseau de référence du Parc national des Cévennes étant la BD Topo de l'IGN, nous avons un niveau de maillage extrêmement élevé. Un tampon à 10m n'a pas permis de réduire le nombre d'erreurs détectables, et a sûrement augmenté le nombre de celles non détectables, c'est pourquoi nous sommes restés à 5m.
 Pour l'instant le script n'est pas écrit de manière à pouvoir changer ce paramètre simplement, car au-delà de la taille du tampon lui-même, la valeur choisie est une base de calcul pour de nombreuses autres requêtes et principes de définition des relations entre tronçons.
@@ -275,8 +276,7 @@ Corriger manuellement des erreurs peut prendre de quelques secondes à plusieurs
 
 Avant de passer sur QGIS, certaines étapes sont nécessaires pour faciliter la supervision. Le principe est de mettre à jour la table `core_path_wip_new` en ajoutant une mention de l'erreur potentielle dans la colonne `erreur`.
 
-
-De façon à pouvoir modifier les données dans QGIS, il faut qu'elles aient toutes le même type de géométrie. Ce type doit être de type linestring. De plus dans Geotrek les géométries ponctuelles ou trop courtes, poseront problème avec la contrainte `core_path_geom_isvalid` lors de la mise à jour des géométries de `core_path` :
+Il faut que toutes les données aient le même type de géométrie pour pouvoir les modifier ensemble dans QGIS. Ce type doit être de type linestring. De plus les géométries ponctuelles ou trop courtes poseront problème dans Geotrek ren raison de la contrainte `core_path_geom_isvalid` lors de la mise à jour des géométries de `core_path`.
 
 Une table `erreurs_compte` stocke le nombre d'erreurs de chaque type à chaque exécution du script [3_lineaire_agg_correction_erreurs.sql](scripts_sql/agregation_reseaux/3_lineaire_agg_correction_erreurs.sql). Cela permet par exemple de suivre l'évolution du nombre et du type d'erreurs selon les ajustements apportés aux requeêtes d'agrégation des réseaux (taille du tampon, etc).
 
@@ -286,7 +286,7 @@ Les erreurs suivantes sont identifiées et viennent renseigner le champ `core_pa
 - `st_overlaps_contains_within` : tronçons qui en chevauchent ou contiennent d'autres ;
 - `st_isvalid` : tronçons ne validant pas la fonction PostGIS [`ST_IsValid()`](https://postgis.net/workshops/postgis-intro/validity.html) ;
 - `st_issimple` : tronçons ne validant pas la fonction PostGIS [`ST_IsSimple()`](https://postgis.net/docs/ST_IsSimple.html) (auto-intersection...) ;
-- `st_geometrytype` : tronçons dont la géométrie n'est pas une LineString ;
+- `st_geometrytype` : tronçons dont la géométrie n'est pas de type LineString ;
 - `extremite` : tronçons courts dont une extrémité n'est reliée à aucun autre tronçon.
 
 Une fonction `trigger_geom_new()` est appelée par un trigger déclenché à chaque mise à jour du champ `core_path_wip_new.geom_new`. Elle met à jour le champ `erreur` à chaque sauvegarde de la couche dans QGIS. Cela permet de ne conserver la symbologie spécifique que pour les tronçons encore problématiques, et pas pour ceux corrigés.
@@ -298,12 +298,12 @@ Plusieurs couches sont nécessaires pour faciliter la supervision :
 - `reference.geom` et `importe.geom` : avec des symbologies différentes pour pouvoir comparer les tronçons problématiques avec les réseaux initiaux ;
 - une couche d'imagerie satellite, une couche IGN (SCAN25, Plan V2...), une couche OpenStreetMap : permettent de comparer les réseaux initiaux avec plusieurs sources de données et aident à la décision.
 
-L'activation de l'accrochage aux sommets et segments existants facilitera la modification des géométries.
+L'activation de l'accrochage aux sommets et segments facilitera la modification des géométries.
 
 Certaines erreurs n'ont pas à être corrigées manuellement. Par exemple deux tronçons qui se croisent en leur milieu répondront à l'erreur `st_crosses`, mais plutôt que de les scinder manuellement en quatre tronçons distincts, nous pouvons laisser les triggers de Geotrek s'en charger plus tard. Pour ces cas, il faut attribuer la valeur `true` au champ `supervised` afin d'appliquer une symbologie spécifique et de se souvenir qu'on les a déjà supervisés. La fonction `trigger_geom_new()` applique automatiquement cette valeur aux tronçons dont la géométrie a été modifiée, aussi il peut être plus rapide de "modifier" la géométrie de ces tronçons, en déplaçant un point puis en le remettant au même endroit avant de sauvegarder la couche, que de modifier manuellement la valeur du champ.
 
 Il vaut mieux corriger les erreurs dans cet ordre :
-- `ligne_trop_courte` : certains tronçons seront à supprimer (sélection d'entité puis suppression). Attention lorsque le champ erreur à cette valeur elle n'est pas mise à jour par le tigger ;
+- `ligne_trop_courte` : certains tronçons seront à supprimer (sélection d'entité puis suppression). Attention lorsque le champ erreur a cette valeur, elle n'est pas mise à jour par le trigger ;
 - `st_isvalid` et `st_issimple` : peu d'erreurs à corriger ;
 - `st_geometrytype` : certains tronçons seront à scinder en plusieurs entités ;
 - `extremite` et `st_overlaps_contains_within` : erreurs assez similaires ;
@@ -316,7 +316,7 @@ L'exécution du trigger lors de la sauvegarde de la couche `core_path_wip_new` s
 
 ------
 
-L'algorithme crée de nombreux tronçons "uniques" issus du réseau importé, alors qu'un tronçon `r` aurait pu voir sa géométrie calquée dessus. La correction manuelle permet d'en supprimer un bon nombre et de recalquer les tronçons référence correspondants sur ceux-ci. Lorsque cela se produit, il ne faut pas oublier de mettre à jour les champs `eid`, `comments` et `structure_id` selon la même structure que celle créée par le script (remplacement total des valeurs de `eid` et `structure_id`, agrégation de la valeur originale et de la nouvelle valeur de `comments`).
+L'algorithme crée de nombreux tronçons "uniques" issus du réseau importé, alors qu'un tronçon `r` aurait pu voir sa géométrie calquée dessus. La correction manuelle permet d'en supprimer un bon nombre et de recalquer les tronçons référence correspondants sur ceux-ci. Lorsque cela se produit, il ne faut pas oublier de mettre à jour les champs `eid`, `comments` et `structure_id` selon la même structure que celle créée par le script (remplacement total des valeurs de `eid` et `structure_id`, concaténation de la valeur originale et de la nouvelle valeur de `comments`).
 
 Par exemple, cela arrive souvent là où des tronçons `r` ont été projetés sur les tronçons `i` à 6 ou 7 mètres d'une intersection. Cela n'a pas vraiment de sens que le `r` s'arrête à quelques mètres d'une intersection et soit ainsi séparé du `r` qu'il touchait à l'origine par un mini-tronçon `i` de quelques mètres. Dans ce genre de cas, il suffit de supprimer le tronçon `i` et de raccorder les deux `r` au niveau de l'intersection (tout en suivant le tracé du `i` supprimé bien sûr).
 
