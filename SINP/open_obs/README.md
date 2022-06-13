@@ -2,7 +2,7 @@
 
 L'url `https://odata-inpn.mnhn.fr/geometries/grids/taxon/${cd_ref}` permet de récupérer les données d'observation à la maille de 10km.
 
-Exemple de script permettant de récupérer les données à partir d'une liste de cd_ref et de les concaténer dans un gpkg
+Exemple de script permettant de récupérer les données dans un fichier geojson à partir d'une liste de cd_ref et de les concaténer dans un gpkg
 
 ```sh
 mkdir -p /tmp/data_oobs
