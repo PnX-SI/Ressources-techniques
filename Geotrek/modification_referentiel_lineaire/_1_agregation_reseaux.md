@@ -323,3 +323,7 @@ Par exemple, cela arrive souvent là où des tronçons `r` ont été projetés s
 Une fois toutes les erreurs supervisées, on peut vérifier que tous les tronçons ont bien une `geom_new` : lors de certaines suppressions de tronçons, seule la géométrie est supprimée au lieu de l'entité entière.
 
 Un exemple de projet QGIS permettant la correction des erreurs détectées est présent dans le dépôt : [correction_manuelle_finale.qgz](projets_qgis/correction_manuelle_finale.qgz).
+
+
+
+Prochaine étape : [Import des données une fois traitées dans une base Geotrek](./_2_import_donnees_geotrek.md)
