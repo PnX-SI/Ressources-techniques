@@ -201,3 +201,5 @@ i AS (
 SELECT * FROM i
 ```
 Attention un `core_path` peut avoir plusieurs erreurs et donc se retrouver dans le résultat de plusieurs sous-requêtes.
+
+Prochaine étape : [Analyse des réseaux en vue de leur fusion](./_1_agregation_reseaux.md)
