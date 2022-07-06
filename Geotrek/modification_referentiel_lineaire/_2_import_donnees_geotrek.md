@@ -143,7 +143,7 @@ Des erreurs sont inévitables, mais nous avons fait le choix de les traiter apr�
 
 ### Types de voie (`physicaledge`)
 
-**Script SQL associé** : `2_import_physicaledge.sql`
+**Script SQL associé** : [2_import_physicaledge.sql](scripts_sql/import_status_geotrek/2_import_physicaledge.sql)
 
 Contrairement aux types fonciers – pour lesquels nous avons souhaité conserver le découpage juridique du réseau importé – la table `land_physicaledge` n'accepte qu'un champ attributaire : `physical_type_id`.
 
