@@ -324,6 +324,6 @@ Une fois toutes les erreurs supervisées, on peut vérifier que tous les tronço
 
 Un exemple de projet QGIS permettant la correction des erreurs détectées est présent dans le dépôt : [correction_manuelle_finale.qgz](projets_qgis/correction_manuelle_finale.qgz).
 
-
+------
 
 Prochaine étape : [Import des données une fois traitées dans une base Geotrek](./_2_import_donnees_geotrek.md)
