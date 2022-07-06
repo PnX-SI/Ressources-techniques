@@ -129,77 +129,75 @@ Pour cela, les mêmes requêtes spatiales que précédemment sont applicables, i
 ``` sql
 WITH
 a AS ( -- tronçons qui en croisent d'autres
-     SELECT DISTINCT cp1.id,
+     SELECT DISTINCT tn1.id,
             'st_crosses' AS erreur
-       FROM core_path cp1
-            INNER JOIN core_path cp2
-            ON ST_Crosses(cp1.geom, cp2.geom)
-               AND cp1.id != cp2.id),
+       FROM "table_name" tn1
+            INNER JOIN "table_name" tn2
+            ON ST_Crosses(tn1.geom, tn2.geom)
+               AND tn1.id != tn2.id),
 b AS ( -- tronçons qui en chevauchent d'autres
-     SELECT DISTINCT cp1.id,
+     SELECT DISTINCT tn1.id,
             'st_overlaps or st_contains/within' AS erreur
-       FROM core_path cp1
-            INNER JOIN core_path cp2
+       FROM "table_name" tn1
+            INNER JOIN "table_name" tn2
             ON (
-				ST_Overlaps(cp1.geom, cp2.geom)
-                OR ST_Contains(cp1.geom, cp2.geom)
-                OR ST_Within(cp1.geom, cp2.geom)
+				ST_Overlaps(tn1.geom, tn2.geom)
+                OR ST_Contains(tn1.geom, tn2.geom)
+                OR ST_Within(tn1.geom, tn2.geom)
 			)
-               AND cp1.id != cp2.id),
+               AND tn1.id != tn2.id),
 c AS ( -- tronçons dont la géométrie n'est pas valide
      SELECT DISTINCT id,
             'st_isvalid' AS erreur
-       FROM core_path
+       FROM "table_name"
       WHERE NOT ST_IsValid(geom)),
 d AS ( -- tronçons qui s'auto-intersectent (normalement déjà pris en compte par st_isvalid)
      SELECT DISTINCT id,
             'st_issimple' AS erreur
-       FROM core_path
+       FROM "table_name"
       WHERE NOT ST_IsSimple(geom)),
 e AS ( -- tronçons multilinestring
      SELECT DISTINCT id,
             'st_geometrytype' AS erreur
-       FROM core_path
+       FROM "table_name"
       WHERE NOT ST_GeometryType(geom) = 'ST_LineString'),
 f AS ( -- tronçons en doublon
-     SELECT cp1.id,
+     SELECT tn1.id,
             'st_equals' AS erreur
-       FROM core_path cp1
-            INNER JOIN core_path cp2
-            ON ST_Equals(cp1.geom, cp2.geom)
-               AND cp1.id != cp2.id),
+       FROM "table_name" tn1
+            INNER JOIN "table_name" tn2
+            ON ST_Equals(tn1.geom, tn2.geom)
+               AND tn1.id != tn2.id),
 g AS ( -- tronçons isolés
-     SELECT cp1.id,
+     SELECT tn1.id,
             'isoles' as erreur
-       FROM core_path cp1
+       FROM "table_name" tn1
       WHERE NOT EXISTS
             (SELECT 1
-               FROM core_path cp2
-              WHERE cp1.id != cp2.id
-                AND ST_INTERSECTS(cp1.geom, cp2.geom)))
-SELECT * FROM a
- UNION
-SELECT * FROM b
- UNION
-SELECT * FROM c
- UNION
-SELECT * FROM d
- UNION
-SELECT * FROM e
- UNION
-SELECT * FROM f
- UNION
-SELECT * FROM g
+               FROM "table_name" tn2
+              WHERE tn1.id != tn2.id
+                AND ST_INTERSECTS(tn1.geom, tn2.geom))),
+h AS ( -- tronçons se touchant presque (régler la tolérance selon le besoin)
+     SELECT tn1.id,
+            'se_touchent_presque' as erreur
+       FROM "table_name" tn1
+	    INNER JOIN "table_name" tn2
+	       ON ST_DWithin(ST_Boundary(tn1.geom), tn2.geom, 1)
+		  AND NOT ST_Intersects(tn1.geom, tn2.geom)),
+i AS (
+     SELECT * FROM a
+      UNION
+     SELECT * FROM b
+      UNION
+     SELECT * FROM c
+      UNION
+     SELECT * FROM d
+      UNION
+     SELECT * FROM e
+      UNION
+     SELECT * FROM f
+      UNION
+     SELECT * FROM g)
+SELECT * FROM i
 ```
-Attention un `core_path` peut avoir plusieurs erreurs et donc se retrouver plusieurs fois dans le résultat de la requête.
-
-La seule requête à lancer de manière isolée est la suivante, car les identifiants des deux tronçons concernés sont nécessaires, et qu'il ne s'agit pas à proprement parler d'une erreur :
-``` sql
--- tronçons se touchant presque (régler la tolérance selon le besoin)
-SELECT cp1.id,
-       cp2.id
-  FROM core_path cp1
-       INNER JOIN core_path cp2
-       ON ST_DWithin(ST_Boundary(cp1.geom), cp2.geom, 1)
-          AND NOT ST_Intersects(cp1.geom, cp2.geom);
-```
+Attention un `core_path` peut avoir plusieurs erreurs et donc se retrouver dans le résultat de plusieurs sous-requêtes.
