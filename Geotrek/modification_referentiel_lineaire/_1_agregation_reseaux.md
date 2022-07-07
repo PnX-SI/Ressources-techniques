@@ -108,6 +108,7 @@ Il crée les tables suivantes :
  - `tampon_inner_i` : table contenant toutes les géométries communes entre `importe` et  `reference` quand elles sont incluses dans les tampons, avec mention du cas (doublons partiels, ...)
 - `tampon_inner_all` : table de jointure des données contenues dans `tampon_inner_i` et `tampon_inner_r`. C'est dans celle-ci que le script détermine si une relation semble être du bruit ou non.
 
+Une fois ce script exécuté et la table `tampon_inner_all` créée, une supervision manuelle est nécessaire, cf. [Supervision manuelle des relations `bruit = NULL`](#supervision-manuelle-des-relations-bruit--null).
 
 Le script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) permet de calculer le nouveau réseau issu de la fusion des réseaux importé et de référence.
 
