@@ -192,7 +192,7 @@ L'attribution de la valeur `true` à `bruit` signifie que c'est une fausse relat
 
 Une fois cette étape réalisée, la suite du script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) peut être lancée. Par défaut, toutes les relations dont le champ `bruit` est nul sont considérées comme signifiantes.
 
-Le projet QGIS `correction_manuelle_bruits.qgz` vous permet de visualiser les données à superviser.
+Le projet QGIS [correction_manuelle_bruits.qgz](projets_qgis/correction_manuelle_bruits.qgz) vous permet de visualiser les données à superviser.
 
 ## Modification des géométries
 
