@@ -93,7 +93,7 @@ La couche du réseau de référence doit avoir la structure de la table `core_pa
 
 ### Scripts SQL
 
-Quatre scripts SQL sont proposés dans le répertoire `scripts_sql/agregation_reseaux/`. Ils permettent de réaliser les opérations qui sont généralisables.
+Quatre scripts SQL sont proposés dans le répertoire [scripts_sql/agregation_reseaux/](scripts_sql/agregation_reseaux/). Ils permettent de réaliser les opérations qui sont généralisables.
 Certaines requêtes sont présentes uniquement dans la documentation ici présente, et ne sont pas incluses dans les scripts. Elles permettent d'analyser les résultats de certaines étapes de l'agrégation, et sont à lancer manuellement.
 
 En premier lieu il faut exécuter le script [0_lineaire_agg_preparation.sql](scripts_sql/agregation_reseaux/0_lineaire_agg_preparation.sql) qui permet de créer la table des types de cas `cas`, ainsi que des index spatiaux pour les tables `importe` et `reference`.
