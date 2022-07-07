@@ -63,7 +63,7 @@ Deux étapes manuelles sont nécessaires à la réalisation du processus :
 
 ## Préparation et présentation des scripts
 
-Pour réaliser les opérations décrites ci-après, lancer les scripts et utiliser les projets QGIS sans réaliser d'adaptation, nous vous conseillons de créer une base de données nommée `geotrek_process` avec un utilisateur `geotrek_process` :
+Pour réaliser les opérations décrites ci-après, lancer les scripts et surtout utiliser les projets QGIS sans devoir modifier les sources de leurs couches, nous vous conseillons de créer une base de données nommée `geotrek_process` avec un utilisateur `geotrek_process` :
 
 
 ``` sql
