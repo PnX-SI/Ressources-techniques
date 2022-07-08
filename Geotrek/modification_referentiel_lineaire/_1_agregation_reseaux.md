@@ -262,6 +262,7 @@ Pour conserver une trace de cette agrégation de réseaux, le script ajoute aux 
 Un paramètre principal peut être ajusté selon les données : c'est la taille du tampon. Fixée à 5 mètres pour l'instant, elle peut être augmentée afin de réduire le nombre de tronçons finaux et potentiellement réduire le nombre d'erreurs, au détriment de la finesse de reconnaissance des doublons. Elle peut aussi être réduite afin d'éviter que des tronçons soient considérés comme des doublons par erreur : plus de tronçons seront ainsi considérés comme uniques et le nombre total de tronçons finaux sera plus élevé, l'analyse est plus fine mais demandera peut-être plus d'intervention manuelle.
 
 Plus un réseau est dense, plus il faut augmenter la taille du tampon avec prudence, car cela risque d'amener autant d'erreurs et incohérences que d'en supprimer. Par exemple, le réseau de référence du Parc national des Cévennes étant la BD Topo de l'IGN, nous avons un niveau de maillage extrêmement élevé. Un tampon à 10m n'a pas permis de réduire le nombre d'erreurs détectables, et a sûrement augmenté le nombre de celles non détectables, c'est pourquoi nous sommes restés à 5m.
+
 Pour l'instant le script n'est pas écrit de manière à pouvoir changer ce paramètre simplement, car au-delà de la taille du tampon lui-même, la valeur choisie est une base de calcul pour de nombreuses autres requêtes et principes de définition des relations entre tronçons.
 
 **Script SQL associé** :
@@ -277,7 +278,7 @@ Corriger manuellement des erreurs peut prendre de quelques secondes à plusieurs
 
 Avant de passer sur QGIS, certaines étapes sont nécessaires pour faciliter la supervision. Le principe est de mettre à jour la table `core_path_wip_new` en ajoutant une mention de l'erreur potentielle dans la colonne `erreur`.
 
-Il faut que toutes les données aient le même type de géométrie pour pouvoir les modifier ensemble dans QGIS. Ce type doit être de type linestring. De plus les géométries ponctuelles ou trop courtes poseront problème dans Geotrek ren raison de la contrainte `core_path_geom_isvalid` lors de la mise à jour des géométries de `core_path`.
+Il faut que toutes les données aient le même type de géométrie pour pouvoir les modifier ensemble dans QGIS. Ce type doit être de type linestring. De plus les géométries ponctuelles ou trop courtes poseront problème dans Geotrek en raison de la contrainte `core_path_geom_isvalid` lors de la mise à jour des géométries de `core_path`.
 
 Une table `erreurs_compte` stocke le nombre d'erreurs de chaque type à chaque exécution du script [3_lineaire_agg_correction_erreurs.sql](scripts_sql/agregation_reseaux/3_lineaire_agg_correction_erreurs.sql). Cela permet par exemple de suivre l'évolution du nombre et du type d'erreurs selon les ajustements apportés aux requeêtes d'agrégation des réseaux (taille du tampon, etc).
 
