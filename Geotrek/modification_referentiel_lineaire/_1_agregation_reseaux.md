@@ -63,7 +63,7 @@ Deux étapes manuelles sont nécessaires à la réalisation du processus :
 
 ## Préparation et présentation des scripts
 
-Pour réaliser les opérations décrites ci-après, lancer les scripts et utiliser les projets QGIS sans réaliser d'adaptation, nous vous conseillons de créer une base de données nommée `geotrek_process` avec un utilisateur `geotrek_process` :
+Pour réaliser les opérations décrites ci-après, lancer les scripts et surtout utiliser les projets QGIS sans devoir modifier les sources de leurs couches, nous vous conseillons de créer une base de données nommée `geotrek_process` avec un utilisateur `geotrek_process` :
 
 
 ``` sql
@@ -108,6 +108,7 @@ Il crée les tables suivantes :
  - `tampon_inner_i` : table contenant toutes les géométries communes entre `importe` et  `reference` quand elles sont incluses dans les tampons, avec mention du cas (doublons partiels, ...)
 - `tampon_inner_all` : table de jointure des données contenues dans `tampon_inner_i` et `tampon_inner_r`. C'est dans celle-ci que le script détermine si une relation semble être du bruit ou non.
 
+Une fois ce script exécuté et la table `tampon_inner_all` créée, une supervision manuelle est nécessaire, cf. [Supervision manuelle des relations `bruit = NULL`](#supervision-manuelle-des-relations-bruit--null).
 
 Le script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) permet de calculer le nouveau réseau issu de la fusion des réseaux importé et de référence.
 
@@ -191,7 +192,7 @@ L'attribution de la valeur `true` à `bruit` signifie que c'est une fausse relat
 
 Une fois cette étape réalisée, la suite du script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) peut être lancée. Par défaut, toutes les relations dont le champ `bruit` est nul sont considérées comme signifiantes.
 
-Le projet QGIS `correction_manuelle_bruits.qgz` vous permet de visualiser les données à superviser.
+Le projet QGIS [correction_manuelle_bruits.qgz](projets_qgis/correction_manuelle_bruits.qgz) vous permet de visualiser les données à superviser.
 
 ## Modification des géométries
 
@@ -261,6 +262,7 @@ Pour conserver une trace de cette agrégation de réseaux, le script ajoute aux 
 Un paramètre principal peut être ajusté selon les données : c'est la taille du tampon. Fixée à 5 mètres pour l'instant, elle peut être augmentée afin de réduire le nombre de tronçons finaux et potentiellement réduire le nombre d'erreurs, au détriment de la finesse de reconnaissance des doublons. Elle peut aussi être réduite afin d'éviter que des tronçons soient considérés comme des doublons par erreur : plus de tronçons seront ainsi considérés comme uniques et le nombre total de tronçons finaux sera plus élevé, l'analyse est plus fine mais demandera peut-être plus d'intervention manuelle.
 
 Plus un réseau est dense, plus il faut augmenter la taille du tampon avec prudence, car cela risque d'amener autant d'erreurs et incohérences que d'en supprimer. Par exemple, le réseau de référence du Parc national des Cévennes étant la BD Topo de l'IGN, nous avons un niveau de maillage extrêmement élevé. Un tampon à 10m n'a pas permis de réduire le nombre d'erreurs détectables, et a sûrement augmenté le nombre de celles non détectables, c'est pourquoi nous sommes restés à 5m.
+
 Pour l'instant le script n'est pas écrit de manière à pouvoir changer ce paramètre simplement, car au-delà de la taille du tampon lui-même, la valeur choisie est une base de calcul pour de nombreuses autres requêtes et principes de définition des relations entre tronçons.
 
 **Script SQL associé** :
@@ -276,7 +278,7 @@ Corriger manuellement des erreurs peut prendre de quelques secondes à plusieurs
 
 Avant de passer sur QGIS, certaines étapes sont nécessaires pour faciliter la supervision. Le principe est de mettre à jour la table `core_path_wip_new` en ajoutant une mention de l'erreur potentielle dans la colonne `erreur`.
 
-Il faut que toutes les données aient le même type de géométrie pour pouvoir les modifier ensemble dans QGIS. Ce type doit être de type linestring. De plus les géométries ponctuelles ou trop courtes poseront problème dans Geotrek ren raison de la contrainte `core_path_geom_isvalid` lors de la mise à jour des géométries de `core_path`.
+Il faut que toutes les données aient le même type de géométrie pour pouvoir les modifier ensemble dans QGIS. Ce type doit être de type linestring. De plus les géométries ponctuelles ou trop courtes poseront problème dans Geotrek en raison de la contrainte `core_path_geom_isvalid` lors de la mise à jour des géométries de `core_path`.
 
 Une table `erreurs_compte` stocke le nombre d'erreurs de chaque type à chaque exécution du script [3_lineaire_agg_correction_erreurs.sql](scripts_sql/agregation_reseaux/3_lineaire_agg_correction_erreurs.sql). Cela permet par exemple de suivre l'évolution du nombre et du type d'erreurs selon les ajustements apportés aux requeêtes d'agrégation des réseaux (taille du tampon, etc).
 
