@@ -210,7 +210,7 @@ UPDATE core_path_wip_new cp_wn
    SET erreur = h.erreur
   FROM h
  WHERE cp_wn.id = h.id
-   AND cp_wn.erreur != 'ligne_trop_courte'; -- évite d'écraser cette erreur avec une autre valeur
+   AND cp_wn.erreur IS DISTINCT FROM 'ligne_trop_courte'; -- évite d'écraser cette erreur avec une autre valeur
 
 
 
