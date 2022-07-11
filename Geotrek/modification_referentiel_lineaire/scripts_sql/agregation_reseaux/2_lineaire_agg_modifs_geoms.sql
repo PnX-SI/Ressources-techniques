@@ -268,7 +268,7 @@ WITH a AS (
 		   ST_DWithin(geom_r, ST_EndPoint(geom_i), 5) AS end_i_r_5
 	  FROM decision_inner
 	 WHERE "action" = 'geom_ri locate geom_i'
-	 GROUP BY rid, geom_r, iid, geom_i, geom_ri, cas_r, cas_i, geom_ir, tx_longueur_doublon_r, tx_longueur_doublon_i, geom_ir_ri, aire_ir_ri, "action"
+	 GROUP BY rid, geom_r, iid, geom_i, geom_ri, cas_r, cas_i, geom_ir, tx_longueur_doublon_r, tx_longueur_doublon_i, geom_ir_ri, aire_ir_ri, "action", structure_id
 ),
 b AS (
 	SELECT rid,
