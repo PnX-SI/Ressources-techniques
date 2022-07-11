@@ -1,18 +1,23 @@
 # Récupération des données depuis un serveur odk central
 
-## Via postgresql
+## API documentation
+
+https://odkcentral.docs.apiary.io 
+
+
+## Postgresql : central2PG
 
 https://github.com/mathieubossaert/central2pg
 
 Fonctions PostgreSQL pemrettant d'interragir avec un serveir ODK Central à travers son API ODATA, pour la récupération des données et la gestion (mise à jour de formulaires)
+![central2pg](https://user-images.githubusercontent.com/1642645/165459944-a8bfe56e-6cf3-410d-b337-70fe6d1e5ef3.png)
 
-
-## Centralpy
+## Python : Centralpy
 https://github.com/pmaengineering/centralpy
 Client python permettant d'interragir avec un serveur ODK central
 
 
-## Exemple d'usage
+### Exemple d'usage
 Dans cette exemple il y a un couplage avec [csvkit](https://csvkit.readthedocs.io/en/latest/index.html) de façon à importer les données en base directement
 
 
@@ -93,3 +98,13 @@ for file in `ls ${CENTRALPY_CSV_DIR}/*.csv`; do
        ${file}
 done
 ```
+
+
+## R package ruODK
+Paquet r qui permet de récupérer les données d'ock central via les api ODATA et REST
+
+https://github.com/ropensci/ruODK
+
+![An ODK setup with ODK Build, Central, Collect, and
+ruODK](https://www.lucidchart.com/publicSegments/view/952c1350-3003-48c1-a2c8-94bad74cdb46/image.png)
+
