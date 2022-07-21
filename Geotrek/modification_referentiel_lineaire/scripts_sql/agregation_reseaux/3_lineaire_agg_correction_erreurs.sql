@@ -223,6 +223,10 @@ AS $$
 DECLARE
 	inversed boolean;
 BEGIN
+
+	NEW.geom_new := ST_LineMerge(NEW.geom_new); -- transforme les géometries curve créées par QGIS en LineStrings habituelles
+	                                            -- et fusionne les MultiLineStrings en LineStrings 
+
 	SELECT ST_Equals( -- si l'extrémité de la geom_new corrigée la plus proche du point d'arrivée de geom est
 					  -- son point de départ, alors il faut inverser le sens de geom_new
 				ST_StartPoint(NEW.geom_new),
@@ -235,9 +239,7 @@ BEGIN
 	 WHERE NEW.id = cp_wn.id;
 
 	  IF inversed THEN
-	  	NEW.geom_new := ST_Reverse(ST_LineMerge(NEW.geom_new)); -- transforme les géometries curve créées par QGIS en LineStrings habituelles
-	  ELSE
-	  	NEW.geom_new := ST_LineMerge(NEW.geom_new); 		    -- et fusionne les MultiLineStrings en LineStrings après correction
+	  	NEW.geom_new := ST_Reverse(NEW.geom_new);
 	  END IF;
 
 	NEW.erreur :=  (

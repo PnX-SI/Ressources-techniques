@@ -305,14 +305,14 @@ L'activation de l'accrochage aux sommets et segments facilitera la modification 
 Certaines erreurs n'ont pas à être corrigées manuellement. Par exemple deux tronçons qui se croisent en leur milieu répondront à l'erreur `st_crosses`, mais plutôt que de les scinder manuellement en quatre tronçons distincts, nous pouvons laisser les triggers de Geotrek s'en charger plus tard. Pour ces cas, il faut attribuer la valeur `true` au champ `supervised` afin d'appliquer une symbologie spécifique et de se souvenir qu'on les a déjà supervisés. La fonction `trigger_geom_new()` applique automatiquement cette valeur aux tronçons dont la géométrie a été modifiée, aussi il peut être plus rapide de "modifier" la géométrie de ces tronçons, en déplaçant un point puis en le remettant au même endroit avant de sauvegarder la couche, que de modifier manuellement la valeur du champ.
 
 Il vaut mieux corriger les erreurs dans cet ordre :
-- `ligne_trop_courte` : certains tronçons seront à supprimer (sélection d'entité puis suppression). Attention lorsque le champ erreur a cette valeur, elle n'est pas mise à jour par le trigger ;
+- `ligne_trop_courte` : certains tronçons seront à supprimer (sélection d'entité puis suppression). Attention, lorsque le champ erreur a cette valeur, elle n'est pas mise à jour par le trigger ;
 - `st_isvalid` et `st_issimple` : peu d'erreurs à corriger ;
 - `st_geometrytype` : certains tronçons seront à scinder en plusieurs entités ;
 - `extremite` et `st_overlaps_contains_within` : erreurs assez similaires ;
 - `st_crosses` : les plus nombreuses mais souvent les plus simples à corriger.
 
 ----
-Attention
+/!\ Attention /!\
 
 L'exécution du trigger lors de la sauvegarde de la couche `core_path_wip_new` se lance de façon unitaire et il est fréquent lors de la correction simultanée de plusieurs tronçons que de nouvelles erreurs soient détectées alors qu'elles ont bien été corrigées. Dans ce cas il faut simuler une nouvelle mise à jour de la géométrie (ex : déplacement d'un sommet et remise à sa place initiale) pour que tout rentre dans l'ordre.
 

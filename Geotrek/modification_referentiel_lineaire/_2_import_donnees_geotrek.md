@@ -18,7 +18,7 @@ Sommaire:
  *   [2.0_maj_core_pathaggregation.sql](scripts_sql/import_new_troncons_geotrek/2.0_maj_core_pathaggregation.sql)
  *   [2.1_maj_core_topology_trigger.sql](scripts_sql/import_new_troncons_geotrek/2.1_maj_core_topology_trigger.sql)
 
-Une fois toutes les corrections réalisées, il faut importer la table `core_path_wip_new` dans la base de données dans le schéma `public`. Cet import peut se faire via les outils de QGIS ou [ogr2ogr](https://gdal.org/programs/ogr2ogr.html).
+Une fois toutes les corrections réalisées, il faut importer la table `core_path_wip_new` dans la base de données Geotrek (ou une base test) dans le schéma `public`. Cet import peut se faire via les outils de QGIS ou [ogr2ogr](https://gdal.org/programs/ogr2ogr.html).
 
 Une fois la table importée, les scripts [1.0_maj_core_path.sql](scripts_sql/import_new_troncons_geotrek/1.0_maj_core_path.sql) et [1.1_maj_core_path_trigger.sql](scripts_sql/import_new_troncons_geotrek/1.1_maj_core_path_trigger.sql) permettent de mettre à jour les données de Geotrek selon les étapes suivantes :
  * désactivation des triggers
@@ -31,9 +31,9 @@ Des erreurs sont susceptibles d'arriver : elles s'afficheront dans les *logs* de
 
 Avec la mise à jour de `core_path`, les tables `core_pathaggregation` et `core_topology` sont également mises à jour. Si on se connecte sur Geotrek-admin à ce moment, on peut observer qu'un certain nombre d'itinéraires de randonnée sont cassés : il manque des tronçons à certains endroits, ou bien l'altimétrie ne fonctionne pas, etc. C'est un résultat attendu de ces opérations, qui sont rarement sans conséquence sur l'intégrité des itinéraires. Les trous qui apparaissent dans certains itinéraires sont souvent le symptôme de `core_path` manquants dans `core_pathaggregation` : par exemple dans le cas d'un tronçon ayant été découpé en deux parties, parfois seule la moitié qui a conservé le même identifiant reste référencée dans `core_pathaggregation`, alors que l'autre moitié en est absente.
 
-Avant de corriger à la main, via Geotrek-admin, les itinéraires cassés, les scripts [2.0_maj_core_pathaggregation.sql](scripts_sql/import_new_troncons_geotrek/2.0_maj_core_pathaggregation.sql) et [2.1_maj_core_topology_trigger.sql](scripts_sql/import_new_troncons_geotrek/2.1_maj_core_topology_trigger.sql) permettent de minimiser le nombre de trous dans les `core_pathaggregation` des itinéraires, en retrouvant les tronçons manquants.
+Avant de corriger à la main, via l'interface de Geotrek-admin, les itinéraires cassés, les scripts [2.0_maj_core_pathaggregation.sql](scripts_sql/import_new_troncons_geotrek/2.0_maj_core_pathaggregation.sql) et [2.1_maj_core_topology_trigger.sql](scripts_sql/import_new_troncons_geotrek/2.1_maj_core_topology_trigger.sql) permettent de minimiser le nombre de trous dans les `core_pathaggregation` des itinéraires, en retrouvant les tronçons manquants.
 
-Deux tables `core_pathaggregation_to_insert` et `core_pathaggregation_new` sont créées. `core_pathaggregation_to_insert` contient les tronçons qui ont été repérés comme manquants à `core_pathaggregation`. `core_pathaggregation_new` agrège les données de `core_pathaggregation_to_insert` et celles de `core_pathaggregation` tout en réattribuant un ordre à chaque `pathaggregation` (colonne `order`). Le contenu de `core_pathaggregation` est ensuite remplacé par celui de `core_pathaggregation_new` après avoir désactivé ses triggers. Enfin, l'exécution de la fonction native `update_geometry_of_topology()` sur tous les enregistrements de `core_topology` permet de mettre à jour leur géométrie selon le nouveau contenu de `core_pathaggregation`.
+Deux tables `core_pathaggregation_to_insert` et `core_pathaggregation_new` sont créées. `core_pathaggregation_to_insert` contient les tronçons qui ont été repérés comme manquants à `core_pathaggregation`. `core_pathaggregation_new` agrège les données de `core_pathaggregation_to_insert` et celles de `core_pathaggregation` tout en réattribuant un ordre à chaque `pathaggregation` (colonne `order`). Le contenu de `core_pathaggregation` est ensuite remplacé par celui de `core_pathaggregation_new` après avoir désactivé ses triggers. Enfin, l'exécution de la fonction native de Geotrek `update_geometry_of_topology()` sur tous les enregistrements de `core_topology` permet de mettre à jour leur géométrie selon le nouveau contenu de `core_pathaggregation`.
 
 
 L'ensemble du processus d'import est encapsulé dans un script bash `import_new_troncons_geotrek/run.sh`. En fonction de la taille des données à importer son exécution peut être longue (plusieurs heures).
@@ -77,7 +77,7 @@ SELECT ct.id,
 
 Selon nos essais, 25% des itinéraires semblent intacts et 75% nécessitent une correction.
 
-Si celle-ci se passe sans difficulté dans la majorité des cas, il peut arriver que l'interface d'édition de certains itinéraires n'affiche aucun tracé sur la carte, et que le bouton "Créer une nouvelle route" soit grisé. Dans ce cas, il suffit de rendre visibles tous les `core_path` utilisés par l'itinéraire ace la requête suivante :
+Si celle-ci se passe sans difficulté dans la majorité des cas, il peut arriver que l'interface d'édition de certains itinéraires n'affiche aucun tracé sur la carte, et que le bouton "Créer une nouvelle route" soit grisé. Dans ce cas, il suffit de rendre visibles tous les `core_path` utilisés par l'itinéraire avec la requête suivante :
 ``` sql
 UPDATE core_path
    SET visible = TRUE
