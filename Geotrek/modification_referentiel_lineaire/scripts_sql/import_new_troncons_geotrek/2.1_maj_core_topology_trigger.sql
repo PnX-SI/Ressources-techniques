@@ -29,3 +29,10 @@ BEGIN
   END;
   END LOOP;
 END$$;
+
+---------- RENDRE VISIBLES TOUS LES CORE_PATH UTILISÉS DANS UN core_pathaggregation
+---------- Un mécanisme sur lequel nous n'avons pas investigué semble en effet désactiver
+---------- la visibilité de certains `core_path` lors des requêtes d'agrégation des réseaux.
+UPDATE core_path
+   SET visible = TRUE
+ WHERE id IN (SELECT path_id FROM core_pathaggregation);

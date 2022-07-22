@@ -46,46 +46,51 @@ L'ensemble du processus d'import est encapsulé dans un script bash `import_new_
 
 ## Correction manuelle des itinéraires
 
-Il faut à présent corriger les itinéraires via l'interface de Geotrek-admin. On peut repérer ceux qui ont été cassés par les opérations précédentes avec les deux requêtes suivantes :
+Il faut à présent corriger les itinéraires via l'interface de Geotrek-admin. On peut repérer ceux qui ont été cassés par les opérations précédentes avec la requête suivante, qui crée une table `treks_to_correct` les recensant. Cette table met également à disposition les URL d'édition et de visualisation de chaque itinéraire, ainsi que des champs `corrected` et `comments`. Ne pas oublier de renseigner vos propres URL dans cette requête avant de la lancer.
 
 ``` sql
----------- REPÈRE LES ITINÉRAIRES DONT LA GÉOMÉTRIE EST CASSÉE
----------- grâce au calcul de l'altitude impossible
----------- ou à la géométrie qui n'est pas une LineString
-SELECT *
+CREATE TABLE treks_to_correct AS
+  WITH treks_broken AS (
+SELECT id,
+       'broken' AS problem
   FROM core_topology
- WHERE kind = 'TREK'
-   AND (min_elevation = 0
-    OR ST_GeometryType(geom) != 'ST_LineString');
-
----------- REPÈRE LES ITINÉRAIRES DONT LA LONGUEUR
----------- est inférieure ou supérieure de 10% à sa longueur initiale (= avant agrégation des linéaires)
+ WHERE kind = 'TREK' -- repère les itinéraires dont la géométrie est cassée
+   AND deleted = FALSE 
+   AND (min_elevation = 0 -- grâce au calcul de l'altitude impossible
+    OR ST_GeometryType(geom) != 'ST_LineString') -- ou à la géométrie qui n'est pas une LineString
+    ),
+treks_weird_new_length AS (    
 SELECT ct.id,
-	   ct.length,
-	   ct.geom,
-	   cta.id,
-	   cta.length,
-	   cta.geom
+       'length' AS problem
   FROM core_topology ct
   JOIN core_topology_ante cta -- table core_topology dans l'état précédent l'agrégation des linéaires (sauvegarde)
 	ON ct.id = cta.id
-   AND ct.kind = 'TREK'
+   AND ct.kind = 'TREK' -- repère les itinéraires dont la longueur
    AND ct.deleted = FALSE
-   AND (cta.length < (0.9 * ct.length)
-	   OR cta.length > (1.1 * ct.length));
+   AND (ct.length < (0.95 * cta.length) -- est inférieure
+	   OR ct.length > (1.05 * cta.length)) -- ou supérieure de 10% à sa longueur initiale (= avant agrégation des linéaires)
+	),
+treks_to_correct_id AS (
+SELECT id, problem FROM treks_broken
+ UNION
+SELECT id, problem FROM treks_weird_new_length twnl WHERE twnl.id NOT IN (SELECT id FROM treks_broken)
+)
+SELECT topo_object_id,
+       name,
+       'http://URL_ADMIN/trek/edit/' || topo_object_id AS edit_url, -- URL d'édition de l'itinéraire, changer URL_ADMIN par l'URL de l'Admin test sur lequel vous effectuez le processus
+       'https:/URL_RANDO/trek/' || topo_object_id AS rando_url, -- URL de l'itinéraire sur votre Geotrek-rando toujours connecté à votre base Admin inchangée. Permet de reconstruire facilement les géométries par comparaison avec cette géométrie initiale. Changer URL_RANDO par l'URL de votre Geotrek-rando
+	   problem,
+       null::boolean AS corrected,
+       null::varchar AS "comments"
+  FROM trekking_trek tt
+  JOIN treks_to_correct_id ttci
+       ON ttci.id = tt.topo_object_id
+       AND tt.published = TRUE;
 ```
 
-Selon nos essais, 25% des itinéraires semblent intacts et 75% nécessitent une correction.
+Selon nos essais, parmi les itinéraires passant dans la zone d'intégration du nouveau réseau, 25% semblent intacts et 75% nécessitent une correction.
 
-Si celle-ci se passe sans difficulté dans la majorité des cas, il peut arriver que l'interface d'édition de certains itinéraires n'affiche aucun tracé sur la carte, et que le bouton "Créer une nouvelle route" soit grisé. Dans ce cas, il suffit de rendre visibles tous les `core_path` utilisés par l'itinéraire avec la requête suivante :
-``` sql
-UPDATE core_path
-   SET visible = TRUE
- WHERE id IN (SELECT path_id FROM core_pathaggregation);
-```
-
-Un mécanisme sur lequel nous n'avons pas investigué semble en effet désactiver la visibilité de certains `core_path` lors des requêtes d'agrégation des réseaux.
-Si le problème persiste, il faut supprimer tous les `core_pathaggregation` de l'itinéraire concerné, à l'exception du premier et du dernier. Cela permet à priori d'afficher les points de départ et d'arrivée dans l'interface d'édition, puis de pouvoir recréer tout l'itinéraire manuellement :
+Si celle-ci se passe sans difficulté dans la majorité des cas, il peut arriver que l'interface d'édition de certains itinéraires n'affiche aucun tracé sur la carte, et que le bouton "Créer une nouvelle route" soit grisé. Un mécanisme sur lequel nous n'avons pas investigué semble en effet désactiver la visibilité de certains `core_path` lors des requêtes d'agrégation des réseaux. Le script corrige cela en rendant visibles tous les `core_path` présents dans un `core_pathaggregation`, mais si le problème d'édition persiste, il faut supprimer tous les `core_pathaggregation` de l'itinéraire concerné, à l'exception du premier et du dernier. Cela permet à priori d'afficher les points de départ et d'arrivée dans l'interface d'édition, puis de pouvoir recréer tout l'itinéraire manuellement :
 
 ``` sql
 WITH
