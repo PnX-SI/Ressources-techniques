@@ -5,3 +5,4 @@ parks/
 remote_config/
 PNX/dumps/
 **/.DS_Store
+**/1.1_maj_core_path_trigger_var.sql
