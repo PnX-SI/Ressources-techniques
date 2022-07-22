@@ -9,7 +9,7 @@ UPDATE core_path
        "comments" = cp_wn."comments",
        eid = cp_wn.eid,
        structure_id = cp_wn.structure_id,
-	   date_update = CURRENT_TIMESTAMP
+       date_update = CURRENT_TIMESTAMP
   FROM core_path_wip_new cp_wn
  WHERE cp_wn.id = core_path.id
    AND NOT core_path.geom = cp_wn.geom_new;
@@ -24,8 +24,8 @@ INSERT INTO core_path (geom, "comments", eid, structure_id, "valid", visible, dr
             TRUE::boolean AS visible,
             FALSE::boolean AS draft,
             0 AS length,
-			CURRENT_TIMESTAMP AS date_insert,
-			CURRENT_TIMESTAMP AS date_update
+            CURRENT_TIMESTAMP AS date_insert,
+            CURRENT_TIMESTAMP AS date_update
        FROM core_path_wip_new cp_wn
       WHERE cp_wn.geom IS NULL -- un tronçon sans géométrie initiale est forcément nouveau
         AND cp_wn.id NOT IN (SELECT id FROM core_path); -- double vérification que c'est bien un nouveau tronçon
