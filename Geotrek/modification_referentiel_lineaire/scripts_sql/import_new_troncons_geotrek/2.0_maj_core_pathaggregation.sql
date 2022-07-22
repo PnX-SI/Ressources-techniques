@@ -5,6 +5,8 @@ ALTER TABLE core_pathaggregation DISABLE TRIGGER USER;
 ---------- pour les tronçons ayant été découpés lors de la mise à jour de core_path
 ---------- le but est d'identifier les core_path issus d'un split grâce aux champs
 ---------- qu'ils partagent encore avec l'autre moitié du split
+DROP TABLE IF EXISTS core_pathaggregation_to_insert;
+
 CREATE TABLE core_pathaggregation_to_insert AS
 WITH
 a AS ( -- OBTENTION DU NUMÉRO D'ORDRE MAX POUR UN core_path ET UN core_topology DONNÉS
@@ -83,6 +85,8 @@ SELECT path_id,
 ---------- le but est d'intégrer le contenu de la table core_pathaggregation_to_insert
 ---------- ainsi que de créer des points de passage pour chacun des tronçons ayant été créés
 ---------- lors de la mise à jour des core_path, pour la même raison qu'au-dessus
+DROP TABLE IF EXISTS core_pathaggregation_new;
+
 CREATE TABLE core_pathaggregation_new AS
 WITH
 a AS (
