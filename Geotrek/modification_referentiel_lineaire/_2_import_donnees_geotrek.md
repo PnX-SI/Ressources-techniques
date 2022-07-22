@@ -3,12 +3,12 @@
 
 Sommaire:
 - [Mise à jour de la base de données Geotrek](#mise-à-jour-de-la-base-de-données-geotrek)
-	- [Tronçons (`core_path`)](#tronçons-core_path)
-	- [Correction des itinéraires](#correction-des-itinéraires-core_topology-where-kind--trek)
-	- [Statuts](#statuts)
-		- [Types fonciers (`landedge`)](#types-fonciers-landedge)
-		- [Types de voie (`physicaledge`)](#types-de-voie-physicaledge)
-		- [Correction des erreurs](#correction-des-erreurs)
+    - [Tronçons (`core_path`)](#tronçons-core_path)
+    - [Correction des itinéraires](#correction-des-itinéraires-core_topology-where-kind--trek)
+    - [Statuts](#statuts)
+        - [Types fonciers (`landedge`)](#types-fonciers-landedge)
+        - [Types de voie (`physicaledge`)](#types-de-voie-physicaledge)
+        - [Correction des erreurs](#correction-des-erreurs)
 
 ## Tronçons (`core_path`)
 
@@ -64,12 +64,12 @@ SELECT ct.id,
        'length' AS problem
   FROM core_topology ct
   JOIN core_topology_ante cta -- table core_topology dans l'état précédent l'agrégation des linéaires (sauvegarde)
-	ON ct.id = cta.id
+    ON ct.id = cta.id
    AND ct.kind = 'TREK' -- repère les itinéraires dont la longueur
    AND ct.deleted = FALSE
    AND (ct.length < (0.95 * cta.length) -- est inférieure
-	   OR ct.length > (1.05 * cta.length)) -- ou supérieure de 10% à sa longueur initiale (= avant agrégation des linéaires)
-	),
+       OR ct.length > (1.05 * cta.length)) -- ou supérieure de 10% à sa longueur initiale (= avant agrégation des linéaires)
+    ),
 treks_to_correct_id AS (
 SELECT id, problem FROM treks_broken
  UNION
@@ -79,7 +79,7 @@ SELECT topo_object_id,
        name,
        'http://URL_ADMIN/trek/edit/' || topo_object_id AS edit_url, -- URL d'édition de l'itinéraire, changer URL_ADMIN par l'URL de l'Admin test sur lequel vous effectuez le processus
        'https:/URL_RANDO/trek/' || topo_object_id AS rando_url, -- URL de l'itinéraire sur votre Geotrek-rando toujours connecté à votre base Admin inchangée. Permet de reconstruire facilement les géométries par comparaison avec cette géométrie initiale. Changer URL_RANDO par l'URL de votre Geotrek-rando
-	   problem,
+       problem,
        null::boolean AS corrected,
        null::varchar AS "comments"
   FROM trekking_trek tt
@@ -95,21 +95,21 @@ Si celle-ci se passe sans difficulté dans la majorité des cas, il peut arriver
 ``` sql
 WITH
 id_trek AS (
-	SELECT /*identifiant de l'itinéraire*/ AS id
+    SELECT /*identifiant de l'itinéraire*/ AS id
 )
 ,a AS (
-	SELECT max("order") AS max_order, -- Obtention du numéro d'ordre du dernier core_pathaggregation
-		   topo_object_id
-	  FROM core_pathaggregation, id_trek
-	 WHERE topo_object_id = id_trek.id
-	 GROUP BY topo_object_id
+    SELECT max("order") AS max_order, -- Obtention du numéro d'ordre du dernier core_pathaggregation
+           topo_object_id
+      FROM core_pathaggregation, id_trek
+     WHERE topo_object_id = id_trek.id
+     GROUP BY topo_object_id
 )
 ,b AS (
-	SELECT path_id
-	  FROM core_pathaggregation cp
-	  JOIN a
-	    ON a.topo_object_id = cp.topo_object_id
-	   AND "order" IN (0, (max_order)) -- On ne garde que les premier et dernier core_pathaggregation
+    SELECT path_id
+      FROM core_pathaggregation cp
+      JOIN a
+        ON a.topo_object_id = cp.topo_object_id
+       AND "order" IN (0, (max_order)) -- On ne garde que les premier et dernier core_pathaggregation
 )
 DELETE
   FROM core_pathaggregation cp

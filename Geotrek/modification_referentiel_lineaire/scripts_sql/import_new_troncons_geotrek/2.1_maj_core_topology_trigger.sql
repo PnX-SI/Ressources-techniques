@@ -3,11 +3,11 @@
 ---------- selon les nouveaux pathaggregation
 DO $$DECLARE r record;
 DECLARE
-	v_state   TEXT;
-	v_msg     TEXT;
-	v_detail  TEXT;
-	v_hint    TEXT;
-	v_context TEXT;
+    v_state   TEXT;
+    v_msg     TEXT;
+    v_detail  TEXT;
+    v_hint    TEXT;
+    v_context TEXT;
 BEGIN
   FOR r IN SELECT * FROM core_topology LOOP
     BEGIN

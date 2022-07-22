@@ -82,7 +82,7 @@ Vous devez ensuite y créer deux tables contenant les données des réseaux :
 La couche du réseau à importer doit respecter la structure suivante :
 
 | nom colonne | type                 | description                                                              |
-| ----------  | -------------------- | -------------------------- 	                                            |
+| ----------  | -------------------- | --------------------------                                                 |
 | id          | int                  | identifiant unique                                                       |
 | geom        | geometry(LineString) | geométrie                                                                |
 | structure_id| int                  | identifiant geotrek de la structure liée aux données                     |
@@ -165,11 +165,11 @@ La prochaine étape consiste en la création d'une table `tampon_inner_all` rass
 La table `tampon_inner_all` rassemble donc un ensemble d'informations permettant d'évaluer si une relation est signifiante ou non :
 
 
-| rid 	| iid 	| cas_r 	| cas_i 	| longueur_ri 	| longueur_r 	| longueur_ir 	| longueur_i 	| bruit 	| aire_ir_ri 	|
-|:---:	|:---:	|:-----:	|:-----:	|:-----------:	|:----------:	|:-----------:	|:----------:	|:-----:	|:----------:	|
-|  1  	|  54 	|   1   	|   2   	|     25.6    	|    25.6    	|     28.3    	|     45     	|  null 	|    area (non calculée ici)    	|
-|  1  	|  23 	|   2   	|   2   	|      5      	|    25.6    	|     5.7     	|    561.5   	|  null 	|    area (non calculée ici)    	|
-|  2  	|  23 	|   2   	|   1   	|     570     	|    803.2   	|    561.5    	|    561.5   	|  null 	|    area (non calculée ici)    	|
+| rid     | iid     | cas_r     | cas_i     | longueur_ri     | longueur_r     | longueur_ir     | longueur_i     | bruit     | aire_ir_ri     |
+|:---:    |:---:    |:-----:    |:-----:    |:-----------:    |:----------:    |:-----------:    |:----------:    |:-----:    |:----------:    |
+|  1      |  54     |   1       |   2       |     25.6        |    25.6        |     28.3        |     45         |  null     |    area (non calculée ici)        |
+|  1      |  23     |   2       |   2       |      5          |    25.6        |     5.7         |    561.5       |  null     |    area (non calculée ici)        |
+|  2      |  23     |   2       |   1       |     570         |    803.2       |    561.5        |    561.5       |  null     |    area (non calculée ici)        |
 
 Les géométries `geom_r`, `geom_i`, `geom_ir`, `geom_ri` et `geom_ir_ri` sont également présentes dans cette table.
 

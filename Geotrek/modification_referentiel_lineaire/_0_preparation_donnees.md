@@ -141,10 +141,10 @@ b AS ( -- tronçons qui en chevauchent d'autres
        FROM "table_name" tn1
             INNER JOIN "table_name" tn2
             ON (
-				ST_Overlaps(tn1.geom, tn2.geom)
+                ST_Overlaps(tn1.geom, tn2.geom)
                 OR ST_Contains(tn1.geom, tn2.geom)
                 OR ST_Within(tn1.geom, tn2.geom)
-			)
+            )
                AND tn1.id != tn2.id),
 c AS ( -- tronçons dont la géométrie n'est pas valide
      SELECT DISTINCT id,
@@ -181,9 +181,9 @@ h AS ( -- tronçons se touchant presque (régler la tolérance selon le besoin)
      SELECT tn1.id,
             'se_touchent_presque' as erreur
        FROM "table_name" tn1
-	    INNER JOIN "table_name" tn2
-	       ON ST_DWithin(ST_Boundary(tn1.geom), tn2.geom, 1)
-		  AND NOT ST_Intersects(tn1.geom, tn2.geom)),
+        INNER JOIN "table_name" tn2
+           ON ST_DWithin(ST_Boundary(tn1.geom), tn2.geom, 1)
+          AND NOT ST_Intersects(tn1.geom, tn2.geom)),
 i AS (
      SELECT * FROM a
       UNION
