@@ -1,5 +1,7 @@
 ---------- IMPORT DU NOUVEAU RÉSEAU core_path_wip_new DANS core_path
 
+BEGIN;
+
 ---------- DÉSACTIVATION DES TRIGGERS DE core_path
 ALTER TABLE core_path DISABLE TRIGGER USER;
 
@@ -27,8 +29,9 @@ INSERT INTO core_path (geom, "comments", eid, structure_id, "valid", visible, dr
             CURRENT_TIMESTAMP AS date_insert,
             CURRENT_TIMESTAMP AS date_update
        FROM core_path_wip_new cp_wn
-      WHERE cp_wn.geom IS NULL -- un tronçon sans géométrie initiale est forcément nouveau
-        AND cp_wn.id NOT IN (SELECT id FROM core_path); -- double vérification que c'est bien un nouveau tronçon
+      WHERE cp_wn.geom IS NULL; -- un tronçon sans géométrie initiale est forcément nouveau
 
 ---------- ACTIVATION DES TRIGGERS DE core_path
 ALTER TABLE core_path ENABLE TRIGGER USER;
+
+COMMIT;
