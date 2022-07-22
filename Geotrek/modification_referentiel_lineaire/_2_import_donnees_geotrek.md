@@ -55,8 +55,8 @@ Il faut à présent corriger les itinéraires via l'interface de Geotrek-admin. 
 SELECT *
   FROM core_topology
  WHERE kind = 'TREK'
-       min_elevation = 0
-    OR ST_GeometryType(geom) != 'ST_LineString';
+   AND (min_elevation = 0
+    OR ST_GeometryType(geom) != 'ST_LineString');
 
 ---------- REPÈRE LES ITINÉRAIRES DONT LA LONGUEUR
 ---------- est inférieure ou supérieure de 10% à sa longueur initiale (= avant agrégation des linéaires)
