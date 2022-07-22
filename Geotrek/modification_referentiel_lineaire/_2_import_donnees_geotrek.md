@@ -78,7 +78,7 @@ SELECT id, problem FROM treks_weird_new_length twnl WHERE twnl.id NOT IN (SELECT
 SELECT topo_object_id,
        name,
        'http://URL_ADMIN/trek/edit/' || topo_object_id AS edit_url, -- URL d'édition de l'itinéraire, changer URL_ADMIN par l'URL de l'Admin test sur lequel vous effectuez le processus
-       'https:/URL_RANDO/trek/' || topo_object_id AS rando_url, -- URL de l'itinéraire sur votre Geotrek-rando toujours connecté à votre base Admin inchangée. Permet de reconstruire facilement les géométries par comparaison avec cette géométrie initiale. Changer URL_RANDO par l'URL de votre Geotrek-rando
+       'https://URL_RANDO/trek/' || topo_object_id AS rando_url, -- URL de l'itinéraire sur votre Geotrek-rando toujours connecté à votre base Admin inchangée. Permet de reconstruire facilement les géométries par comparaison avec cette géométrie initiale. Changer URL_RANDO par l'URL de votre Geotrek-rando
        problem,
        null::boolean AS corrected,
        null::varchar AS "comments"
