@@ -50,7 +50,7 @@ Il faut à présent corriger les itinéraires via l'interface de Geotrek-admin. 
 
 ``` sql
 CREATE TABLE treks_to_correct AS
-  WITH treks_broken AS (
+WITH treks_broken AS (
 SELECT id,
        'broken' AS problem
   FROM core_topology
