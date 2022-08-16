@@ -137,6 +137,7 @@ Cinq champs de notre linéaire importé avaient un intérêt pour nous :
 - `code_cadas` : code cadastral
 - `convention` : conventionnement de passage
 - `statut_cad` : type de voie
+- `geom` : la géométrie du tronçon
 
 Les requêtes présentes dans le script partent de deux postulats :
 - chaque enregistrement/tronçon/entité des données importées correspondra à un enregistrement de la table `land_landedge` ;
