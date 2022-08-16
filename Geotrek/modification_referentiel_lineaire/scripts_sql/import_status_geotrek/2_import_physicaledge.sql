@@ -13,7 +13,7 @@ WITH a AS (
            type_revet
       FROM rlesi_cartosud_updated rcu
      GROUP BY type_revet)
-SELECT string_agg(id_carto, ', ') AS id_carto_array, -- Recalcul des id des tronçons présents dans chaque LineString
+SELECT string_agg(id, ', ') AS id_array, -- Recalcul des id des tronçons présents dans chaque LineString
        a.*
   FROM a
   JOIN rlesi_cartosud_updated rcu
@@ -37,7 +37,7 @@ SELECT now() AS date_insert,
 INSERT INTO land_physicaledge (topo_object_id, physical_type_id, eid)
 SELECT ct.id AS topo_object_id,
        lp.id AS physical_type_id,
-       id_carto_array AS eid
+       id_array AS eid
   FROM rlesi_cartosud_updated_merged_on_type_revet rcu
   JOIN core_topology ct
     ON ST_Equals(rcu.rcu_geom_union, ct.geom)
