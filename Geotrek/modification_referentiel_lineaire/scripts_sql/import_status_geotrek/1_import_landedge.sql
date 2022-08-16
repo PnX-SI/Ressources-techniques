@@ -32,7 +32,7 @@ SELECT ct.id AS topo_object_id,
        COALESCE((SELECT id FROM land_landtype WHERE name = statut_cad), -- Si le type de voie ne correspond pas à une valeur de land_landtype...
                 (SELECT id FROM land_landtype WHERE name = 'Inconnu')   -- alors le type 'Inconnu' est attribué
        ) AS land_type_id,
-       id_carto AS eid
+       id AS eid
   FROM rlesi_cartosud_updated rcu
   JOIN core_topology ct
     ON ST_Equals(rcu.geom, ct.geom) -- Jointure sur les core_topology tout juste insérés afin de faire le lien avec le bon topo_object_id
