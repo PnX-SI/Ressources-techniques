@@ -127,7 +127,8 @@ Le processus présenté ici n'est pas générique car adapté aux données que n
 
 Les scripts ayant servi à l'import de nos données sont situés dans le répertoire `import_status_geotrek`. Au préalable nous avons importé notre couche de données dans le schéma public de Geotrek dans la table `rlesi_cartosud_updated`.
 
-Sept champs de notre linéaire importé avaient un intérêt pour nous :
+Huit champs de notre linéaire importé avaient un intérêt pour nous :
+- `id` : identifiant du tronçon dans la couche source
 - `proprio` : propriétaire de la voie
 - `ref_cad` : référence cadastrale
 - `code_cadas` : code cadastral
