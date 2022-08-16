@@ -127,17 +127,20 @@ Le processus présenté ici n'est pas générique car adapté aux données que n
 
 Les scripts ayant servi à l'import de nos données sont situés dans le répertoire `import_status_geotrek`. Au préalable nous avons importé notre couche de données dans le schéma public de Geotrek dans la table `rlesi_cartosud_updated`.
 
-### Types fonciers (`landedge`)
-
-**Script SQL associé** : [1_import_landedge.sql](scripts_sql/import_status_geotrek/1_import_landedge.sql)
-
-Cinq champs de notre linéaire importé avaient un intérêt pour nous :
+Sept champs de notre linéaire importé avaient un intérêt pour nous :
 - `proprio` : propriétaire de la voie
 - `ref_cad` : référence cadastrale
 - `code_cadas` : code cadastral
 - `convention` : conventionnement de passage
 - `statut_cad` : type de voie
+- `type_revet` : type de revêtement
 - `geom` : la géométrie du tronçon
+
+Pour que les scripts fonctionnent, il faut vous assurer que votre `rlesi_cartosud_updated` comportent bien sept champs nommés de cette manière et dont le contenu correspond à la description faite ci-dessus.
+
+### Types fonciers (`landedge`)
+
+**Script SQL associé** : [1_import_landedge.sql](scripts_sql/import_status_geotrek/1_import_landedge.sql)
 
 Les requêtes présentes dans le script partent de deux postulats :
 - chaque enregistrement/tronçon/entité des données importées correspondra à un enregistrement de la table `land_landedge` ;
