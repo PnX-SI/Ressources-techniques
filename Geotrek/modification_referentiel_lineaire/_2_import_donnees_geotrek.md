@@ -143,6 +143,8 @@ Les requêtes présentes dans le script partent de deux postulats :
 - chaque enregistrement/tronçon/entité des données importées correspondra à un enregistrement de la table `land_landedge` ;
 - la liste des valeurs de `land_landtype` a été adaptée au préalable aux données importées (en l'occurrence le champ `statut_cad`).
 
+Il faut s'assurer que le type "Inconnu" existe dans `land_landtype`, car il sera attribué si la valeur de `statut_cad` n'existe pas dans `land_landtype`.
+
 La première étape consiste à insérer tous les enregistrements importés dans la table `core_topology`, qui constitue la base des objets de type foncier. Ensuite, le script insère ces enregistrements dans la table `land_landedge`, tout en rattachant ces `landedge` aux bonnes `core_topology` via leur géométrie. Maintenant que cela est fait, les `core_pathaggregation` de ces `core_topology` sont reconstruits en les projetant sur les `core_path`.
 
 Des erreurs sont inévitables, mais nous avons fait le choix de les traiter après l'insertion des `land_physicaledge`.
