@@ -1,5 +1,6 @@
 ---------- Création d'une table agrégeant les géométries quand les données attributaires étaient équivalentes
 
+DROP TABLE IF EXISTS rlesi_cartosud_updated_merged_on_type_revet;
 CREATE TABLE IF NOT EXISTS rlesi_cartosud_updated_merged_on_type_revet AS
 WITH a AS (
     SELECT (ST_Dump( -- Éclatement des GeometryCollections en LineString individuelles
