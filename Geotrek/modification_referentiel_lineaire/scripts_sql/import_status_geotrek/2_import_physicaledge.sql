@@ -89,6 +89,7 @@ WITH a AS (
       FROM core_path cp
       JOIN core_topology ct
         ON ct.kind = 'PHYSICALEDGE'
+       AND ct.date_insert > current_date -- Permet de ne traiter que les physicaledge qui datent d'aujourd'hui (à priori ceux qui viennent d'être insérés)
        AND (ST_Contains(cp.geom, ct.geom) -- Jointure sur le chevauchement partiel ou total entre le core_topology et le core_path
             OR ST_Overlaps(cp.geom, ct.geom)
             OR ST_Within(cp.geom, ct.geom)))
