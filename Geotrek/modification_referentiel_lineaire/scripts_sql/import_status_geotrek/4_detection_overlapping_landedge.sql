@@ -1,5 +1,4 @@
 ---------- Création d'une table permettant de visualiser les erreurs de landedge dans QGIS sous forme ponctuelle
-
 DROP TABLE IF EXISTS overlapping_landedge;
 CREATE TABLE IF NOT EXISTS overlapping_landedge (
     id integer PRIMARY KEY,
