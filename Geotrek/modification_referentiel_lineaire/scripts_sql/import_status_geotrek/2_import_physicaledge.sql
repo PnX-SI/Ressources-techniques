@@ -13,7 +13,7 @@ WITH a AS (
            type_revet
       FROM rlesi_cartosud_updated rcu
      GROUP BY type_revet)
-SELECT string_agg(id::varchar, ', ') AS id_array, -- Recalcul des id des tronçons présents dans chaque LineString
+SELECT string_agg(CONCAT_WS('_', rcu.layer, rcu.id::varchar), ', ') AS id_array, -- Recalcul des id des tronçons présents dans chaque LineString
        a.*
   FROM a
   JOIN rlesi_cartosud_updated rcu
