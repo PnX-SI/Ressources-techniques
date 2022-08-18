@@ -3,7 +3,7 @@ INSERT INTO core_topology (date_insert, date_update, deleted, "offset", kind, ge
 SELECT now() AS date_insert,
        now() AS date_update,
        FALSE AS deleted,
-       -5 AS "offset", -- /!\ valeur par défaut définie dans les paramètres avancés de Geotrek-admin
+       0 AS "offset", -- /!\ la valeur par défaut définie dans les paramètres avancés de Geotrek-admin est -5, mais un bug a été levé non présent avec la valeur 0 (https://github.com/GeotrekCE/Geotrek-admin/issues/2713#issuecomment-1218169831)
        'LANDEDGE' AS kind,
        geom,
        FALSE AS geom_need_update
