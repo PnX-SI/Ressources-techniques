@@ -1,44 +1,47 @@
-# Récupération des données depuis un serveur odk central
+# Récupération des données depuis un serveur ODK Central
 
 ## API documentation
 
 https://odkcentral.docs.apiary.io
 
+## Python : pyODK
 
-## Python : pyodk
 https://github.com/getodk/pyodk
-Client python permettant d'interragir avec un serveur ODK central
+
+Client python permettant d'interagir avec un serveur ODK Central
 
 Exemples d'utilisation : [Jupyter notebook](odk_api.ipynb)
 
-## odk2gn : récupération des données de ODK et importation dans une base GeoNature
+## ODK2GN : récupération des données de ODK et importation dans une base de données GeoNature
 
 https://github.com/PnX-SI/odk2gn
 
-ODK2GN est un module python utilisant les modèles de GeoNature pour intégrer des données depuis l'API d'ODK Central vers la base de données de GeoNature, en utilisant pyodk.
+ODK2GN est un module python utilisant les modèles de GeoNature pour intégrer des données depuis l'API d'ODK Central vers la base de données de GeoNature, en utilisant pyODK.
 
 Il permet actuellement d'importer des données collectées avec ODK vers le module Monitoring de GeoNature et de mettre à jour les listes de valeurs du formulaire ODK en fonction des données de la base de données GeoNature, en se basant sur les fichiers de configuration du module Monitoring.
-
 
 ![odk2gn Architecture](https://github.com/PnX-SI/odk2gn/raw/main/docs/img/archi_global.jpeg)
 
 
-## Postgresql : central2PG
+## PostgreSQL : Central2PG
 
 Documentation détaillée de la mise en oeuvre de `central2pg` couplé avec `redash` : [Documentation](Central2PG.md)
 
 ## Python : Centralpy
+
 https://github.com/pmaengineering/centralpy
-Client python permettant d'interragir avec un serveur ODK central
+
+Client python permettant d'interagir avec un serveur ODK central
 
 
 ### Exemple d'usage
-Dans cette exemple il y a un couplage avec [csvkit](https://csvkit.readthedocs.io/en/latest/index.html) de façon à importer les données en base directement
 
-
+Dans cette exemple il y a un couplage avec [csvkit](https://csvkit.readthedocs.io/en/latest/index.html) de façon à importer les données en base directement.
 
 ### Install python env
+
 L'utilisation d'un virtual env n'est pas obligatoire
+
 ```sh
 python3 -m venv venv
 source venv/bin/activate
@@ -46,12 +49,13 @@ python3 -m pip install centralpy
 python3 -m pip install psycopg2 csvkit
 ```
 
-### Récupération des données depuis odk central
+### Récupération des données depuis ODK Central
+
 ```sh
 # ------------------------------
 # Configuration
 # ------------------------------
-### Paramètres de connexion au serveur odk
+### Paramètres de connexion au serveur ODK
 ODK_URL="ODK_URL"
 ODK_USER="USER_MAIL"
 ODK_PASS="USER_PASS"
@@ -69,7 +73,7 @@ CENTRALPY_NB_DAYS=7
 
 
 # ------------------------------
-# Get data from central
+# Get data from ODK Central
 # ------------------------------
 
 for odk_form in $ODK_PROJECTS_FORMS; do
@@ -116,7 +120,8 @@ done
 
 
 ## R package ruODK
-Paquet r qui permet de récupérer les données d'ock central via les api ODATA et REST
+
+Paquet R qui permet de récupérer les données d'ODK Central via les API ODATA et REST
 
 https://github.com/ropensci/ruODK
 
