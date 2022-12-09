@@ -96,8 +96,8 @@ Il est possible depuis l'administration de Redash de :
  - Créer des Dashboards qui correspondent à des pages. Sur une page, on peut ajouter des widgets, du texte ou des filtres généraux (si un paramètre est utilisé avec le même nom dans différents widgets il peut être utilisé globalement sur la page, se configure au niveau du widget)
  - On peut définir la périodicité de refraichissement du dashboard
  - On peut générer une URL publique de visualisation pour chaque Dashboard, qui sera accessible à tous sans login
-        http://5.196.209.139:5000/public/dashboards/svrOpq1dF6G8T3aiJHKf9MfBeBbb7nidfhTqxxTu?org_slug=default
-        http://5.196.209.139:5000/public/dashboards/K0ctzIgimt9AZMbKAw5sk5Szjgu7CrzHWIAz7Hgw?org_slug=default
+        ![Exemple de visualisation des données STOM](img/exemple_visu_redash_stom.png)
+        ![Exemple de visualisation des données Bouquetins marqués PNV](img/exemple_visu_redash_bouquetins.png)
  - La présentation Dashboard permet de télécharger les données en csv ou xls, les graphs et cartes en png
 
 ## Limites
