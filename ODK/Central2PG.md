@@ -34,16 +34,17 @@ Cette fonction n'existe pas dans Central2PG aujourd'hui et pourra être utile si
 
  - Utilise une requete curl PATCH, permet de mettre à jour le reviewState
  
-
+```sh
     curl -X PATCH https://odk-server.test.fr/v1/projects/id_project/forms/nom_formulaire/submissions/uuid%3Asoumission
      -H 'Content-Type: application/json'
      -H 'Authorization: Bearer token
      -d '{"reviewState": "rejected"}'
-
+```
     
 
  - Fonction à ajouter dans odk_central si besoin
 
+```sql
     CREATE 
 OR REPLACE FUNCTION update_submission_rejected(
   email text, password text, central_domain text, 
@@ -68,7 +69,7 @@ requete := format(
 execute requete;
 END;
 $BODY$;
-
+```
 
 ### Mettre à jour un formulaire avec des médias (liste csv)
 La mise à jour d'un formulaire se fait en deux étapes: envoi des fichiers (formulaires et listes de valeurs) puis publication d'une nouvelle version du formulaire
