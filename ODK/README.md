@@ -25,11 +25,7 @@ Il permet actuellement d'importer des données collectées avec ODK vers le modu
 
 ## Postgresql : central2PG
 
-https://github.com/mathieubossaert/central2pg
-
-Fonctions PostgreSQL pemrettant d'interragir avec un serveir ODK Central à travers son API ODATA, pour la récupération des données et la gestion (mise à jour de formulaires)
-![central2pg](https://user-images.githubusercontent.com/1642645/165459944-a8bfe56e-6cf3-410d-b337-70fe6d1e5ef3.png)
-
+Documentation détaillée de la mise en oeuvre de `central2pg` couplé avec `redash` : [Documentation](Central2PG.md)
 
 ## Python : Centralpy
 https://github.com/pmaengineering/centralpy
