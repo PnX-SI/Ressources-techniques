@@ -2,7 +2,7 @@
 
 ## API documentation
 
-https://odkcentral.docs.apiary.io 
+https://odkcentral.docs.apiary.io
 
 
 ## Postgresql : central2PG
@@ -15,7 +15,7 @@ Fonctions PostgreSQL pemrettant d'interragir avec un serveir ODK Central à trav
 ## Python : pyodk
 https://github.com/getodk/pyodk
 Client python permettant d'interragir avec un serveur ODK central
-
+Exemples d'utilisation : [Jupyter notebook](odk_api.ipynb)
 
 ## Python : Centralpy
 https://github.com/pmaengineering/centralpy
@@ -29,7 +29,7 @@ Dans cette exemple il y a un couplage avec [csvkit](https://csvkit.readthedocs.i
 
 ### Install python env
 L'utilisation d'un virtual env n'est pas obligatoire
-```sh 
+```sh
 python3 -m venv venv
 source venv/bin/activate
 python3 -m pip install centralpy
@@ -40,7 +40,7 @@ python3 -m pip install psycopg2 csvkit
 ```sh
 # ------------------------------
 # Configuration
-# ------------------------------ 
+# ------------------------------
 ### Paramètres de connexion au serveur odk
 ODK_URL="ODK_URL"
 ODK_USER="USER_MAIL"
@@ -82,7 +82,7 @@ done
 
 ### Copie des données récupérées dans une base de données
 
-```sh 
+```sh
 ### Paramètres de connexion à postgresql
 PG_CONNEXION="postgresql://MON_USER:MON_PASS@MON_HOTE:5432/MA_DB"
 PG_SCHEMA_NAME="SHEMA_NAME"
