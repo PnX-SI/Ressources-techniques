@@ -127,20 +127,28 @@ Le processus présenté ici n'est pas générique car adapté aux données que n
 
 Les scripts ayant servi à l'import de nos données sont situés dans le répertoire `import_status_geotrek`. Au préalable nous avons importé notre couche de données dans le schéma public de Geotrek dans la table `rlesi_cartosud_updated`.
 
-### Types fonciers (`landedge`)
-
-**Script SQL associé** : [1_import_landedge.sql](scripts_sql/import_status_geotrek/1_import_landedge.sql)
-
-Cinq champs de notre linéaire importé avaient un intérêt pour nous :
+Neuf champs de notre linéaire importé avaient un intérêt pour nous :
+- `id` : identifiant du tronçon dans la couche source
 - `proprio` : propriétaire de la voie
 - `ref_cad` : référence cadastrale
 - `code_cadas` : code cadastral
 - `convention` : conventionnement de passage
 - `statut_cad` : type de voie
+- `type_revet` : type de revêtement
+- `geom` : la géométrie du tronçon
+- `layer` : le nom de la couche d'où est issu le tronçon (utilisé pour la tracabilité dans le champ `eid` de Geotrek, en combinaison avec l'id)
+
+Pour que les scripts fonctionnent, il faut vous assurer que votre `rlesi_cartosud_updated` comportent bien sept champs nommés de cette manière et dont le contenu correspond à la description faite ci-dessus.
+
+### Types fonciers (`landedge`)
+
+**Script SQL associé** : [1_import_landedge.sql](scripts_sql/import_status_geotrek/1_import_landedge.sql)
 
 Les requêtes présentes dans le script partent de deux postulats :
 - chaque enregistrement/tronçon/entité des données importées correspondra à un enregistrement de la table `land_landedge` ;
 - la liste des valeurs de `land_landtype` a été adaptée au préalable aux données importées (en l'occurrence le champ `statut_cad`).
+
+Il faut s'assurer que le type "Inconnu" existe dans `land_landtype`, car il sera attribué si la valeur de `statut_cad` n'existe pas dans `land_landtype`.
 
 La première étape consiste à insérer tous les enregistrements importés dans la table `core_topology`, qui constitue la base des objets de type foncier. Ensuite, le script insère ces enregistrements dans la table `land_landedge`, tout en rattachant ces `landedge` aux bonnes `core_topology` via leur géométrie. Maintenant que cela est fait, les `core_pathaggregation` de ces `core_topology` sont reconstruits en les projetant sur les `core_path`.
 

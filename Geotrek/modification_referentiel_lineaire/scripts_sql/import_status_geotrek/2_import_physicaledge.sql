@@ -1,5 +1,5 @@
 ---------- Création d'une table agrégeant les géométries quand les données attributaires étaient équivalentes
-
+DROP TABLE IF EXISTS rlesi_cartosud_updated_merged_on_type_revet;
 CREATE TABLE IF NOT EXISTS rlesi_cartosud_updated_merged_on_type_revet AS
 WITH a AS (
     SELECT (ST_Dump( -- Éclatement des GeometryCollections en LineString individuelles
@@ -13,7 +13,7 @@ WITH a AS (
            type_revet
       FROM rlesi_cartosud_updated rcu
      GROUP BY type_revet)
-SELECT string_agg(id_carto, ', ') AS id_carto_array, -- Recalcul des id des tronçons présents dans chaque LineString
+SELECT string_agg(CONCAT_WS('_', rcu.layer, rcu.id::varchar), ', ') AS id_array, -- Recalcul des id des tronçons présents dans chaque LineString
        a.*
   FROM a
   JOIN rlesi_cartosud_updated rcu
@@ -37,7 +37,7 @@ SELECT now() AS date_insert,
 INSERT INTO land_physicaledge (topo_object_id, physical_type_id, eid)
 SELECT ct.id AS topo_object_id,
        lp.id AS physical_type_id,
-       id_carto_array AS eid
+       id_array AS eid
   FROM rlesi_cartosud_updated_merged_on_type_revet rcu
   JOIN core_topology ct
     ON ST_Equals(rcu.rcu_geom_union, ct.geom)
@@ -89,6 +89,7 @@ WITH a AS (
       FROM core_path cp
       JOIN core_topology ct
         ON ct.kind = 'PHYSICALEDGE'
+       AND ct.date_insert > current_date -- Permet de ne traiter que les physicaledge qui datent d'aujourd'hui (à priori ceux qui viennent d'être insérés)
        AND (ST_Contains(cp.geom, ct.geom) -- Jointure sur le chevauchement partiel ou total entre le core_topology et le core_path
             OR ST_Overlaps(cp.geom, ct.geom)
             OR ST_Within(cp.geom, ct.geom)))

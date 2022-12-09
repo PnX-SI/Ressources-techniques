@@ -3,7 +3,7 @@ INSERT INTO core_topology (date_insert, date_update, deleted, "offset", kind, ge
 SELECT now() AS date_insert,
        now() AS date_update,
        FALSE AS deleted,
-       -5 AS "offset", -- /!\ valeur par défaut définie dans les paramètres avancés de Geotrek-admin
+       0 AS "offset", -- /!\ la valeur par défaut définie dans les paramètres avancés de Geotrek-admin est -5, mais un bug a été levé non présent avec la valeur 0 (https://github.com/GeotrekCE/Geotrek-admin/issues/2713#issuecomment-1218169831)
        'LANDEDGE' AS kind,
        geom,
        FALSE AS geom_need_update
@@ -32,7 +32,7 @@ SELECT ct.id AS topo_object_id,
        COALESCE((SELECT id FROM land_landtype WHERE name = statut_cad), -- Si le type de voie ne correspond pas à une valeur de land_landtype...
                 (SELECT id FROM land_landtype WHERE name = 'Inconnu')   -- alors le type 'Inconnu' est attribué
        ) AS land_type_id,
-       id_carto AS eid
+       CONCAT_WS('_', rcu.layer, rcu.id) AS eid
   FROM rlesi_cartosud_updated rcu
   JOIN core_topology ct
     ON ST_Equals(rcu.geom, ct.geom) -- Jointure sur les core_topology tout juste insérés afin de faire le lien avec le bon topo_object_id
@@ -82,6 +82,7 @@ WITH a AS (
       FROM core_path cp
       JOIN core_topology ct
         ON ct.kind = 'LANDEDGE'
+       AND ct.date_insert > current_date -- Permet de ne traiter que les landedge qui datent d'aujourd'hui (à priori ceux qui viennent d'être insérés)
        AND (ST_Contains(cp.geom, ct.geom) -- Jointure sur le chevauchement partiel ou total entre le core_topology et le core_path
             OR ST_Overlaps(cp.geom, ct.geom)
             OR ST_Within(cp.geom, ct.geom)))
