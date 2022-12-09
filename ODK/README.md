@@ -5,6 +5,24 @@
 https://odkcentral.docs.apiary.io
 
 
+## Python : pyodk
+https://github.com/getodk/pyodk
+Client python permettant d'interragir avec un serveur ODK central
+
+Exemples d'utilisation : [Jupyter notebook](odk_api.ipynb)
+
+## odk2gn : récupération des données de ODK et importation dans une base GeoNature
+
+https://github.com/PnX-SI/odk2gn
+
+ODK2GN est un module python utilisant les modèles de GeoNature pour intégrer des données depuis l'API d'ODK Central vers la base de données de GeoNature, en utilisant pyodk.
+
+Il permet actuellement d'importer des données collectées avec ODK vers le module Monitoring de GeoNature et de mettre à jour les listes de valeurs du formulaire ODK en fonction des données de la base de données GeoNature, en se basant sur les fichiers de configuration du module Monitoring.
+
+
+![odk2gn Architecture](https://github.com/PnX-SI/odk2gn/raw/main/docs/img/archi_global.jpeg)
+
+
 ## Postgresql : central2PG
 
 https://github.com/mathieubossaert/central2pg
@@ -12,10 +30,6 @@ https://github.com/mathieubossaert/central2pg
 Fonctions PostgreSQL pemrettant d'interragir avec un serveir ODK Central à travers son API ODATA, pour la récupération des données et la gestion (mise à jour de formulaires)
 ![central2pg](https://user-images.githubusercontent.com/1642645/165459944-a8bfe56e-6cf3-410d-b337-70fe6d1e5ef3.png)
 
-## Python : pyodk
-https://github.com/getodk/pyodk
-Client python permettant d'interragir avec un serveur ODK central
-Exemples d'utilisation : [Jupyter notebook](odk_api.ipynb)
 
 ## Python : Centralpy
 https://github.com/pmaengineering/centralpy
