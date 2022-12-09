@@ -1,8 +1,11 @@
 # CENTRAL2PG
 
 ## Central2PG est un ensemble de fonctions postgresql qui permet d'interroger l'API ODATA d'ODK depuis postgreSQL.
+![central2pg](https://user-images.githubusercontent.com/1642645/165459944-a8bfe56e-6cf3-410d-b337-70fe6d1e5ef3.png)
 Développé par Mathieu Bossaert, toute la documentation est sur Github
 [Central2PG](https://github.com/mathieubossaert/central2pg)
+
+
 
 ## Installation
 Le serveur sur lequel se trouve la base de données PG doit avoir Curl installé 
