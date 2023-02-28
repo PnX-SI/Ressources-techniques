@@ -5,8 +5,8 @@ GREEN="\e[32m"
 BLUE="\e[34m"
 GRAY="\e[90m"
 ENDCOLOR="\e[0m"
-# This function extract the latest version number from github
-# one parameter : the repositoty url
+# This function extracts the latest version number from Github
+# One parameter : the repository url
 extract_latest () {
 local res=$(curl -sL $1 |grep "<title>Release" | grep -oP "(?<=Release ).*(?= . PnX-SI)")
 echo $res
@@ -21,11 +21,11 @@ IMPORT_VERSION='2.0.4'
 EXPORT_VERSION='1.3.0'
 MONITORING_VERSION='0.4.1'
 
-echo "***********************************************************************************************************"
-echo "* This script help you to prepare geonature migration to new versions of GeoNature apps and/or his modules."
-echo "* This script only dowload, unzip, rename and get old config. Migration need to be execute manualy."
-echo "* Read all procedure and release notes before migrate apps and modules."
-echo "***********************************************************************************************************"
+echo "************************************************************************************************************"
+echo "* This script helps you to prepare geonature migration to new versions of GeoNature apps and/or its modules."
+echo "* This script only download, unzip, rename and get old config. Migration needs to be executed manually."
+echo "* Read all procedures and release notes before migrating apps and modules."
+echo "************************************************************************************************************"
 echo ""
 
 # ON SE MET LA OU IL FAUT
@@ -40,43 +40,43 @@ echo 'THE CURRENT VERSIONS OF GEONATURE AND ITS MODULES ARE AS FOLLOWS :'
 if [ -d ~/usershub ]; then
     CURRENT_UH="${BLUE}$(cat ~/usershub/VERSION)${ENDCOLOR}";
 else
-    CURRENT_UH="${GRAY} NOT INSTALLED. Usershub is not present in the root of the current user's directory.${ENDCOLOR}";
+    CURRENT_UH="${GRAY} NOT INSTALLED. UsersHub is not present in the root of the current user directory.${ENDCOLOR}";
 fi
 
 if [ -d ~/taxhub ]; then
     CURRENT_TH="${BLUE}$(cat ~/taxhub/VERSION)${ENDCOLOR}";
 else
-    CURRENT_TH="${GRAY}NOT INSTALLED. Taxhub is not present in the root of the current user's directory.${ENDCOLOR}";
+    CURRENT_TH="${GRAY}NOT INSTALLED. TaxHub is not present in the root of the current user directory.${ENDCOLOR}";
 fi
 
 if [ -d ~/geonature ]; then
     CURRENT_GN="${BLUE}$(cat ~/geonature/VERSION)${ENDCOLOR}";
 else
-    CURRENT_GN="${GRAY}NOT INSTALLED. Geonature is not present in the root of the current user's directory.${ENDCOLOR}";
+    CURRENT_GN="${GRAY}NOT INSTALLED. GeoNature is not present in the root of the current user directory.${ENDCOLOR}";
 fi
 
 if [ -d ~/gn_module_dashboard ]; then
     CURRENT_DASHBOARD="${BLUE}$(cat ~/gn_module_dashboard/VERSION)${ENDCOLOR}";
 else
-    CURRENT_DASHBOARD="${GRAY}NOT INSTALLED. This module is not present in the root of the current user's directory.${ENDCOLOR}";
+    CURRENT_DASHBOARD="${GRAY}NOT INSTALLED. This module is not present in the root of the current user directory.${ENDCOLOR}";
 fi
 
 if [ -d ~/gn_module_import ]; then
     CURRENT_IMPORT="${BLUE}$(cat ~/gn_module_import/VERSION)${ENDCOLOR}";
 else
-    CURRENT_IMPORT="${GRAY}NOT INSTALLED. This module is not present in the root of the current user's directory.${ENDCOLOR}";
+    CURRENT_IMPORT="${GRAY}NOT INSTALLED. This module is not present in the root of the current user directory.${ENDCOLOR}";
 fi
 
 if [ -d ~/gn_module_export ]; then
     CURRENT_EXPORT="${BLUE}$(cat ~/gn_module_export/VERSION)${ENDCOLOR}";
 else
-    CURRENT_EXPORT="${GRAY}NOT INSTALLED. This module is not present in the root of the current user's directory.${ENDCOLOR}";
+    CURRENT_EXPORT="${GRAY}NOT INSTALLED. This module is not present in the root of the current user directory.${ENDCOLOR}";
 fi
 
 if [ -d ~/gn_module_monitoring ]; then
     CURRENT_MONITORING="${BLUE}$(cat ~/gn_module_monitoring/VERSION)${ENDCOLOR}";
 else
-    CURRENT_MONITORING="${GRAY}NOT INSTALLED. This module is not present in the root of the current user's directory.${ENDCOLOR}";
+    CURRENT_MONITORING="${GRAY}NOT INSTALLED. This module is not present in the root of the current user directory.${ENDCOLOR}";
 fi
 echo -e "  UsersHub :" $CURRENT_UH
 echo -e "  TaxHub :" $CURRENT_TH
@@ -140,11 +140,11 @@ elif [ "$USE_LATEST" = "n" ]; then
       echo "    $IMPORT_VERSION"
       echo "    $EXPORT_VERSION"
       echo "    $MONITORING_VERSION"
-      echo "      So ! If this is not exactly your plan, exit (ctrl +c), edit this file, manually change is settings at the begining and execute it again.";
+      echo "      So ! If this is not exactly your plan, exit (ctrl +c), edit this file, manually change its settings at the begining and execute it again.";
 fi
 
 
-read -p "  Do you want to migrate all apps and modules (a) or choise with apps or modules need to be migrate (c) ?" MIGRATE_ALL
+read -p "  Do you want to migrate all apps and modules (a) or choice apps or modules that need to be migrated (c) ?" MIGRATE_ALL
 if [ "$MIGRATE_ALL" = "a" ]; then
     if [ -d ~/usershub ]; then
         UPDATE_UH='true'      
@@ -191,7 +191,7 @@ elif [ "$MIGRATE_ALL" = "c" ]; then
     echo "  So ! a few more questions"
     if [ -d ~/usershub ]; then
         while true; do
-            read -p "    Do you want migrate USERSHUB (y or n) ?" yn
+            read -p "    Do you want to migrate USERSHUB (y or n) ?" yn
             case $yn in
                 [Yy]* ) UPDATE_UH='true'; break;;
                 [Nn]* ) UPDATE_UH="false"; break;;
@@ -201,7 +201,7 @@ elif [ "$MIGRATE_ALL" = "c" ]; then
     fi
     if [ -d ~/taxhub ]; then
         while true; do
-            read -p "    Do you want migrate TAXHUB (y or n) ?" yn
+            read -p "    Do you want to migrate TAXHUB (y or n) ?" yn
             case $yn in
                 [Yy]* ) UPDATE_TH='true'; break;;
                 [Nn]* ) UPDATE_TH="false"; break;;
@@ -211,7 +211,7 @@ elif [ "$MIGRATE_ALL" = "c" ]; then
     fi
     if [ -d ~/geonature ]; then
         while true; do
-            read -p "    Do you want migrate GEONATURE (y or n) ?" yn
+            read -p "    Do you want to migrate GEONATURE (y or n) ?" yn
             case $yn in
                 [Yy]* ) UPDATE_GN='true'; break;;
                 [Nn]* ) UPDATE_GN="false"; break;;
@@ -221,7 +221,7 @@ elif [ "$MIGRATE_ALL" = "c" ]; then
     fi
     if [ -d ~/gn_module_dashboard ]; then
         while true; do
-            read -p "    Do you want migrate DASHBOARD MODULE (y or n) ?" yn
+            read -p "    Do you want to migrate DASHBOARD MODULE (y or n) ?" yn
             case $yn in
                 [Yy]* ) UPDATE_DASHBOARD='true'; break;;
                 [Nn]* ) UPDATE_DASHBOARD="false"; break;;
@@ -231,7 +231,7 @@ elif [ "$MIGRATE_ALL" = "c" ]; then
     fi
     if [ -d ~/gn_module_import ]; then
         while true; do
-            read -p "    Do you want migrate IMPORT MODULE (y or n) ?" yn
+            read -p "    Do you want to migrate IMPORT MODULE (y or n) ?" yn
             case $yn in
                 [Yy]* ) UPDATE_IMPORT='true'; break;;
                 [Nn]* ) UPDATE_IMPORT="false"; break;;
@@ -241,7 +241,7 @@ elif [ "$MIGRATE_ALL" = "c" ]; then
     fi
     if [ -d ~/gn_module_export ]; then
         while true; do
-            read -p "    Do you want migrate EXPORT MODULE (y or n) ?" yn
+            read -p "    Do you want to migrate EXPORT MODULE (y or n) ?" yn
             case $yn in
                 [Yy]* ) UPDATE_EXPORT='true'; break;;
                 [Nn]* ) UPDATE_EXPORT="false"; break;;
@@ -251,7 +251,7 @@ elif [ "$MIGRATE_ALL" = "c" ]; then
     fi
     if [ -d ~/gn_module_monitoring ]; then
         while true; do
-            read -p "    Do you want migrate MONITORING MODULE (y or n) ?" yn
+            read -p "    Do you want to migrate MONITORING MODULE (y or n) ?" yn
             case $yn in
                 [Yy]* ) UPDATE_MONITORING='true'; break;;
                 [Nn]* ) UPDATE_MONITORING="false"; break;;
@@ -260,7 +260,7 @@ elif [ "$MIGRATE_ALL" = "c" ]; then
         done
     fi
 else
-    echo -e "${RED}bad answer. Prompt a (all) or c (choise) only. Try Again.${ENDCOLOR}"
+    echo -e "${RED}bad answer. Prompt a (all) or c (choice) only. Try Again.${ENDCOLOR}"
     exit;
 fi
 
@@ -268,60 +268,60 @@ echo ""
 echo "GOOD ! LET'S SEE WHAT WILL HAPPEN NOW"
 echo "====================================="
 if [ "$UPDATE_UH" == "true" ]; then
-    echo -e "  UsersHub app will be update FROM $CURRENT_UH TO $UH_VERSION"
+    echo -e "  UsersHub app will be updated FROM $CURRENT_UH TO $UH_VERSION"
 elif [ ! -d ~/usershub ]; then
-    echo -e "  ${GRAY}Usershub app is not installed${ENDCOLOR}"
+    echo -e "  ${GRAY}UsersHub app is not installed${ENDCOLOR}"
 elif [ "$UPDATE_UH" == "false" ]; then
-    echo -e "  Usershub app will be keeped in current version $CURRENT_UH"
+    echo -e "  UsersHub app will be kept in current version $CURRENT_UH"
 fi
 
 if [ "$UPDATE_TH" == "true" ]; then
-    echo -e "  TaxHub app will be update FROM $CURRENT_TH TO $TH_VERSION"
+    echo -e "  TaxHub app will be updated FROM $CURRENT_TH TO $TH_VERSION"
 elif [ ! -d ~/taxhub ]; then
-    echo -e "  ${GRAY}Taxhub app is not installed${ENDCOLOR}"
+    echo -e "  ${GRAY}TaxHub app is not installed${ENDCOLOR}"
 elif [ "$UPDATE_TH" == "false" ]; then
-    echo -e "  Taxhub app will be keeped in current version $CURRENT_TH"
+    echo -e "  TaxHub app will be kept in current version $CURRENT_TH"
 fi
 
 
 if [ "$UPDATE_GN" == "true" ]; then
-    echo -e "  GeoNature app will be update FROM $CURRENT_GN TO $GN_VERSION"
+    echo -e "  GeoNature app will be updated FROM $CURRENT_GN TO $GN_VERSION"
 elif [ ! -d ~/geonature ]; then
-    echo -e "  ${GRAY}Geonature app is not installed${ENDCOLOR}"
+    echo -e "  ${GRAY}GeoNature app is not installed${ENDCOLOR}"
 elif [ "$UPDATE_GN" == "false" ]; then
-    echo -e "  Geonature app will be keeped in current version $CURRENT_GN"
+    echo -e "  GeoNature app will be kept in current version $CURRENT_GN"
 fi
 
 if [ "$UPDATE_DASHBOARD" == "true" ]; then
-    echo -e "  Dashboard module will be update FROM $CURRENT_DASHBOARD TO $DASHBOARD_VERSION"
+    echo -e "  Dashboard module will be updated FROM $CURRENT_DASHBOARD TO $DASHBOARD_VERSION"
 elif [ ! -d ~/gn_module_dashboard ]; then
-    echo -e "  ${GRAY}Dashboard module not installed${ENDCOLOR}"
+    echo -e "  ${GRAY}Dashboard module is not installed${ENDCOLOR}"
 elif [ "$UPDATE_DASHBOARD" == "false" ]; then
-    echo -e "  Dashboard module will be keeped in current version $CURRENT_DASHBOARD"
+    echo -e "  Dashboard module will be kept in current version $CURRENT_DASHBOARD"
 fi
 
 if [ "$UPDATE_IMPORT" == "true" ]; then
-    echo -e "  Import module will be update FROM $CURRENT_IMPORT TO $IMPORT_VERSION"
+    echo -e "  Import module will be updated FROM $CURRENT_IMPORT TO $IMPORT_VERSION"
 elif [ ! -d ~/gn_module_import ]; then
-    echo -e "  ${GRAY}Import module not installed${ENDCOLOR}"
+    echo -e "  ${GRAY}Import module is not installed${ENDCOLOR}"
 elif [ "$UPDATE_IMPORT" == "false" ]; then
-    echo -e "  Import module will be keeped in current version $CURRENT_IMPORT"
+    echo -e "  Import module will be kept in current version $CURRENT_IMPORT"
 fi
 
 if [ "$UPDATE_EXPORT" == "true" ]; then
-    echo -e "  Export module will be update FROM $CURRENT_EXPORT TO $EXPORT_VERSION"
+    echo -e "  Export module will be updated FROM $CURRENT_EXPORT TO $EXPORT_VERSION"
 elif [ ! -d ~/gn_module_export ]; then
-    echo -e "  ${GRAY}Export module not installed${ENDCOLOR}"
+    echo -e "  ${GRAY}Export module is not installed${ENDCOLOR}"
 elif [ "$UPDATE_EXPORT" == "false" ]; then
-    echo -e "  Export module will be keeped in current version $CURRENT_EXPORT"
+    echo -e "  Export module will be kept in current version $CURRENT_EXPORT"
 fi
 
 if [ "$UPDATE_MONITORING" == "true" ]; then
-    echo -e " Monitoring module will be update FROM $CURRENT_MONITORING TO $MONITORING_VERSION"
+    echo -e " Monitoring module will be updated FROM $CURRENT_MONITORING TO $MONITORING_VERSION"
 elif [ ! -d ~/gn_module_monitoring ]; then
-    echo -e "  ${GRAY}Monitoring module not installed${ENDCOLOR}"
+    echo -e "  ${GRAY}Monitoring module is not installed${ENDCOLOR}"
 elif [ "$UPDATE_MONITORING" == "false" ]; then
-    echo -e "   Monitoring module will be keeped in current version $CURRENT_MONITORING"
+    echo -e "   Monitoring module will be kept in current version $CURRENT_MONITORING"
 fi
 
 echo ""
@@ -441,7 +441,7 @@ if echo "$answer" | grep -iq "^y" ; then
     fi
 else
     echo ""
-    echo "  Ok ! On en reste là"
+    echo "  OK ! On en reste là"
 fi
 echo 'Quelques ressources :'
 echo "  DOC USERSHUB : https://github.com/PnX-SI/UsersHub/blob/master/docs/installation.rst"
