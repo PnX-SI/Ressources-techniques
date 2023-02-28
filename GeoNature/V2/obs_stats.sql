@@ -13,6 +13,26 @@ JOIN gn_meta.cor_dataset_actor c ON c.id_dataset = d.id_dataset
 WHERE (EXTRACT (YEAR FROM s.date_min)) = 2015 AND c.id_organism = 2
 GROUP BY id_synthese, s.id_dataset, s.date_min, s.observers, d.dataset_name
 --LIMIT 100;
+
+-- Nombre d'observations d'un organisme sur une année
+SELECT 
+count(distinct id_synthese)
+FROM gn_synthese.synthese s
+JOIN gn_meta.t_datasets d ON s.id_dataset = d.id_dataset
+JOIN gn_meta.cor_dataset_actor c ON c.id_dataset = d.id_dataset
+WHERE (EXTRACT (YEAR FROM s.date_min)) = 2022
+AND c.id_organism = 2
+
+-- Même requête écrite autrement
+SELECT 
+count(id_synthese)
+FROM gn_synthese.synthese s
+where id_dataset in 
+  (select id_dataset  
+  from gn_meta.t_datasets td 
+  JOIN gn_meta.cor_dataset_actor c using (id_dataset)
+  where c.id_organism = 2)
+and (EXTRACT (YEAR FROM s.date_min)) = 2022;
                 
 -- Liste des JDD où le PNE (id_organisle = 2) est acteur : 
 SELECT DISTINCT dataset_name FROM gn_meta.t_datasets d
