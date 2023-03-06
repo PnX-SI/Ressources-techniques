@@ -28,3 +28,11 @@ WHERE ct.kind='SIGNAGE'
 AND EXTRACT(YEAR FROM ct.date_insert) = 2022 
 AND ct.deleted = false
 GROUP BY s."name" 
+
+-- Nombre de sites outdoor publiées, créés en 2022
+SELECT s."name", count(o.id)
+FROM outdoor_site o
+JOIN authent_structure s on s.id = o.structure_id 
+WHERE EXTRACT(YEAR FROM o.date_insert) = 2022 
+AND o.published = true 
+GROUP BY s."name" 
