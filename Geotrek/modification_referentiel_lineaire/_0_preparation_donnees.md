@@ -252,7 +252,9 @@ k AS (
       UNION ALL
      SELECT * FROM h
       UNION ALL
-     SELECT * FROM i)
+     SELECT * FROM i
+      UNION ALL
+     SELECT * FROM j)
 SELECT * FROM k;
 ```
 
