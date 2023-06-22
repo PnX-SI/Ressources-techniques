@@ -122,6 +122,27 @@ SELECT cp1.id,
          ORDER BY cp1.id;
 ```
 
+Identifier les tronçons courts et dont une extrémité n'est reliée à aucun autre tronçon. Ce sont rarement des tronçons pertinents sur le terrain :
+``` sql
+-- tronçons ayant une extrémité non reliée et faisant moins de 5m
+SELECT DISTINCT cp1.id,
+       'short_dead_end' AS error
+  FROM core_path cp1
+ WHERE ST_Length(cp1.geom) < 5
+       AND (NOT EXISTS
+            (SELECT 1
+               FROM core_path cp2
+              WHERE cp1.id != cp2.id
+                    AND ST_Intersects(ST_StartPoint(cp1.geom), cp2.geom))
+            OR
+            NOT EXISTS
+            (SELECT 1
+               FROM core_path cp3
+              WHERE cp1.id != cp3.id
+                    AND ST_Intersects(ST_EndPoint(cp1.geom), cp3.geom))
+           );
+```
+
 
 Et enfin, les tronçons qui se touchent presque, ce qui pourrait signifier qu'il leur manque un peu de longueur pour rentrer en contact et créer une intersection existant réellement :
 ``` sql
@@ -228,14 +249,31 @@ i AS ( -- tronçons ayant les mêmes extrémités et faisant moins de 10m
                AND ST_Length(tn1.geom) < 10
                AND ST_Length(tn2.geom) < 10
               ORDER BY tn1.id),
-j AS ( -- tronçons se touchant presque (régler la tolérance selon le besoin)
+j AS ( -- tronçons ayant une extrémité non reliée et faisant moins de 5m
+     SELECT DISTINCT tn1.id,
+            'short_dead_end' AS error
+       FROM "table_name" tn1
+      WHERE ST_Length(tn1.geom) < 5
+            AND (NOT EXISTS
+                 (SELECT 1
+                    FROM "table_name" tn2
+                   WHERE tn1.id != tn2.id
+                         AND ST_Intersects(ST_StartPoint(tn1.geom), tn2.geom))
+                 OR
+                 NOT EXISTS
+                 (SELECT 1
+                    FROM "table_name" tn3
+                   WHERE tn1.id != tn3.id
+                         AND ST_Intersects(ST_EndPoint(tn1.geom), tn3.geom))
+                )),
+k AS ( -- tronçons se touchant presque (régler la tolérance selon le besoin)
      SELECT DISTINCT tn1.id,
             'almost_touching' AS error
        FROM "table_name" tn1
         INNER JOIN "table_name" tn2
            ON ST_DWithin(ST_Boundary(tn1.geom), tn2.geom, 1)
           AND NOT ST_Intersects(tn1.geom, tn2.geom)),
-k AS (
+l AS (
      SELECT * FROM a
       UNION ALL
      SELECT * FROM b
@@ -254,8 +292,10 @@ k AS (
       UNION ALL
      SELECT * FROM i
       UNION ALL
-     SELECT * FROM j)
-SELECT * FROM k;
+     SELECT * FROM j
+      UNION ALL
+     SELECT * FROM k)
+SELECT * FROM l;
 ```
 
 Attention un `core_path` peut avoir plusieurs erreurs et donc se retrouver dans le résultat de plusieurs sous-requêtes.

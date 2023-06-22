@@ -89,6 +89,16 @@ La couche du réseau à importer doit respecter la structure suivante :
 | eid         | varchar              | identifiant de la donnée dans la couche d'origine                        |
 | layer       | varchar              | nom de la couche d'origine (utile en cas de multiples fichiers d'origine)|
 
+``` sql
+CREATE TABLE importe (
+	id integer PRIMARY KEY,
+	geom geometry (LineString),
+	structure_id integer,
+	eid varchar,
+	layer varchar
+);
+```
+
 La couche du réseau de référence doit avoir la structure de la table `core_path` de geotrek. Pour cela vous pouvez importer manuellement les données ou utiliser des [Foreign Data Wrappers](https://wiki.postgresql.org/wiki/Foreign_data_wrappers).
 
 ### Scripts SQL
@@ -108,7 +118,7 @@ Il crée les tables suivantes :
  - `tampon_inner_i` : table contenant toutes les géométries communes entre `importe` et  `reference` quand elles sont incluses dans les tampons, avec mention du cas (doublons partiels, ...)
 - `tampon_inner_all` : table de jointure des données contenues dans `tampon_inner_i` et `tampon_inner_r`. C'est dans celle-ci que le script détermine si une relation semble être du bruit ou non.
 
-Une fois ce script exécuté et la table `tampon_inner_all` créée, une supervision manuelle est nécessaire, cf. [Supervision manuelle des relations `bruit = NULL`](#supervision-manuelle-des-relations-bruit--null).
+/!\ Une fois ce script exécuté et la table `tampon_inner_all` créée, une supervision manuelle est nécessaire, cf. [Supervision manuelle des relations `bruit = NULL`](#supervision-manuelle-des-relations-bruit--null)
 
 Le script [2_lineaire_agg_modifs_geoms.sql](scripts_sql/agregation_reseaux/2_lineaire_agg_modifs_geoms.sql) permet de calculer le nouveau réseau issu de la fusion des réseaux importé et de référence.
 
@@ -182,7 +192,7 @@ La définition d'une relation comme étant du `bruit` ou pas dépend donc de ces
 
 ### Supervision manuelle des relations `bruit = NULL`
 
-Une fois le script [1_lineaire_agg_def_relations.sql](scripts_sql/agregation_reseaux/1_lineaire_agg_def_relations.sql) exécuté et la table `tampon_inner_all` créée, une supervision manuelle est nécessaire.
+Une fois le script [1_lineaire_agg_def_relations.sql](scripts_sql/agregation_reseaux/1_lineaire_agg_def_relations.sql) exécuté et la table `tampon_inner_all` créée, une supervision manuelle est nécessaire, grâce au fichier `projets_qgis/correction_manuelle_bruits.gqz`.
 
 En effet, certaines situations sont trop floues pour que le script les classe comme bruit ou relation signifiante, et toutes les relations pour lesquelles le champ `bruit` est toujours nul après l'exécution de ce deuxième script doivent être supervisées manuellement via un SIG comme QGIS.
 
