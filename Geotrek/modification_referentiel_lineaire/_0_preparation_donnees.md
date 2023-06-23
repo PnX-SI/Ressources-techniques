@@ -14,7 +14,7 @@ Le but est de nettoyer sa base de données Geotrek de tous les artéfacts créé
 
 Identifier les tronçons qui en croisent d'autres sans être découpés à l'intersection :
 ``` sql
--- tronçons se croisant
+-- lines crossing another one
 SELECT DISTINCT cp1.id,
        'st_crosses' AS error
   FROM core_path cp1
@@ -25,20 +25,20 @@ SELECT DISTINCT cp1.id,
 
 Identifier les tronçons qui en chevauchent d'autres :
 ``` sql
--- tronçons se chevauchant
+-- lines overlapping, containing or being within another one
 SELECT DISTINCT cp1.id,
-       'st_overlaps_or_st_contains/within' AS error
+       'st_overlaps_contains_or_within' AS error
   FROM core_path cp1
        INNER JOIN core_path cp2
-       ON (ST_Overlaps(cp1.geom, cp2.geom)
-           OR ST_Contains(cp1.geom, cp2.geom)
-           OR ST_Within(cp1.geom, cp2.geom))
-          AND cp1.id != cp2.id;
+       ON cp1.id != cp2.id
+          AND (ST_Overlaps(cp1.geom, cp2.geom)
+               OR ST_Contains(cp1.geom, cp2.geom)
+               OR ST_Within(cp1.geom, cp2.geom));
 ```
 
 Identifier les tronçons dont la géométrie n'est pas valide :
 ``` sql
--- tronçons NOT Valid
+-- lines with a non-valid geometry (cf. https://postgis.net/docs/using_postgis_dbmanagement.html#OGC_Validity)
 SELECT id,
        'st_isvalid' AS error
   FROM core_path
@@ -47,7 +47,7 @@ SELECT id,
 
 Identifier les tronçons qui s'auto-intersectent :
 ``` sql
--- tronçons NOT Simple
+-- self-intersecting lines (normally already detected by previous validity test)
 SELECT id,
        'st_issimple' AS error
   FROM core_path
@@ -56,7 +56,7 @@ SELECT id,
 
 Identifier les tronçons qui ne sont pas une LineString :
 ``` sql
--- tronçons NOT LineString
+-- non linestring geometries
 SELECT id,
        'st_geometrytype' AS error
   FROM core_path
@@ -70,7 +70,7 @@ Cherchons maintenant d'autres types de situations que nous voudrions corriger :
 
 Identifier les tronçons en doublon :
 ``` sql
--- tronçons en doublon
+-- lines strictly equal to another one
 SELECT cp1.id,
        cp2.id,
        'st_equals' AS error
@@ -82,9 +82,9 @@ SELECT cp1.id,
 
 Identifier les tronçons isolés du reste du réseau :
 ``` sql
--- tronçons isolés
+-- isolated lines, that don't touch any other line
 SELECT cp1.id,
-       'isolated_path' as error
+       'isolated_line' as error
   FROM core_path cp1
  WHERE NOT EXISTS
         (SELECT 1
@@ -95,36 +95,31 @@ SELECT cp1.id,
 
 Identifier les tronçons de moins de 1m (à priori peu pertinents, et pouvant poser problème lors des opérations à suivre) :
 ``` sql
--- tronçons de moins de 1m
+-- -- lines measuring less than 1 meter
 SELECT id,
-       'short_path' as error
+       'short_line' as error
   FROM core_path
  WHERE ST_Length(geom) < 1;
 ```
 
-Identifier les tronçons dont les deux extrémités sont identiques, et qui sont courts (moins de 10m). Il s'agit souvent de résidus d'opérations de modification de tronçons, qui représentent en fait la même voie sur le terrain :
+Identifier les tronçons dont les deux extrémités sont identiques, et qui sont mutuellement compris dans un tampon de 5m autour de l'autre. Il s'agit souvent de résidus d'opérations de modification de tronçons, qui représentent en fait la même voie sur le terrain :
 ``` sql
--- tronçons ayant les mêmes extrémités et faisant moins de 10m
+-- lines that have the same boundaries and are fully contained within 5 meters of each other (surely duplicates)
 SELECT cp1.id,
        cp2.id,
-       'same_extremities' AS error
-  FROM core_path cp1
-       INNER JOIN core_path cp2
-       ON ((ST_Equals(ST_StartPoint(cp1.geom), ST_StartPoint(cp2.geom))
-            AND ST_Equals(ST_EndPoint(cp1.geom), ST_EndPoint(cp2.geom)))
-           OR
-           (ST_Equals(ST_StartPoint(cp1.geom), ST_EndPoint(cp2.geom))
-            AND ST_Equals(ST_EndPoint(cp1.geom), ST_StartPoint(cp2.geom))
-          ))
-          AND cp1.id != cp2.id
-          AND ST_Length(cp1.geom) < 10
-          AND ST_Length(cp2.geom) < 10
-         ORDER BY cp1.id;
+       'same_boundaries' AS error
+       FROM core_path cp1
+            INNER JOIN core_path cp2
+            ON ST_Equals(ST_Boundary(cp1.geom), ST_Boundary(cp2.geom))
+               AND cp1.id != cp2.id
+               AND ST_Contains(ST_Buffer(cp2.geom, 5), cp1.geom)
+               AND ST_Contains(ST_Buffer(cp1.geom, 5), cp2.geom)
+              ORDER BY cp1.id;
 ```
 
 Identifier les tronçons courts et dont une extrémité n'est reliée à aucun autre tronçon. Ce sont rarement des tronçons pertinents sur le terrain :
 ``` sql
--- tronçons ayant une extrémité non reliée et faisant moins de 5m
+-- lines that have a boundary not shared with any other line and measure less than 5 meters
 SELECT DISTINCT cp1.id,
        'short_dead_end' AS error
   FROM core_path cp1
@@ -144,9 +139,9 @@ SELECT DISTINCT cp1.id,
 ```
 
 
-Et enfin, les tronçons qui se touchent presque, ce qui pourrait signifier qu'il leur manque un peu de longueur pour rentrer en contact et créer une intersection existant réellement :
+Et enfin, les tronçons qui se touchent presque, ce qui pourrait signifier qu'il leur manque un peu de longueur pour rentrer en contact et créer une intersection existant réellement sur le terrain :
 ``` sql
--- tronçons se touchant presque (régler la tolérance selon le besoin)
+-- lines almost touching each other (suspicious)
 SELECT cp1.id,
        cp2.id,
        'almost_touching' AS error
@@ -180,77 +175,70 @@ Pour cela, les mêmes requêtes spatiales que précédemment sont applicables, i
 
 ``` sql
 WITH
-a AS ( -- tronçons qui en croisent d'autres
+a AS ( -- lines crossing another one
      SELECT DISTINCT tn1.id,
             'st_crosses' AS error
        FROM "table_name" tn1
             INNER JOIN "table_name" tn2
             ON ST_Crosses(tn1.geom, tn2.geom)
                AND tn1.id != tn2.id),
-b AS ( -- tronçons qui en chevauchent d'autres
+b AS ( -- lines overlapping, containing or being within another one
      SELECT DISTINCT tn1.id,
-            'st_overlaps_or_st_contains/within' AS error
+            'st_overlaps_contains_or_within' AS error
        FROM "table_name" tn1
             INNER JOIN "table_name" tn2
-            ON (
-                ST_Overlaps(tn1.geom, tn2.geom)
-                OR ST_Contains(tn1.geom, tn2.geom)
-                OR ST_Within(tn1.geom, tn2.geom)
-            )
-               AND tn1.id != tn2.id),
-c AS ( -- tronçons dont la géométrie n'est pas valide
+            ON tn1.id != tn2.id
+               AND (ST_Overlaps(tn1.geom, tn2.geom)
+                    OR ST_Contains(tn1.geom, tn2.geom)
+                    OR ST_Within(tn1.geom, tn2.geom)),
+c AS ( -- lines with a non-valid geometry (cf. https://postgis.net/docs/using_postgis_dbmanagement.html#OGC_Validity)
      SELECT id,
             'st_isvalid' AS error
        FROM "table_name"
       WHERE NOT ST_IsValid(geom)),
-d AS ( -- tronçons qui s'auto-intersectent (normalement déjà pris en compte par st_isvalid)
+d AS ( -- self-intersecting lines (normally already detected by previous validity test)
      SELECT id,
             'st_issimple' AS error
        FROM "table_name"
       WHERE NOT ST_IsSimple(geom)),
-e AS ( -- tronçons multilinestring
+e AS ( -- non linestring geometries
      SELECT id,
             'st_geometrytype' AS error
        FROM "table_name"
       WHERE NOT ST_GeometryType(geom) = 'ST_LineString'),
-f AS ( -- tronçons en doublon
+f AS ( -- lines strictly equal to another one
      SELECT tn1.id,
             'st_equals' AS error
        FROM "table_name" tn1
             INNER JOIN "table_name" tn2
             ON ST_Equals(tn1.geom, tn2.geom)
                AND tn1.id != tn2.id),
-g AS ( -- tronçons isolés
+g AS ( -- isolated lines, that don't touch any other line
      SELECT tn1.id,
-            'isolated_path' AS error
+            'isolated_line' AS error
        FROM "table_name" tn1
       WHERE NOT EXISTS
             (SELECT 1
                FROM "table_name" tn2
               WHERE tn1.id != tn2.id
                 AND ST_INTERSECTS(tn1.geom, tn2.geom))),
-h AS ( -- tronçons de moins de 1m
+h AS ( -- lines measuring less than 1 meter
      SELECT id,
-            'short_path' as error
+            'short_line' as error
        FROM "table_name"
       WHERE ST_Length(geom) < 1),
-i AS ( -- tronçons ayant les mêmes extrémités et faisant moins de 10m
+i AS ( -- lines that have the same boundaries and are fully contained within 5 meters of each other (surely duplicates)
      SELECT tn1.id,
-            'same_extremities' AS error
+            'same_boundaries' AS error
        FROM "table_name" tn1
             INNER JOIN "table_name" tn2
-            ON ((ST_Equals(ST_StartPoint(tn1.geom), ST_StartPoint(tn2.geom))
-                 AND ST_Equals(ST_EndPoint(tn1.geom), ST_EndPoint(tn2.geom)))
-                OR
-                (ST_Equals(ST_StartPoint(tn1.geom), ST_EndPoint(tn2.geom))
-                 AND ST_Equals(ST_EndPoint(tn1.geom), ST_StartPoint(tn2.geom))
-               ))
+            ON ST_Equals(ST_Boundary(tn1.geom), ST_Boundary(tn2.geom))
                AND tn1.id != tn2.id
-               AND ST_Length(tn1.geom) < 10
-               AND ST_Length(tn2.geom) < 10
+               AND ST_Contains(ST_Buffer(tn2.geom, 5), tn1.geom)
+               AND ST_Contains(ST_Buffer(tn1.geom, 5), tn2.geom)
               ORDER BY tn1.id),
-j AS ( -- tronçons ayant une extrémité non reliée et faisant moins de 5m
-     SELECT DISTINCT tn1.id,
+j AS ( -- lines that have a boundary not shared with any other line and measure less than 5 meters
+     SELECT tn1.id,
             'short_dead_end' AS error
        FROM "table_name" tn1
       WHERE ST_Length(tn1.geom) < 5
@@ -266,7 +254,7 @@ j AS ( -- tronçons ayant une extrémité non reliée et faisant moins de 5m
                    WHERE tn1.id != tn3.id
                          AND ST_Intersects(ST_EndPoint(tn1.geom), tn3.geom))
                 )),
-k AS ( -- tronçons se touchant presque (régler la tolérance selon le besoin)
+k AS ( -- lines almost touching each other (suspicious)
      SELECT DISTINCT tn1.id,
             'almost_touching' AS error
        FROM "table_name" tn1

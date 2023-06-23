@@ -51,41 +51,63 @@ Il faut à présent corriger les itinéraires via l'interface de Geotrek-admin. 
 ``` sql
 CREATE TABLE treks_to_correct AS
 WITH treks_broken AS (
-SELECT id,
-       'broken' AS problem
-  FROM core_topology
- WHERE kind = 'TREK' -- repère les itinéraires dont la géométrie est cassée
-   AND deleted = FALSE 
-   AND (min_elevation = 0 -- grâce au calcul de l'altitude impossible
-    OR ST_GeometryType(geom) != 'ST_LineString') -- ou à la géométrie qui n'est pas une LineString
+SELECT ct.id,
+       'broken_topology' AS problem,
+       ct.geom AS new_geom,
+       ct_ante.geom AS old_geom,
+       ST_Boundary(ct.geom) AS boundaries_broken_trek -- retourne les extrémités de toutes les LineStrings de la MultiLineString, et donc les endroits exacts où la topologie est cassée
+  FROM core_topology ct
+  JOIN core_topology_ante ct_ante -- sauvegarde de la table core_topology dans l'état précédant l'agrégation des linéaires
+    ON ct.id = ct_ante.id
+       AND ct.kind = 'TREK' -- repère les itinéraires dont la géométrie est cassée
+       AND ct.deleted = FALSE 
+       AND (ct.min_elevation = 0 -- grâce au calcul de l'altitude impossible
+            OR ST_GeometryType(ct.geom) != 'ST_LineString') -- ou à la géométrie qui n'est pas une LineString
     ),
 treks_weird_new_length AS (    
 SELECT ct.id,
-       'length' AS problem
+       'length' AS problem,
+       ct.geom AS new_geom,
+       ct_ante.geom AS old_geom
   FROM core_topology ct
-  JOIN core_topology_ante cta -- table core_topology dans l'état précédent l'agrégation des linéaires (sauvegarde)
-    ON ct.id = cta.id
-   AND ct.kind = 'TREK' -- repère les itinéraires dont la longueur
-   AND ct.deleted = FALSE
-   AND (ct.length < (0.95 * cta.length) -- est inférieure
-       OR ct.length > (1.05 * cta.length)) -- ou supérieure de 10% à sa longueur initiale (= avant agrégation des linéaires)
+  JOIN core_topology_ante ct_ante -- sauvegarde de la table core_topology dans l'état précédant l'agrégation des linéaires
+    ON ct.id = ct_ante.id
+       AND ct.kind = 'TREK' -- repère les itinéraires dont la longueur
+       AND ct.deleted = FALSE
+       AND (ct.length < (0.95 * ct_ante.length) -- est inférieure
+            OR ct.length > (1.05 * ct_ante.length)) -- ou supérieure de 10% à sa longueur initiale (= avant agrégation des linéaires)
     ),
 treks_to_correct_id AS (
-SELECT id, problem FROM treks_broken
+SELECT id,
+       problem,
+       old_geom,
+       new_geom,
+       boundaries_broken_trek
+  FROM treks_broken
  UNION
-SELECT id, problem FROM treks_weird_new_length twnl WHERE twnl.id NOT IN (SELECT id FROM treks_broken)
+SELECT id,
+       problem,
+       old_geom,
+       new_geom,
+       NULL::geometry AS boundaries_broken_trek
+  FROM treks_weird_new_length twnl
+ WHERE twnl.id NOT IN (SELECT id FROM treks_broken)
 )
 SELECT topo_object_id,
-       name,
+       "name",
        'http://URL_ADMIN/trek/edit/' || topo_object_id AS edit_url, -- URL d'édition de l'itinéraire, changer URL_ADMIN par l'URL de l'Admin test sur lequel vous effectuez le processus
        'https://URL_RANDO/trek/' || topo_object_id AS rando_url, -- URL de l'itinéraire sur votre Geotrek-rando toujours connecté à votre base Admin inchangée. Permet de reconstruire facilement les géométries par comparaison avec cette géométrie initiale. Changer URL_RANDO par l'URL de votre Geotrek-rando
        problem,
+       old_geom,
+       new_geom,
+       boundaries_broken_trek,
        null::boolean AS corrected,
        null::varchar AS "comments"
   FROM trekking_trek tt
   JOIN treks_to_correct_id ttci
        ON ttci.id = tt.topo_object_id
-       AND tt.published = TRUE;
+          AND tt.published = TRUE
+ ORDER BY problem, id;
 ```
 
 Selon nos essais, parmi les itinéraires passant dans la zone d'intégration du nouveau réseau, 25% semblent intacts et 75% nécessitent une correction.
