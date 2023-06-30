@@ -138,6 +138,8 @@ Il crée la table suivante :
 
 Il crée également des *triggers* permettant de recalculer automatiquement les erreurs lors de modifications réalisées sur la table `core_path_wip_new`.
 
+Après son exécution, voir la section [Supervision des erreurs finales](#supervision-des-erreurs-finales) pour terminer le travail manuellement.
+
 ## Définition des relations entre tronçons référence et importés
 
 **Script SQL associé** :

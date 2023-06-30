@@ -141,7 +141,7 @@ SELECT DISTINCT cp1.id,
 
 Et enfin, les tronçons qui se touchent presque, ce qui pourrait signifier qu'il leur manque un peu de longueur pour rentrer en contact et créer une intersection existant réellement sur le terrain :
 ``` sql
--- lines almost touching each other (suspicious)
+-- lines suspiciously almost touching each other (1 meter tolerance)
 SELECT cp1.id,
        cp2.id,
        'almost_touching' AS error
@@ -254,7 +254,7 @@ j AS ( -- lines that have a boundary not shared with any other line and measure 
                    WHERE tn1.id != tn3.id
                          AND ST_Intersects(ST_EndPoint(tn1.geom), tn3.geom))
                 )),
-k AS ( -- lines almost touching each other (suspicious)
+k AS ( -- lines suspiciously almost touching each other (1 meter tolerance)
      SELECT DISTINCT tn1.id,
             'almost_touching' AS error
        FROM "table_name" tn1
