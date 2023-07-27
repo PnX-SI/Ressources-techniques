@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS erreurs_compte
  st_geometrytype integer,
  ligne_trop_courte integer,
  extremite integer,
+ separes integer,
  total integer,
  date timestamp);
 
@@ -50,13 +51,13 @@ UPDATE core_path_wip_new
 ---------- DÉTECTION DE DIFFÉRENTS TYPES D'ERREURS, DÉCOMPTE ET INSERTION DU NOMBRE DANS erreurs_compte
 WITH
 a AS ( -- tronçons qui en croisent d'autres
-    SELECT count(DISTINCT cp_wn1.id) AS st_crosses
+    SELECT DISTINCT cp_wn1.id AS st_crosses
       FROM core_path_wip_new cp_wn1
             INNER JOIN core_path_wip_new cp_wn2
              ON ST_Crosses(cp_wn1.geom_new, cp_wn2.geom_new)
                    AND cp_wn1.id != cp_wn2.id),
 b AS ( -- tronçons qui en chevauchent d'autres
-    SELECT count(DISTINCT cp_wn1.id) AS st_overlaps_contains_within
+    SELECT DISTINCT cp_wn1.id AS st_overlaps_contains_within
       FROM core_path_wip_new cp_wn1
             INNER JOIN core_path_wip_new cp_wn2
             ON (ST_Overlaps(cp_wn1.geom_new, cp_wn2.geom_new)
@@ -64,24 +65,24 @@ b AS ( -- tronçons qui en chevauchent d'autres
                 OR ST_Within(cp_wn1.geom_new, cp_wn2.geom_new))
                AND cp_wn1.id != cp_wn2.id),
 c AS ( -- tronçons dont la géométrie n'est pas valide
-    SELECT count(DISTINCT id) AS st_isvalid
+    SELECT DISTINCT id AS st_isvalid
       FROM core_path_wip_new
      WHERE NOT ST_IsValid(geom_new)),
 d AS ( -- tronçons qui s'auto-intersectent
-    SELECT count(DISTINCT id) AS st_issimple
+    SELECT DISTINCT id AS st_issimple
       FROM core_path_wip_new
      WHERE NOT ST_IsSimple(geom_new)),
 e AS ( -- tronçons multilinestring
-    SELECT count(DISTINCT id) AS st_geometrytype
+    SELECT DISTINCT id AS st_geometrytype
       FROM core_path_wip_new
      WHERE NOT ST_GeometryType(geom_new) = 'ST_LineString'),
 f AS ( -- tronçons trop courts
-    SELECT count(DISTINCT id) AS ligne_trop_courte
+    SELECT DISTINCT id AS ligne_trop_courte
       FROM core_path_wip_new
      WHERE erreur = 'ligne_trop_courte'
 ),
 g AS ( -- tronçons courts dont une extrémité n'est pas reliée
-    SELECT count(DISTINCT id) AS extremite
+    SELECT DISTINCT id AS extremite
       FROM core_path_wip_new cp_wn1
      WHERE ST_Length(cp_wn1.geom_new) < 5
        AND (NOT EXISTS
@@ -96,43 +97,42 @@ g AS ( -- tronçons courts dont une extrémité n'est pas reliée
                   WHERE cp_wn1.id != cp_wn3.id
                     AND ST_Intersects(ST_EndPoint(cp_wn1.geom_new), cp_wn3.geom_new)))
 ),
------ de h à j : calcul du nombre de tronçons différents ayant au moins une erreur
-h AS (
-    SELECT cp_wn1.id
+h AS (  -- tronçons qui se touchaient mais ne se touchent plus
+    SELECT DISTINCT cp_wn1.id AS separes
       FROM core_path_wip_new cp_wn1
-            INNER JOIN core_path_wip_new cp_wn2
-            ON (ST_Crosses(cp_wn1.geom_new, cp_wn2.geom_new)
-                OR ST_Overlaps(cp_wn1.geom_new, cp_wn2.geom_new)
-                OR ST_Contains(cp_wn1.geom_new, cp_wn2.geom_new)
-                OR ST_Within(cp_wn1.geom_new, cp_wn2.geom_new))
-               AND cp_wn1.id != cp_wn2.id),
+           INNER JOIN core_path_wip_new cp_wn2
+           ON ST_Touches(cp_wn1.geom, cp_wn2.geom)
+           AND NOT ST_Touches(cp_wn1.geom_new, cp_wn2.geom_new)),
+----- de i à k : calcul du nombre de tronçons distincts ayant au moins une erreur
 i AS (
-    SELECT id
-      FROM core_path_wip_new
-     WHERE NOT ST_IsValid(geom_new)
-        OR NOT ST_IsSimple(geom_new)
-        OR NOT ST_GeometryType(geom_new) = 'ST_LineString'
-        OR erreur = 'ligne_trop_courte'),
-j AS (
-    SELECT * FROM h
+    SELECT st_crosses AS id FROM a
      UNION
-    SELECT * FROM i
-)
+    SELECT st_overlaps_contains_within AS id FROM b
+     UNION
+    SELECT st_isvalid AS id FROM c
+     UNION
+    SELECT st_issimple AS id FROM d
+     UNION
+    SELECT st_geometrytype AS id FROM e
+     UNION
+    SELECT ligne_trop_courte AS id FROM f
+     UNION
+    SELECT extremite AS id FROM g
+     UNION
+    SELECT separes AS id FROM h)
 INSERT INTO erreurs_compte (st_crosses, st_overlaps_contains, st_isvalid,
                               st_issimple, st_geometrytype, ligne_trop_courte,
-                              extremite, total, "date")
-SELECT st_crosses,
-       st_overlaps_contains_within,
-       st_isvalid,
-       st_issimple,
-       st_geometrytype,
-       ligne_trop_courte,
-       extremite,
-       count(DISTINCT id),
-       current_timestamp(0)
-  FROM a,b,c,d,e,f,g,j
- GROUP BY st_crosses, st_overlaps_contains_within, st_isvalid, st_issimple, st_geometrytype, ligne_trop_courte, extremite;
-
+                              extremite, separes, total, "date")
+SELECT (SELECT count(st_crosses) FROM a) AS st_crosses,
+       (SELECT count(st_overlaps_contains_within) FROM b) AS st_overlaps_contains_within,
+       (SELECT count(st_isvalid) FROM c) AS st_isvalid,
+       (SELECT count(st_issimple) FROM d) AS st_issimple,
+       (SELECT count(st_geometrytype) FROM e) AS st_geometrytype,
+       (SELECT count(ligne_trop_courte) FROM f) AS ligne_trop_courte,
+       (SELECT count(extremite) FROM g) AS extremite,
+       (SELECT count(separes) FROM h) AS separes,
+       (SELECT count(id) FROM i) AS total,     
+       current_timestamp(0);
 
 ---------- MISE À JOUR DU CHAMP erreur DE core_path_wip_new
 ---------- afin de visualiser les tronçons problématiques dans QGIS

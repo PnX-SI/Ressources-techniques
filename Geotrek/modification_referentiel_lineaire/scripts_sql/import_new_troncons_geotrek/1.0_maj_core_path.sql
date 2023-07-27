@@ -4,7 +4,9 @@
 ---------- DÉSACTIVATION DES TRIGGERS DE core_path
 ALTER TABLE core_path DISABLE TRIGGER USER;
 
+
 BEGIN;
+
 ---------- MISE À JOUR DE LA GÉOMÉTRIE ET DES ATTRIBUTS DES core_path EXISTANTS
 UPDATE core_path
    SET geom = cp_wn.geom_new,
@@ -14,7 +16,9 @@ UPDATE core_path
        date_update = CURRENT_TIMESTAMP
   FROM core_path_wip_new cp_wn
  WHERE cp_wn.id = core_path.id
-   AND NOT core_path.geom = cp_wn.geom_new;
+   AND NOT core_path.geom = cp_wn.geom_new
+   AND NOT cp_wn.geom IS NULL; -- évite la mise à jour intempestive d'un tronçon créé entre-temps
+                               -- et dont l'id se retrouverait utilisé par un nouveau tronçon dans core_path_wip_new
 
 ---------- INSERTION DANS core_path DES NOUVEAUX TRONÇONS
 INSERT INTO core_path (geom, "comments", eid, structure_id, "valid", visible, draft, length, date_insert, date_update)
