@@ -1,5 +1,7 @@
 ---------- IMPORT DU NOUVEAU RÉSEAU core_path_wip_new DANS core_path
 
+CREATE TABLE IF NOT EXISTS core_topology_ante AS
+SELECT * FROM core_topology;
 
 ---------- DÉSACTIVATION DES TRIGGERS DE core_path
 ALTER TABLE core_path DISABLE TRIGGER USER;
