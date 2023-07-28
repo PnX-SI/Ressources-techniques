@@ -260,13 +260,13 @@ BEGIN
                                       WHERE NEW.id != cp_wn2.id
                                             AND ST_Intersects(NEW.geom_new, cp_wn2.geom_new))
                     THEN 'troncon_isole'
-                    WHEN ST_Equals(ST_Boundary(NEW.geom_new), ST_Boundary(cp_wn2.geom_new))
-                         AND NEW.id != cp_wn2.id
-                         AND ST_Contains(ST_Buffer(cp_wn2.geom_new, 5), NEW.geom_new)
-                         AND ST_Contains(ST_Buffer(NEW.geom_new, 5), cp_wn2.geom_new)
+                    WHEN ST_Equals(ST_Boundary(NEW.geom_new), ST_Boundary(cp_wn.geom_new))
+                         AND NEW.id != cp_wn.id
+                         AND ST_Contains(ST_Buffer(cp_wn.geom_new, 5), NEW.geom_new)
+                         AND ST_Contains(ST_Buffer(NEW.geom_new, 5), cp_wn.geom_new)
                     THEN 'memes_extremites'
-                    WHEN ST_DWithin(ST_Boundary(NEW.geom), tn2.geom, 1)
-                         AND NOT ST_Intersects(NEW.geom, tn2.geom)
+                    WHEN ST_DWithin(ST_Boundary(NEW.geom), cp_wn.geom, 1)
+                         AND NOT ST_Intersects(NEW.geom, cp_wn.geom)
                     THEN 'se_touchent_presque'
                     ELSE NULL::varchar
                     END AS erreur
