@@ -28,8 +28,11 @@ CREATE TABLE IF NOT EXISTS erreurs_compte
  st_issimple integer,
  st_geometrytype integer,
  ligne_trop_courte integer,
- extremite integer,
+ trop_court_extremite_libre integer,
  separes integer,
+ troncon_isole integer,
+ memes_extremites integer,
+ se_touchent_presque integer,
  total integer,
  date timestamp);
 
@@ -38,51 +41,61 @@ CREATE TABLE IF NOT EXISTS erreurs_compte
 ---------- permet de les visualiser dans un SIG
 UPDATE core_path_wip_new
    SET geom_new = ST_MakeLine(geom_new, ST_Translate(geom_new, 5, 5)),
-          erreur = 'ligne_trop_courte'
+       erreur = 'ligne_trop_courte'
  WHERE ST_GeometryType(geom_new) = 'ST_Point';
 
 ---------- EXTENSION DES LIGNES DE MOINS DE 1m POUR POUVOIR LES CORRIGER VISUELLEMENT
 UPDATE core_path_wip_new
    SET geom_new = ST_AddPoint(geom_new, ST_GeometryN(ST_Points(ST_Buffer(geom_new, 5)), 1)),
-          erreur = 'ligne_trop_courte'
+       erreur = 'ligne_trop_courte'
  WHERE ST_Length(geom_new) < 1;
 
 
----------- DÉTECTION DE DIFFÉRENTS TYPES D'ERREURS, DÉCOMPTE ET INSERTION DU NOMBRE DANS erreurs_compte
+---------- DÉTECTION DE DIFFÉRENTS TYPES D'ERREURS
+DROP TABLE IF EXISTS erreurs_liste;
+
+CREATE TABLE erreurs_liste AS
 WITH
 a AS ( -- tronçons qui en croisent d'autres
-    SELECT DISTINCT cp_wn1.id AS st_crosses
+    SELECT DISTINCT cp_wn1.id,
+           'st_crosses' AS erreur
       FROM core_path_wip_new cp_wn1
             INNER JOIN core_path_wip_new cp_wn2
              ON ST_Crosses(cp_wn1.geom_new, cp_wn2.geom_new)
                    AND cp_wn1.id != cp_wn2.id),
 b AS ( -- tronçons qui en chevauchent d'autres
-    SELECT DISTINCT cp_wn1.id AS st_overlaps_contains_within
+    SELECT DISTINCT cp_wn1.id,
+           'st_overlaps_contains_within' AS erreur
       FROM core_path_wip_new cp_wn1
             INNER JOIN core_path_wip_new cp_wn2
             ON (ST_Overlaps(cp_wn1.geom_new, cp_wn2.geom_new)
-                 OR ST_Contains(cp_wn1.geom_new, cp_wn2.geom_new)
+                OR ST_Contains(cp_wn1.geom_new, cp_wn2.geom_new)
                 OR ST_Within(cp_wn1.geom_new, cp_wn2.geom_new))
                AND cp_wn1.id != cp_wn2.id),
 c AS ( -- tronçons dont la géométrie n'est pas valide
-    SELECT DISTINCT id AS st_isvalid
+    SELECT id,
+           'st_isvalid' AS erreur
       FROM core_path_wip_new
      WHERE NOT ST_IsValid(geom_new)),
 d AS ( -- tronçons qui s'auto-intersectent
-    SELECT DISTINCT id AS st_issimple
+    SELECT id,
+           'st_issimple' AS erreur
       FROM core_path_wip_new
      WHERE NOT ST_IsSimple(geom_new)),
 e AS ( -- tronçons multilinestring
-    SELECT DISTINCT id AS st_geometrytype
+    SELECT id,
+           'st_geometrytype' AS erreur
       FROM core_path_wip_new
      WHERE NOT ST_GeometryType(geom_new) = 'ST_LineString'),
 f AS ( -- tronçons trop courts
-    SELECT DISTINCT id AS ligne_trop_courte
+    SELECT id,
+           'ligne_trop_courte' AS erreur
       FROM core_path_wip_new
      WHERE erreur = 'ligne_trop_courte'
-),
+           OR ST_Length(geom_new) < 1),
 g AS ( -- tronçons courts dont une extrémité n'est pas reliée
-    SELECT DISTINCT id AS extremite
+    SELECT id,
+           'trop_court_extremite_libre' AS erreur
       FROM core_path_wip_new cp_wn1
      WHERE ST_Length(cp_wn1.geom_new) < 5
        AND (NOT EXISTS
@@ -98,118 +111,87 @@ g AS ( -- tronçons courts dont une extrémité n'est pas reliée
                     AND ST_Intersects(ST_EndPoint(cp_wn1.geom_new), cp_wn3.geom_new)))
 ),
 h AS (  -- tronçons qui se touchaient mais ne se touchent plus
-    SELECT DISTINCT cp_wn1.id AS separes
-      FROM core_path_wip_new cp_wn1
-           INNER JOIN core_path_wip_new cp_wn2
-           ON ST_Touches(cp_wn1.geom, cp_wn2.geom)
-           AND NOT ST_Touches(cp_wn1.geom_new, cp_wn2.geom_new)),
------ de i à k : calcul du nombre de tronçons distincts ayant au moins une erreur
-i AS (
-    SELECT st_crosses AS id FROM a
-     UNION
-    SELECT st_overlaps_contains_within AS id FROM b
-     UNION
-    SELECT st_isvalid AS id FROM c
-     UNION
-    SELECT st_issimple AS id FROM d
-     UNION
-    SELECT st_geometrytype AS id FROM e
-     UNION
-    SELECT ligne_trop_courte AS id FROM f
-     UNION
-    SELECT extremite AS id FROM g
-     UNION
-    SELECT separes AS id FROM h)
-INSERT INTO erreurs_compte (st_crosses, st_overlaps_contains, st_isvalid,
-                              st_issimple, st_geometrytype, ligne_trop_courte,
-                              extremite, separes, total, "date")
-SELECT (SELECT count(st_crosses) FROM a) AS st_crosses,
-       (SELECT count(st_overlaps_contains_within) FROM b) AS st_overlaps_contains_within,
-       (SELECT count(st_isvalid) FROM c) AS st_isvalid,
-       (SELECT count(st_issimple) FROM d) AS st_issimple,
-       (SELECT count(st_geometrytype) FROM e) AS st_geometrytype,
-       (SELECT count(ligne_trop_courte) FROM f) AS ligne_trop_courte,
-       (SELECT count(extremite) FROM g) AS extremite,
-       (SELECT count(separes) FROM h) AS separes,
-       (SELECT count(id) FROM i) AS total,     
-       current_timestamp(0);
-
----------- MISE À JOUR DU CHAMP erreur DE core_path_wip_new
----------- afin de visualiser les tronçons problématiques dans QGIS
-WITH
-a AS (  -- tronçons qui en croisent d'autres
-    SELECT DISTINCT cp_wn1.id,
-           'st_crosses' AS erreur
-      FROM core_path_wip_new cp_wn1
-           INNER JOIN core_path_wip_new cp_wn2
-           ON ST_Crosses(cp_wn1.geom_new, cp_wn2.geom_new)
-              AND cp_wn1.id != cp_wn2.id),
-b AS (  -- tronçons qui en chevauchent d'autres
-    SELECT DISTINCT cp_wn1.id,
-           'st_overlaps_contains_within' AS erreur
-      FROM core_path_wip_new cp_wn1
-           INNER JOIN core_path_wip_new cp_wn2
-           ON (ST_Overlaps(cp_wn1.geom_new, cp_wn2.geom_new)
-                 OR ST_Contains(cp_wn1.geom_new, cp_wn2.geom_new)
-                 OR ST_Within(cp_wn1.geom_new, cp_wn2.geom_new))
-              AND cp_wn1.id != cp_wn2.id),
-c AS (  -- tronçons dont la géométrie n'est pas valide
-    SELECT DISTINCT id,
-           'st_isvalid' AS erreur
-      FROM core_path_wip_new
-     WHERE NOT ST_IsValid(geom_new)),
-d AS (  -- tronçons qui s'auto-intersectent
-    SELECT DISTINCT id,
-           'st_issimple' AS erreur
-      FROM core_path_wip_new
-     WHERE NOT ST_IsSimple(geom_new)),
-e AS (  -- tronçons multilinestring
-    SELECT DISTINCT id,
-           'st_geometrytype' AS erreur
-      FROM core_path_wip_new
-     WHERE NOT ST_GeometryType(geom_new) = 'ST_LineString'),
-f AS (  -- tronçons courts dont une extrémité n'est pas reliée
-    SELECT DISTINCT id,
-           'extremite' AS erreur
-      FROM core_path_wip_new cp_wn1
-     WHERE ST_Length(cp_wn1.geom_new) < 5
-       AND (NOT EXISTS
-                (SELECT 1
-                   FROM core_path_wip_new cp_wn2
-                  WHERE cp_wn1.id != cp_wn2.id
-                    AND ST_Intersects(ST_StartPoint(cp_wn1.geom_new), cp_wn2.geom_new))
-            OR
-            NOT EXISTS
-                (SELECT 1
-                   FROM core_path_wip_new cp_wn3
-                  WHERE cp_wn1.id != cp_wn3.id
-                    AND ST_Intersects(ST_EndPoint(cp_wn1.geom_new), cp_wn3.geom_new)))),
-g AS (  -- tronçons qui se touchaient mais ne se touchent plus
     SELECT DISTINCT cp_wn1.id,
            'separes' AS erreur
       FROM core_path_wip_new cp_wn1
            INNER JOIN core_path_wip_new cp_wn2
            ON ST_Touches(cp_wn1.geom, cp_wn2.geom)
            AND NOT ST_Touches(cp_wn1.geom_new, cp_wn2.geom_new)),
-h AS (
-    SELECT * FROM a
-     UNION
-    SELECT * FROM b
-     UNION
-    SELECT * FROM c
-     UNION
-    SELECT * FROM d
-     UNION
-    SELECT * FROM e
-     UNION
-    SELECT * FROM f
-     UNION
-    SELECT * FROM g
-)
+i AS ( -- tronçons isolés qui ne touchent aucun autre tronçon
+     SELECT cp_wn1.id,
+            'troncon_isole' AS erreur
+       FROM core_path_wip_new cp_wn1
+      WHERE NOT EXISTS
+            (SELECT 1
+               FROM core_path_wip_new cp_wn2
+              WHERE cp_wn1.id != cp_wn2.id
+                AND ST_INTERSECTS(cp_wn1.geom_new, cp_wn2.geom_new))),
+j AS ( -- tronçons qui ont les mêmes extrémités et sont entièrement contenus dans un buffer de 5m l'un de l'autre (sûrement des doublons)
+     SELECT DISTINCT cp_wn1.id,
+            'memes_extremites' AS erreur
+       FROM core_path_wip_new cp_wn1
+            INNER JOIN core_path_wip_new cp_wn2
+            ON ST_Equals(ST_Boundary(cp_wn1.geom_new), ST_Boundary(cp_wn2.geom_new))
+               AND cp_wn1.id != cp_wn2.id
+               AND ST_Contains(ST_Buffer(cp_wn2.geom_new, 5), cp_wn1.geom_new)
+               AND ST_Contains(ST_Buffer(cp_wn1.geom_new, 5), cp_wn2.geom_new)
+              ORDER BY cp_wn1.id),
+k AS ( -- tronçons se touchant soupçonneusement presque (moins de 1m)
+     SELECT DISTINCT cp_wn1.id,
+            'se_touchent_presque' AS erreur
+       FROM core_path_wip_new cp_wn1
+        INNER JOIN core_path_wip_new cp_wn2
+           ON ST_DWithin(ST_Boundary(cp_wn1.geom_new), cp_wn2.geom_new, 1)
+          AND NOT ST_Intersects(cp_wn1.geom_new, cp_wn2.geom_new))
+SELECT * FROM a
+  UNION ALL
+SELECT * FROM b
+  UNION ALL
+SELECT * FROM c
+  UNION ALL
+SELECT * FROM d
+  UNION ALL
+SELECT * FROM e
+  UNION ALL
+SELECT * FROM f
+  UNION ALL
+SELECT * FROM g
+  UNION ALL
+SELECT * FROM h
+  UNION ALL
+SELECT * FROM i
+  UNION ALL
+SELECT * FROM j
+  UNION ALL
+SELECT * FROM k;
+
+
+---------- DÉNOMBREMENT DES ERREURS ET INSERTION DANS erreurs_compte
+INSERT INTO erreurs_compte (st_crosses, st_overlaps_contains, st_isvalid,
+                              st_issimple, st_geometrytype, ligne_trop_courte,
+                              trop_court_extremite_libre, separes, troncon_isole,
+                              memes_extremites, se_touchent_presque, total, "date")
+SELECT SUM(CASE WHEN erreur = 'st_crosses' THEN 1 ELSE 0 END) AS st_crosses,
+       SUM(CASE WHEN erreur = 'st_overlaps_contains_within' THEN 1 ELSE 0 END) AS st_overlaps_contains_within,
+       SUM(CASE WHEN erreur = 'st_isvalid' THEN 1 ELSE 0 END) AS st_isvalid,
+       SUM(CASE WHEN erreur = 'st_issimple' THEN 1 ELSE 0 END) AS st_issimple,
+       SUM(CASE WHEN erreur = 'st_geometrytype' THEN 1 ELSE 0 END) AS st_geometrytype,
+       SUM(CASE WHEN erreur = 'ligne_trop_courte' THEN 1 ELSE 0 END) AS ligne_trop_courte,
+       SUM(CASE WHEN erreur = 'trop_court_extremite_libre' THEN 1 ELSE 0 END) AS trop_court_extremite_libre,
+       SUM(CASE WHEN erreur = 'separes' THEN 1 ELSE 0 END) AS separes,
+       SUM(CASE WHEN erreur = 'troncon_isole' THEN 1 ELSE 0 END) AS troncon_isole,
+       SUM(CASE WHEN erreur = 'memes_extremites' THEN 1 ELSE 0 END) AS memes_extremites,
+       SUM(CASE WHEN erreur = 'se_touchent_presque' THEN 1 ELSE 0 END) AS se_touchent_presque,
+       count(DISTINCT id) AS total,
+       current_timestamp(0) AS "date"
+  FROM erreurs_liste;
+
+---------- MISE À JOUR DU CHAMP erreur DE core_path_wip_new
+---------- afin de visualiser les tronçons problématiques dans QGIS
 UPDATE core_path_wip_new cp_wn
-   SET erreur = h.erreur
-  FROM h
- WHERE cp_wn.id = h.id
+   SET erreur = liste.erreur
+  FROM erreurs_liste liste
+ WHERE cp_wn.id = liste.id
    AND cp_wn.erreur IS DISTINCT FROM 'ligne_trop_courte'; -- évite d'écraser cette erreur avec une autre valeur
 
 
@@ -257,20 +239,35 @@ BEGIN
                     THEN 'st_issimple'
                     WHEN NOT ST_GeometryType(NEW.geom_new) = 'ST_LineString'
                     THEN 'st_geometrytype'
-                    WHEN ST_Length(NEW.geom_new) < 5
-                         AND (NOT EXISTS (SELECT 1 FROM core_path_wip_new cp_wn2
-                                             WHERE NEW.id != cp_wn2.id
-                                                 AND ST_Intersects(ST_StartPoint(NEW.geom_new), cp_wn2.geom_new))
-                              OR
-                              NOT EXISTS (SELECT 1 FROM core_path_wip_new cp_wn3
-                                             WHERE NEW.id != cp_wn3.id
-                                                 AND ST_Intersects(ST_EndPoint(NEW.geom_new), cp_wn3.geom_new)))
-                    THEN 'extremite'
                     WHEN ST_Length(NEW.geom_new) < 1
                     THEN 'ligne_trop_courte'
+                    WHEN ST_Length(NEW.geom_new) < 5
+                         AND (NOT EXISTS (SELECT 1
+                                            FROM core_path_wip_new cp_wn2
+                                           WHERE NEW.id != cp_wn2.id
+                                                 AND ST_Intersects(ST_StartPoint(NEW.geom_new), cp_wn2.geom_new))
+                              OR
+                              NOT EXISTS (SELECT 1
+                                            FROM core_path_wip_new cp_wn3
+                                           WHERE NEW.id != cp_wn3.id
+                                                 AND ST_Intersects(ST_EndPoint(NEW.geom_new), cp_wn3.geom_new)))
+                    THEN 'trop_court_extremite_libre'
                     WHEN ST_Touches(OLD.geom, cp_wn.geom)
                             AND NOT ST_Touches(NEW.geom_new, cp_wn.geom_new)
-                       THEN 'separes'
+                    THEN 'separes'
+                    WHEN NOT EXISTS (SELECT 1
+                                       FROM core_path_wip_new cp_wn2
+                                      WHERE NEW.id != cp_wn2.id
+                                            AND ST_Intersects(NEW.geom_new, cp_wn2.geom_new))
+                    THEN 'troncon_isole'
+                    WHEN ST_Equals(ST_Boundary(NEW.geom_new), ST_Boundary(cp_wn2.geom_new))
+                         AND NEW.id != cp_wn2.id
+                         AND ST_Contains(ST_Buffer(cp_wn2.geom_new, 5), NEW.geom_new)
+                         AND ST_Contains(ST_Buffer(NEW.geom_new, 5), cp_wn2.geom_new)
+                    THEN 'memes_extremites'
+                    WHEN ST_DWithin(ST_Boundary(NEW.geom), tn2.geom, 1)
+                         AND NOT ST_Intersects(NEW.geom, tn2.geom)
+                    THEN 'se_touchent_presque'
                     ELSE NULL::varchar
                     END AS erreur
               FROM core_path_wip_new cp_wn
