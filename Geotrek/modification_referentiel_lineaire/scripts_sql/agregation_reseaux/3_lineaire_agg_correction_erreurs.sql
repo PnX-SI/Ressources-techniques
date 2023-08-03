@@ -61,8 +61,8 @@ a AS ( -- tronçons qui en croisent d'autres
            'st_crosses' AS erreur
       FROM core_path_wip_new cp_wn1
             INNER JOIN core_path_wip_new cp_wn2
-             ON ST_Crosses(cp_wn1.geom_new, cp_wn2.geom_new)
-                   AND cp_wn1.id != cp_wn2.id),
+            ON ST_Crosses(cp_wn1.geom_new, cp_wn2.geom_new)
+               AND cp_wn1.id != cp_wn2.id),
 b AS ( -- tronçons qui en chevauchent d'autres
     SELECT DISTINCT cp_wn1.id,
            'st_overlaps_contains_within' AS erreur
@@ -102,13 +102,13 @@ g AS ( -- tronçons courts dont une extrémité n'est pas reliée
                 (SELECT 1
                    FROM core_path_wip_new cp_wn2
                   WHERE cp_wn1.id != cp_wn2.id
-                    AND ST_Intersects(ST_StartPoint(cp_wn1.geom_new), cp_wn2.geom_new))
+                        AND ST_Intersects(ST_StartPoint(cp_wn1.geom_new), cp_wn2.geom_new))
             OR
             NOT EXISTS
                 (SELECT 1
                    FROM core_path_wip_new cp_wn3
                   WHERE cp_wn1.id != cp_wn3.id
-                    AND ST_Intersects(ST_EndPoint(cp_wn1.geom_new), cp_wn3.geom_new)))
+                        AND ST_Intersects(ST_EndPoint(cp_wn1.geom_new), cp_wn3.geom_new)))
 ),
 h AS (  -- tronçons qui se touchaient mais ne se touchent plus
     SELECT DISTINCT cp_wn1.id,
@@ -116,7 +116,7 @@ h AS (  -- tronçons qui se touchaient mais ne se touchent plus
       FROM core_path_wip_new cp_wn1
            INNER JOIN core_path_wip_new cp_wn2
            ON ST_Touches(cp_wn1.geom, cp_wn2.geom)
-           AND NOT ST_Touches(cp_wn1.geom_new, cp_wn2.geom_new)),
+              AND NOT ST_Touches(cp_wn1.geom_new, cp_wn2.geom_new)),
 i AS ( -- tronçons isolés qui ne touchent aucun autre tronçon
      SELECT cp_wn1.id,
             'troncon_isole' AS erreur
@@ -125,7 +125,7 @@ i AS ( -- tronçons isolés qui ne touchent aucun autre tronçon
             (SELECT 1
                FROM core_path_wip_new cp_wn2
               WHERE cp_wn1.id != cp_wn2.id
-                AND ST_INTERSECTS(cp_wn1.geom_new, cp_wn2.geom_new))),
+                    AND ST_INTERSECTS(cp_wn1.geom_new, cp_wn2.geom_new))),
 j AS ( -- tronçons qui ont les mêmes extrémités et sont entièrement contenus dans un buffer de 5m l'un de l'autre (sûrement des doublons)
      SELECT DISTINCT cp_wn1.id,
             'memes_extremites' AS erreur
@@ -135,14 +135,14 @@ j AS ( -- tronçons qui ont les mêmes extrémités et sont entièrement contenu
                AND cp_wn1.id != cp_wn2.id
                AND ST_Contains(ST_Buffer(cp_wn2.geom_new, 5), cp_wn1.geom_new)
                AND ST_Contains(ST_Buffer(cp_wn1.geom_new, 5), cp_wn2.geom_new)
-              ORDER BY cp_wn1.id),
+            ORDER BY cp_wn1.id),
 k AS ( -- tronçons se touchant soupçonneusement presque (moins de 1m)
      SELECT DISTINCT cp_wn1.id,
             'se_touchent_presque' AS erreur
        FROM core_path_wip_new cp_wn1
-        INNER JOIN core_path_wip_new cp_wn2
-           ON ST_DWithin(ST_Boundary(cp_wn1.geom_new), cp_wn2.geom_new, 1)
-          AND NOT ST_Intersects(cp_wn1.geom_new, cp_wn2.geom_new))
+            INNER JOIN core_path_wip_new cp_wn2
+            ON ST_DWithin(ST_Boundary(cp_wn1.geom_new), cp_wn2.geom_new, 1)
+               AND NOT ST_Intersects(cp_wn1.geom_new, cp_wn2.geom_new))
 SELECT * FROM a
   UNION ALL
 SELECT * FROM b
@@ -188,6 +188,10 @@ SELECT SUM(CASE WHEN erreur = 'st_crosses' THEN 1 ELSE 0 END) AS st_crosses,
 
 ---------- MISE À JOUR DU CHAMP erreur DE core_path_wip_new
 ---------- afin de visualiser les tronçons problématiques dans QGIS
+UPDATE core_path_wip_new cp_wn
+   SET erreur = NULL
+ WHERE cp_wn.erreur IS DISTINCT FROM 'ligne_trop_courte'; -- évite d'écraser cette erreur avec une autre valeur
+
 UPDATE core_path_wip_new cp_wn
    SET erreur = liste.erreur
   FROM erreurs_liste liste
@@ -253,7 +257,7 @@ BEGIN
                                                  AND ST_Intersects(ST_EndPoint(NEW.geom_new), cp_wn3.geom_new)))
                     THEN 'trop_court_extremite_libre'
                     WHEN ST_Touches(OLD.geom, cp_wn.geom)
-                            AND NOT ST_Touches(NEW.geom_new, cp_wn.geom_new)
+                         AND NOT ST_Touches(NEW.geom_new, cp_wn.geom_new)
                     THEN 'separes'
                     WHEN NOT EXISTS (SELECT 1
                                        FROM core_path_wip_new cp_wn2
@@ -265,8 +269,8 @@ BEGIN
                          AND ST_Contains(ST_Buffer(cp_wn.geom_new, 5), NEW.geom_new)
                          AND ST_Contains(ST_Buffer(NEW.geom_new, 5), cp_wn.geom_new)
                     THEN 'memes_extremites'
-                    WHEN ST_DWithin(ST_Boundary(NEW.geom), cp_wn.geom, 1)
-                         AND NOT ST_Intersects(NEW.geom, cp_wn.geom)
+                    WHEN ST_DWithin(ST_Boundary(NEW.geom_new), cp_wn.geom_new, 1)
+                         AND NOT ST_Intersects(NEW.geom_new, cp_wn.geom_new)
                     THEN 'se_touchent_presque'
                     ELSE NULL::varchar
                     END AS erreur
