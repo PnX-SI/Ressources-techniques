@@ -9,8 +9,7 @@ DECLARE
 BEGIN
     FOR r IN (
         SELECT *
-          FROM core_path
-         WHERE date_update = (SELECT max(date_update) FROM core_path LIMIT 1)
+          FROM tmp_core_path_updated
          ORDER BY id
          LIMIT MY_LIMIT OFFSET MY_OFFSET
     ) LOOP
