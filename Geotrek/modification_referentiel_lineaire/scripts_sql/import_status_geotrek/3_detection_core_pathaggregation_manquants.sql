@@ -1,6 +1,7 @@
 ---------- Calcul des core_pathaggregation qui manquent à certaines core_topology
 DROP TABLE IF EXISTS core_pathaggregation_manquants;
-CREATE TABLE IF NOT EXISTS core_pathaggregation_manquants AS
+
+CREATE TABLE core_pathaggregation_manquants AS
 WITH a AS (
     SELECT id,
            ST_LineMerge(geom) AS geom -- LineMerge des MultiLineString pour ne se pencher que sur celles qui ont deux éléments
