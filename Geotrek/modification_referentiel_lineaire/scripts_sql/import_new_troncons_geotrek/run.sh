@@ -30,7 +30,7 @@ do
 
     sed "s|MY_LIMIT|${nb_decile}|g"  1.1_maj_core_path_trigger.sql >  1.1_maj_core_path_trigger_var.sql
     sed -i "s|MY_OFFSET|${offset}|g"  1.1_maj_core_path_trigger_var.sql
-    # export PGPASSWORD=$PG_PASS;psql -h $HOST -U $PG_USER -d $DATABASE_NAME -f 1.1_maj_core_path_trigger_var.sql
+    export PGPASSWORD=$PG_PASS;psql -h $HOST -U $PG_USER -d $DATABASE_NAME -f 1.1_maj_core_path_trigger_var.sql
 done
 
 export PGPASSWORD=$PG_PASS;psql -h $HOST -U $PG_USER -d $DATABASE_NAME -c "DROP TABLE tmp_core_path_updated;"
