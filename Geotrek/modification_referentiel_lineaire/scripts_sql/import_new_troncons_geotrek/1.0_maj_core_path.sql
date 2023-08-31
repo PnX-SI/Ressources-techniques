@@ -29,7 +29,7 @@ INSERT INTO core_path (geom, "comments", eid, structure_id, "valid", visible, dr
             eid AS eid,
             structure_id AS structure_id,
             TRUE::boolean AS valid,
-            TRUE::boolean AS visible,
+            FALSE::boolean AS visible,
             FALSE::boolean AS draft,
             0 AS length,
             CURRENT_TIMESTAMP AS date_insert,

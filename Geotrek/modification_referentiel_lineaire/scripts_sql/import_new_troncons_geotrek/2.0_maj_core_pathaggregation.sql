@@ -171,10 +171,3 @@ SELECT path_id, start_position, end_position, new_order, topo_object_id
 
 ---------- ACTIVATION DES TRIGGERS DE core_pathaggregation
 ALTER TABLE core_pathaggregation ENABLE TRIGGER USER;
-
----------- REND VISIBLE TOUS LES core_path UTILISÉS DANS core_pathaggregation
----------- est censé régler le problème de l'interface d'édition qui n'affiche aucun tracé sur la carte
----------- et du bouton "Créer une nouvelle route" grisé
-UPDATE core_path
-   SET visible = TRUE
- WHERE id IN (SELECT path_id FROM core_pathaggregation);

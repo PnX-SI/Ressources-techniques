@@ -1,5 +1,5 @@
 ---------- EXÉCUTION DE LA FONCTION update_geometry_of_topology()
----------- sur tous les core_topology d'itinéraires pour mettre à jour leur géométrie
+---------- sur tous les core_topology pour mettre à jour leur géométrie
 ---------- selon les nouveaux pathaggregation
 DO $$DECLARE r record;
 DECLARE
@@ -33,6 +33,8 @@ END$$;
 ---------- RENDRE VISIBLES TOUS LES CORE_PATH UTILISÉS DANS UN core_pathaggregation
 ---------- Un mécanisme sur lequel nous n'avons pas investigué semble en effet désactiver
 ---------- la visibilité de certains `core_path` lors des requêtes d'agrégation des réseaux.
+---------- Est censé régler le problème de l'interface d'édition qui n'affiche aucun tracé sur la carte
+---------- et du bouton "Créer une nouvelle route" grisé
 UPDATE core_path
    SET visible = TRUE
  WHERE id IN (SELECT path_id FROM core_pathaggregation);
