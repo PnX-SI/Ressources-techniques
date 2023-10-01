@@ -171,7 +171,7 @@ Voici une visualisation de ces trois cas :
 
 Le même procédé est appliqué aux tronçons `i` par rapport aux tampons `r`, ce qui donne des relations `ir` et des `cas_i`.
 
-### Calcul d'indicateurs et classement automatique en `bruit = True` ou `bruit = False`
+### Calcul d'indicateurs et classement automatique en `bruit IS True` ou `bruit IS False`
 
 La prochaine étape consiste en la création d'une table `tampon_inner_all` rassemblant toutes les relations entre tronçons `r` et tronçons `i`. Pour cela, on effectue d'abord une jointure entre la table des `r` par rapport aux tampons `i` (`tampon_inner_r`) et la table des `i` par rapport aux tampons `r` (`tampon_inner_i`). Un ensemble d'indicateurs, comme la longueur des relations `ri` et `ir`, ou l'aire d'un polygone dont les deux plus longs côtés sont `ri` et `ir`, sont calculés.
 La table `tampon_inner_all` rassemble donc un ensemble d'informations permettant d'évaluer si une relation est signifiante ou non :
@@ -187,8 +187,8 @@ Les géométries `geom_r`, `geom_i`, `geom_ir`, `geom_ri` et `geom_ir_ri` sont �
 
 La définition d'une relation comme étant du `bruit` ou pas dépend donc de ces indicateurs. De nombreuses requêtes du script correspondent à cette étape, dont voici les plus importantes :
 
-- si `r` ou `i` est entièrement compris dans le tampon de l'autre, alors la relation n'est pas du bruit (`bruit = FALSE`) ;
-- si un `r` est entièrement compris dans plusieurs tampons `i` (plusieurs lignes avec le même `rid` et `cas_r = 1`), alors seule la relation dont `aire_ir_ri` est la plus faible (autrement dit, la `geom_ir` la plus proche de `r`) est signifiante (`bruit = TRUE` pour toutes les autres) ;
+- si `r` ou `i` est entièrement compris dans le tampon de l'autre, alors la relation n'est pas du bruit (`bruit IS FALSE`) ;
+- si un `r` est entièrement compris dans plusieurs tampons `i` (plusieurs lignes avec le même `rid` et `cas_r = 1`), alors seule la relation dont `aire_ir_ri` est la plus faible (autrement dit, la `geom_ir` la plus proche de `r`) est signifiante (`bruit IS TRUE` pour toutes les autres) ;
 - si `r` et `i` sont des doublons partiels (`cas_r IN (2,3) AND cas_i IN (2,3)`) et que les longueurs de `ri` ou `ir` ne répondent pas à des critères, subjectifs, de signifiance, alors la relation est du bruit. Actuellement, si `longueur_ri` ou `longueur_ir` font moins de 10.5m (un peu plus de deux fois la taille du tampon), ou si le rapport entre les longueurs de `ir` et `i` et celles de `ri` et `r` sont égaux à moins de 10%, la relation est considérée comme du bruit.
 - etc.
 
@@ -214,7 +214,7 @@ Le projet QGIS [correction_manuelle_bruits.qgz](projets_qgis/correction_manuelle
 
 ### Matrice de décision
 
-La table `decision_inner` est créée, rassemblant toutes les relations de `tampon_inner_all` pour lesquelles `bruit = False`.
+La table `decision_inner` est créée, rassemblant toutes les relations de `tampon_inner_all` pour lesquelles `bruit IS False`.
 
 ### Géométries uniques
 

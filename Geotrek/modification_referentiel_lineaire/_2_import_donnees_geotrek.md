@@ -49,39 +49,44 @@ L'ensemble du processus d'import est encapsulé dans un script bash `import_new_
 Il faut à présent corriger les itinéraires via l'interface de Geotrek-admin. On peut repérer ceux qui ont été cassés par les opérations précédentes avec la requête suivante, qui crée une table `treks_to_correct` les recensant. Cette table met également à disposition les URL d'édition et de visualisation de chaque itinéraire, ainsi que des champs `corrected` et `comments`. Ne pas oublier de renseigner vos propres URL dans cette requête avant de la lancer.
 
 ``` sql
-CREATE TABLE treks_to_correct AS
 WITH treks_broken AS (
 SELECT ct.id,
        'broken_topology' AS problem,
-       ct.geom AS new_geom,
        ct_ante.geom AS old_geom,
+       ct.geom AS new_geom,
+       TRUNC((ct_ante."length"/1000)::numeric, 2) AS old_length_km,
+       TRUNC((ct."length"/1000)::numeric, 2) AS new_length_km,
        ST_Boundary(ct.geom) AS boundaries_broken_trek -- retourne les extrémités de toutes les LineStrings de la MultiLineString, et donc les endroits exacts où la topologie est cassée
   FROM core_topology ct
   JOIN core_topology_ante ct_ante -- sauvegarde de la table core_topology dans l'état précédant l'agrégation des linéaires
     ON ct.id = ct_ante.id
        AND ct.kind = 'TREK' -- repère les itinéraires dont la géométrie est cassée
-       AND ct.deleted = FALSE 
+       AND ct.deleted IS FALSE 
        AND (ct.min_elevation = 0 -- grâce au calcul de l'altitude impossible
             OR ST_GeometryType(ct.geom) != 'ST_LineString') -- ou à la géométrie qui n'est pas une LineString
     ),
-treks_weird_new_length AS (    
+treks_weird_new_length_km AS (    
 SELECT ct.id,
        'length' AS problem,
+       ct_ante.geom AS old_geom,
        ct.geom AS new_geom,
-       ct_ante.geom AS old_geom
+       TRUNC((ct_ante."length"/1000)::numeric, 2) AS old_length_km,
+       TRUNC((ct."length"/1000)::numeric, 2) AS new_length_km
   FROM core_topology ct
   JOIN core_topology_ante ct_ante -- sauvegarde de la table core_topology dans l'état précédant l'agrégation des linéaires
     ON ct.id = ct_ante.id
        AND ct.kind = 'TREK' -- repère les itinéraires dont la longueur
-       AND ct.deleted = FALSE
+       AND ct.deleted IS FALSE
        AND (ct.length < (0.95 * ct_ante.length) -- est inférieure
-            OR ct.length > (1.05 * ct_ante.length)) -- ou supérieure de 10% à sa longueur initiale (= avant agrégation des linéaires)
+            OR ct.length > (1.05 * ct_ante.length)) -- ou supérieure de 5% à sa longueur initiale (= avant agrégation des linéaires)
     ),
-treks_to_correct_id AS (
+treks_to_correct_ids AS (
 SELECT id,
        problem,
        old_geom,
        new_geom,
+       old_length_km,
+       new_length_km,
        boundaries_broken_trek
   FROM treks_broken
  UNION
@@ -89,9 +94,18 @@ SELECT id,
        problem,
        old_geom,
        new_geom,
+       old_length_km,
+       new_length_km,
        NULL::geometry AS boundaries_broken_trek
-  FROM treks_weird_new_length twnl
+  FROM treks_weird_new_length_km twnl
  WHERE twnl.id NOT IN (SELECT id FROM treks_broken)
+),
+children_ids_of_published_treks AS (
+SELECT child_id
+  FROM trekking_orderedtrekchild totc
+  JOIN trekking_trek tt
+       ON tt.topo_object_id = totc.parent_id
+       AND tt.published IS TRUE
 )
 SELECT topo_object_id,
        "name",
@@ -100,13 +114,16 @@ SELECT topo_object_id,
        problem,
        old_geom,
        new_geom,
+       old_length_km,
+       new_length_km,
        boundaries_broken_trek,
        null::boolean AS corrected,
        null::varchar AS "comments"
   FROM trekking_trek tt
-  JOIN treks_to_correct_id ttci
+  JOIN treks_to_correct_ids ttci
        ON ttci.id = tt.topo_object_id
-          AND tt.published = TRUE
+          AND (tt.published IS TRUE
+               OR tt.topo_object_id IN (SELECT child_id FROM children_ids_of_published_treks))
  ORDER BY problem, id;
 ```
 
@@ -140,6 +157,30 @@ DELETE
 ```
 
 Enfin, on peut supprimer les tables créées par les scripts précédents grâce au script [3.0_clean_geotrekdb_corepath.sql](scripts_sql/import_new_troncons_geotrek/3.0_clean_geotrekdb_corepath.sql).
+
+
+## Networks
+
+La table `core_path_networks` permet d'associer à un réseau tous les `core_path` tout juste importés du ou calqués sur le RLESI. Cela permet de filtrer les tronçons dans l'interface de Geotrek-admin. Nous avons décidé de créer un réseau générique "RLESI" et un réseau spécifique pour chaque RLESI ("RLESI PPNML", "RLESI Viganais Nord", etc). Cela permet en un clic d'avoir tous les RLESI du territoire, mais aussi de n'en sélectionner qu'un si besoin.
+La requête suivante peut servir de base à cette association à des réseaux, en utilisant les commentaires des tronçons :
+
+``` SQL
+INSERT INTO core_path_networks (path_id, network_id)
+SELECT cp.id AS path_id,
+	     cn.id AS network_id
+  FROM core_path cp
+  JOIN core_network cn
+       ON cn.network = 'RLESI'
+       AND cp."comments" ILIKE '%RLESI%';   
+
+INSERT INTO core_path_networks (path_id, network_id)
+SELECT cp.id AS path_id,
+	     cn.id AS network_id
+  FROM core_path cp
+  JOIN core_network cn
+       ON cn.network = 'RLESI Pôle pleine nature Mont Lozère' -- à répéter autant de fois qu'il y a de RLESI différents
+       AND cp."comments" ILIKE '%RLESI PPNML%'; -- à adapter à la manière dont vous avez construit le champ commentaire
+```
 
 ## Statuts
 
