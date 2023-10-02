@@ -8,3 +8,4 @@ Ressources techniques partagées des parcs nationaux
 * https://github.com/PnMercantour
 * https://github.com/PNPC
 * https://github.com/PnVanoise
+* https://github.com/PNPyrenees
