@@ -39,13 +39,13 @@ Il est possible d'appliquer un filtre lors de l'appel des données
 select gn2pg.gn2pg('<gn_domain>', <gn_export_id>, '<gn_export_token>', '<destination_schema>', '<destination_table>', '<filters>');
 ```
 - filters : la valeur de filtre doit construit selon les préconisations du module gn_export :
--- nom_col=val: Si nom_col fait partie des colonnes de la vue alors filtre nom_col=val
--- ilikenom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type texte alors filtre nom_col ilike '%val%'
--- filter_d_up_nom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type date alors filtre nom_col >= val
--- filter_d_lo_nom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type date alors filtre nom_col <= val
--- filter_d_eq_nom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type date alors filtre nom_col == val
--- filter_n_up_nom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type numérique alors filtre nom_col >= val
--- filter_n_lo_nom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type numérique alors filtre nom_col <= val
+  - nom_col=val: Si nom_col fait partie des colonnes de la vue alors filtre nom_col=val
+  - ilikenom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type texte alors filtre nom_col ilike '%val%'
+  - filter_d_up_nom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type date alors filtre nom_col >= val
+  - filter_d_lo_nom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type date alors filtre nom_col <= val
+  - filter_d_eq_nom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type date alors filtre nom_col == val
+  - filter_n_up_nom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type numérique alors filtre nom_col >= val
+  - filter_n_lo_nom_col=val: Si nom_col fait partie des colonnes de la vue et que la colonne est de type numérique alors filtre nom_col <= val
 
 Il est possible de combiner les filtres en les séparant par le caractère '&'
 
