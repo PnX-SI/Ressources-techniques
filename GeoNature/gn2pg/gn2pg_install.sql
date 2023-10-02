@@ -48,14 +48,14 @@ BEGIN
 				);
 				
 		-- Preparing curl command for getting data from export_id
-		--http_request := concat('curl --insecure -X GET "https://', gn_domain,'/geonature/api/export/api/', export_id,'?limit=1000&offset=', loop_index,'" -H "Accept: application/json" --cookie "token=', token, '"');
 		IF filters IS NOT NULL THEN
-			http_request := concat('curl --insecure -X GET "https://', gn_domain,'/geonature/api/exports/api/', export_id,'?token=',token,'&limit=1000&offset=', loop_index,'&',filters,'" -H "Accept: application/json"');
+			http_request := concat('curl --insecure -X GET "https://', gn_domain,'/geonature/api/exports/api/', export_id,'?token=',token,'&limit=1000&offset=',loop_index::text,'&',replace(filters, ' ', '%20'),'" -H "Accept: application/json" --http2'::text);
 		ELSE 
-			http_request := concat('curl --insecure -X GET "https://', gn_domain,'/geonature/api/exports/api/', export_id,'?token=',token,'&limit=1000&offset=', loop_index,'" -H "Accept: application/json"');
+			http_request := concat('curl --insecure -X GET "https://', gn_domain,'/geonature/api/exports/api/', export_id,'?token=',token,'&limit=1000&offset=',loop_index,'" -H "Accept: application/json"');
 		END IF;
+		
 		-- Exec curl command and write json result in temporary table
-		EXECUTE FORMAT('COPY tmp_export_' || destination_table || ' FROM PROGRAM ''' || http_request || ''' CSV QUOTE E''\x01'' DELIMITER E''\x02'';');
+		EXECUTE 'COPY tmp_export_' || destination_table || ' FROM PROGRAM ''' || http_request || ''' CSV QUOTE E''\x01'' DELIMITER E''\x02'';';
 		
 		-- First loop ?
 		IF loop_index = 0 THEN
@@ -90,7 +90,6 @@ BEGIN
 			);
 		END IF;
 		
-		
 		-- get number of exported data
 		EXECUTE FORMAT('SELECT json_array_length((data->>''items'')::json) FROM tmp_export_%I', destination_table) INTO nb_data_exported;
 		
@@ -115,4 +114,5 @@ EXCEPTION
 
 END;
 $BODY$;
+
 
