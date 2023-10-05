@@ -1,10 +1,10 @@
 /* Création d'un schema dédié à gn2pg */
-CREATE SCHEMA IF NOT EXIST gn2pg;
+CREATE SCHEMA IF NOT EXISTS gn2pg;
 
 /* Création de la table des logs */ 
 CREATE TABLE IF NOT EXISTS gn2pg.log
 (
-    id integer NOT NULL DEFAULT nextval('gn2pg.log_id_seq'::regclass),
+    id serial NOT NULL,
     date timestamp without time zone DEFAULT now(),
     statut character varying(32) COLLATE pg_catalog."default",
     message text COLLATE pg_catalog."default",
