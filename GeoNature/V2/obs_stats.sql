@@ -167,8 +167,18 @@ WHERE EXTRACT('year' FROM s.date_min) >= 2017
 GROUP BY t.cd_ref, t.nom_complet, t.nom_vern
 ORDER BY NbObs DESC;
 
+-- Nombre de nouvelles espèces pour une année
+SELECT COUNT(*) FROM (
+    SELECT DISTINCT t.cd_ref 
+    FROM gn_synthese.synthese s JOIN taxonomie.taxref t ON t.cd_nom=s.cd_nom 
+    WHERE date_part('year', date_min) = :year
+    EXCEPT
+    SELECT DISTINCT t.cd_ref 
+    FROM gn_synthese.synthese s JOIN taxonomie.taxref t ON t.cd_nom=s.cd_nom 
+    WHERE date_part('year', date_min) < :year 
+) sub
 
--- Nb de taxon connu à l'année X /Taxons recontactés / taxons non recontactés / nouveaux taxons
+-- Nb de taxons connus à l'année X / Taxons recontactés / Taxons non recontactés / Nouveaux taxons
 WITH 
 total_before_current_year as (
 	SELECT DISTINCT cd_ref FROM gn_synthese.synthese s JOIN taxonomie.taxref t ON t.cd_nom=s.cd_nom WHERE date_part('year', date_min) < :selectedYear
@@ -192,3 +202,34 @@ UNION ALL
 SELECT count(cd_ref) FROM non_recontactees
 UNION ALL
 SELECT count(cd_ref) FROM nouvelles
+
+-- Tous les taxons de flore observés dans le PNE
+Select count(distinct t.cd_ref)
+from gn_synthese.synthese s
+join taxonomie.taxref t on t.cd_nom = s.cd_nom
+join gn_synthese.cor_area_synthese cas using(id_synthese)
+where t.regne = 'Plantae' and cas.id_area = 1000279
+ 
+-- Tous les taxons de flore patrimoniaux observés dans le PNE
+Select count(distinct t.cd_ref)
+from gn_synthese.synthese s
+join taxonomie.taxref t on t.cd_nom = s.cd_nom
+join gn_synthese.cor_area_synthese cas using(id_synthese)
+join taxonomie.cor_taxon_attribut cta on cta.cd_ref = t.cd_ref
+where t.regne = 'Plantae' and cas.id_area = 1000279 and cta.id_attribut = 1 and cta.valeur_attribut = 'oui'
+ 
+-- Tous les taxons de flore d'interet patrimoniaux observés dans le PNE
+select count(distinct t.cd_ref)
+from gn_synthese.synthese s
+join taxonomie.taxref t on t.cd_nom = s.cd_nom
+join gn_synthese.cor_area_synthese cas using(id_synthese)
+where t.regne = 'Plantae' and cas.id_area = 1000279 
+
+-- Les taxons de flore des JDD où le PNE est acteur
+Select count(distinct t.cd_ref)
+from gn_synthese.synthese s
+join taxonomie.taxref t on t.cd_nom = s.cd_nom
+join gn_synthese.cor_area_synthese cas using(id_synthese)
+join gn_meta.t_datasets td on s.id_dataset = td.id_dataset
+join gn_meta.cor_dataset_actor cda on cda.id_dataset = td.id_dataset
+where t.regne = 'Plantae' and cas.id_area = 1000279 and cda.id_organism = 2;
