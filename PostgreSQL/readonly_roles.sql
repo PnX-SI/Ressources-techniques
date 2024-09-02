@@ -111,4 +111,3 @@ $test$
         DROP ROLE IF EXISTS test;
     END;
 $test$
-END;
