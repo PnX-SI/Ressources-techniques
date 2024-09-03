@@ -6,5 +6,5 @@ select postgis.coordinates_in_text_array_to_linestring ('[[0.178628,43.058271,0]
 ```
 
 Usage : 
-Avec ODK, la géométrie d'une ligne récupérée par central2pg est sous un format textuel [[x1,y1,z1], [x2,y2,z2], [x3,y3,z3], ...]
+Avec ODK, la géométrie d'une ligne récupérée par central2pg est sous un format textuelle [[x1,y1,z1], [x2,y2,z2], [x3,y3,z3], ...]
 Cette fonction permet de traduire ce texte en ligne postgis
