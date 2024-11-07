@@ -5,6 +5,10 @@ Fonction permettant de récupérer de façon incrémentale les données du GBIF.
 # Pré-requis
 - Postgis
 
+# Installation
+Jouer le contenu du fichier gbif2pg_install.sql dans votre base de données.
+Le scrip va créer un schéma gbif2pg puis y intégrer les fonctions et procédures nécessaires.
+
 # Procédure de première intégration
 - Depuis le GBIF demander la génération d'un fichier au format **Darwin Core Archive** (appliquer les filtre selon les cas)
 - Lorsque le fichier est généré, le télécharger puis le dezziper
@@ -30,7 +34,7 @@ CALL gbif2pg.sync_from_gbif('<SchemaName>', '<OccurrenceTablename>', '<DatasetTa
 
 Adapter les paramètres de sorte que SchemaName, OccurrenceTablename et DatasetTableName correspondent à ce qui a été renseigné lors de la première intégration.
 
-Les filtre peuvent être paramétré tel qu'attendu pas l'API GBIF
+Les filtres peuvent être paramétrés tel qu'attendu pas l'API GBIF
 
 exemple : 
 ```
