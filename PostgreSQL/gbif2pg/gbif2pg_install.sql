@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS gbif2pg.log
     statut character varying(32) COLLATE pg_catalog."default",
     message text COLLATE pg_catalog."default",
     CONSTRAINT log_pkey PRIMARY KEY (id)
-)
+);
 
 /**
  * Création de la fonction de récupération des occurrences
