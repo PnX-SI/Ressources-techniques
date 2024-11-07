@@ -6,7 +6,7 @@ Fonction permettant de récupérer de façon incrémentale les données du GBIF.
 - Postgis
 
 # Installation
-Jouer le contenu du fichier gbif2pg_install.sql dans votre base de données.
+Jouer le contenu du fichier **gbif2pg_install.sql** dans votre base de données.
 Le scrip va créer un schéma gbif2pg puis y intégrer les fonctions et procédures nécessaires.
 
 # Procédure de première intégration
