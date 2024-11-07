@@ -1,6 +1,6 @@
 # gbif2pg
 
-Fonction permettant de récupérer de façon incrémentale les données du GBIF.
+Fonction permettant de récupérer de façon incrémentale les données du [GBIF](https://www.gbif.org/) délivré à travers l'[API](https://techdocs.gbif.org/en/openapi/).
 
 # Pré-requis
 - Postgis
@@ -34,7 +34,7 @@ CALL gbif2pg.sync_from_gbif('<SchemaName>', '<OccurrenceTablename>', '<DatasetTa
 
 Adapter les paramètres de sorte que SchemaName, OccurrenceTablename et DatasetTableName correspondent à ce qui a été renseigné lors de la première intégration.
 
-Les filtres peuvent être paramétrés tel qu'attendu pas l'API GBIF
+Les filtres peuvent être paramétrés tel qu'attendu pas l'API GBIF ([Plus de détail ici](https://techdocs.gbif.org/en/openapi/v1/occurrence#/Searching%20occurrences/searchOccurrence))
 
 exemple : 
 ```
