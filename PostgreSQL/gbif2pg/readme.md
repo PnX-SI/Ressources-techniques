@@ -44,3 +44,9 @@ Avec :
 - classKey=212 : Filtre sur les oiseaux uniquement, 
 - occurrenceStatus=PRESENT : ne récupère que les données de présence
 - country=GP : ne récupère que les donénes de Guadeloupe (répété le filtre country=XXX si on veutr les données sur plusieurs territoire ex : country=GP&country=GF pour avoir les données de Guadeloupe et de Guyanne)
+
+# LIMITE !
+
+- La récupération à partir d'une date (lastInterpreted) n'est pas parfate car l'API n'accepte que des dates au format yyyy-mm-dd sans les herues/minutes/secondes. On est donc obliger de recharger les données publié le jour en question. En cas d'imort en masse, à chaque synchro on retélécharge la masse !
+
+- Si les données sont importé en annule et remplace sur le GBIF, l'identifiant unique GBIF est remplacé et donc le script la verra comme une nouvelle données et créra un doublon
