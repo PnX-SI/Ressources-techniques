@@ -22,6 +22,7 @@ ALTER TABLE IF EXISTS gn_exports.mv_grilles_pag
 -----------------------------------------------------
 -- View: gn_exports.v_bilan_taxo_maille10x10_PAG
 -- ==> Informations maillées sur le territoire du PAG, par groupe taxo
+-- ==> Les statuts sont récupérés depuis la vue taxonomie.v_bdc_status (et non bdc_statuts qui liste tout) qui liste les statuts "actifs" d'un territoire
 -- ==> Adapter les filtres des statuts de protection selon les territoires!
 -- ==> Adapter le filtre des mailles selon échelle désirée
 -----------------------------------------------------
