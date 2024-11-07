@@ -41,9 +41,9 @@ BEGIN
 		RAISE NOTICE 'Downloading data % - %', loop_index * 300, loop_index * 300 + 300; 
 		-- Reset temporary table
 		EXECUTE (
-				'DROP TABLE IF EXISTS tmp_export_'|| destination_table ||';
-				 CREATE TEMP TABLE tmp_export_' || destination_table || '(data json);'
-				);
+			'DROP TABLE IF EXISTS tmp_export_'|| destination_table ||';
+			 CREATE TEMP TABLE tmp_export_' || destination_table || '(data json);'
+		);
 
 		-- Ajouter le filtre "&country=FR&country=RE&country=GF&country=GP" pour ajouter les données de la métropole, réunion et/ou Guyane
 		http_request := concat('curl --insecure -X GET "https://api.gbif.org/v1/occurrence/search?' || filters || '&limit=300&offset=',loop_index * 300,'" -H "Accept: application/json"');
