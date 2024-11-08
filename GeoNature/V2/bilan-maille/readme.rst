@@ -13,7 +13,7 @@ Le dashboard de GeoNature permet d'avoir un aperçu du nombre d'observations et 
 3/ Dans GeoNature > Administration > Export > Planification des exports: programmer les exports geojson
 4/ Dans qGis ou LizMap: mobiliser ces geojson pour visualiser ces bilans maillés
 
-**Données sources*
+**Données sources**
 'requete-globale.sql': Permet de créer les requêtes sources dee ces vues maillées.
       -------------------------------------------------------- 
       1/ Vue matérialisée gn_exports.mv_grilles_territoire
