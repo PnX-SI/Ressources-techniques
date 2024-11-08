@@ -1,36 +1,50 @@
 -----------------------------------------------------
--- View: gn_exports.mv_grilles_pag 
--- ==> grilles ne couvrant que la surface du PAG (qui nous interresse)
+-- View: gn_exports.mv_grilles_territoire 
+-- ==> grilles ne couvrant que la surface du Parc (qui nous interresse)
 -----------------------------------------------------
-
+DROP MATERIALIZED VIEW IF EXISTS gn_exports.mv_grilles_territoire;
 CREATE MATERIALIZED VIEW IF NOT EXISTS gn_exports.mv_grilles_territoire
 TABLESPACE pg_default
 AS
  SELECT l_areas.id_type,
+ 	bat.type_code,
     l_areas.area_name,
     l_areas.geom AS geom_grille_territoire
-   FROM ref_geo.l_areas
-     JOIN ( SELECT st_union(l_areas_1.geom) AS geom_territoire
-           FROM ref_geo.l_areas l_areas_1
-          WHERE l_areas_1.id_type = ANY (ARRAY[38])) territoire ON st_intersects(l_areas.geom, territoire.geom_territoire)
-  WHERE l_areas.id_type = ANY (ARRAY[27, 28, 29])
+ FROM ref_geo.l_areas AS l_areas
+JOIN ref_geo.bib_areas_types bat
+ON bat.id_type = l_areas.id_type 
+ JOIN ( 
+		SELECT st_union(la.geom) AS geom_territoire
+		FROM ref_geo.l_areas la
+		JOIN ref_geo.bib_areas_types bat
+		ON bat.id_type = la.id_type 
+		WHERE bat.type_code IN ('ZC', 'AA' )
+   ) territoire ON st_intersects(l_areas.geom, territoire.geom_territoire)
+  WHERE bat.type_code IN ('M1', 'M5', 'M10')
 WITH DATA;
 
 
-
 -----------------------------------------------------
--- View: gn_exports.v_bilan_taxo_maille10x10_PAG
--- ==> Informations maillées sur le territoire du PAG, par groupe taxo
+-- View: gn_exports.v_bilan_taxo_maille10x10_territoire
+-- ==> Informations maillées sur le territoire, par groupe taxo
 -- ==> Les statuts sont récupérés depuis la vue taxonomie.v_bdc_status (et non bdc_statuts qui liste tout) qui liste les statuts "actifs" d'un territoire
 -- ==> Adapter les filtres des statuts de protection selon les territoires!
 -- ==> Adapter le filtre des mailles selon échelle désirée
 -----------------------------------------------------
 
-DROP VIEW gn_exports."v_bilan_taxo_maille10x10_territoire";
+DROP VIEW  IF EXISTS gn_exports."v_bilan_taxo_maille10x10_territoire";
 
 CREATE VIEW gn_exports."v_bilan_taxo_maille10x10_territoire"
  AS
-  WITH ref_taxo AS (
+  WITH
+  	st_validation AS (  	
+		SELECT tn.id_nomenclature, tn.label_default, tn.mnemonique, tn.cd_nomenclature 
+		FROM ref_nomenclatures.bib_nomenclatures_types bnt 
+		JOIN ref_nomenclatures.t_nomenclatures tn 
+		ON tn.id_type = bnt.id_type 
+		WHERE bnt.mnemonique = 'STATUT_VALID' AND tn.cd_nomenclature IN ('1', '2', '6')
+	),
+  	ref_taxo AS (
          SELECT DISTINCT 
 	 		t.cd_nom,
             ref.cd_ref,
@@ -64,14 +78,14 @@ CREATE VIEW gn_exports."v_bilan_taxo_maille10x10_territoire"
            FROM gn_synthese.synthese
              JOIN ref_taxo ON synthese.cd_nom = ref_taxo.cd_nom
              JOIN gn_exports.mv_grilles_territoire ON st_intersects(synthese.the_geom_local, mv_grilles_territoire.geom_grille_territoire)
+             JOIN st_validation st ON st.id_nomenclature = synthese.id_nomenclature_valid_status
              LEFT JOIN taxonomie.v_bdc_status pat ON pat.cd_ref = ref_taxo.cd_ref AND pat.cd_type_statut = 'ZDET'
              LEFT JOIN taxonomie.v_bdc_status pr ON pr.cd_ref = ref_taxo.cd_ref AND pr.code_statut = ANY (ARRAY['GUYM1', 'GUYM3', 'DV973','GFAmRep2', 'GFAmRep3', 'GO2', 'GO3']) 
              LEFT JOIN taxonomie.v_bdc_status menacemond ON menacemond.cd_ref = ref_taxo.cd_ref AND menacemond.cd_type_statut = 'LRM' and menacemond.code_statut = ANY (ARRAY['EX', 'EW', 'CR','EN', 'VU']) 
              LEFT JOIN taxonomie.v_bdc_status menacereg ON menacereg.cd_ref = ref_taxo.cd_ref AND menacereg.cd_type_statut = 'LRR' and menacereg.code_statut = ANY (ARRAY['EX', 'EW', 'CR','EN', 'VU'])
 			 LEFT JOIN taxonomie.v_bdc_status sensreg ON sensreg.cd_ref = ref_taxo.cd_ref AND sensreg.cd_type_statut = 'SENSREG'
           WHERE 
-          --(synthese.id_nomenclature_valid_status = ANY (ARRAY[315, 316, 458])) AND 
-          mv_grilles_territoire.id_type = 27
+          mv_grilles_territoire.type_code = 'M10'
           GROUP BY ref_taxo.regne, ref_taxo.group2_inpn, mv_grilles_territoire.area_name, ref_taxo.cd_ref, mv_grilles_territoire.geom_grille_territoire, 
 				pat.cd_type_statut, pr.cd_type_statut, menacemond.cd_type_statut, menacereg.cd_type_statut,sensreg.cd_type_statut
         ),
@@ -86,8 +100,7 @@ CREATE VIEW gn_exports."v_bilan_taxo_maille10x10_territoire"
 			 JOIN ref_taxo ON synthese.cd_nom = ref_taxo.cd_nom
 			 JOIN gn_exports.mv_grilles_territoire ON st_intersects(synthese.the_geom_local, mv_grilles_territoire.geom_grille_territoire)
 		  WHERE 
---		  (synthese.id_nomenclature_valid_status = ANY (ARRAY[315, 316, 458])) AND 
-		  mv_grilles_territoire.id_type = 27
+          mv_grilles_territoire.type_code = 'M10'
 		  GROUP BY ref_taxo.regne, ref_taxo.group2_inpn, mv_grilles_territoire.area_name, mv_grilles_territoire.geom_grille_territoire
         ),
 	stat_mailles_nb_jdd AS (
@@ -106,9 +119,9 @@ CREATE VIEW gn_exports."v_bilan_taxo_maille10x10_territoire"
 			   FROM gn_synthese.synthese
 				 JOIN ref_taxo ON synthese.cd_nom = ref_taxo.cd_nom
 				 JOIN gn_exports.mv_grilles_territoire ON st_intersects(synthese.the_geom_local, mv_grilles_territoire.geom_grille_territoire)
+             	JOIN st_validation st ON st.id_nomenclature = synthese.id_nomenclature_valid_status
 			  WHERE 
-			  --(synthese.id_nomenclature_valid_status = ANY (ARRAY[315, 316, 458])) AND 
-			  mv_grilles_territoire.id_type = 27) AS refs_jdd
+          mv_grilles_territoire.type_code = 'M10') AS refs_jdd
 		  GROUP BY refs_jdd.ref_geo_group, refs_jdd.regne, refs_jdd.group2_inpn, refs_jdd.area_name, refs_jdd.geom_grille_territoire
 		),
 	stat_mailles_nb_jours AS (		  
@@ -127,9 +140,9 @@ CREATE VIEW gn_exports."v_bilan_taxo_maille10x10_territoire"
 			   FROM gn_synthese.synthese
 				 JOIN ref_taxo ON synthese.cd_nom = ref_taxo.cd_nom
 				 JOIN gn_exports.mv_grilles_territoire ON st_intersects(synthese.the_geom_local, mv_grilles_territoire.geom_grille_territoire)
+             	JOIN st_validation st ON st.id_nomenclature = synthese.id_nomenclature_valid_status
 			  WHERE 
-			  --(synthese.id_nomenclature_valid_status = ANY (ARRAY[315, 316, 458])) AND 
-			  mv_grilles_territoire.id_type = 27) as refs_prospe
+          mv_grilles_territoire.type_code = 'M10') as refs_prospe
 			GROUP BY refs_prospe.ref_geo_group, 
 				refs_prospe.regne,
 				refs_prospe.group2_inpn,
