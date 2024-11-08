@@ -1,4 +1,5 @@
-Etat des lieux des connaissances de biodiv dun territoire
+Etat des lieux des connaissances de biodiversite d'un territoire
+============================================================================
 
 ***** Contexte ******************************************************************************************
 Au PAG, on a de gros déficits de connaissance (selon groupes taxo) et de couverture du territoire (selon secteurs).
