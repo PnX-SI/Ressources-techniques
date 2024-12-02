@@ -15,7 +15,7 @@ more-itertools==7.0.0
 munch==2.3.2
 Pillow==8.1.1
 pluggy==0.9.0
-protobuf==3.7.1
+protobuf==3.18.3
 psycopg2==2.8.2
 py==1.8.0
 pyclipper==1.1.0.post1
