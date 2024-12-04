@@ -51,21 +51,22 @@ On va ensuite créer des projets carto avec QGIS, Lizmap ou autre qui interrogen
 
 ## Exploitation carto
 
-`dataviz_biostats_PAG.qgz` : Exemple de fichier QGIS d'exploitation
-En utilisant le module "Lizmap" de QGIS, les vues sont utilisées pour créer des cartes Lizmap diffusables et à jour selon la périodicité des exports maillés.
+`dataviz_biostats_PAG.qgz` : Exemple de fichier QGIS d'exploitation.  
+En utilisant le module "Lizmap" de QGIS, on va interroger directement les fichiers GeoJSON générés automatiquement à partir des vues dans la BDD GeoNature. Et ainsi créer des cartes Lizmap diffusables et à jour selon la périodicité des exports maillés.
 
-Exemple sur le GeoNature du PAG consultable sur https://cartotheque.guyane-parcnational.fr.
+Exemple de projet QGIS/Lizmap interrogeant le GeoNature du PAG (consultable sur le Lizmap https://cartotheque.guyane-parcnational.fr).
 
 ![image](https://github.com/user-attachments/assets/ef37004f-09d1-4af2-b5e7-153bb7e11c11)
 
-Global : nb jours où données (approche « effort d’inventaire ») 
+_Global : nb jours où données (approche « effort d’inventaire »)_
 ![image](https://github.com/user-attachments/assets/3a1b8065-02cb-45be-a1cd-b4d6fd0801e4)
 
-Mammifères : nb espèces 
+_Mammifères : nb espèces_
 ![image](https://github.com/user-attachments/assets/1a81ae0b-bc60-4674-b541-5398823fab98)
 
-Plantes vasculaires :  ratio nb espèces protégées/nb espèces
+_Plantes vasculaires :  ratio nb espèces protégées/nb espèces_
 ![image](https://github.com/user-attachments/assets/05df2ff9-879b-4ab1-974a-c9aab56ebafb)
 
-Cela fonctionne en lançant les requêtes de création des vues (un peu adaptées) sur un autre GeoNature : exemple PNE en interrogeant le fichier GeoJSON distant et mis à jour automatiquement chaque nuit (https://geonature.ecrins-parcnational.fr/api/media/exports/schedules/Bilans_mailles_1010.geojson)
+Cela fonctionne en lançant les requêtes de création des vues (un peu adaptées) sur une autre BDD GeoNature : exemple au PNE en interrogeant le fichier GeoJSON distant et mis à jour automatiquement chaque nuit (https://geonature.ecrins-parcnational.fr/api/media/exports/schedules/Bilans_mailles_1010.geojson)
+
 ![image](https://github.com/user-attachments/assets/ac778445-2b5b-4191-93f8-45f2e67a4035)
