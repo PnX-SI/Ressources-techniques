@@ -9,7 +9,8 @@ Au PAG, on a de gros déficits de connaissance (selon groupes taxos) et de couve
 Le module Dashboard de GeoNature permet d'avoir un aperçu du nombre d'observations et du nombre d'espèces par mailles mais 1/ il nécessite de savoir utiliser GeoNature (et d'y avoir un compte) et 2/ il ne permet pas d'avoir un bilan des espèces à statuts, du nombre de jeux de données, etc.
 
 On va donc utiliser le module Export de GeoNature, pour créer des exports de synthèse par maille sur mesure, et les générer automatiquement chaque nuit pour que le fichier GeoJSON disponible sur une URL fixe soit mis à jour quotidiennement (https://github.com/PnX-SI/gn_module_export?tab=readme-ov-file#export-planifi%C3%A9).  
-On va ensuite créer des projets carto avec QGIS, Lizmap ou autre qui interrogent directement ce fichier GeoJSON distant mis à jour automatiquement chaque nuit.
+On va ensuite créer des projets carto avec QGIS, Lizmap ou autre qui interrogent directement ce fichier GeoJSON distant mis à jour automatiquement chaque nuit.  
+On aurait pu aussi interroger directement les vues de la BDD de PostgreSQL avec QGIS et/ou Lizmap, mais dans notre cas, on préfère s'appuyer sur des fichiers distants et ne pas interroger directement la BDD.
 
 ## Processus
 
