@@ -55,12 +55,12 @@ WITH
         JOIN gn_exports.mv_grilles_territoire m ON st_intersects(s.the_geom_local, m.geom_grille_territoire) AND  m.type_code = 'M10'   
   ), ref_taxo_status AS (
           SELECT 
-              REF.cd_ref,
-            array_remove(array_agg(pat.cd_type_statut), NULL) AS patrimonial,
-            array_remove(array_agg(pr.cd_type_statut), NULL)  AS protection_stricte,
-            array_remove(array_agg(menacemond.cd_type_statut), NULL)  AS menace_monde,
-            array_remove(array_agg(menacereg.cd_type_statut), NULL)  AS menace_reg,
-            array_remove(array_agg(sensreg.cd_type_statut), NULL)  AS sens_reg
+        	REF.cd_ref,
+		array_length(array_remove(array_agg(pat.cd_type_statut), NULL), 1) > 0 AS patrimonial,
+		array_length(array_remove(array_agg(pr.cd_type_statut), NULL), 1) > 0  AS protection_stricte,
+		array_length(array_remove(array_agg(menacemond.cd_type_statut), NULL), 1) > 0  AS menace_monde,
+		array_length(array_remove(array_agg(menacereg.cd_type_statut), NULL), 1) > 0  AS menace_reg,
+		array_length(array_remove(array_agg(sensreg.cd_type_statut), NULL), 1) > 0  AS sens_reg
           FROM taxonomie.taxref ref
         LEFT JOIN taxonomie.v_bdc_status pat ON pat.cd_ref = ref.cd_ref AND pat.cd_type_statut::text = 'ZDET'::text
         LEFT JOIN taxonomie.v_bdc_status pr ON pr.cd_ref = ref.cd_nom AND (pr.code_statut::text = ANY (ARRAY['GUYM1'::text, 'GUYM3'::text, 'DV973'::text, 'GFAmRep2'::text, 'GFAmRep3'::text, 'GO2'::text, 'GO3'::text]))
@@ -78,24 +78,27 @@ WITH
             count(DISTINCT s.date_min::date) AS nb_jours_prospe, 
             count(DISTINCT s.cd_ref) AS nb_taxons_total,
             count(DISTINCT s.cd_ref)  FILTER ( WHERE  
-                st.protection_stricte <> '{}' 
-                OR st.patrimonial <> '{}' 
-                OR st.menace_monde <> '{}' 
-                OR st.menace_reg <> '{}' 
-                OR st.sens_reg <> '{}'
+                st.protection_stricte IS TRUE
+                OR st.patrimonial  IS TRUE
+                OR st.menace_monde IS TRUE
+                OR st.menace_reg IS TRUE
+                OR st.sens_reg  IS TRUE
             ) AS nb_taxons_a_statut,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.protection_stricte <> '{}' ) AS   nb_taxons_proteges,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.patrimonial <> '{}' ) AS   nb_taxons_znieff,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_monde <> '{}' ) AS   nb_taxons_menaces_mond,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_reg <> '{}' ) AS   nb_taxons_menaces_reg,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.sens_reg <> '{}' ) AS   nb_taxons_sensreg ,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.protection_stricte  IS TRUE ) AS   nb_taxons_proteges,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.patrimonial  IS TRUE ) AS   nb_taxons_znieff,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_monde  IS TRUE ) AS   nb_taxons_menaces_mond,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_reg  IS TRUE) AS   nb_taxons_menaces_reg,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.sens_reg  IS TRUE ) AS   nb_taxons_sensreg ,
+	    string_agg(DISTINCT '<i style= "color: #6c757d;">'::text || taf.acquisition_framework_name::text || ' : </i>'::TEXT || td.dataset_name::text , '<br/>' ORDER BY '<i style= "color: #6c757d;">'::text || taf.acquisition_framework_name::text || ' : </i>'::TEXT || td.dataset_name::text  ) AS liste_jdd_html,
             s.geom_grille_territoire
-           FROM sdata s 
-           JOIN ref_taxo_status st ON st.cd_ref = s.cd_ref
-           GROUP BY s.regne, 
-                s.groupe_taxonomique,
-                s.area_name,
-                s.geom_grille_territoire;
+		FROM sdata s 
+            JOIN ref_taxo_status st ON st.cd_ref = s.cd_ref
+			JOIN gn_meta.t_datasets td ON s.id_dataset = td.id_dataset
+			JOIN gn_meta.t_acquisition_frameworks taf ON td.id_acquisition_framework = taf.id_acquisition_framework
+	    GROUP BY s.regne, 
+			s.groupe_taxonomique,
+			s.area_name,
+			s.geom_grille_territoire; 
 
 -- ALTER TABLE gn_exports.v_bilan_taxo_maille10x10_territoire OWNER TO gnpag;
 COMMENT ON VIEW gn_exports.v_bilan_taxo_maille10x10_territoire IS 'Statistiques par maille de 10km (total, protégé, etc), tous groupes taxonomiques confondus (données validées, probables ou en attente de validation). Tous les jeux de données sont exploités (dont partenariaux).';
@@ -113,6 +116,7 @@ COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_territoire.nb_taxons_znief
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_territoire.nb_taxons_menaces_mond IS 'Nombre de taxons menacés mondialement (tous niveau confondus) sur la maille';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_territoire.nb_taxons_menaces_reg IS 'Nombre de taxons menacés au niveau régional (tous niveau confondus) sur la maille';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_territoire.nb_taxons_sensreg IS 'Nombre de taxons sensibles (tous niveau confondus) sur la maille';
+COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_territoire.liste_jdd_html IS 'Liste des jeux de données sur la maille, pour le groupe taxonomique désigné (données validées, probables ou en attente de validation). Formaté HTML';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_territoire.geom_grille_territoire IS 'Geometrie';
 
 
@@ -140,12 +144,12 @@ CREATE OR REPLACE VIEW gn_exports.v_bilan_taxo_maille10x10_global
 			JOIN gn_exports.mv_grilles_territoire m ON st_intersects(s.the_geom_local, m.geom_grille_territoire) AND  m.type_code = 'M10'   
   ), ref_taxo_status AS (
         SELECT 
-              REF.cd_ref,
-            array_remove(array_agg(pat.cd_type_statut), NULL) AS patrimonial,
-            array_remove(array_agg(pr.cd_type_statut), NULL)  AS protection_stricte,
-            array_remove(array_agg(menacemond.cd_type_statut), NULL)  AS menace_monde,
-            array_remove(array_agg(menacereg.cd_type_statut), NULL)  AS menace_reg,
-            array_remove(array_agg(sensreg.cd_type_statut), NULL)  AS sens_reg
+             	REF.cd_ref,
+		array_length(array_remove(array_agg(pat.cd_type_statut), NULL), 1) > 0 AS patrimonial,
+		array_length(array_remove(array_agg(pr.cd_type_statut), NULL), 1) > 0  AS protection_stricte,
+		array_length(array_remove(array_agg(menacemond.cd_type_statut), NULL), 1) > 0  AS menace_monde,
+		array_length(array_remove(array_agg(menacereg.cd_type_statut), NULL), 1) > 0  AS menace_reg,
+		array_length(array_remove(array_agg(sensreg.cd_type_statut), NULL), 1) > 0  AS sens_reg
         FROM taxonomie.taxref ref
 			LEFT JOIN taxonomie.v_bdc_status pat ON pat.cd_ref = ref.cd_ref AND pat.cd_type_statut::text = 'ZDET'::text
 			LEFT JOIN taxonomie.v_bdc_status pr ON pr.cd_ref = ref.cd_nom AND (pr.code_statut::text = ANY (ARRAY['GUYM1'::text, 'GUYM3'::text, 'DV973'::text, 'GFAmRep2'::text, 'GFAmRep3'::text, 'GO2'::text, 'GO3'::text]))
@@ -163,24 +167,27 @@ CREATE OR REPLACE VIEW gn_exports.v_bilan_taxo_maille10x10_global
             count(DISTINCT s.date_min::date) AS nb_jours_prospe, 
             count(DISTINCT s.cd_ref) AS nb_taxons_total,
             count(DISTINCT s.cd_ref)  FILTER ( WHERE  
-                st.protection_stricte <> '{}' 
-                OR st.patrimonial <> '{}' 
-                OR st.menace_monde <> '{}' 
-                OR st.menace_reg <> '{}' 
-                OR st.sens_reg <> '{}'
+                st.protection_stricte IS TRUE
+                OR st.patrimonial  IS TRUE
+                OR st.menace_monde IS TRUE
+                OR st.menace_reg IS TRUE
+                OR st.sens_reg  IS TRUE
             ) AS nb_taxons_a_statut,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.protection_stricte <> '{}' ) AS   nb_taxons_proteges,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.patrimonial <> '{}' ) AS   nb_taxons_znieff,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_monde <> '{}' ) AS   nb_taxons_menaces_mond,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_reg <> '{}' ) AS   nb_taxons_menaces_reg,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.sens_reg <> '{}' ) AS   nb_taxons_sensreg ,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.protection_stricte  IS TRUE ) AS   nb_taxons_proteges,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.patrimonial  IS TRUE ) AS   nb_taxons_znieff,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_monde  IS TRUE ) AS   nb_taxons_menaces_mond,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_reg  IS TRUE) AS   nb_taxons_menaces_reg,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.sens_reg  IS TRUE ) AS   nb_taxons_sensreg ,
+			string_agg(DISTINCT '<i style= "color: #6c757d;">'::text || taf.acquisition_framework_name::text || ' : </i>'::TEXT || td.dataset_name::text , '<br/>' ORDER BY '<i style= "color: #6c757d;">'::text || taf.acquisition_framework_name::text || ' : </i>'::TEXT || td.dataset_name::text  ) AS liste_jdd_html,
             s.geom_grille_territoire
-           FROM sdata s 
-           JOIN ref_taxo_status st ON st.cd_ref = s.cd_ref
-           GROUP BY s.regne, 
-                s.groupe_taxonomique,
-                s.area_name,
-                s.geom_grille_territoire;
+		FROM sdata s 
+            JOIN ref_taxo_status st ON st.cd_ref = s.cd_ref
+			JOIN gn_meta.t_datasets td ON s.id_dataset = td.id_dataset
+			JOIN gn_meta.t_acquisition_frameworks taf ON td.id_acquisition_framework = taf.id_acquisition_framework
+	    GROUP BY s.regne, 
+			s.groupe_taxonomique,
+			s.area_name,
+			s.geom_grille_territoire; 
 
 --ALTER TABLE gn_exports.v_bilan_taxo_maille10x10_global OWNER TO gnpag;
 COMMENT ON VIEW gn_exports.v_bilan_taxo_maille10x10_global IS 'Statistiques par maille de 10km (total, protégé, etc), tous groupes taxonomiques confondus (données validées, probables ou en attente de validation). Tous les jeux de données sont exploités (dont partenariaux).';
@@ -198,6 +205,7 @@ COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_global.nb_taxons_znieff IS
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_global.nb_taxons_menaces_mond IS 'Nombre de taxons menacés mondialement (tous niveau confondus) sur la maille';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_global.nb_taxons_menaces_reg IS 'Nombre de taxons menacés au niveau régional (tous niveau confondus) sur la maille';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_global.nb_taxons_sensreg IS 'Nombre de taxons sensibles (tous niveau confondus) sur la maille';
+COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_global.liste_jdd_html IS 'Liste des jeux de données sur la maille, pour le groupe taxonomique désigné (données validées, probables ou en attente de validation). Formaté HTML';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_global.geom_grille_territoire IS 'Geometrie';
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -220,7 +228,7 @@ WITH
       SELECT 
          t.cd_ref, t.regne, 
          CASE
-            WHEN ref.group1_inpn::text = 'Chordés'::text THEN ref.group2_inpn
+            WHEN t.group1_inpn::text = 'Chordés'::text THEN t.group2_inpn
             ELSE 'Invertébrés'::character varying
          END AS groupe_taxonomique,
          s.cd_nom, m.area_name, m.geom_grille_territoire, s.id_dataset, s.date_min, s.id_synthese
@@ -231,12 +239,12 @@ WITH
       WHERE t.regne = 'Animalia'
   ), ref_taxo_status AS (
       SELECT 
-              REF.cd_ref,
-            array_remove(array_agg(pat.cd_type_statut), NULL) AS patrimonial,
-            array_remove(array_agg(pr.cd_type_statut), NULL)  AS protection_stricte,
-            array_remove(array_agg(menacemond.cd_type_statut), NULL)  AS menace_monde,
-            array_remove(array_agg(menacereg.cd_type_statut), NULL)  AS menace_reg,
-            array_remove(array_agg(sensreg.cd_type_statut), NULL)  AS sens_reg
+              	REF.cd_ref,
+		array_length(array_remove(array_agg(pat.cd_type_statut), NULL), 1) > 0 AS patrimonial,
+		array_length(array_remove(array_agg(pr.cd_type_statut), NULL), 1) > 0  AS protection_stricte,
+		array_length(array_remove(array_agg(menacemond.cd_type_statut), NULL), 1) > 0  AS menace_monde,
+		array_length(array_remove(array_agg(menacereg.cd_type_statut), NULL), 1) > 0  AS menace_reg,
+		array_length(array_remove(array_agg(sensreg.cd_type_statut), NULL), 1) > 0  AS sens_reg
           FROM taxonomie.taxref ref
         LEFT JOIN taxonomie.v_bdc_status pat ON pat.cd_ref = ref.cd_ref AND pat.cd_type_statut::text = 'ZDET'::text
         LEFT JOIN taxonomie.v_bdc_status pr ON pr.cd_ref = ref.cd_nom AND (pr.code_statut::text = ANY (ARRAY['GUYM1'::text, 'GUYM3'::text, 'DV973'::text, 'GFAmRep2'::text, 'GFAmRep3'::text, 'GO2'::text, 'GO3'::text]))
@@ -254,25 +262,27 @@ WITH
             count(DISTINCT s.date_min::date) AS nb_jours_prospe, 
             count(DISTINCT s.cd_ref) AS nb_taxons_total,
             count(DISTINCT s.cd_ref)  FILTER ( WHERE  
-                st.protection_stricte <> '{}' 
-                OR st.patrimonial <> '{}' 
-                OR st.menace_monde <> '{}' 
-                OR st.menace_reg <> '{}' 
-                OR st.sens_reg <> '{}'
+                st.protection_stricte IS TRUE
+                OR st.patrimonial  IS TRUE
+                OR st.menace_monde IS TRUE
+                OR st.menace_reg IS TRUE
+                OR st.sens_reg  IS TRUE
             ) AS nb_taxons_a_statut,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.protection_stricte <> '{}' ) AS   nb_taxons_proteges,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.patrimonial <> '{}' ) AS   nb_taxons_znieff,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_monde <> '{}' ) AS   nb_taxons_menaces_mond,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_reg <> '{}' ) AS   nb_taxons_menaces_reg,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.sens_reg <> '{}' ) AS   nb_taxons_sensreg ,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.protection_stricte  IS TRUE ) AS   nb_taxons_proteges,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.patrimonial  IS TRUE ) AS   nb_taxons_znieff,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_monde  IS TRUE ) AS   nb_taxons_menaces_mond,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_reg  IS TRUE) AS   nb_taxons_menaces_reg,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.sens_reg  IS TRUE ) AS   nb_taxons_sensreg ,
+			string_agg(DISTINCT '<i style= "color: #6c757d;">'::text || taf.acquisition_framework_name::text || ' : </i>'::TEXT || td.dataset_name::text , '<br/>' ORDER BY '<i style= "color: #6c757d;">'::text || taf.acquisition_framework_name::text || ' : </i>'::TEXT || td.dataset_name::text  ) AS liste_jdd_html,
             s.geom_grille_territoire
-           FROM sdata s 
-           JOIN ref_taxo_status st ON st.cd_ref = s.cd_ref
-           GROUP BY s.regne, 
-                s.groupe_taxonomique,
-                s.area_name,
-                s.geom_grille_territoire;
-
+		FROM sdata s 
+            JOIN ref_taxo_status st ON st.cd_ref = s.cd_ref
+			JOIN gn_meta.t_datasets td ON s.id_dataset = td.id_dataset
+			JOIN gn_meta.t_acquisition_frameworks taf ON td.id_acquisition_framework = taf.id_acquisition_framework
+	    GROUP BY s.regne, 
+			s.groupe_taxonomique,
+			s.area_name,
+			s.geom_grille_territoire; 
 
 --ALTER TABLE gn_exports.v_bilan_taxo_maille10x10_animalia OWNER TO gnpag;
 COMMENT ON VIEW gn_exports.v_bilan_taxo_maille10x10_animalia IS 'Statistiques des connaissances sur la faune par maille de 10km (total, protégé, etc). Détail selon groupe taxonomique (données validées, probables ou en attente de validation). Tous les jeux de données sont exploités (dont partenariaux).';
@@ -290,6 +300,7 @@ COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_animalia.nb_taxons_znieff 
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_animalia.nb_taxons_menaces_mond IS 'Nombre de taxons menacés mondialement (tous niveau confondus) sur la maille pour le groupe taxonomique désigné';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_animalia.nb_taxons_menaces_reg IS 'Nombre de taxons menacés au niveau régional (tous niveau confondus) sur la maille pour le groupe taxonomique désigné';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_animalia.nb_taxons_sensreg IS 'Nombre de taxons sensibles (tous niveau confondus) sur la maille pour le groupe taxonomique désigné';
+COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_animalia.liste_jdd_html IS 'Liste des jeux de données sur la maille, pour le groupe taxonomique désigné (données validées, probables ou en attente de validation). Formaté HTML';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_animalia.geom_grille_territoire IS 'Geometrie';
 
 
@@ -312,7 +323,7 @@ CREATE OR REPLACE VIEW gn_exports.v_bilan_taxo_maille10x10_plantae
         --     En fonction des besoins rajouter des filtres
         SELECT 
             t.cd_ref, t.regne, 
-            ref.group1_inpn as groupe_taxonomique,
+            t.group1_inpn as groupe_taxonomique,
             s.cd_nom, m.area_name, m.geom_grille_territoire, s.id_dataset, s.date_min, s.id_synthese
         FROM gn_synthese.synthese s
             JOIN taxonomie.taxref t ON s.cd_nom = t.cd_nom
@@ -321,12 +332,12 @@ CREATE OR REPLACE VIEW gn_exports.v_bilan_taxo_maille10x10_plantae
         WHERE ref.regne::text = 'Plantae'::text
   ), ref_taxo_status AS (
           SELECT 
-              REF.cd_ref,
-            array_remove(array_agg(pat.cd_type_statut), NULL) AS patrimonial,
-            array_remove(array_agg(pr.cd_type_statut), NULL)  AS protection_stricte,
-            array_remove(array_agg(menacemond.cd_type_statut), NULL)  AS menace_monde,
-            array_remove(array_agg(menacereg.cd_type_statut), NULL)  AS menace_reg,
-            array_remove(array_agg(sensreg.cd_type_statut), NULL)  AS sens_reg
+              	REF.cd_ref,
+		array_length(array_remove(array_agg(pat.cd_type_statut), NULL), 1) > 0 AS patrimonial,
+		array_length(array_remove(array_agg(pr.cd_type_statut), NULL), 1) > 0  AS protection_stricte,
+		array_length(array_remove(array_agg(menacemond.cd_type_statut), NULL), 1) > 0  AS menace_monde,
+		array_length(array_remove(array_agg(menacereg.cd_type_statut), NULL), 1) > 0  AS menace_reg,
+		array_length(array_remove(array_agg(sensreg.cd_type_statut), NULL), 1) > 0  AS sens_reg
           FROM taxonomie.taxref ref
         LEFT JOIN taxonomie.v_bdc_status pat ON pat.cd_ref = ref.cd_ref AND pat.cd_type_statut::text = 'ZDET'::text
         LEFT JOIN taxonomie.v_bdc_status pr ON pr.cd_ref = ref.cd_nom AND (pr.code_statut::text = ANY (ARRAY['GUYM1'::text, 'GUYM3'::text, 'DV973'::text, 'GFAmRep2'::text, 'GFAmRep3'::text, 'GO2'::text, 'GO3'::text]))
@@ -344,24 +355,27 @@ CREATE OR REPLACE VIEW gn_exports.v_bilan_taxo_maille10x10_plantae
             count(DISTINCT s.date_min::date) AS nb_jours_prospe, 
             count(DISTINCT s.cd_ref) AS nb_taxons_total,
             count(DISTINCT s.cd_ref)  FILTER ( WHERE  
-                st.protection_stricte <> '{}' 
-                OR st.patrimonial <> '{}' 
-                OR st.menace_monde <> '{}' 
-                OR st.menace_reg <> '{}' 
-                OR st.sens_reg <> '{}'
+                st.protection_stricte IS TRUE
+                OR st.patrimonial  IS TRUE
+                OR st.menace_monde IS TRUE
+                OR st.menace_reg IS TRUE
+                OR st.sens_reg  IS TRUE
             ) AS nb_taxons_a_statut,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.protection_stricte <> '{}' ) AS   nb_taxons_proteges,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.patrimonial <> '{}' ) AS   nb_taxons_znieff,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_monde <> '{}' ) AS   nb_taxons_menaces_mond,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_reg <> '{}' ) AS   nb_taxons_menaces_reg,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.sens_reg <> '{}' ) AS   nb_taxons_sensreg ,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.protection_stricte  IS TRUE ) AS   nb_taxons_proteges,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.patrimonial  IS TRUE ) AS   nb_taxons_znieff,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_monde  IS TRUE ) AS   nb_taxons_menaces_mond,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_reg  IS TRUE) AS   nb_taxons_menaces_reg,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.sens_reg  IS TRUE ) AS   nb_taxons_sensreg ,
+			string_agg(DISTINCT '<i style= "color: #6c757d;">'::text || taf.acquisition_framework_name::text || ' : </i>'::TEXT || td.dataset_name::text , '<br/>' ORDER BY '<i style= "color: #6c757d;">'::text || taf.acquisition_framework_name::text || ' : </i>'::TEXT || td.dataset_name::text  ) AS liste_jdd_html,
             s.geom_grille_territoire
-           FROM sdata s 
-           JOIN ref_taxo_status st ON st.cd_ref = s.cd_ref
-           GROUP BY s.regne, 
-                s.groupe_taxonomique,
-                s.area_name,
-                s.geom_grille_territoire;
+		FROM sdata s 
+            JOIN ref_taxo_status st ON st.cd_ref = s.cd_ref
+			JOIN gn_meta.t_datasets td ON s.id_dataset = td.id_dataset
+			JOIN gn_meta.t_acquisition_frameworks taf ON td.id_acquisition_framework = taf.id_acquisition_framework
+	    GROUP BY s.regne, 
+			s.groupe_taxonomique,
+			s.area_name,
+			s.geom_grille_territoire; 
 
 --ALTER TABLE gn_exports.v_bilan_taxo_maille10x10_plantae OWNER TO gnpag;
 COMMENT ON VIEW gn_exports.v_bilan_taxo_maille10x10_plantae IS 'Statistiques des connaissances sur la flore par maille de 10km (total, protégé, etc). Détail selon groupe taxonomique (données validées, probables ou en attente de validation). Tous les jeux de données sont exploités (dont partenariaux).';
@@ -379,6 +393,7 @@ COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_plantae.nb_taxons_znieff I
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_plantae.nb_taxons_menaces_mond IS 'Nombre de taxons menacés mondialement (tous niveau confondus) sur la maille pour le groupe taxonomique désigné';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_plantae.nb_taxons_menaces_reg IS 'Nombre de taxons menacés au niveau régional (tous niveau confondus) sur la maille pour le groupe taxonomique désigné';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_plantae.nb_taxons_sensreg IS 'Nombre de taxons sensibles (tous niveau confondus) sur la maille pour le groupe taxonomique désigné';
+COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_plantae.liste_jdd_html IS 'Liste des jeux de données sur la maille, pour le groupe taxonomique désigné (données validées, probables ou en attente de validation). Formaté HTML';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_plantae.geom_grille_territoire IS 'Geometrie';
 
   
@@ -408,13 +423,13 @@ WITH
         WHERE t.regne::text = 'Fungi'::text
   ), ref_taxo_status AS (
           SELECT 
-              REF.cd_ref,
-            array_remove(array_agg(pat.cd_type_statut), NULL) AS patrimonial,
-            array_remove(array_agg(pr.cd_type_statut), NULL)  AS protection_stricte,
-            array_remove(array_agg(menacemond.cd_type_statut), NULL)  AS menace_monde,
-            array_remove(array_agg(menacereg.cd_type_statut), NULL)  AS menace_reg,
-            array_remove(array_agg(sensreg.cd_type_statut), NULL)  AS sens_reg
-          FROM taxonomie.taxref ref
+             	REF.cd_ref,
+		array_length(array_remove(array_agg(pat.cd_type_statut), NULL), 1) > 0 AS patrimonial,
+		array_length(array_remove(array_agg(pr.cd_type_statut), NULL), 1) > 0  AS protection_stricte,
+		array_length(array_remove(array_agg(menacemond.cd_type_statut), NULL), 1) > 0  AS menace_monde,
+		array_length(array_remove(array_agg(menacereg.cd_type_statut), NULL), 1) > 0  AS menace_reg,
+		array_length(array_remove(array_agg(sensreg.cd_type_statut), NULL), 1) > 0  AS sens_reg
+	FROM taxonomie.taxref ref
         LEFT JOIN taxonomie.v_bdc_status pat ON pat.cd_ref = ref.cd_ref AND pat.cd_type_statut::text = 'ZDET'::text
         LEFT JOIN taxonomie.v_bdc_status pr ON pr.cd_ref = ref.cd_nom AND (pr.code_statut::text = ANY (ARRAY['GUYM1'::text, 'GUYM3'::text, 'DV973'::text, 'GFAmRep2'::text, 'GFAmRep3'::text, 'GO2'::text, 'GO3'::text]))
         LEFT JOIN taxonomie.v_bdc_status menacemond ON menacemond.cd_ref = ref.cd_nom AND menacemond.cd_type_statut::text = 'LRM'::text AND (menacemond.code_statut::text = ANY (ARRAY['EX'::text, 'EW'::text, 'CR'::text, 'EN'::text, 'VU'::text]))
@@ -431,25 +446,27 @@ WITH
             count(DISTINCT s.date_min::date) AS nb_jours_prospe, 
             count(DISTINCT s.cd_ref) AS nb_taxons_total,
             count(DISTINCT s.cd_ref)  FILTER ( WHERE  
-                st.protection_stricte <> '{}' 
-                OR st.patrimonial <> '{}' 
-                OR st.menace_monde <> '{}' 
-                OR st.menace_reg <> '{}' 
-                OR st.sens_reg <> '{}'
+                st.protection_stricte IS TRUE
+                OR st.patrimonial  IS TRUE
+                OR st.menace_monde IS TRUE
+                OR st.menace_reg IS TRUE
+                OR st.sens_reg  IS TRUE
             ) AS nb_taxons_a_statut,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.protection_stricte <> '{}' ) AS   nb_taxons_proteges,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.patrimonial <> '{}' ) AS   nb_taxons_znieff,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_monde <> '{}' ) AS   nb_taxons_menaces_mond,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_reg <> '{}' ) AS   nb_taxons_menaces_reg,
-            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.sens_reg <> '{}' ) AS   nb_taxons_sensreg ,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.protection_stricte  IS TRUE ) AS   nb_taxons_proteges,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.patrimonial  IS TRUE ) AS   nb_taxons_znieff,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_monde  IS TRUE ) AS   nb_taxons_menaces_mond,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.menace_reg  IS TRUE) AS   nb_taxons_menaces_reg,
+            count(DISTINCT s.cd_ref)  FILTER ( WHERE  st.sens_reg  IS TRUE ) AS   nb_taxons_sensreg ,
+			string_agg(DISTINCT '<i style= "color: #6c757d;">'::text || taf.acquisition_framework_name::text || ' : </i>'::TEXT || td.dataset_name::text , '<br/>' ORDER BY '<i style= "color: #6c757d;">'::text || taf.acquisition_framework_name::text || ' : </i>'::TEXT || td.dataset_name::text  ) AS liste_jdd_html,
             s.geom_grille_territoire
-           FROM sdata s 
-           JOIN ref_taxo_status st ON st.cd_ref = s.cd_ref
-           GROUP BY s.regne, 
-                s.groupe_taxonomique,
-                s.area_name,
-                s.geom_grille_territoire;
-
+		FROM sdata s 
+            JOIN ref_taxo_status st ON st.cd_ref = s.cd_ref
+			JOIN gn_meta.t_datasets td ON s.id_dataset = td.id_dataset
+			JOIN gn_meta.t_acquisition_frameworks taf ON td.id_acquisition_framework = taf.id_acquisition_framework
+	    GROUP BY s.regne, 
+			s.groupe_taxonomique,
+			s.area_name,
+			s.geom_grille_territoire; 
 
 --ALTER TABLE gn_exports.v_bilan_taxo_maille10x10_fungi OWNER TO gnpag;
 COMMENT ON VIEW gn_exports.v_bilan_taxo_maille10x10_fungi IS 'Statistiques des connaissances sur la fonge par maille de 10km (total, protégé, etc). Détail selon groupe taxonomique (données validées, probables ou en attente de validation). Tous les jeux de données sont exploités (dont partenariaux).';
@@ -467,5 +484,6 @@ COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_fungi.nb_taxons_znieff IS 
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_fungi.nb_taxons_menaces_mond IS 'Nombre de taxons menacés mondialement (tous niveau confondus) sur la maille pour le groupe taxonomique désigné';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_fungi.nb_taxons_menaces_reg IS 'Nombre de taxons menacés au niveau régional (tous niveau confondus) sur la maille pour le groupe taxonomique désigné';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_fungi.nb_taxons_sensreg IS 'Nombre de taxons sensibles (tous niveau confondus) sur la maille pour le groupe taxonomique désigné';
+COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_fungi.liste_jdd_html IS 'Liste des jeux de données sur la maille, pour le groupe taxonomique désigné (données validées, probables ou en attente de validation). Formaté HTML';
 COMMENT ON COLUMN gn_exports.v_bilan_taxo_maille10x10_fungi.geom_grille_territoire IS 'Geometrie';
 
