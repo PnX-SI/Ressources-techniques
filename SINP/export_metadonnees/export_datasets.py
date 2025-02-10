@@ -2,22 +2,24 @@ import psycopg2
 import xlsxwriter
 
 DB_CONNEXION = "dbname=geonature2db user=XXX password=XXX host=XXX"
+
+
 queries_jdd = {
     "Principal": """WITH selected_dataset AS (
 	SELECT *
 	FROM tmp_process.export_datasets ed
 )
 SELECT 
-    td.unique_dataset_id AS IdentifiantJeuDonnees, 
-    'GeoNature Parc national des Cévennes' AS BaseProduction, 
-    td.dataset_name AS Libelle,
-    td.keywords AS MotsCles,
-    tno.label_default AS Objectifs,
-    taf.unique_acquisition_framework_id AS RattachementCadreAcquisition,
-    tnt.label_default AS Territoires,
-    tntd.label_default AS TypeDonnees,
-    td.terrestrial_domain AS estContinental,
-    td.marine_domain AS estMarin
+    td.unique_dataset_id AS "IdentifiantJeuDonnees", 
+    'GeoNature Parc national des Cévennes' AS "BaseProduction", 
+    td.dataset_name AS "Libelle",
+    td.keywords AS "MotsCles",
+    tno.label_default AS "Objectifs",
+    taf.unique_acquisition_framework_id AS "RattachementCadreAcquisition",
+    tnt.label_default AS "Territoires",
+    tntd.label_default AS "TypeDonnees",
+    td.terrestrial_domain AS "estContinental",
+    td.marine_domain AS "estMarin"
     FROM gn_meta.t_datasets td 
     JOIN selected_dataset sd
     ON sd.id_dataset = td.id_dataset
@@ -125,24 +127,24 @@ queries_ca = {
 		SELECT DISTINCT id_acquisition_framework
 		FROM tmp_process.export_datasets ed 
 	)
-    SELECT taf.unique_acquisition_framework_id AS IdentifiantCadreAcquisition,
-    taf.acquisition_framework_end_date AS DateCloture ,
-    taf.acquisition_framework_start_date AS DateLancement, 
-    taf.acquisition_framework_desc as  DescriptionCadreAcquisition, 
-    concat_ws(', ', taf.target_description, taf.ecologic_or_geologic_target) AS DescriptionCibleTaxo, 
-    'Non' AS FichierJointOuiNon, 
-    NULL AS IdentifiantProcedureDepot, 
-    taf.acquisition_framework_name AS LibelleCadreAcquisition, 
-    NULL AS StatutAvancement, 
-    tnt.label_default  AS NiveauTerritorial, 
-    NULL AS NomFichierTaxonomique, 
-    o.objectifs AS Objectifs, 
-    taf.territory_desc AS PrecisionGeographique, 
-    meta.unique_acquisition_framework_id AS ReferenceMetacadre, 
-    taf.territory_desc AS  Territoires, 
-    tnf.label_default AS TypeFinancement, 
-    v.VoletSINP AS VoletSINP, 
-    taf.is_parent  AS estMetaCadre
+    SELECT taf.unique_acquisition_framework_id AS "IdentifiantCadreAcquisition",
+    taf.acquisition_framework_end_date AS "DateCloture" ,
+    taf.acquisition_framework_start_date AS "DateLancement", 
+    taf.acquisition_framework_desc as " DescriptionCadreAcquisition", 
+    concat_ws(', ', taf.target_description, taf.ecologic_or_geologic_target) AS "DescriptionCibleTaxo", 
+    'Non' AS "FichierJointOuiNon", 
+    NULL AS "IdentifiantProcedureDepot", 
+    taf.acquisition_framework_name AS "LibelleCadreAcquisition", 
+    NULL AS "StatutAvancement", 
+    tnt.label_default  AS "NiveauTerritorial", 
+    NULL AS "NomFichierTaxonomique", 
+    o.objectifs AS "Objectifs", 
+    taf.territory_desc AS "PrecisionGeographique", 
+    meta.unique_acquisition_framework_id AS "ReferenceMetacadre", 
+    taf.territory_desc AS " Territoires", 
+    tnf.label_default AS "TypeFinancement", 
+    v.VoletSINP AS "VoletSINP", 
+    taf.is_parent  AS "estMetaCadre"
     FROM gn_meta.t_acquisition_frameworks taf 
     JOIN selected_dataset sd
     ON sd.id_acquisition_framework = taf.id_acquisition_framework
@@ -158,10 +160,10 @@ queries_ca = {
 		FROM tmp_process.export_datasets ed 
 	)
     SELECT 
-        taf.id_acquisition_framework AS IdentifiantCadreAcquisition, 
-        CONCAT(tr.nom_role , ' ', tr.prenom_role) AS IdentiteContactPrincipal,
-        bo.nom_organisme AS OrganismeContactPrincipal, 
-        COALESCE (tr.email , bo.email_organisme) AS MailContactPrincipal,
+        taf.unique_acquisition_framework_id AS "IdentifiantCadreAcquisition", 
+        CONCAT(tr.nom_role , ' ', tr.prenom_role) AS "IdentiteContactPrincipal",
+        bo.nom_organisme AS "OrganismeContactPrincipal", 
+        COALESCE (tr.email , bo.email_organisme) AS "MailContactPrincipal",
         bo.uuid_organisme 
     FROM gn_meta.t_acquisition_frameworks taf 
     JOIN selected_dataset sd
@@ -180,10 +182,10 @@ queries_ca = {
 		FROM tmp_process.export_datasets ed 
 	)
     SELECT 
-        taf.id_acquisition_framework AS IdentifiantCadreAcquisition, 
-        CONCAT(tr.nom_role , ' ', tr.prenom_role) AS IdentiteFinanceur,
-        bo.nom_organisme AS OrganismeFinanceur, 
-        COALESCE (tr.email , bo.email_organisme) AS MailFinanceur,
+        taf.unique_acquisition_framework_id AS "IdentifiantCadreAcquisition", 
+        CONCAT(tr.nom_role , ' ', tr.prenom_role) AS "IdentiteFinanceur",
+        bo.nom_organisme AS "OrganismeFinanceur", 
+        COALESCE (tr.email , bo.email_organisme) AS "MailFinanceur",
         bo.uuid_organisme 
     FROM gn_meta.t_acquisition_frameworks taf 
     JOIN selected_dataset sd
@@ -202,10 +204,10 @@ queries_ca = {
 		FROM tmp_process.export_datasets ed 
 	)
     SELECT 
-        taf.id_acquisition_framework AS IdentifiantCadreAcquisition, 
-        CONCAT(tr.nom_role , ' ', tr.prenom_role) AS IdentiteMaitreOeuvre,
-        bo.nom_organisme AS OrganismeMaitreOeuvre, 
-        COALESCE (tr.email , bo.email_organisme) AS MailMaitreOeuvre,
+        taf.unique_acquisition_framework_id AS "IdentifiantCadreAcquisition", 
+        CONCAT(tr.nom_role , ' ', tr.prenom_role) AS "IdentiteMaitreOeuvre",
+        bo.nom_organisme AS "OrganismeMaitreOeuvre", 
+        COALESCE (tr.email , bo.email_organisme) AS "MailMaitreOeuvre",
         bo.uuid_organisme 
     FROM gn_meta.t_acquisition_frameworks taf 
     JOIN selected_dataset sd
@@ -224,10 +226,10 @@ queries_ca = {
 		FROM tmp_process.export_datasets ed 
 	)
     SELECT 
-        taf.id_acquisition_framework AS IdentifiantCadreAcquisition, 
-        CONCAT(tr.nom_role , ' ', tr.prenom_role) AS IdentiteMaitreOuvrage,
-        bo.nom_organisme AS OrganismeMaitreOuvrage, 
-        COALESCE (tr.email , bo.email_organisme) AS MailMaitreOuvrage,
+        taf.unique_acquisition_framework_id AS "IdentifiantCadreAcquisition", 
+        CONCAT(tr.nom_role , ' ', tr.prenom_role) AS "IdentiteMaitreOuvrage",
+        bo.nom_organisme AS "OrganismeMaitreOuvrage", 
+        COALESCE (tr.email , bo.email_organisme) AS "MailMaitreOuvrage",
         bo.uuid_organisme 
     FROM gn_meta.t_acquisition_frameworks taf 
     JOIN selected_dataset sd
@@ -246,10 +248,10 @@ queries_ca = {
 		FROM tmp_process.export_datasets ed 
 	)
     SELECT 
-        taf.id_acquisition_framework AS IdentifiantCadreAcquisition, 
-        CONCAT(tr.nom_role , ' ', tr.prenom_role) AS IdentiteMaitreOuvrage,
-        bo.nom_organisme AS OrganismeMaitreOuvrage, 
-        COALESCE (tr.email , bo.email_organisme) AS MailMaitreOuvrage,
+        taf.unique_acquisition_framework_id AS "IdentifiantCadreAcquisition", 
+        CONCAT(tr.nom_role , ' ', tr.prenom_role) AS "IdentiteMaitreOuvrage",
+        bo.nom_organisme AS "OrganismeMaitreOuvrage", 
+        COALESCE (tr.email , bo.email_organisme) AS "MailMaitreOuvrage",
         bo.uuid_organisme 
     FROM gn_meta.t_acquisition_frameworks taf 
     JOIN selected_dataset sd
