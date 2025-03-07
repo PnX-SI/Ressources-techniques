@@ -233,3 +233,20 @@ join gn_synthese.cor_area_synthese cas using(id_synthese)
 join gn_meta.t_datasets td on s.id_dataset = td.id_dataset
 join gn_meta.cor_dataset_actor cda on cda.id_dataset = td.id_dataset
 where t.regne = 'Plantae' and cas.id_area = 1000279 and cda.id_organism = 2;
+
+
+-- Espece la plus observée par année (changer le rang pour avoir la 1ere, la 2eme etc...)
+select * from (
+with nb_by_year as ( 
+	select count(*) as nb, t.lb_nom, t.regne, date_part('year', s.date_fin) as year_
+	from gn_exports.v_synthese_sinp_pne  s 
+	join taxonomie.taxref t on t.cd_nom = s.cd_nom
+	group by t.cd_nom, date_part('year', s.date_fin)
+	order by nb desc
+)
+select lb_nom, nb, year_, regne,
+rank() over(partition by year_ order by nb desc) as rang
+from nb_by_year 
+) t where rang = 1
+order by year_ desc
+;
