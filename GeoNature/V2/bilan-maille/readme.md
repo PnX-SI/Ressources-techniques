@@ -51,6 +51,7 @@ On aurait pu aussi interroger directement les vues de la BDD de PostgreSQL avec 
    Statistiques par maille de 10km (total, protégé, etc). Détail selon groupe taxonomique (niveau group1_inpn)(données validées, probables ou en attente de validation). Tous les jeux de données sont exploités (dont partenariaux).
 
 ## Exploitation carto
+Les fichiers geojson sont générés à l'adresse suivante: https://geonature.nom-de-domaine.fr/geonature/api/media/exports/schedules/nom_de_l_export.geojson
 
 `dataviz_biostats_PAG.qgz` : Exemple de fichier QGIS d'exploitation.  
 En utilisant le module "Lizmap" de QGIS, on va interroger directement les fichiers GeoJSON générés automatiquement à partir des vues dans la BDD GeoNature. Et ainsi créer des cartes Lizmap diffusables et à jour selon la périodicité des exports maillés.
