@@ -87,13 +87,13 @@ def fill_dataframe_with_specificfields_random_data(
 
 
 parser = argparse.ArgumentParser(
-    "Génération de données d'import pour les protocoles monitorings"
+    "Génération de données d'import pour les protocoles Monitoring"
 )
 
-parser.add_argument("name_protocol", help="Nom du protocole monitoring")
+parser.add_argument("name_protocol", help="Nom du protocole Monitoring")
 parser.add_argument(
     "--cdnom-parent",
-    help="CdNom du taxon parent permettant de générer la liste de taxon utilisée",
+    help="Cd_nom du taxon parent permettant de générer la liste de taxon utilisée",
     default=186233,
     type=int,
 )
@@ -194,7 +194,7 @@ df_sites["id_inventor"] = 1
 
 fill_dataframe_with_specificfields_random_data(df_sites, site_specific_fields)
 
-## GENERATE VISITE DATA
+## GENERATE VISIT DATA
 visit_protocole_data = protocole_data["visit"]
 visit_specific_fields = visit_protocole_data["specific"]
 VISIT_UUID_NAME_FIELD = visit_protocole_data["uuid_field_name"]

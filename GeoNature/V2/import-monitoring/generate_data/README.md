@@ -1,6 +1,6 @@
-# Génération de données d'import pour les protocoles monitorings
+# Génération de données d'import pour les protocoles du module Monitoring
 
-Ce script permet de générer des données d'un protocole monitoring pour tester l'import monitoring.
+Ce script permet de générer des données aléatoires d'un protocole Monitoring pour tester l'import Monitoring.
 
 ## Installation
 
@@ -20,7 +20,7 @@ python generate_data.py <identifiantProtocole> --cdnom-parent <cdNomParentPourG�
 
 Le fichier de données généré reprend le format suivant : `{PROTOCOL_NAME}_{NOMBRE_LIGNE}.csv`
 
-**Exemple pour le protocole chiro**
+**Exemple pour le protocole Chiro**
 
 ```shell
 python generate_data.py chiro --cdnom-parent 186233
@@ -29,18 +29,18 @@ python generate_data.py chiro --cdnom-parent 186233
 ## Paramètres
 
 ```plain
-usage: Génération de données d'import pour les protocoles monitorings
+usage: Génération de données d'import pour les protocoles Monitoring
        [-h] [--cdnom-parent CDNOM_PARENT] [--size-dataset SIZE_DATASET]
        [-s SITE_NB] [-v VISITE_NB] [-o OBSERVATION_NB]
        name_protocol
 
 positional arguments:
-  name_protocol         Nom du protocole monitoring
+  name_protocol         Nom du protocole Monitoring
 
 options:
   -h, --help            show this help message and exit
   --cdnom-parent CDNOM_PARENT
-                        CdNom du taxon parent permettant de générer la liste
+                        Cd_nom du taxon parent permettant de générer la liste
                         de taxon utilisée
   --size-dataset SIZE_DATASET
                         Nombre de lignes du fichier de sortie
