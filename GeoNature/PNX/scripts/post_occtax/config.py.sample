@@ -1,0 +1,4 @@
+URL_API_GEONATURE = "https://url_geonature/api"
+LOGIN = ""
+PASSWORD = ""
+RELEVE_PATH = "<PATH_VERS_LES_FICHIERS_JSON"
