@@ -89,6 +89,25 @@ Création de trois planifications d'export
 | qfield export synthese point flore             | gpkg     |
 | qfield export synthese maille flore            | gpkg     |
 
+
+# Projet Qgis
+
+Le projet Qgis se compose des couches suivantes : 
+ 
+ * **Filtre** : couche permettant de selectionner le nom du taxon à afficher.
+   * pour changer de taxon, il faut passer en mode edition, selectionné le taxon désiré et enregistrer la couche. 
+ * **Taxon** (v_export_qfield_taxref) : Liste des taxons ayant des données dans les couches points et mailles. Utilisé comme liste de valeur pour le champ cd_ref de filtre
+ * **Point** (v_export_qfield_synthese_flore_point ) : 
+    * les données ne s'affichent qu'au zoom 1:5000
+    * Seule les données du taxon de la couche filtre s'affiche
+ * **Maille** v_export_qfield_synthese_flore_mailles : export des données de synthese sous forme de maille 
+    * les données ne s'affichent qu'au zoom 1:5000
+    * Seule les données du taxon de la couche filtre s'affiche
+ 
+
+![image](img/projet_qgis.png)
+
+
 # Upload de fichiers sur un projet du Cloud en lignes de commande
 
 ## Sources
