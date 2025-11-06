@@ -7,6 +7,7 @@
 Configuration d'export synchronisé sous GeoNature
 
 ## Création des vues
+
 3 vues sont a créées :
  * v_export_qfield_synthese_flore_point : export des données de synthese sous forme de point
  * v_export_qfield_synthese_flore_mailles : export des données de synthese sous forme de maille
@@ -72,18 +73,19 @@ ON vm.cd_ref = t.cd_nom;
 
 Création de 3 exports
 
-                     label                      |  schema_name  |                  view_name                  |     geometry_field     | view_pk_column
-------------------------------------------------+---------------+---------------------------------------------+------------------------+----------------
- qfield export synthese point flore             | gn_exports    | v_export_qfield_synthese_flore_point        | st_centroid            | id_synthese
- qfield export synthese maille flore            | gn_exports    | v_export_qfield_synthese_flore_mailles      | geom                   | id
- qfield export taxon flore                      | gn_exports    | v_export_qfield_taxref                      |                        | cd_ref
+|label|schema_name|view_name|geometry_field|view_pk_column|
+|-----|-----------|---------|--------------|--------------|
+|  qfield export synthese point flore             | gn_exports    | v_export_qfield_synthese_flore_point        | st_centroid            | id_synthese  |
+|  qfield export synthese maille flore            | gn_exports    | v_export_qfield_synthese_flore_mailles      | geom                   | id |
+|  qfield export taxon flore                      | gn_exports    | v_export_qfield_taxref                      |                        | cd_ref |
+|
 
 
 Création de trois planifications d'export
 
-                     label                      |  format  |
-------------------------------------------------+----------
- qfield export synthese point flore             | gpkg     |
- qfield export synthese maille flore            | gpkg     |
- qfield export taxon flore                      | csv      |
+|                     label                      |  format  |
+|------------------------------------------------|---------- |
+| qfield export synthese point flore             | gpkg     |
+| qfield export synthese maille flore            | gpkg     |
+| qfield export taxon flore                      | csv      |
 
