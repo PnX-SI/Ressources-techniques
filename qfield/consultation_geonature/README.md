@@ -111,9 +111,9 @@ Le projet Qgis se compose des couches suivantes :
 # Upload de fichiers sur un projet du Cloud en lignes de commande
 
 ## Sources
-*https://pypi.org/project/qfieldcloud-sdk/ 
-*https://opengisch.github.io/qfieldcloud-sdk-python/ 
-*https://github.com/opengisch/qfieldcloud-sdk-python 
+* https://pypi.org/project/qfieldcloud-sdk/ 
+* https://opengisch.github.io/qfieldcloud-sdk-python/ 
+* https://github.com/opengisch/qfieldcloud-sdk-python 
 
 ## Installation de QFieldCloud-sdk 
 Se placer sur le serveur où est installé QFieldCloud.
@@ -142,4 +142,9 @@ path_to_files : le dossier où sont stockées les fichiers à uploader.
 filter : filtre sur les noms de fichiers. Tout `*.*`, que les géopackages `*.gpkg`.... 
 
 Lister les fichier d'un projet :
-qfieldcloud-cli -u ${QFCLOUD_USR} -p ${QFCLOUD_PWD} -U ${QFCLOUD_URL} list-files ${QFCLOUD_PRJ_ID} 
+```
+qfieldcloud-cli -u <user> -p <pwd>! -U <qfcloud_api_url> list-files <project_id>
+```
+
+## Mise à jour automatique des données en consultation
+Copier les fichiers upload_project_files.* dans le dossier script de QFCloud.
