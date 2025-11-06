@@ -11,46 +11,35 @@ git clone –recurse-submodules https://github.com/opengisch/QFieldCloud.git
 ```
 cp .env.example .env 
 ```
-Editer le fichier .env : 
-
+Configuration de base du .env : 
+```
 QFIELDCLOUD_HOST=<nom_serveur> 
-
 ENVIRONMENT=production 
-
-SECRET_KEY=<valeur aléatoire> (Cryptage des formulaires) 
-
+# Cryptage des formulaires
+SECRET_KEY=<valeur aléatoire>
+# Rajouter à la liste le nom du serveur
 DJANGO_ALLOWED_HOSTS="… <nom_serveur>" 
+# Remplacer le .local.yml par .prod.yml
+COMPOSE_FILE=...
+```
 
-COMPOSE_FILE=(remplacer le .local par .prod) 
+# Installation
 
- 
-
-Installation des containers 
-
----------------------------- 
-
+```
 docker compose up -d –build 
-
 docker compose exec app python manage.py migrate 
-
 docker compose exec app python manage.py collectstatic 
+```
 
- 
+# Configuration du certificat 
 
-Configuration du certificat 
-
------------------------------------- 
-
-Commenter dans doker-compose.yml la section mkcert. 
-
+Commenter dans doker-compose.yml la section `mkcert` puis
+```
 docker compose down --remove-orphans 
-
 apt install certbot 
-
 source .env 
-
 certbot certonly --standalone -d ${QFIELDCLOUD_HOST} 
-
+```
  
 
 sudo cp /etc/letsencrypt/live/${QFIELDCLOUD_HOST}/privkey.pem ./conf/nginx/certs/${QFIELDCLOUD_HOST}-key.pem 
