@@ -147,4 +147,6 @@ qfieldcloud-cli -u <user> -p <pwd>! -U <qfcloud_api_url> list-files <project_id>
 ```
 
 ## Mise à jour automatique des données en consultation
-Copier les fichiers upload_project_files.* dans le dossier script de QFCloud.
+Copier les fichiers du dossier [./scripts/upload_project_files.*](scripts) dans le dossier scripts de QFCloud.
+
+Mettre à jour les variables de `upload_project_files.ini`, puis ajouter les droits d'execution à `upload_project_files.sh` avec `chmod +x upload_project_files.sh`.
