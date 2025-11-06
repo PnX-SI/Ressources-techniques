@@ -1,12 +1,14 @@
 # Exemple de projet Qfield de consultation des données issues de la synthese geonature
 
+ 
+![image](img/schema_global.jpg)
 
 
 # GeoNature
 
 Configuration d'export synchronisé sous GeoNature
 
-## Création des vues
+## Création des vues
 
 3 vues sont a créées :
  * v_export_qfield_synthese_flore_point : export des données de synthese sous forme de point
@@ -78,7 +80,6 @@ Création de 3 exports
 |  qfield export synthese point flore             | gn_exports    | v_export_qfield_synthese_flore_point        | st_centroid            | id_synthese  |
 |  qfield export synthese maille flore            | gn_exports    | v_export_qfield_synthese_flore_mailles      | geom                   | id |
 |  qfield export taxon flore                      | gn_exports    | v_export_qfield_taxref                      |                        | cd_ref |
-|
 
 
 Création de trois planifications d'export
