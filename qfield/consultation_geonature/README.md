@@ -1,14 +1,14 @@
-# Exemple de projet Qfield de consultation des données issues de la synthese geonature
+# Consultation des données de Geonature (via la synthese)
 
- 
+## Schéma global
+
 ![image](img/schema_global.jpg)
 
-
-# GeoNature
+## GeoNature
 
 Configuration d'export synchronisé sous GeoNature
 
-## Création des vues
+### Création des vues
 
 3 vues sont a créées :
  * v_export_qfield_synthese_flore_point : export des données de synthese sous forme de point
@@ -71,7 +71,7 @@ ON vm.cd_ref = t.cd_nom;
 
 ```
 
-## configuration des exports geonature
+### Configuration des exports geonature
 
 Création de 3 exports
 
@@ -90,7 +90,7 @@ Création de trois planifications d'export
 | qfield export synthese maille flore            | gpkg     |
 
 
-# Projet Qgis
+## Projet Qgis
 
 Le projet Qgis se compose des couches suivantes : 
  
@@ -104,18 +104,18 @@ Le projet Qgis se compose des couches suivantes :
     * les données ne s'affichent qu'au zoom 1:5000
     * Seule les données du taxon de la couche filtre s'affiche
  
-
 ![image](img/projet_qgis.png)
 
+## Upload de fichiers sur un projet du Cloud en lignes de commande
 
-# Upload de fichiers sur un projet du Cloud en lignes de commande
+### Sources
 
-## Sources
 * https://pypi.org/project/qfieldcloud-sdk/ 
 * https://opengisch.github.io/qfieldcloud-sdk-python/ 
 * https://github.com/opengisch/qfieldcloud-sdk-python 
 
-## Installation de QFieldCloud-sdk 
+### Installation de QFieldCloud-sdk 
+
 Se placer sur le serveur où est installé QFieldCloud.
 ```
 cd <dossier_qfcloud>
@@ -126,7 +126,8 @@ exit
 ```
 Exit permet de sortir de la session. Ré-ouvrir une session pour bénéficier des mises à jour des variables d'environnement. 
 
-## Quelques exemples d'utilisation de QFieldCloud CLI
+### Quelques exemples d'utilisation de QFieldCloud CLI
+
 Lister les projets du cloud :
 ```
 qfieldcloud-cli -u <user> -p <pwd>! -U <qfcloud_api_url> list-projects
@@ -146,7 +147,8 @@ Lister les fichier d'un projet :
 qfieldcloud-cli -u <user> -p <pwd>! -U <qfcloud_api_url> list-files <project_id>
 ```
 
-## Mise à jour automatique des données en consultation
+### Mise à jour automatique des données
+
 Copier les fichiers du dossier [./scripts/upload_project_files.*](scripts) dans le dossier scripts de QFCloud.
 
 Mettre à jour les variables de `upload_project_files.ini`, puis ajouter les droits d'execution à `upload_project_files.sh` avec `chmod +x upload_project_files.sh`.
