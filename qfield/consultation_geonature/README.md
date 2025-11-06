@@ -88,5 +88,39 @@ Création de trois planifications d'export
 |------------------------------------------------|---------- |
 | qfield export synthese point flore             | gpkg     |
 | qfield export synthese maille flore            | gpkg     |
-| qfield export taxon flore                      | csv      |
 
+# Upload de fichiers sur un projet du Cloud en lignes de commande
+
+## Sources
+*https://pypi.org/project/qfieldcloud-sdk/ 
+*https://opengisch.github.io/qfieldcloud-sdk-python/ 
+*https://github.com/opengisch/qfieldcloud-sdk-python 
+
+## Installation de QFieldCloud-sdk 
+Se placer sur le serveur où est installé QFieldCloud.
+```
+cd <dossier_qfcloud>
+sudo apt install python3 pipx 
+pipx install qfieldcloud-sdk 
+pipx ensurepath 
+exit 
+```
+Exit permet de sortir de la session. Ré-ouvrir une session pour bénéficier des mises à jour des variables d'environnement. 
+
+## Quelques exemples d'utilisation de QFieldCloud CLI
+Lister les projets du cloud :
+```
+qfieldcloud-cli -u <user> -p <pwd>! -U <qfcloud_api_url> list-projects
+```
+qfcloud_api_url : url de QFielDCloud en https avec l'URI de l'API /api/v1
+
+Uploader des fichiers sur le cloud :
+```
+qfieldcloud-cli -u <user> -p <pwd>! -U <qfcloud_api_url> upload-files --force <project_id> <path_to_files> --filter "<filter>"
+```
+project_id : il peut être récupéré soit depuis l'interface soit avec le commande `list_projects`.
+path_to_files : le dossier où sont stockées les fichiers à uploader.
+filter : filtre sur les noms de fichiers. Tout `*.*`, que les géopackages `*.gpkg`.... 
+
+Lister les fichier d'un projet :
+qfieldcloud-cli -u ${QFCLOUD_USR} -p ${QFCLOUD_PWD} -U ${QFCLOUD_URL} list-files ${QFCLOUD_PRJ_ID} 
