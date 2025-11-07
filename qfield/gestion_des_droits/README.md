@@ -65,100 +65,66 @@ Par exemple, pour QFieldCloud hébergé par le fournisseur cloud :
 -   Le plan *Community* gratuit : projets publics / privés illimités,
     mais stockage limité, pas de support avancé, pas d'édition hors
     ligne de couches PostGIS.
-    [qfield.cloud+2qfield.cloud+2](https://qfield.cloud/faq.html?utm_source=chatgpt.com)
+    [(https://qfield.cloud/faq.html?utm_source=chatgpt.com)](https://qfield.cloud/faq.html?utm_source=chatgpt.com)
 -   Le plan *Pro* (payant) : fonctionnalités supplémentaires (ex.
-    édition hors ligne PostGIS) [qfield.cloud+2QField
-    community+2](https://qfield.cloud/pricing?utm_source=chatgpt.com)
+    édition hors ligne PostGIS) [(https://qfield.cloud/pricing?utm_source=chatgpt.com)](https://qfield.cloud/pricing?utm_source=chatgpt.com)
 -   Le plan *Organization* : pour équipes, gestion des membres,
     collaboration, tarification par utilisateur actif.
-    [QField+1](https://docs.qfield.org/get-started/storage-qfc/?utm_source=chatgpt.com)
--   Dans le contexte autohébergé, bien que vous gériez votre propre
-    infrastructure, la notion de plan reste pertinente si vous appliquez
-    une structure de tarification ou de niveaux internes, ou si vous
-    utilisez la version «hébergée» comme référence.
+    [(https://docs.qfield.org/get-started/storage-qfc/?utm_source=chatgpt.com)](https://docs.qfield.org/get-started/storage-qfc/?utm_source=chatgpt.com)
+-   Dans le contexte autohébergé, bien que vous gériez votre propre infrastructure, la notion de plan reste pertinente si vous appliquez une structure de tarification ou de niveaux internes, ou si vous utilisez la version «hébergée» comme référence.
 
 **Intérêt du plan**
 
--   Il permet de clarifier ce que l'on peut faire ou non (ex. nombre
-    d'utilisateurs, collaboration privée, accès en hors-ligne PostGIS).
--   Il sert à dimensionner l'infrastructure ou l'abonnement/licence
-    correspondante.
--   Il rend la proposition de valeur visible (ce que j'obtiens si je
-    choisis ce niveau).
--   Il permet de faire évoluer l'usage (ex. passer du plan «Community»
-    au plan «Pro»).
+-   Il permet de clarifier ce que l'on peut faire ou non (ex. nombre d'utilisateurs, collaboration privée, accès en hors-ligne PostGIS).
+-   Il sert à dimensionner l'infrastructure ou l'abonnement/licence correspondante.
+-   Il rend la proposition de valeur visible (ce que j'obtiens si je choisis ce niveau).
+-   Il permet de faire évoluer l'usage (ex. passer du plan «Community» au plan «Pro»).
 
 ### 🔁 Qu'est-ce qu'une « subscription / abonnement »
 
-Une *subscription* est le mécanisme par lequel on **active** un plan
-payant et on paie pour l'usage de ce plan selon une périodicité
-(mensuelle, annuelle, etc.).
-[qfield.cloud+1](https://qfield.cloud/tos.html?utm_source=chatgpt.com)\
-Même dans un contexte autohébergé, la notion peut exister : par exemple,
-vous hébergez QFieldCloud vous-même mais pouvez souscrire à un support
-professionnel ou à des fonctionnalités additionnelles liées au logiciel
-ou au service.
+Une *subscription* est le mécanisme par lequel on **active** un plan payant et on paie pour l'usage de ce plan selon une périodicité (mensuelle, annuelle, etc.).
+[https://qfield.cloud/tos.html?utm_source=chatgpt.com](https://qfield.cloud/tos.html?utm_source=chatgpt.com)\
+Même dans un contexte autohébergé, la notion peut exister : par exemple, vous hébergez QFieldCloud vous-même mais pouvez souscrire à un support professionnel ou à des fonctionnalités additionnelles liées au logiciel ou au service.
 
 **Intérêt de l'abonnement**
 
--   Il fixe l'engagement financier et périodique pour bénéficier du
-    plan.
+-   Il fixe l'engagement financier et périodique pour bénéficier du plan.
 -   Il permet de suivre la facturation, la durée, la résiliation.
--   Il donne accès aux mises à jour, au support, à certaines options
-    (exemple : stockage supplémentaire, utilisateurs actifs).
-    [QField+1](https://docs.qfield.org/get-started/storage-qfc/?utm_source=chatgpt.com)
--   Il facilite la gestion administrative (facturation, licences) pour
-    l'organisation.
+-   Il donne accès aux mises à jour, au support, à certaines options (exemple : stockage supplémentaire, utilisateurs actifs).
+    [(https://docs.qfield.org/get-started/storage-qfc/?utm_source=chatgpt.com)](https://docs.qfield.org/get-started/storage-qfc/?utm_source=chatgpt.com)
+-   Il facilite la gestion administrative (facturation, licences) pour l'organisation.
 
 ### 🧐 Particularités pour l'autohébergement
 
-Quand vous autohébergez QFieldCloud, voici quelques nuances importantes
-:
+Quand vous autohébergez QFieldCloud, voici quelques nuances importantes :
 
--   Vous contrôlez toute l'infrastructure (serveur, base de données,
-    stockage, réseau) : voir guide d'installation.
-    [Geotribu+1](https://geotribu.fr/articles/2024/2024-02-06_mise_en_place_serveur_qfieldcloud/?utm_source=chatgpt.com)
--   Bien que la version autohébergée soit libre (open-source) et sans
-    payer directement le service hébergé, certains modules liés aux
-    plans ou abonnements peuvent toujours apparaître (gestion des
-    utilisateurs, "active user", fonctionnalités payantes). Par exemple,
-    un article mentionne qu'il faut parfois manipuler la table
-    *subscription\_subscription* pour remettre le statut «active\_paid»
-    dans une instance self-hosted.
-    [Geotribu](https://geotribu.fr/articles/2024/2024-02-06_mise_en_place_serveur_qfieldcloud/?utm_source=chatgpt.com)
--   Si vous utilisez l'infrastructure officielle hébergée (cloud) alors
-    la tarification «plan» / «subscription» est clairement définie. Pour
-    l'autohébergement, vous devez internaliser : plan interne + coût de
+-   Vous contrôlez toute l'infrastructure (serveur, base de données, stockage, réseau) : voir guide d'installation.
+    [https://geotribu.fr/articles/2024/2024-02-06_mise_en_place_serveur_qfieldcloud/?utm_source=chatgpt.com](https://geotribu.fr/articles/2024/2024-02-06_mise_en_place_serveur_qfieldcloud/?utm_source=chatgpt.com)
+-   Bien que la version autohébergée soit libre (open-source) et sans payer directement le service hébergé, certains modules liés aux plans ou abonnements peuvent toujours apparaître (gestion des utilisateurs, "active user", fonctionnalités payantes). Par exemple, un article mentionne qu'il faut parfois manipuler la table *subscription\_subscription* pour remettre le statut «active\_paid» dans une instance self-hosted.
+    [(https://geotribu.fr/articles/2024/2024-02-06_mise_en_place_serveur_qfieldcloud/?utm_source=chatgpt.com)](https://geotribu.fr/articles/2024/2024-02-06_mise_en_place_serveur_qfieldcloud/?utm_source=chatgpt.com)
+-   Si vous utilisez l'infrastructure officielle hébergée (cloud) alors la tarification «plan» / «subscription» est clairement définie. Pour l'autohébergement, vous devez internaliser : plan interne + coût de
     maintien + licences éventuelles + support.
 
 ### ✅ En résumé
 
 -   **Plan** = quel niveau d'usage/fonctionnalités vous choisissez.
 -   **Subscription** = la façon de payer périodiquement pour ce plan.
--   Dans l'autohébergement, le plan est un choix de niveau (même s'il
-    n'est pas facturé par un fournisseur externe), l'abonnement peut
-    être interne (ex. support/licence) ou rendre compte d'un fournisseur
-    tiers (si vous achetez un service complémentaire).
--   Bien vérifier : utilisateurs actifs, stockage, édition hors‐ligne,
-    PostGIS, etc. (voir FAQ)
+-   Dans l'autohébergement, le plan est un choix de niveau (même s'il n'est pas facturé par un fournisseur externe), l'abonnement peut être interne (ex. support/licence) ou rendre compte d'un fournisseur tiers (si vous achetez un service complémentaire).
+-   Bien vérifier : utilisateurs actifs, stockage, édition hors‐ligne, PostGIS, etc. (voir FAQ)
 
 ###
 
 ### Gestion des quotas
 
-Des quotas peuvent être définis soit globalement (à travers les
-\"Subscription / Plans\" et \"Subscription / Subscription\") ou
-localement à un projet.
+Des quotas peuvent être définis soit globalement (à travers les \"Subscription / Plans\" et \"Subscription / Subscription\") ou localement à un projet.
 
 #### Les quotas globaux
 
-Un plan peut être assimilé à un forfait auquel il faut que les
-utilisateurs doivent souscrire
+Un plan peut être assimilé à un forfait auquel il faut que les utilisateurs doivent souscrire
 
 Par défaut, deux \"plans\" sont définis dans QFieldCloud :
 
--   Community : c'est le plan par défaut aui est attribué aux
-    utilisateur lors de leur création
+-   Community : c'est le plan par défaut aui est attribué aux utilisateurs lors de leur création
 -   Organization : c'est celui par défaut qui est attribué lors de la
     création d'une organisation
 
