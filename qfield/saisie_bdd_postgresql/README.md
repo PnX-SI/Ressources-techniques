@@ -62,6 +62,8 @@ Définir l'emplacement du projet sur l'ordinateur
 3. Tester la connexion et sauvegarder
 
 #### 2.1 Utilisation des PG_SERVICE
+Cette partie est optionnel mais permet de mieux protéger les connexions aux bases de données
+
 ##### Préparation du .pg_service.conf
 Sur le pc, localement, créer un fichier .pg_service.conf qui sera enregistré dans le home de l’utilisateur (ou %APPDATA%\postgresql\pg_service.conf pour windows – non testé!).
 
