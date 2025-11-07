@@ -4,7 +4,7 @@
 
 2.        Ouvrir la liste des projets QFields du serveur
 
-![](./qfield_doc_img/img/100000000000002F0000002B136603BD.png){width="0.4898in"
+![](../qfield_doc_img/img/100000000000002F0000002B136603BD.png){width="0.4898in"
 height="0.448in"}
 
 ![](./qfield_doc_img/img/1000000000000194000001B2F9223796.jpg "une-image-contenant-texte-capture-décran-nombre-logicielle-contenu-généré-par-lia-peut-être-incorrect."){width="3.3646in"
