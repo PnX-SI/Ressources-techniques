@@ -120,42 +120,25 @@ Des quotas peuvent être définis soit globalement (à travers les \"Subscriptio
 
 #### Les quotas globaux
 
-Un plan peut être assimilé à un forfait auquel il faut que les utilisateurs doivent souscrire
+Un plan peut être assimilé à un forfait auquel les utilisateurs doivent souscrire.
 
 Par défaut, deux \"plans\" sont définis dans QFieldCloud :
 
--   Community : c'est le plan par défaut aui est attribué aux utilisateurs lors de leur création
--   Organization : c'est celui par défaut qui est attribué lors de la
-    création d'une organisation
+-   Community : c'est le plan par défaut qui est attribué aux utilisateurs lors de leur création
+-   Organization : c'est celui par défaut qui est attribué lors de la création d'une organisation
 
-Au regard de la valeur du champ « Ordering », il semblerais que ce soit
-le forfait « community » qui s'applique même si l'utilisateur est
-associé à une organisation. Se pose la question de quand le forfait
-« Organisation » prend le dessus ?
+Au regard de la valeur du champ « Ordering », il semblerais que ce soit le forfait « community » qui s'applique même si l'utilisateur est associé à une organisation. 
+En effet, si un utilisateur est propriétaire d'un projet, alors il prend les réglages associé au forfait community auquel il est rattaché par défaut.
+Cependant, si un utilisateur fait partie d'une organisation et qu'il est déclaré « organization member admin » de celle-ci alors il peut créer un projet en mettant son organisation en tant que propriétaire du projet :
+dans ce cas c'est les réglages du forfait Organization qui sont utilisé.
+Dans un contexte PNx, il n'y aurait pas besoin de créer d'autre type de forfait. Ainsi, les resssources et l'espace disque serait partagé entre tous. Les quota de ressources attribué à chaque forfait seraient à ajuster en fonction des capacité du serveur hôte.
 
-Dans un contexte PNx, il n'y aurait pas besoin de créer d'autre type de
-forfait. Ainsi, les resssources et l'espace disque serait partagé entre
-tous. Les quota de ressources attribué à chaque forfait seraient à
-ajuster en fonction des capacité du serveur hôte.
-
-Il pourrait être envisagé qu'un (ou deux) administrateurs dans les PNx
-soient désignés pour gérer le serveur. Seul eux aurait des accès pour
-éditer les forfaits (à travers un groupe dédié) car au plus proche
-suivre le niveau d'usage du serveur.
+Il pourrait être envisagé qu'un (ou deux) administrateurs dans les PNx soient désignés pour gérer le serveur. Seul eux aurait des accès pour éditer les forfaits (à travers un groupe dédié) car au plus proche suivre le niveau d'usage du serveur.
 
 Fonctionnement à connaître :
 
--   Lors de la création d'un utilisateur, ce dernier est souscrit
-    automatiquement au forfait « community »
--   Lors de la création d'une organisation, cette dernière souscrit
-    automatiquement au forfait « Organization »
-
-Si un utilateur est propriétaire d'un projet, alors il prend les
-réglages associé au forfait community auquel il est rattaché par défaut.
-Cependant, si un utilisateur fait partie d'une organisation et qu'il est
-déclaré « organization member admin » de celle-ci alors il peut créer un
-projet en mettant son organisation en tant que propriétaire du projet :
-dans ce cas c'est les réglages du forfait Organization qui sont utilisé.
+-   Lors de la création d'un utilisateur, ce dernier est souscrit automatiquement au forfait « community »
+-   Lors de la création d'une organisation, cette dernière souscrit automatiquement au forfait « Organization »
 
 IMPORTANT : Afin de permettre la saisie direct dans des bases postgreSQL
 / Postgis il faut penser à cocher l'option « Is external db supported »
