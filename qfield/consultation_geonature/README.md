@@ -88,7 +88,7 @@ Création de trois planifications d'export
 |------------------------------------------------|---------- |
 | qfield export synthese point flore             | gpkg     |
 | qfield export synthese maille flore            | gpkg     |
-
+| qfield export taxon flore                      | csv     |
 
 ## Projet Qgis
 
