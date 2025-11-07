@@ -2,6 +2,8 @@
 
 Il est possible de saisir, depuis QField, des données directement dans une base de données relationnelle PostgreSQL.
 
+> Tests non aboutis, des problèmes persistaient notamment pour l'insertion de champs par défauts gérés par la BDD (clé primaire séquence d'entiers) [cf section 1. Préparer les tables PostgreSQL](#1-préparer-les-tables-postgresql). 
+
 ## Prérequis
 
 - Une base de données PostgreSQL avec PostGIS
