@@ -92,6 +92,32 @@ Pour cela, depuis les paramètres du téléphone, aller dans application et rech
 
 Aprsè ça, le dossier basemap se trouve sur la carte SD, dans le dossier Android/data/ch.opengis.qfield/files/QField/basemaps.
 
+# TEST TRACKING
+Doc Qfield :
+<https://docs.qfield.org/how-to/navigation-and-positioning/tracking/>
+
+Pour enregistrer une trace dans le projet Qfield, une couche ligne /
+polyligne doit être créée au préalable et déposer dans le projet.
+
+Le suivi peut se paramètrer de 2 façon :
+
+-   manuelle : depuis qfiled, clique long sur la couche, démarrer le
+    suivi et associer les paramètres souhaités. Un symbole
+    ![](./qfield_doc_img/img/100000010000003100000031036058AC.png){width="0.3402in"
+    height="0.3402in"} apparaît à côté de la couche. Pour arrêter le
+    suivi, il faut alors appuyer sur ce petit bonhomme et arrêter le
+    suivi. Il est aussi possible de reprendre le suivi.
+-   Automatique : le paramètre se fait dans QGIS depuis la propriété de
+    la couche. Il faut ensuite renseigner les paramètres
+
+![](./qfield_doc_img/img/10000001000005FA0000012DA7487B4F.png){width="6.6929in"
+height="1.3165in"}
+
+Cette fonctionnalité peut servir à saisir des geom depuis un suivi de
+géolocliasation.
+
+Il est aussi possible de connecter sa localisation qfield à un RTK.
+
 Il est ainsi possible de partager le fond de cartes entre QField et OccTax.
 
 Si les fonds Occtax, ont été initialement stockés dans un dossier mapfiles qui est ensuite indiqué dans les fichiers de conf de GN, il est conseillé de conserver ce dossier mapfiles vide. Occtax sera en mesure d'aller chercher les fonds désormais situé dans le dossier basemaps de Qfiled.
