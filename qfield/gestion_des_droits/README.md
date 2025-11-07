@@ -127,7 +127,8 @@ Par défaut, deux \"plans\" sont définis dans QFieldCloud :
 -   Community : c'est le plan par défaut qui est attribué aux utilisateurs lors de leur création
 -   Organization : c'est celui par défaut qui est attribué lors de la création d'une organisation
 
-Au regard de la valeur du champ « Ordering », il semblerais que ce soit le forfait « community » qui s'applique même si l'utilisateur est associé à une organisation. 
+Au regard de la valeur du champ « Ordering », il semblerait que ce soit le forfait « community » qui s'applique même si l'utilisateur est associé à une organisation. 
+
 En effet, si un utilisateur est propriétaire d'un projet, alors il prend les réglages associé au forfait community auquel il est rattaché par défaut.
 Cependant, si un utilisateur fait partie d'une organisation et qu'il est déclaré « organization member admin » de celle-ci alors il peut créer un projet en mettant son organisation en tant que propriétaire du projet :
 dans ce cas c'est les réglages du forfait Organization qui sont utilisé.
