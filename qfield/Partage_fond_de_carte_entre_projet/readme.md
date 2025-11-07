@@ -1,4 +1,4 @@
-La partage de fond de cartes entre projet QField
+Le partage de fond de cartes entre projet QField
 ================================================
 
 Le principe est d'avoir un fond de carte unique sur le smartphone qui puisse être exploité par plusieurs projets QField.
