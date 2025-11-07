@@ -116,6 +116,8 @@ Active l'utilisation des transactions PostgreSQL pour garantir l'intégrité des
 - **Groupe de transaction automatique** : Chaque modification est immédiatement envoyée
 - **Mise en mémoire tampon** : Les modifications sont retenues jusqu'à l'enregistrement mais ne sont pas groupés dans une seule transaction (valeur par défaut)
 
+> [Lien documentation QGIS sur les sources de données](https://docs.qgis.org/3.40/fr/docs/user_manual/introduction/qgis_configuration.html#data-sources-properties)
+
 ## Synchronisation avec QField Cloud
 
 ### 1. Synchroniser le projet vers QFieldCloud
