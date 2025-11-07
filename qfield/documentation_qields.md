@@ -131,7 +131,7 @@ pour que les valeur « DEFAULT » soient délégués à PostgreSQL,
 selectionner « évalur les valeurs par défaut depuis le fournisseur de
 donnés »
 
-![](./myMediaFolder/Pictures/10000001000002860000009B9DC33082.png){width="6.6929in"
+![](./qfield_doc_img/img/10000001000002860000009B9DC33082.png){width="6.6929in"
 height="1.6055in"}
 
 QFIELD Cloud
@@ -198,7 +198,7 @@ lui directement) ainsi que les projets déclarés comme public. Dans ce
 second cas, depuis QFielf mobile, il apparaitra dans l'onglet
 « Communauté » mais il ne pourra pas faire de modification.
 
-![](./myMediaFolder/Pictures/100000010000041100000304685B92BE.png){width="6.6402in"
+![](./qfield_doc_img/img/100000010000041100000304685B92BE.png){width="6.6402in"
 height="5.028in"}
 
 Sources :
@@ -432,14 +432,14 @@ Connexion au serveur QField cloud depuis QGis
 
 Prérequis : installation de l'extension QFieldSync
 
-![](./myMediaFolder/Pictures/100000010000004900000043A56B8FBE.png){width="0.7602in"
-height="0.698in"}![](./myMediaFolder/Pictures/100000010000027F000002B7B757BCD0.png){width="2.4138in"
+![](./qfield_doc_img/img/100000010000004900000043A56B8FBE.png){width="0.7602in"
+height="0.698in"}![](./qfield_doc_img/img/100000010000027F000002B7B757BCD0.png){width="2.4138in"
 height="2.6366in"}
 
 L'accès à la zone de saisie pour renseigner l'URL se fait par un double
 clic sur le logo
 
-![](./myMediaFolder/Pictures/1000000100000276000002B41F673C3E.png){width="3.3327in"
+![](./qfield_doc_img/img/1000000100000276000002B41F673C3E.png){width="3.3327in"
 height="3.6665in"}
 
 Connexion avec une base postgis
@@ -452,12 +452,12 @@ L\'utilisateur admin créé lors de l\'installation est associé au \"Plan
 Community\". Il faut activer le paramètre \"is external db supported\"
 dans ce plan
 
-![](./myMediaFolder/Pictures/10000001000004000000023DD52A8581.png){width="6.6929in"
+![](./qfield_doc_img/img/10000001000004000000023DD52A8581.png){width="6.6929in"
 height="3.7453in"}
 
 Créer un projet qfield vierge dans QGIS
 
-![](./myMediaFolder/Pictures/100000010000027D000002BEBBCDE7A5.png){width="4.5839in"
+![](./qfield_doc_img/img/100000010000027D000002BEBBCDE7A5.png){width="4.5839in"
 height="5.0398in"}
 
 Après avoir cliqué sur \"Next\", renseigner le champ name (par le nom
@@ -465,7 +465,7 @@ que l\'on souhaite donner au projet)
 
 Définir l\'emplacement local du projet
 
-![](./myMediaFolder/Pictures/100000010000027D000002BE6D776A2A.png){width="4.0681in"
+![](./qfield_doc_img/img/100000010000027D000002BE6D776A2A.png){width="4.0681in"
 height="4.4819in"}
 
 Cette étape créé un dossier vide au niveau de l\'emplacement définit
@@ -477,7 +477,7 @@ souhaitées (dont la couche postgis)
 Dans les \"paramètres du projet QField\" attribuer \"Offline editing\"
 pour la couche postgis
 
-![](./myMediaFolder/Pictures/1000000100000400000002F0807A4492.png){width="6.6929in"
+![](./qfield_doc_img/img/1000000100000400000002F0807A4492.png){width="6.6929in"
 height="4.9146in"}
 
 Enregistrer le projet dans le dossier définit dans le local \"Local
@@ -485,7 +485,7 @@ Directory\"
 
 Publier le projet dans QField
 
-![](./myMediaFolder/Pictures/1000000100000400000002ADDB0D65BA.png){width="6.6929in"
+![](./qfield_doc_img/img/1000000100000400000002ADDB0D65BA.png){width="6.6929in"
 height="4.4772in"}
 
 Une fois le projet publiée, la couche du projet QGis n\'est pas
@@ -507,48 +507,48 @@ Créer et déposer un projet QField sur le serveur QFieldCloud
 
 2.        Ouvrir la liste des projets QFields du serveur
 
-![](./myMediaFolder/Pictures/100000000000002F0000002B136603BD.png){width="0.4898in"
+![](./qfield_doc_img/img/100000000000002F0000002B136603BD.png){width="0.4898in"
 height="0.448in"}
 
-![](./myMediaFolder/Pictures/1000000000000194000001B2F9223796.jpg "une-image-contenant-texte-capture-décran-nombre-logicielle-contenu-généré-par-lia-peut-être-incorrect."){width="3.3646in"
+![](./qfield_doc_img/img/1000000000000194000001B2F9223796.jpg "une-image-contenant-texte-capture-décran-nombre-logicielle-contenu-généré-par-lia-peut-être-incorrect."){width="3.3646in"
 height="3.6146in"}
 
 3.        Créer un nouveau projet
 
-![](./myMediaFolder/Pictures/10000000000000300000002E8706B1ED.png){width="0.5in"
+![](./qfield_doc_img/img/10000000000000300000002E8706B1ED.png){width="0.5in"
 height="0.4791in"}
 
-![](./myMediaFolder/Pictures/100000000000018E000001AC4E682D2B.jpg "une-image-contenant-texte-capture-décran-logiciel-policele-contenu-généré-par-lia-peut-être-incorrect."){width="3.3126in"
+![](./qfield_doc_img/img/100000000000018E000001AC4E682D2B.jpg "une-image-contenant-texte-capture-décran-logiciel-policele-contenu-généré-par-lia-peut-être-incorrect."){width="3.3126in"
 height="3.5626in"}
 
 4.        Donner un nom au projet sans préciser d'emplacement.
 
-![](./myMediaFolder/Pictures/1000000000000183000001A2BB5FE82B.jpg "une-image-contenant-texte-capture-décran-affichage-logicielle-contenu-généré-par-lia-peut-être-incorrect."){width="3.2291in"
+![](./qfield_doc_img/img/1000000000000183000001A2BB5FE82B.jpg "une-image-contenant-texte-capture-décran-affichage-logicielle-contenu-généré-par-lia-peut-être-incorrect."){width="3.2291in"
 height="3.4791in"}
 
 5.        QGis propose un emplacement par défaut dans le profil
 utilisateur
 
-![](./myMediaFolder/Pictures/10000001000001E30000020A97CFFBB3.png){width="3.3575in"
+![](./qfield_doc_img/img/10000001000001E30000020A97CFFBB3.png){width="3.3575in"
 height="3.6402in"}
 
 6.        Enregistrer le projet QGIS dans le dossier du projet QField
 qu'on vient de créer
 
-![](./myMediaFolder/Pictures/100000000000008C00000066ED9E143B.png "une-image-contenant-texte-capture-décran-police-diagrammele-contenu-généré-par-lia-peut-être-incorrect."){width="1.4583in"
+![](./qfield_doc_img/img/100000000000008C00000066ED9E143B.png "une-image-contenant-texte-capture-décran-police-diagrammele-contenu-généré-par-lia-peut-être-incorrect."){width="1.4583in"
 height="1.0626in"}
 
-![](./myMediaFolder/Pictures/10000000000001A7000001E1EE4160E0.jpg "une-image-contenant-texte-capture-décran-logiciel-affichagele-contenu-généré-par-lia-peut-être-incorrect."){width="3.5209in"
+![](./qfield_doc_img/img/10000000000001A7000001E1EE4160E0.jpg "une-image-contenant-texte-capture-décran-logiciel-affichagele-contenu-généré-par-lia-peut-être-incorrect."){width="3.5209in"
 height="4.0102in"}
 
 7.        Copier les données sources (gpkg files) dans le même dossier
 
-![](./myMediaFolder/Pictures/10000000000001A90000011EB4C8775A.jpg "une-image-contenant-texte-capture-décran-logiciel-icône-dordinateurle-contenu-généré-par-lia-peut-être-incorrect."){width="3.5417in"
+![](./qfield_doc_img/img/10000000000001A90000011EB4C8775A.jpg "une-image-contenant-texte-capture-décran-logiciel-icône-dordinateurle-contenu-généré-par-lia-peut-être-incorrect."){width="3.5417in"
 height="2.3854in"}
 
 8.        Ajouter les données sources au projet QGIS
 
-![](./myMediaFolder/Pictures/10000000000001A2000000EFEC0B94A4.jpg "une-image-contenant-texte-diagramme-carte-capture-décranle-contenu-généré-par-lia-peut-être-incorrect."){width="3.4791in"
+![](./qfield_doc_img/img/10000000000001A2000000EFEC0B94A4.jpg "une-image-contenant-texte-diagramme-carte-capture-décranle-contenu-généré-par-lia-peut-être-incorrect."){width="3.4791in"
 height="1.9898in"}
 
 9.        Ouvrir la liste des projets QFields du serveur
@@ -557,19 +557,19 @@ height="1.9898in"}
 
  
 
-![](./myMediaFolder/Pictures/100000000000002C00000030509A1DE4.png){width="0.4583in"
+![](./qfield_doc_img/img/100000000000002C00000030509A1DE4.png){width="0.4583in"
 height="0.5in"}
 
 10.   Sélectionner le projet QField qu'on vient de créer
 
-![](./myMediaFolder/Pictures/10000000000001C1000001E78ACC7B5F.jpg "une-image-contenant-texte-capture-décran-logiciel-nombrele-contenu-généré-par-lia-peut-être-incorrect."){width="3.7398in"
+![](./qfield_doc_img/img/10000000000001C1000001E78ACC7B5F.jpg "une-image-contenant-texte-capture-décran-logiciel-nombrele-contenu-généré-par-lia-peut-être-incorrect."){width="3.7398in"
 height="4.0626in"}
 
 11.   Lancer la synchronisation
 
 12.   Téléverser les fichiers ou modifications
 
-![](./myMediaFolder/Pictures/10000000000001C2000001C3DF7B7C88.jpg "une-image-contenant-texte-capture-décran-logiciel-icône-dordinateurle-contenu-généré-par-lia-peut-être-incorrect."){width="3.75in"
+![](./qfield_doc_img/img/10000000000001C2000001C3DF7B7C88.jpg "une-image-contenant-texte-capture-décran-logiciel-icône-dordinateurle-contenu-généré-par-lia-peut-être-incorrect."){width="3.75in"
 height="3.7602in"}
 
   Le projet est disponible sur le serveur
@@ -587,7 +587,7 @@ sur le pc.
 
 Exemple avec un fond de carte stocké localement sur le PC :
 
-![](./myMediaFolder/Pictures/100000010000053C00000308D1E18C65.png){width="6.6929in"
+![](./qfield_doc_img/img/100000010000053C00000308D1E18C65.png){width="6.6929in"
 height="3.8756in"}
 
 Il faut ensuite déposer une première fois le fichier du fond de carte
@@ -598,7 +598,7 @@ dans le stockage interne.
 Vu que le fond de carte ne doit pas être packagé, il faut commencer par
 créer un projet QField vierge
 
-![](./myMediaFolder/Pictures/100000010000028C000002BECE552C66.png){width="6.6929in"
+![](./qfield_doc_img/img/100000010000028C000002BECE552C66.png){width="6.6929in"
 height="7.2063in"}
 
 Ajouter ensuite le fond de carte puis les couches.
@@ -613,7 +613,7 @@ le projet QField
 
 Pour la publication du projet dans QFieldCloud :
 
-![](./myMediaFolder/Pictures/1000000100000400000002ADDB0D65BA.png){width="6.6929in"
+![](./qfield_doc_img/img/1000000100000400000002ADDB0D65BA.png){width="6.6929in"
 height="4.4772in"}
 
 Les formats supportés : jp2, tiff et mbtiles.
@@ -632,7 +632,7 @@ rechercher QField. Entrer dedans et appuyer sur « Stockage ». Sur cette
 interface, il est possible d'appuyer sur « Modifier » choisir « Carte
 SD ». Patientez jusqu'à la fin de la copie.
 
-![](./myMediaFolder/Pictures/1000000100000438000009600B3EFBBD.png){width="2.7693in"
+![](./qfield_doc_img/img/1000000100000438000009600B3EFBBD.png){width="2.7693in"
 height="5.9701in"}
 
 Aprsè ça, le dossier basemap se trouve sur la carte SD, dans le dossier
@@ -668,14 +668,14 @@ Le suivi peut se paramètrer de 2 façon :
 
 -   manuelle : depuis qfiled, clique long sur la couche, démarrer le
     suivi et associer les paramètres souhaités. Un symbole
-    ![](./myMediaFolder/Pictures/100000010000003100000031036058AC.png){width="0.3402in"
+    ![](./qfield_doc_img/img/100000010000003100000031036058AC.png){width="0.3402in"
     height="0.3402in"} apparaît à côté de la couche. Pour arrêter le
     suivi, il faut alors appuyer sur ce petit bonhomme et arrêter le
     suivi. Il est aussi possible de reprendre le suivi.
 -   Automatique : le paramètre se fait dans QGIS depuis la propriété de
     la couche. Il faut ensuite renseigner les paramètres
 
-![](./myMediaFolder/Pictures/10000001000005FA0000012DA7487B4F.png){width="6.6929in"
+![](./qfield_doc_img/img/10000001000005FA0000012DA7487B4F.png){width="6.6929in"
 height="1.3165in"}
 
 Cette fonctionnalité peut servir à saisir des geom depuis un suivi de
@@ -737,7 +737,7 @@ Ouvrir les propriétés de la couche « select\_typo » aller dans l'onglet
     -   colonne clé = cd\_typo
     -   colonne de valeur = lb\_nom\_typo
 
-![](./myMediaFolder/Pictures/10000001000006B400000325BDAD8617.png){width="6.6929in"
+![](./qfield_doc_img/img/10000001000006B400000325BDAD8617.png){width="6.6929in"
 height="3.1398in"}
 
 Validez la configuration du formulaire en cliquant sur « OK »
@@ -769,12 +769,12 @@ propriétés de la couche « t\_habitat »
                 « selection\_typo\_87687197\_99bd\_4303\_b5c6\_5237003805a6 »
                 est différent d'un projet à l'autre. Pour récupérer le
                 bon nom, cliquer sur l'éditeur de
-                formule![](./myMediaFolder/Pictures/100000010000002400000028F74BC86B.png){width="0.2618in"
+                formule![](./qfield_doc_img/img/100000010000002400000028F74BC86B.png){width="0.2618in"
                 height="0.1953in"}, effacer cette valeur de la formule,
                 dérouler « couche » et double cliquer sur
                 « select\_typo »
 
-![](./myMediaFolder/Pictures/10000001000006B40000032596776291.png){width="6.6929in"
+![](./qfield_doc_img/img/10000001000006B40000032596776291.png){width="6.6929in"
 height="3.1398in"}
 
 ### Initialisation des données
