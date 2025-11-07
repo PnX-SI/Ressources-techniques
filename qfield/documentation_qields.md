@@ -164,13 +164,3 @@ Cette fonctionnalité peut servir à saisir des geom depuis un suivi de
 géolocliasation.
 
 Il est aussi possible de connecter sa localisation qfield à un RTK.
-
-TEST mise à jour automatique
-----------------------------
-
-Depuis Qfield, et pour cahque projet, il est possible de paramétrer
-l'envoi automatique des modifications toutes les 30 minutes.
-
-Test réalisé : création de 2 couches en dur déposé dans le projet. Modif
-des 2 couches avec 2 utilisateurs différents =\> pas convainquant. A ne
-pas privilégier
