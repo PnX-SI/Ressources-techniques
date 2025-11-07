@@ -15,51 +15,6 @@ dans ce plan
 
 ![is_external_db_supported](../qfield_doc_img/img/10000001000004000000023DD52A8581.png)
 
-
-
-Connexion avec une base postgis
-===============================
-
-<https://github.com/opengisch/QField/discussions/2508>
-
-\
-
-
-Créer un projet qfield vierge dans QGIS
-
-
-Après avoir cliqué sur \"Next\", renseigner le champ name (par le nom
-que l\'on souhaite donner au projet)
-
-Définir l\'emplacement local du projet
-
-Cette étape créé un dossier vide au niveau de l\'emplacement définit
-dans \"Local Directory\"
-
-Ensuite, depuis QGIS, créer son projet en ajoutant les couches
-souhaitées (dont la couche postgis)
-
-
-
-Enregistrer le projet dans le dossier définit dans le local \"Local
-Directory\"
-
-Publier le projet dans QField
-
-![](../qfield_doc_img/img/1000000100000400000002ADDB0D65BA.png){width="6.6929in"
-height="4.4772in"}
-
-Une fois le projet publiée, la couche du projet QGis n\'est pas
-transformée en gpkg, elle reste un lien vers la base de données.
-
-Lors de la récupération du projet sur le terminal mobile si une erreur
-apparait Permission denied, plan is insufficient c\'est que votre
-utilisateur n\'a pas les permissions d\'accéder à une base externe. Ce
-paramètre est géré par le plan auquel souscrit l\'utilisateur. Il faut
-le changer de plan ou ajouter la permission is\_external\_db\_supported
-au Plan (<https://github.com/opengisch/qfieldcloud/issues/870>)
-
-
 ## Configuration de la base de données
 
 ### 1. Préparer les tables PostgreSQL
@@ -186,6 +141,17 @@ Active l'utilisation des transactions PostgreSQL pour garantir l'intégrité des
 ### 1. Synchroniser le projet vers QFieldCloud
 
 Dans **QFieldSync**, cliquer sur **Synchronize Current Cloud Project**
+
+Une fois le projet publiée, la couche du projet QGis n\'est pas
+transformée en gpkg, elle reste un lien vers la base de données.
+
+Lors de la récupération du projet sur le terminal mobile si une erreur
+apparait Permission denied, plan is insufficient c\'est que votre
+utilisateur n\'a pas les permissions d\'accéder à une base externe. Ce
+paramètre est géré par le plan auquel souscrit l\'utilisateur. Il faut
+le changer de plan ou ajouter la permission is\_external\_db\_supported
+au Plan (<https://github.com/opengisch/qfieldcloud/issues/870>)
+
 
 ### 2. Configuration de la connexion PostgreSQL sur le serveur
 
