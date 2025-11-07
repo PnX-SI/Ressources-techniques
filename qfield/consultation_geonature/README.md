@@ -139,7 +139,9 @@ Uploader des fichiers sur le cloud :
 qfieldcloud-cli -u <user> -p <pwd>! -U <qfcloud_api_url> upload-files --force <project_id> <path_to_files> --filter "<filter>"
 ```
 project_id : il peut être récupéré soit depuis l'interface soit avec le commande `list_projects`.
+
 path_to_files : le dossier où sont stockées les fichiers à uploader.
+
 filter : filtre sur les noms de fichiers. Tout `*.*`, que les géopackages `*.gpkg`.... 
 
 Lister les fichier d'un projet :
