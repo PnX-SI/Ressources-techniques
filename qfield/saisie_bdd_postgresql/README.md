@@ -61,6 +61,40 @@ Définir l'emplacement du projet sur l'ordinateur
 2. Créer une nouvelle connexion vers votre base de données
 3. Tester la connexion et sauvegarder
 
+#### 2.1 Utilisation des PG_SERVICE
+##### Préparation du .pg_service.conf
+Sur le pc, localement, créer un fichier .pg_service.conf qui sera enregistré dans le home de l’utilisateur (ou %APPDATA%\postgresql\pg_service.conf pour windows – non testé!).
+
+Écrire les informations suivantes dans le fichier .pg_services :
+[nom_service]
+host=
+port=
+dbname=
+user=
+password=
+
+En renseignant les bonnes valeurs pour chaque variable et en remplaçant « nom_service » par le nom que l’on veut donner à notre service.
+
+(il est possible de déclarer plusieurs service dans le même fichiers – pas testé
+
+Dans Qgis, aller dans le menu « couche » puis « Gestionnaire de source de données ».
+Aller dans l’onglet « PostgreSQL » puis sur « Nouveau ». 
+Ne renseigner que le champ « Service » par le nom attribué au service et cliquer sur « Tester la connexion » pour s’assurer qu’il n’y a pas de problème de connexion.
+
+##### Préparation du projet Qgis pour Qfield
+Construire le projet qgis de la même façon que pour l’utilisation de couche postgreSQL dans un projet Qfield (Création d’un projet Qfield vierge → ajout des couches → Sauvegarde du projet dans le dossier du projet Qfield → Synchronisation)
+           
+##### Configuration côté QfieldCloud
+Dans QfieldCloud, Aller dans le menu « Project » puis cliquer sur le projet que vous venez de créer.
+Cliquer sur l’onglet « Secrets » puis sur « add Secrets ».
+Donner un nom au Secret (stratégie de nommage à définir).
+Choisir « pg_service » dans le « Type »
+Saisir l’ensemble des services utilisés par le projet (selon la même syntaxe que que le fichier .pg_services créé localement sur son pc).
+Cliquer sur « save » pour l’enregistrer
+
+##### Synchronisation sur Qfield mobile
+Synchronisez votre projet sur smartphone de façon habituel
+
 ### 3. Charger les couches
 
 1. Ajouter la ou les tables PostgreSQL comme couches dans QGIS
