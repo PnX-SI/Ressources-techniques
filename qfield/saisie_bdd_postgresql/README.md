@@ -10,6 +10,55 @@ Il est possible de saisir, depuis QField, des données directement dans une base
 - QGIS Desktop avec accès à la base de données
 - Un compte QField Cloud
 - L'extension QGIS "QFieldSync"
+- Sur QFieldCloud avec l'utilisateur admin créé lors de l'installation est associé au \"Plan Community\". Il faut activer le paramètre \"is external db supported\"
+dans ce plan
+
+![is_external_db_supported](../qfield_doc_img/img/10000001000004000000023DD52A8581.png)
+
+
+
+Connexion avec une base postgis
+===============================
+
+<https://github.com/opengisch/QField/discussions/2508>
+
+\
+
+
+Créer un projet qfield vierge dans QGIS
+
+
+Après avoir cliqué sur \"Next\", renseigner le champ name (par le nom
+que l\'on souhaite donner au projet)
+
+Définir l\'emplacement local du projet
+
+Cette étape créé un dossier vide au niveau de l\'emplacement définit
+dans \"Local Directory\"
+
+Ensuite, depuis QGIS, créer son projet en ajoutant les couches
+souhaitées (dont la couche postgis)
+
+
+
+Enregistrer le projet dans le dossier définit dans le local \"Local
+Directory\"
+
+Publier le projet dans QField
+
+![](../qfield_doc_img/img/1000000100000400000002ADDB0D65BA.png){width="6.6929in"
+height="4.4772in"}
+
+Une fois le projet publiée, la couche du projet QGis n\'est pas
+transformée en gpkg, elle reste un lien vers la base de données.
+
+Lors de la récupération du projet sur le terminal mobile si une erreur
+apparait Permission denied, plan is insufficient c\'est que votre
+utilisateur n\'a pas les permissions d\'accéder à une base externe. Ce
+paramètre est géré par le plan auquel souscrit l\'utilisateur. Il faut
+le changer de plan ou ajouter la permission is\_external\_db\_supported
+au Plan (<https://github.com/opengisch/qfieldcloud/issues/870>)
+
 
 ## Configuration de la base de données
 
@@ -36,9 +85,18 @@ L'utilisateur PostgreSQL doit avoir les droits nécessaires.
 
 ## Configuration du projet QFieldCloud dans QGIS
 
+[Issue QFieldCloud liée à la configuration de la BDD Postgis](https://github.com/opengisch/QField/discussions/2508)
+
 ### 1. Création du projet
 
 Créer un nouveau projet QFieldCloud vide depuis l'interface QFieldSync
+
+![](../qfield_doc_img/img/100000010000027D000002BEBBCDE7A5.png)
+
+Définir l'emplacement du projet sur l'ordinateur
+
+![](../qfield_doc_img/img/100000010000027D000002BE6D776A2A.png)
+
 
 > Attention pour l'utilisation directement avec une base de données, il est important de créer un nouveau projet vide et ensuite d'ajouter les couches dans ce projet. Cela est dû au fait que lorsqu'on utilise un projet existant, lors de la synchronisation, QFieldSync créé un fichier .gpkg avec toutes les couches, tandis que lors de la création d'un projet vide, QFieldSync transmets les informations de chaque couche indépedemment.
 
@@ -52,6 +110,11 @@ Créer un nouveau projet QFieldCloud vide depuis l'interface QFieldSync
 
 1. Ajouter la ou les tables PostgreSQL comme couches dans QGIS
 2. Vérifier que les couches sont éditables (propriétés de la couche)
+3. Dans les \"paramètres du projet QField\" attribuer \"Offline editing\"
+pour la couche postgis
+
+![](../qfield_doc_img/img/1000000100000400000002F0807A4492.png){width="6.6929in"
+height="4.9146in"}
 
 ### 4. Configuration des formulaires
 
