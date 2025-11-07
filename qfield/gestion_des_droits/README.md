@@ -140,6 +140,5 @@ Fonctionnement à connaître :
 -   Lors de la création d'un utilisateur, ce dernier est souscrit automatiquement au forfait « community »
 -   Lors de la création d'une organisation, cette dernière souscrit automatiquement au forfait « Organization »
 
-IMPORTANT : Afin de permettre la saisie direct dans des bases postgreSQL
-/ Postgis il faut penser à cocher l'option « Is external db supported »
-dans le Plan « Community »
+IMPORTANT : Si vous souhaitez qu'un utlisateur puisse créer un projet dont il sera le propriétaire avec des accès en consultation ou saisie direct dans des bases postgreSQL
+/ Postgis il faut penser à cocher l'option « Is external db supported » dans le Plan « Community »
