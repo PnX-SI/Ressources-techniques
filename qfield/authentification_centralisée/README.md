@@ -7,23 +7,23 @@ L'objectif de la mise en place d'un QFieldCLoud mutualisé necessite que tous le
 
 Pour ajouter un mécanisme d'authentification centralisé, il faut éditer le fichier la variable `SOCIALACCOUNT_PROVIDERS` du fichier .env et y renseigner les paramètre de son outil d'authentification centralisé.
 
-SOCIALACCOUNT_PROVIDERS = '{
-  "openid_connect": {
-    "OAUTH_PKCE_ENABLED": true,
-    "APP": {
-      "provider_id": "keycloak",
-      "name": "Keycloak",
-      "client_id": "<client-id>",
-      "settings": {
-        "server_url": "https://keycloak.local/realms/myrealm/.well-known/openid-configuration"
-      }
+    SOCIALACCOUNT_PROVIDERS = '{
+    "openid_connect": {
+        "OAUTH_PKCE_ENABLED": true,
+        "APP": {
+        "provider_id": "keycloak",
+        "name": "Keycloak",
+        "client_id": "<client-id>",
+        "settings": {
+            "server_url": "https://keycloak.local/realms/myrealm/.well-known/openid-configuration"
+        }
+        }
     }
-  }
-}'
+    }'
 
 
 Le fichier présent dans ce dossier :  `./customo_adapters.py", contient une classe permettant de surcoucher le mécanisme d'authentification par défaut en associant automatiquement un utilisateur à son organisme en se basant sur son adresse mail.
 
 Il faut ensuite indiquer à QFieldCloud d'utiliser cette classe : 
 
-SOCIALACCOUNT_ADAPTER = "<path_vers_mon_module_custo>.MyCustomSocialAdapter"
+    SOCIALACCOUNT_ADAPTER = "<path_vers_mon_module_custo>.MyCustomSocialAdapter"
