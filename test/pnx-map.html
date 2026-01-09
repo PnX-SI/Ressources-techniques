@@ -8,25 +8,30 @@
   rel="stylesheet"
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
-
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <style>
-html, body {
-    margin: 0;
-    height: 100%;
-}
-#map {
-    width: 100%;
-    height: 100%;
-}
+html, body { margin:0; height:100%; }
+#map { width:100%; height:100%; }
+
 .popup-content {
     max-height: 250px;
     overflow-y: auto;
     font-size: 13px;
 }
-.popup-content b {
-    color: #2c3e50;
+
+.legend {
+    background: white;
+    padding: 10px;
+    border-radius: 6px;
+    line-height: 18px;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.8;
 }
 </style>
 </head>
@@ -35,56 +40,74 @@ html, body {
 <div id="map"></div>
 
 <script>
-const map = L.map('map').setView([46.5, 2.5], 3);
+// ---------------------
+// Carte
+// ---------------------
+const map = L.map('map').setView([46.5, 2.5], 6);
 
-// Fond OpenStreetMap
 L.tileLayer('https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&FORMAT=image/png&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}', {
-    attribution: '&copy; IGN'
+    attribution: '&copy; IGN - Plan V2'
 }).addTo(map);
 
+// ---------------------
 // URLs GeoJSON
+// ---------------------
 const urlReserves = "https://static.data.gouv.fr/resources/contours-des-11-parcs-nationaux-de-france/20240208-145408/pnx-reserves-integrales.geojson";
 const urlCoeurAA = "https://static.data.gouv.fr/resources/contours-des-11-parcs-nationaux-de-france/20250203-104630/pnx-coeur-aa-ama.geojson";
 
-// Génère le contenu HTML de la popup à partir des attributs
-function buildPopup(properties) {
+// ---------------------
+// Popup
+// ---------------------
+function buildPopup(props) {
     let html = "<div class='popup-content'>";
-    for (let key in properties) {
-        html += `<b>${key}</b> : ${properties[key]}<br>`;
+    for (let k in props) {
+        html += `<b>${k}</b> : ${props[k]}<br>`;
     }
     html += "</div>";
     return html;
 }
 
-// Action au clic sur un objet
 function onEachFeature(feature, layer) {
-    if (feature.properties) {
-        layer.on('click', function () {
-            // Zoom sur l'objet
-            map.fitBounds(layer.getBounds(), { padding: [20, 20] });
-
-            // Popup avec attributs
-            layer.bindPopup(buildPopup(feature.properties)).openPopup();
-        });
-    }
+    layer.on("click", function() {
+        map.fitBounds(layer.getBounds(), { padding: [20,20] });
+        layer.bindPopup(buildPopup(feature.properties)).openPopup();
+    });
 }
 
+// ---------------------
+// Couleurs par type de zone
+// ---------------------
+function getColor(code) {
+    return code === "CTPN"  ? "#0b5d1e" :   // cœur
+           code === "AAPN"  ? "#1f8f3a" :   // aire d’adhésion
+           code === "CMPN"  ? "#006d5b" :   // cœur marin
+           code === "AMAPN" ? "#2bbbad" :   // aire maritime
+                             "#9ccc65";
+}
+
+// ---------------------
 // Styles
+// ---------------------
 const styleReserves = {
-    color: "#e74c3c",
+    color: "#c0392b",
     weight: 2,
     fillOpacity: 0.4
 };
 
-const styleCoeurAA = {
-    color: "#27ae60",
-    weight: 2,
-    fillOpacity: 0.25
-};
+function styleCoeurAA(feature) {
+    return {
+        color: "#145a32",
+        weight: 1.5,
+        fillOpacity: 0.6,
+        fillColor: getColor(feature.properties.code_r_enp)
+    };
+}
 
-// Chargement Réserves intégrales
+// ---------------------
+// Chargement Réserves
+// ---------------------
 fetch(urlReserves)
-.then(res => res.json())
+.then(r => r.json())
 .then(data => {
     L.geoJSON(data, {
         style: styleReserves,
@@ -92,9 +115,11 @@ fetch(urlReserves)
     }).addTo(map);
 });
 
-// Chargement Aires d’adhésion + Cœurs
+// ---------------------
+// Chargement Cœurs + AA
+// ---------------------
 fetch(urlCoeurAA)
-.then(res => res.json())
+.then(r => r.json())
 .then(data => {
     L.geoJSON(data, {
         style: styleCoeurAA,
@@ -102,18 +127,31 @@ fetch(urlCoeurAA)
     }).addTo(map);
 });
 
+// ---------------------
 // Légende
-const legend = L.control({position: 'bottomright'});
+// ---------------------
+const legend = L.control({ position: "bottomright" });
+
 legend.onAdd = function () {
-    const div = L.DomUtil.create('div', 'info legend');
-    div.style.background = "white";
-    div.style.padding = "10px";
-    div.style.borderRadius = "5px";
-    div.innerHTML = `
-        <b>Parcs nationaux</b><br>
-        <span style="color:#e74c3c;">■</span> Réserves intégrales<br>
-        <span style="color:#27ae60;">■</span> Cœurs & Aires d'adhésion
-    `;
+    const div = L.DomUtil.create("div", "legend");
+
+    div.innerHTML = "<b>Types de zones</b><br>";
+
+    div.innerHTML += '<i style="background:#c0392b"></i> Réserves intégrales<br>';
+
+    const types = [
+        ["CTPN", "Cœur de parc national"],
+        ["AAPN", "Aire d’adhésion"],
+        ["CMPN", "Cœur marin"],
+        ["AMAPN", "Aire maritime adjacente"]
+    ];
+
+    types.forEach(t => {
+        div.innerHTML +=
+            '<i style="background:' + getColor(t[0]) + '"></i> ' +
+            t[1] + '<br>';
+    });
+
     return div;
 };
 legend.addTo(map);
@@ -121,4 +159,3 @@ legend.addTo(map);
 </script>
 </body>
 </html>
-
