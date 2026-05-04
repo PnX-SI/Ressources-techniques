@@ -38,12 +38,45 @@ Création d'un super utilisateur pour l'accès à qfield-cloud
 ```
 docker compose run app python manage.py createsuperuser --username super_user --email super@user.com
 ```
+# Différences certificat standalone et webroot
 
-# Configuration du certificat
+## Standalone
+
+- Certbot lance son propre serveur HTTP temporaire
+- Écoute directement sur le port 80
+- Ne dépend d’aucun serveur web existant
+
+✔ Avantages
+- Simple à comprendre
+- Pas besoin de config Nginx
+
+❌ Inconvénients
+- Nécessite que le port 80 soit libre
+- Incompatible avec Nginx déjà actif
+- Peu adapté à Docker
+- Peut casser un service en production
+
+## Webroot 
+
+- Certbot utilise ton serveur web existant (Nginx)
+- Dépose un fichier dans un dossier spécifique (webroot)
+- Nginx sert ce fichier à Let’s Encrypt
+
+✔ Avantages
+- Aucun conflit de port
+- Fonctionne avec Docker
+- Compatible production
+- Renouvellement automatique sans interruption
+
+❌ Inconvénients
+- Nécessite config Nginx correcte
+- Nécessite un volume partagé si Docker
+  
+# Configuration du certificat en standalone
 
 Cette configuration est obligatoire pour l'utilisation de l'admin et de l'API en https.
 
-Se placer dans l'arborescence de QFieldCloud puis commenter dans doker-compose.yml la section `mkcert` puis
+Se placer dans l'arborescence de QFieldCloud puis commenter dans `doker-compose.yml` la section `mkcert` puis
 
 ```
 # Arrêt des containers
@@ -68,27 +101,100 @@ sudo cp /etc/letsencrypt/live/${QFIELDCLOUD_HOST}/fullchain.pem ./conf/nginx/cer
 
 Restart des conteneurs avec `docker compose up –d`
 
-Le certificat expirant tous les 3 mois, il doit être renouvelé. Cerbot a installé un cron qui assure le renouvellement /etc/cron.d/certbot :
+Attention : Ce certificat expire tous les 3 mois, il doit être renouvelé. 
+
+# Configuration du certificat en webroot
+
+Cette configuration permet d'automatiser le renouvellement du certificat sans intéruption de service qui sera réalisée via le cron installé par certbot sous /etc/cron.d/certbot :
 
 ```
+# Test de validité du certificat 2 fois par jour (*/12)
 0 */12 * * * root test -x /usr/bin/certbot -a \! -d /run/systemd/system && perl -e 'sleep int(rand(43200))' && certbot -q renew --no-random-sleep-on-renew
 ```
 
-2 fois par jour, certbot vérifie la validité du certificat
+Se placer dans le dossier home de QFieldCloud.
 
-Côté QFieldCloud, il faut donc configurer un cron qui assure la copie du certificat déposé sous `/etc/letsencrypt` ver `/<path_qfieldcloud>/conf/nginx/certs`.
-
-Edition de la crontab en sudo pour éviter les problèmes de droits `sudo crontab -e`
-
-Ajouter ces 2 lignes : Tous les jours à 2:30, copie du certificat
+## Préparation du dossier ACME*
 
 ```
-30 2 * * * source /<path_qfieldcloud>/.env && cp /etc/letsencrypt/live/${QFIELDCLOUD_HOST}/privkey.pem /<path_qfieldcloud>/<path_nginx_certs>/${QFIELDCLOUD_HOST}-key.pem
-30 2 * * * source /<path_qfieldcloud>/.env && sudo cp /etc/letsencrypt/live/${QFIELDCLOUD_HOST}/fullchain.pem /<path_qfieldcloud>/<path_nginx_certs>/${QFIELDCLOUD_HOST}.pem
+sudo mkdir -p /srv/certbot/.well-known/acme-challenge
+sudo chown -R $USER:$USER /srv/certbot
 ```
 
-Remplacer `<path_qfieldcloud>` par le répertoire home de QfieldCloud (ex : /home/qfcadmin/qfieldcloud) et `<path_nginx_certs>` par le dossier certs de Nginx (ex : /home/qfcadmin/qfieldcloud/conf/nginx/certs).
+\* Automatic Certificate Management Environment
 
-Pour la création d'utilisateur ou autres configuration avancé voir :
+## Modification du `docker-compose.yml` :
 
-https://github.com/opengisch/qfieldcloud/blob/master/README.md
+```
+nginx:
+ ...
+ volumes:
+  …
+  - /srv/certbot:/var/www/certbot
+  - ./docker-nginx/conf.d:/etc/nginx/conf.d
+```
+`/srv/certbot:/var/www/certbot` associe `/srv/certbot`de l'hôte à `/var/www/certbot` du container nginx, utilisé lors du test de validité du certificat.
+`./docker-nginx/conf.d:/etc/nginx/conf.d` associe `./docker-nginx/conf.d` de l'hôte à `/etc/nginx/conf.d` du container nginx, pratique pour avoir un accès direct à la configuration du serveur web.
+
+## Relance de `docker compose`
+ 
+Réaliser cette étape pour prise en compte du docker-compose.yml et la création des volumes :
+
+```
+docker compose down
+docker compose up -d --force-recreate
+```
+
+## Création d'un certificat en webroot
+
+```
+# Lister les certificats
+sudo certbot certificates
+# La suppression n'est pas nécessaire
+sudo certbot delete
+# Génération d'un 1er certificat de type webroot manuellement
+sudo certbot certonly --webroot -w /srv/certbot -d qfieldcloud.vanoise-parcnational.fr
+```
+
+## Modification de ./docker-nginx/conf.d/default.conf
+
+Le bloc ci-dessous permet à Nginx de servir les fichiers de validation Let’s Encrypt. Il est adapté pour éviter des erreurs 404
+
+```
+location ^~ /.well-known/acme-challenge/ {
+    alias /var/www/certbot/.well-known/acme-challenge/;
+    default_type "text/plain";
+}
+```
+
+## Vérification de la bonne répercution de la modification côté container :
+On teste si la modification du fichier ./docker-nginx/conf.d/default.conf modifie bien le fichier /etc/nginx/conf.d/default.conf du container :
+
+```
+docker exec -it <id_nginx_container> cat /etc/nginx/conf.d/default.conf
+```
+
+On vérifie la configuration appliquée à Nginx :
+
+```
+docker exec -it <nginx_container> nginx -T | grep acme
+```
+
+## Teste du renouvellement du certificat :
+sudo certbot renew --dry-run
+
+
+## Vérification ACME 
+
+```
+echo OK > /srv/certbot/.well-known/acme-challenge/test.txt
+curl http://qfieldcloud.vanoise-parcnational.fr/.well-known/acme-challenge/test.txt
+rm /srv/certbot/.well-known/acme-challenge/test.txt
+```
+
+> [!IMPORTANT]
+> - les modifications Docker Compose ne sont prises en compte qu'après recréation du container
+> - restart ne suffit pas si les volumes changent
+
+
+Pour la création d'utilisateur ou autres configuration avancé voir : https://github.com/opengisch/qfieldcloud/blob/master/README.md
