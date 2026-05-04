@@ -47,14 +47,17 @@ Se placer dans l'arborescence de QFieldCloud puis commenter dans doker-compose.y
 
 ```
 # Arrêt des containers
+cd <path_qfieldcloud>
 docker compose down --remove-orphans
 # Installation de certbot
-apt install certbot
+sudo apt install certbot
 # Chargement des variable d'environnement de QFieldCloud
 source .env
 # Génération du certificat
 certbot certonly --standalone -d ${QFIELDCLOUD_HOST}
 ```
+
+Remplacer `<path_qfieldcloud>` par le répertoire home de QfieldCloud (ex : /home/qfcadmin/qfieldcloud).
 
 Certbot est un utilitaire qui génère un certificat via letsencrypt et configure dans le même temps le serveur web local. Le certificat est ensuite à copier dans l'arborescence de QFieldCloud afin d'être déployé ensuite sur le serveur web conteneurisé.
 
@@ -80,9 +83,11 @@ Edition de la crontab en sudo pour éviter les problèmes de droits `sudo cronta
 Ajouter ces 2 lignes : Tous les jours à 2:30, copie du certificat
 
 ```
-30 2 * * * source /<path_qfieldcloud>/.env && cp /etc/letsencrypt/live/${QFIELDCLOUD_HOST}/privkey.pem ./conf/nginx/certs/${QFIELDCLOUD_HOST}-key.pem
-30 2 * * * source /<path_qfieldcloud>/.env && sudo cp /etc/letsencrypt/live/${QFIELDCLOUD_HOST}/fullchain.pem ./conf/nginx/certs/${QFIELDCLOUD_HOST}.pem
+30 2 * * * source /<path_qfieldcloud>/.env && cp /etc/letsencrypt/live/${QFIELDCLOUD_HOST}/privkey.pem /<path_qfieldcloud>/<path_nginx_certs>/${QFIELDCLOUD_HOST}-key.pem
+30 2 * * * source /<path_qfieldcloud>/.env && sudo cp /etc/letsencrypt/live/${QFIELDCLOUD_HOST}/fullchain.pem /<path_qfieldcloud>/<path_nginx_certs>/${QFIELDCLOUD_HOST}.pem
 ```
+
+Remplacer `<path_qfieldcloud>` par le répertoire home de QfieldCloud (ex : /home/qfcadmin/qfieldcloud) et `<path_nginx_certs>` par le dossier certs de Nginx (ex : /home/qfcadmin/qfieldcloud/conf/nginx/certs).
 
 Pour la création d'utilisateur ou autres configuration avancé voir :
 
