@@ -100,7 +100,7 @@ Cliquer sur l’onglet « Secrets » puis sur « add Secrets ».
 Donner un nom au Secret (stratégie de nommage à définir).
 Choisir « pg_service » dans le « Type »
 Saisir l’ensemble des services utilisés par le projet (selon la même syntaxe que que le fichier .pg_services créé localement sur son pc).
-Le secret doit être associé à l'utilisateur qui est utilisé pour uploader le projet qfield sur qfieldcloud.
+Le secret doit être associé à l'utilisateur qui est utilisé pour uploader le projet qfield sur qfieldcloud ET aux utilisateurs qui download le projet et local (il est possible d'associer un secret à toute une organisation)
 Cliquer sur « save » pour l’enregistrer
 
 ##### Synchronisation sur Qfield mobile
