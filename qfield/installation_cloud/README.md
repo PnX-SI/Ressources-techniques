@@ -61,7 +61,7 @@ docker compose run app python manage.py createsuperuser --username super_user --
 
 ## Webroot
 
-- Certbot utilise ton serveur web existant (Nginx)
+- Certbot utilise le serveur web existant (Nginx)
 - Dépose un fichier dans un dossier spécifique (webroot)
 - Nginx sert ce fichier à Let’s Encrypt
 
@@ -156,8 +156,6 @@ Rebuilder l'image nginx et redémarer son container
         docker compose build nginx
         docker compose up -d nginx
 
-Pour la création d'utilisateur ou autres configuration avancé voir :
-
 ## Modification du `docker-compose.yml` :
 
 ```
@@ -207,14 +205,25 @@ location ^~ /.well-known/acme-challenge/ {
 
 On teste si la modification du fichier ./docker-nginx/conf.d/default.conf modifie bien le fichier /etc/nginx/conf.d/default.conf du container :
 
-```
-docker exec -it <id_nginx_container> cat /etc/nginx/conf.d/default.conf
-```
-
-On vérifie la configuration appliquée à Nginx :
+Récupérer le `CONTAINER ID` ou le `NAME` du container d'nginx avec une de ces 2 commandes :
 
 ```
-docker exec -it <nginx_container> nginx -T | grep acme
+docker compose ps | grep nginx
+docker ps --filter "name=nginx"
+```
+
+On vérifie si la configuration est bien appliquée l'hôte :
+
+```
+docker exec -it <id_or_name_nginx_container> cat /etc/nginx/conf.d/default.conf
+docker exec -it <id_or_name_nginx_container> nginx -T | grep acme
+```
+
+Puis
+
+```
+docker compose build nginx
+docker compose up -d nginx
 ```
 
 ## Teste du renouvellement du certificat :
@@ -225,7 +234,7 @@ sudo certbot renew --dry-run
 
 ```
 echo OK > /srv/certbot/.well-known/acme-challenge/test.txt
-curl http://qfieldcloud.vanoise-parcnational.fr/.well-known/acme-challenge/test.txt
+curl http://<qfieldcloud_domain_name>/.well-known/acme-challenge/test.txt
 rm /srv/certbot/.well-known/acme-challenge/test.txt
 ```
 
@@ -234,4 +243,5 @@ rm /srv/certbot/.well-known/acme-challenge/test.txt
 > - les modifications Docker Compose ne sont prises en compte qu'après recréation du container
 > - restart ne suffit pas si les volumes changent
 
-Pour la création d'utilisateur ou autres configuration avancé voir : https://github.com/opengisch/qfieldcloud/blob/master/README.md
+> [!NOTE]
+> Pour la création d'utilisateurs ou autres configurations avancées voir : https://github.com/opengisch/qfieldcloud/blob/master/README.md
