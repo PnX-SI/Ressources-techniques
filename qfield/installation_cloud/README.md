@@ -119,7 +119,7 @@ Cette configuration permet d'automatiser le renouvellement du certificat sans in
 
 Se placer dans le dossier home de QFieldCloud.
 
-## Préparation du dossier ACME\*
+## Préparation du dossier ACME
 
 ```
 sudo mkdir -p /srv/certbot/.well-known/acme-challenge
@@ -201,7 +201,16 @@ location ^~ /.well-known/acme-challenge/ {
 }
 ```
 
-## Vérification de la bonne répercution de la modification côté container :
+Puis
+
+```
+docker compose build nginx
+docker compose up -d nginx
+```
+
+## Vérifications
+
+###  Répercution de la modification côté container
 
 On teste si la modification du fichier ./docker-nginx/conf.d/default.conf modifie bien le fichier /etc/nginx/conf.d/default.conf du container :
 
@@ -219,18 +228,11 @@ docker exec -it <id_or_name_nginx_container> cat /etc/nginx/conf.d/default.conf
 docker exec -it <id_or_name_nginx_container> nginx -T | grep acme
 ```
 
-Puis
-
-```
-docker compose build nginx
-docker compose up -d nginx
-```
-
-## Teste du renouvellement du certificat :
+### Test du renouvellement du certificat
 
 sudo certbot renew --dry-run
 
-## Vérification ACME
+### Vérification ACME
 
 ```
 echo OK > /srv/certbot/.well-known/acme-challenge/test.txt
