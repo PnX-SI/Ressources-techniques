@@ -126,11 +126,12 @@ sudo mkdir -p /srv/certbot/.well-known/acme-challenge
 sudo chown -R $USER:$USER /srv/certbot
 ```
 
-⚠️ : cette solution n'a pas marché au Ecrins. Le certbot installé en local sur l'hote tente de faire de challenge ACME sur le port 80, hors celui ci est utilisé par le container nginx, il echoue tout le temps.
-Le docker compose est fourni avec un certbot censé geré le certificat et son renouvellement. Il y a cependant un bug dans le template nginx fourni par le dépot qui fait en permanence un redirection 80 -> 443 ce qui fait échouer le challenge ACME.
-Solution :
+> [!WARNING]
+> Cette solution n'a pas marché au Ecrins.
+> Le certbot installé en local sur l'hote tente de faire de challenge ACME sur le port 80, hors celui ci est utilisé par le container nginx, il echoue tout le temps.
+> Le docker compose est fourni avec un certbot censé geré le certificat et son renouvellement. Il y a cependant un bug dans le template nginx fourni par le dépot qui fait en permanence un redirection 80 -> 443 ce qui fait échouer le challenge ACME.
 
-- Dans le fichier template nginx (/docker-nginx/templates/default.conf.template) rajouter :
+Solution : Dans le fichier template nginx (/docker-nginx/templates/default.conf.template) rajouter dans la section `server { listen 80`:
 
         # avoid the HTTP->HTTPS redirect below eating ACME HTTP-01 challenge requests
         if ($request_uri ~ "^/\.well-known/acme-challenge/") { break; }
@@ -138,13 +139,22 @@ Solution :
   juste après le bloc :
 
         location /.well-known/acme-challenge/ {
-        root /var/www/certbot;
+            root /var/www/certbot;
+        }
+
+Une autre erreur de syntaxe est à corriger : rajouter un $ devant `{WEB_HTTP_PORT}`
+
+
+        # prevent access by IP
+        if ($http_host !~ "${QFIELDCLOUD_HOST}(:${WEB_HTTP_PORT})?") {
+            return 444;
         }
 
 Rebuilder l'image nginx et redémarer son container
 
-    docker compose build nginx
-    docker compose up -d nginx
+        cd <qfieldcloud_path>
+        docker compose build nginx
+        docker compose up -d nginx
 
 Pour la création d'utilisateur ou autres configuration avancé voir :
 
@@ -179,7 +189,7 @@ sudo certbot certificates
 # La suppression n'est pas nécessaire
 sudo certbot delete
 # Génération d'un 1er certificat de type webroot manuellement
-sudo certbot certonly --webroot -w /srv/certbot -d qfieldcloud.vanoise-parcnational.fr
+sudo certbot certonly --webroot -w /srv/certbot -d <qfieldcloud_domain_name>
 ```
 
 ## Modification de ./docker-nginx/conf.d/default.conf
