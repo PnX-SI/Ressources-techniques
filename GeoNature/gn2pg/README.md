@@ -1,22 +1,26 @@
 # gn2pg
-Fonction SQL permettant le téléchargement des données mises à disposition par une instance de GeoNature à travers un export
+
+Fonction SQL permettant le téléchargement des données mises à disposition par une instance de GeoNature à travers un export.
+
+Différent de l'outil GN2PG d'import automatique de données d'une instance GeoNature vers une autre (https://github.com/lpoaura/GN2PG).
 
 # Pré-requis
+
 - GeoNature >= 2.13.0
 - Module GeoNature-Export installé sur GeoNature >= 1.5.0
 - PostgreSQL
 
 # Installation
+
 Executer le script SQL gn2pg_install.sql dans sa base de données locale.
 Ce script créé un schéma *gn2pg*, une fonction *gn2pg.gn2pg(...)* et une table de logs *gn2pg.logs*.
 
-
 # Principe de fonctionnement
+
 Le script fonctionne selon le principe de *l'annule et remplace*.
 A chaque lancement, la table de destination est supprimée et recréée lors de la récupération des données.
 Le script récupère les 1000 premières lignes et crée la table de destination.
 Puis il boucle par lot de 1000 lignes tant qu'il y a des données à récupérer pour alimenter la table.
-
 
 **Le script n'est pas en capacité de connaitre la structure de la table d'origine. Toutes les données sont rentrées dans la base locale dans un type "text".
 Une requête SQL spécifique (à créer) pour chaque export doit être jouée par l'administrateur de données afin de ré-attribuer les bons types de données.**
@@ -24,6 +28,7 @@ Une requête SQL spécifique (à créer) pour chaque export doit être jouée pa
 # Utilisation
 
 ## Simple
+
 ```sql
 select gn2pg.gn2pg('<gn_domain>', <gn_export_id>, '<gn_export_token>', '<destination_schema>', '<destination_table>');
 ```
@@ -34,6 +39,7 @@ select gn2pg.gn2pg('<gn_domain>', <gn_export_id>, '<gn_export_token>', '<destina
 - destination_table : Nom de la table de destination dans la base locale
 
 ## Avec filtre(s)
+
 Il est possible d'appliquer un filtre lors de l'appel des données
 ```sql
 select gn2pg.gn2pg('<gn_domain>', <gn_export_id>, '<gn_export_token>', '<destination_schema>', '<destination_table>', '<filters>');
@@ -50,6 +56,7 @@ select gn2pg.gn2pg('<gn_domain>', <gn_export_id>, '<gn_export_token>', '<destina
 Il est possible de combiner les filtres en les séparant par le caractère '&'
 
 # Les logs
+
 En cas d'anomalie, il est possible d'avoir des éléments de compréhension de l'erreur en affichant le contenu de la table de logs.
 
 Trois types de logs existent (champ statut) :
